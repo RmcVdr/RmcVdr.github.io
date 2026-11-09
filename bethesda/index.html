@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="color-scheme" content="light dark"/>
+<link rel="icon" href="data:,"/>
+<title>Chatbot Test — Centre Médical Bethesda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,600;6..72,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#eef4f3; --surface:#ffffff; --surface2:#eef4f3; --ink:#12211f; --muted:#5a6d6a; --line:#dce8e6;
+  --teal:#0e7c74; --teal-dark:#0a5f59; --teal-soft:#e0f2ef; --amber-bg:#fff7e0; --amber-line:#ecd98a; --amber-ink:#5c4a08;
+  --bot:#eef4f3; --user:#0e7c74; --radius:16px;
+  --shadow:0 6px 22px rgba(10,60,55,.07);
+  --topbar-h:58px; --notice-h:32px; --bottomnav-h:62px;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#0b1211; --surface:#152120; --surface2:#1a2a28; --ink:#e8f1f0; --muted:#9db5b1; --line:#263a37; --teal:#2db8ab; --teal-dark:#7adfd2; --teal-soft:#173330; --bot:#1e2f2c; --user:#0e7c74; --amber-bg:#2b240d; --amber-line:#5a4d1c; --amber-ink:#f0d98a; --shadow:0 6px 22px rgba(0,0,0,.35);}
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;font-family:"Manrope",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;overflow:hidden}
+a{color:var(--teal-dark)}
+button{font:inherit}
+
+/* ---------- App shell ---------- */
+.app{height:100dvh;display:flex;flex-direction:column;max-width:1180px;margin:0 auto;background:var(--surface);border-left:1px solid var(--line);border-right:1px solid var(--line)}
+@media(max-width:1180px){.app{border-left:0;border-right:0}}
+
+/* Top bar */
+.topbar{min-height:var(--topbar-h);display:flex;align-items:center;gap:14px;padding:8px 16px;background:var(--surface);border-bottom:1px solid var(--line);flex:none;z-index:5}
+.brand{display:flex;align-items:center;gap:11px;min-width:0}
+.avatar{width:40px;height:40px;border-radius:12px;background:var(--teal);color:#fff;display:grid;place-items:center;font-weight:800;font-size:1rem;flex:none}
+.brand h1{font-family:"Newsreader",serif;font-size:1.06rem;line-height:1.15;margin:0;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand p{margin:0;font-size:.76rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.demo-badge{display:inline-flex;align-items:center;gap:7px;background:var(--amber-bg);border:1px solid var(--amber-line);color:var(--amber-ink);padding:5px 11px;border-radius:999px;font-size:.72rem;font-weight:800;letter-spacing:.05em;white-space:nowrap;flex:none}
+.demo-badge .dot{width:7px;height:7px;border-radius:50%;background:#22c07a;flex:none}
+
+/* Desktop tabs */
+.tabs{display:flex;gap:4px;margin-left:auto;flex:none}
+.tab-btn{display:inline-flex;align-items:center;gap:7px;border:1px solid transparent;background:transparent;color:var(--muted);padding:8px 13px;border-radius:999px;font-weight:700;font-size:.88rem;cursor:pointer;white-space:nowrap}
+.tab-btn svg{width:17px;height:17px;flex:none}
+.tab-btn:hover{color:var(--ink);background:var(--surface2)}
+.tab-btn[aria-selected="true"]{background:var(--teal-soft);color:var(--teal-dark);border-color:var(--line)}
+.tab-btn .count{display:inline-grid;place-items:center;min-width:19px;height:19px;padding:0 5px;border-radius:999px;background:var(--teal);color:#fff;font-size:.7rem;font-weight:800}
+.tab-btn .count:empty{display:none}
+
+/* Notice line */
+.notice{min-height:var(--notice-h);display:flex;align-items:center;justify-content:center;padding:4px 14px;background:var(--amber-bg);border-bottom:1px solid var(--amber-line);color:var(--amber-ink);font-size:.79rem;font-weight:600;text-align:center;flex:none}
+
+/* Main / panels */
+.main{flex:1;min-height:0;display:flex;flex-direction:column}
+.panel-view{display:none;flex:1;min-height:0;flex-direction:column}
+.panel-view.active{display:flex}
+.scroll-area{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.col{width:100%;max-width:880px;margin:0 auto;padding:16px;display:flex;flex-direction:column;gap:14px}
+.col-chat{max-width:820px}
+
+/* Cards */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.block{padding:16px 18px}
+.block h2,.block h3{margin:0 0 6px;font-size:1rem}
+.block p.lead{margin:0;color:var(--muted);font-size:.9rem}
+.block p.lead + p.lead{margin-top:6px}
+
+/* ---------- Chat ---------- */
+.chat-head{display:flex;gap:11px;align-items:center;padding:10px 2px 12px;border-bottom:1px solid var(--line);flex:none}
+.chat-head .avatar{width:42px;height:42px}
+.chat-head h2{margin:0;font-size:1rem}
+.chat-head p{margin:1px 0 0;color:var(--muted);font-size:.83rem}
+.online{margin-left:auto;display:inline-flex;align-items:center;gap:7px;color:var(--teal-dark);font-size:.8rem;font-weight:700;white-space:nowrap;flex:none}
+.online .dot{width:8px;height:8px;border-radius:50%;background:#22c07a;flex:none}
+.chat-body{flex:1;min-height:0;overflow-y:auto;padding:16px 2px;display:flex;flex-direction:column;gap:10px;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:11px 14px;border-radius:16px;font-size:.95rem;white-space:pre-wrap;word-break:break-word}
+.msg.bot{background:var(--bot);border-bottom-left-radius:6px;align-self:flex-start}
+.msg.user{background:var(--user);color:#fff;border-bottom-right-radius:6px;align-self:flex-end}
+.chat-foot{flex:none;border-top:1px solid var(--line);padding-top:10px}
+.chips{display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;padding:2px 2px 10px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid var(--teal);color:var(--teal-dark);background:var(--surface);padding:8px 13px;border-radius:999px;font-weight:700;font-size:.85rem;cursor:pointer;white-space:nowrap}
+.chip:hover{background:var(--teal-soft)}
+.composer{display:flex;gap:8px;padding-bottom:2px}
+.composer input{flex:1;border:1px solid var(--line);border-radius:999px;padding:12px 16px;font:inherit;background:var(--surface);color:var(--ink);min-width:0}
+.composer input:focus{outline:2px solid var(--teal);outline-offset:-1px;border-color:transparent}
+.composer button{background:var(--teal);color:#fff;border:0;border-radius:999px;padding:12px 20px;font-weight:800;cursor:pointer;flex:none}
+.composer button:hover{background:var(--teal-dark)}
+@media (prefers-color-scheme: dark){ .composer button:hover{background:var(--teal)} }
+
+/* ---------- Owner dashboard ---------- */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media(max-width:640px){.stats{grid-template-columns:1fr 1fr}}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:13px 14px;box-shadow:var(--shadow)}
+.stat b{display:block;font-size:1.55rem;line-height:1.05}
+.stat span{font-size:.79rem;color:var(--muted);font-weight:600}
+.list{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+.empty{border:1.5px dashed var(--line);border-radius:14px;padding:14px;color:var(--muted);font-size:.9rem;text-align:center}
+.entry{border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:.9rem;background:var(--surface)}
+.entry b{display:block;margin-bottom:2px}
+.entry small{color:var(--muted)}
+.tag{display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:var(--teal-soft);color:var(--teal-dark);margin-bottom:6px}
+.summary{background:var(--teal-soft);border-radius:14px;padding:14px;font-size:.92rem;margin-top:10px}
+
+/* ---------- Infos ---------- */
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:700px){.info-grid{grid-template-columns:1fr}}
+.kv{display:flex;flex-direction:column;gap:9px;margin-top:6px}
+.kv div{display:flex;gap:10px;font-size:.92rem;align-items:flex-start}
+.kv svg{width:18px;height:18px;flex:none;color:var(--teal);margin-top:2px}
+.kv span{color:var(--ink)}
+.kv b{font-weight:700}
+.spec-list{display:flex;flex-direction:column;gap:0;margin-top:4px}
+.spec-item{padding:11px 0;border-top:1px solid var(--line)}
+.spec-item:first-child{border-top:0;padding-top:4px}
+.spec-item h3{margin:0 0 3px;font-size:.95rem}
+.spec-item p{margin:0;color:var(--muted);font-size:.87rem}
+.disc{background:var(--amber-bg);border:1px solid var(--amber-line);color:var(--amber-ink);border-radius:14px;padding:13px 15px;font-weight:600;font-size:.9rem}
+.fineprint{color:var(--muted);font-size:.86rem}
+.fineprint p{margin:0 0 8px}
+.quickfacts{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.quickfacts span{background:var(--surface2);border:1px solid var(--line);border-radius:999px;padding:6px 11px;font-size:.82rem;font-weight:600}
+
+/* ---------- Tester ---------- */
+.test-list{display:flex;flex-direction:column;gap:10px}
+.test-item{text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:13px 15px;cursor:pointer;font:inherit;color:var(--ink);box-shadow:var(--shadow);width:100%}
+.test-item:hover{border-color:var(--teal)}
+.test-item b{display:block;font-size:.94rem;margin-bottom:3px}
+.test-item span{font-size:.86rem;color:var(--muted)}
+.test-num{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--teal-soft);color:var(--teal-dark);font-size:.78rem;font-weight:800;margin-right:8px;vertical-align:2px}
+
+/* ---------- Bottom nav (mobile) ---------- */
+.bottomnav{display:none;flex:none;height:calc(var(--bottomnav-h) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:var(--surface);border-top:1px solid var(--line);z-index:5}
+.bottomnav button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:transparent;border:0;color:var(--muted);font-size:.7rem;font-weight:700;cursor:pointer;padding:6px 2px;position:relative}
+.bottomnav button svg{width:21px;height:21px}
+.bottomnav button[aria-selected="true"]{color:var(--teal-dark)}
+.bottomnav button[aria-selected="true"]::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:34px;height:3px;border-radius:0 0 4px 4px;background:var(--teal)}
+.bottomnav .count{position:absolute;top:4px;left:calc(50% + 4px);display:grid;place-items:center;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:var(--teal);color:#fff;font-size:.68rem;font-weight:800}
+.bottomnav .count:empty{display:none}
+
+@media(max-width:760px){
+  .tabs{display:none}
+  .bottomnav{display:flex}
+  .brand p{display:none}
+  .brand h1{font-size:.98rem}
+  .demo-badge{font-size:.66rem;padding:4px 9px}
+  .col{padding:12px}
+  .msg{max-width:92%}
+  .chat-head p{display:none}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="avatar" aria-hidden="true">B</div>
+      <div style="min-width:0">
+        <h1>Centre Médical Bethesda</h1>
+        <p>Clinique &amp; hôpital privé — Bujumbura</p>
+      </div>
+    </div>
+    <span class="demo-badge"><span class="dot"></span>DÉMO DE TEST</span>
+    <nav class="tabs" role="tablist" aria-label="Navigation principale">
+      <button class="tab-btn" role="tab" data-tab="chat" aria-selected="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        Discussion
+      </button>
+      <button class="tab-btn" role="tab" data-tab="owner" aria-selected="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+        Vue propriétaire
+        <span class="count" id="ownerCountTop"></span>
+      </button>
+      <button class="tab-btn" role="tab" data-tab="infos" aria-selected="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        Infos &amp; sources
+      </button>
+      <button class="tab-btn" role="tab" data-tab="test" aria-selected="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6"/><path d="M10 3v6L4.5 19a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L14 9V3"/></svg>
+        Tester
+      </button>
+    </nav>
+  </header>
+
+  <!-- NOTICE LINE -->
+  <div class="notice">Prototype de test non officiel — construit uniquement à partir des informations publiques du site du centre. Aucune donnée n'est transmise au centre.</div>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- ===== TAB : DISCUSSION ===== -->
+    <section class="panel-view active" id="view-chat" role="tabpanel" aria-label="Discussion">
+      <div class="col col-chat" style="flex:1;min-height:0;padding-bottom:12px">
+        <div class="chat-head">
+          <div class="avatar" aria-hidden="true">B</div>
+          <div style="min-width:0">
+            <h2>Assistant Bethesda (démo)</h2>
+            <p>Répond en français, uniquement à partir des informations publiques du centre. En cas d'urgence : +257 79 669 002.</p>
+          </div>
+          <span class="online"><span class="dot"></span>En ligne</span>
+        </div>
+        <div class="chat-body" id="chatBody" aria-live="polite"></div>
+        <div class="chat-foot">
+          <div class="chips" id="chips">
+            <button class="chip" data-q="Prendre rendez-vous">Prendre rendez-vous</button>
+            <button class="chip" data-q="Nos spécialités">Nos spécialités</button>
+            <button class="chip" data-q="Horaires">Horaires</button>
+            <button class="chip" data-q="Adresse">Adresse</button>
+            <button class="chip" data-q="Tarifs">Tarifs</button>
+            <button class="chip" data-q="Être rappelé">Être rappelé</button>
+          </div>
+          <form class="composer" id="composer">
+            <input id="input" type="text" placeholder="Écrivez votre question… ex. : Quels sont vos horaires ?" autocomplete="off"/>
+            <button type="submit">Envoyer</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TAB : VUE PROPRIÉTAIRE ===== -->
+    <section class="panel-view" id="view-owner" role="tabpanel" aria-label="Vue propriétaire">
+      <div class="scroll-area">
+        <div class="col">
+          <div>
+            <h2 style="margin:0 0 4px;font-size:1.1rem">Vue propriétaire (test)</h2>
+            <p style="margin:0;color:var(--muted);font-size:.9rem">Ce que verrait le centre en version réelle : demandes capturées pendant cette session uniquement. Rien n'est envoyé au centre.</p>
+          </div>
+          <div class="stats">
+            <div class="stat"><b id="stConv">1</b><span>Conversations</span></div>
+            <div class="stat"><b id="stQ">0</b><span>Questions répondues</span></div>
+            <div class="stat"><b id="stRdv">0</b><span>Demandes de rendez-vous</span></div>
+            <div class="stat"><b id="stLead">0</b><span>Demandes de rappel</span></div>
+          </div>
+          <section class="card block" aria-label="Demandes enregistrées">
+            <h3>Demandes enregistrées (cette session)</h3>
+            <p class="lead">Notifications des demandes de rendez-vous et de rappel capturées dans le chat, au fil de la session.</p>
+            <div class="list" id="entries">
+              <div class="empty" id="emptyState">Aucune demande pour l'instant.<br/>Faites une demande de rendez-vous ou de rappel dans le chat : elle apparaîtra ici.</div>
+            </div>
+          </section>
+          <section class="card block" aria-label="Résumé automatique">
+            <h3>Résumé automatique</h3>
+            <div class="summary" id="summary">Session démarrée. Aucune demande capturée pour le moment.</div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TAB : INFOS & SOURCES ===== -->
+    <section class="panel-view" id="view-infos" role="tabpanel" aria-label="Infos et sources">
+      <div class="scroll-area">
+        <div class="col">
+          <div>
+            <h2 style="margin:0 0 4px;font-size:1.1rem">Infos &amp; sources</h2>
+            <p style="margin:0;color:var(--muted);font-size:.9rem">Clinique &amp; hôpital privé à Bujumbura : consultations spécialisées dans 6 spécialités, fondé par des médecins burundais formés en Afrique et en Europe. L'assistant répond uniquement avec les informations publiées sur le site officiel.</p>
+            <div class="quickfacts">
+              <span>📍 Gihosha, Muyaga — Av. Karava n° 3</span>
+              <span>☎️ +257 79 669 002</span>
+              <span>🕐 Ouvert 7j/7, 24h/24</span>
+              <span>Valeurs : Excellence · Accessibilité · Bienveillance · Innovation</span>
+            </div>
+          </div>
+
+          <div class="info-grid">
+            <section class="card block" aria-label="Coordonnées">
+              <h3>Coordonnées</h3>
+              <div class="kv">
+                <div>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  <span>Commune Ntahangwa, Zone Gihosha, Q. Muyaga (Gasenyi), <b>Avenue Karava N° 3</b>, Bujumbura, Burundi<br/>Code Google Maps : J9WQ+QQR Bujumbura<br/>Accès en taxi, moto-taxi ou bus depuis le centre-ville.</span>
+                </div>
+                <div>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                  <span>Téléphone principal (appels, SMS et WhatsApp) : <b>+257 79 669 002</b><br/>Autres lignes : +257 77 526 626 · +257 67 866 275</span>
+                </div>
+                <div>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                  <span>E-mail : bethesda2026centremedical@gmail.com</span>
+                </div>
+                <div>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                  <span>Site officiel : <a href="https://www.cmbethesda.com/" target="_blank" rel="noopener">cmbethesda.com</a></span>
+                </div>
+              </div>
+            </section>
+
+            <section class="card block" aria-label="Horaires">
+              <h3>Horaires</h3>
+              <div class="kv">
+                <div>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <span>Centre ouvert <b>7j/7, 24h/24</b></span>
+                </div>
+                <div>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  <span>Secrétariat : lundi à vendredi <b>7h30 – 17h30</b>, samedi <b>8h00 – 14h00</b><br/>Dimanche : urgences uniquement</span>
+                </div>
+                <div>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                  <span>WhatsApp disponible 7j/7 au +257 79 669 002</span>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <section class="card block" aria-label="Nos spécialités">
+            <h3>Nos spécialités</h3>
+            <p class="lead">Les 6 spécialités du centre, telles que publiées sur le site officiel.</p>
+            <div class="spec-list" id="specGrid"></div>
+          </section>
+
+          <div class="disc">Prototype de test non officiel — construit uniquement à partir des informations publiques du site du centre, pour évaluation interne. Aucune donnée n'est transmise au centre.</div>
+          <div class="fineprint">
+            <p>Informations vérifiées sur le site officiel le 8 novembre 2026 : <a href="https://www.cmbethesda.com/" target="_blank" rel="noopener">https://www.cmbethesda.com/</a> — ce prototype n'est ni affilié ni approuvé par le centre.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TAB : TESTER ===== -->
+    <section class="panel-view" id="view-test" role="tabpanel" aria-label="Questions de test">
+      <div class="scroll-area">
+        <div class="col">
+          <div>
+            <h2 style="margin:0 0 4px;font-size:1.1rem">8 questions pour vérifier le test</h2>
+            <p style="margin:0;color:var(--muted);font-size:.9rem">Touchez une question pour basculer vers l'onglet Discussion et l'envoyer à l'assistant. La réponse attendue — vérifiable sur le site officiel — est indiquée sous chaque question.</p>
+          </div>
+          <div class="test-list" id="testGrid"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- BOTTOM NAV (mobile) -->
+  <nav class="bottomnav" role="tablist" aria-label="Navigation principale">
+    <button role="tab" data-tab="chat" aria-selected="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      Discussion
+    </button>
+    <button role="tab" data-tab="owner" aria-selected="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+      Propriétaire
+      <span class="count" id="ownerCountBottom"></span>
+    </button>
+    <button role="tab" data-tab="infos" aria-selected="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+      Infos
+    </button>
+    <button role="tab" data-tab="test" aria-selected="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6"/><path d="M10 3v6L4.5 19a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L14 9V3"/></svg>
+      Tester
+    </button>
+  </nav>
+
+</div>
+
+<script>
+var PHONE = "+257 79 669 002";
+
+var SPECIALTIES = [
+ {name:"Chirurgie générale et spécialisée", short:"Chirurgie", keys:["chirurg","hernie","hemorroid","hémorroïd","fissure","fistule","digestiv","abcès","abces","kyste","plaie","operation","opération","bloc"],
+  detail:"Chirurgie générale et spécialisée : chirurgie générale, traitement des hémorroïdes, cure de hernie (abdominale et inguinale), fissure et fistule anale, chirurgie digestive (estomac, intestins), petite chirurgie (plaies, abcès, kystes, tumeurs superficielles), bloc opératoire, suivi pré et post-opératoire."},
+ {name:"Gynécologie et obstétrique", short:"Gynécologie", keys:["gyneco","gynéco","grossesse","enceinte","obstetr","obstétr","accouchement","fibrome","planification","menopause","ménopause","echographie","échographie"],
+  detail:"Gynécologie et obstétrique : consultations et dépistage gynécologique, suivi de grossesse (consultations prénatales du 1er trimestre à l'accouchement, grossesses à risque), échographies obstétricales, planification familiale, suivi postnatal, gynécologie chirurgicale (fibromes utérins, kystes ovariens), de l'adolescence à la ménopause."},
+ {name:"Pédiatrie", short:"Pédiatrie", keys:["pediatr","pédiatr","enfant","bebe","bébé","nourrisson","vaccin","adolescent"],
+  detail:"Pédiatrie : consultations du nourrisson (suivi de croissance et de développement, de la naissance à 2 ans), pédiatrie générale (fièvre, infections respiratoires, diarrhées), carnet de vaccination (calendrier national), suivi nutritionnel (malnutrition), maladies chroniques de l'enfant (asthme, diabète infantile, anémie), pédiatrie de l'adolescent (10–18 ans)."},
+ {name:"Ophtalmologie", short:"Ophtalmologie", keys:["ophtalmo","yeux","oeil","œil","vue","lunettes","glaucome","cataracte","strabisme"],
+  detail:"Ophtalmologie : examen de la vue (prescription de lunettes et lentilles), dépistage du glaucome (pression intraoculaire, nerf optique), traitement de la cataracte (consultation pré-opératoire, extraction du cristallin, implant), fond d'œil (complications du diabète et de l'hypertension), strabisme (enfant et adulte), sécheresse oculaire et allergies, campagnes gratuites de dépistage visuel."},
+ {name:"Néphrologie", short:"Néphrologie", keys:["nephro","néphro","rein","renal","rénal","calcul","urinaire"],
+  detail:"Néphrologie : insuffisance rénale chronique et aiguë, hypertension rénale, calculs urinaires et infections urinaires récidivantes, néphropathie diabétique, glomérulonéphrite, bilan rénal préventif pour les patients à risque (diabétiques, hypertendus, antécédents familiaux)."},
+ {name:"Endocrinologie-diabétologie", short:"Endocrinologie", keys:["endocrino","diabet","diabèt","thyroid","thyroïd","goutte","cholesterol","cholestérol","obesit","obésit","hypertension","tension"],
+  detail:"Endocrinologie-diabétologie : diabète de type 1, type 2 et gestationnel (bilan, traitement, éducation thérapeutique), hypertension (bilan cardiovasculaire, suivi tensionnel), goutte, dyslipidémie (cholestérol, triglycérides), obésité et surpoids (programme diététique et médical), troubles de la thyroïde (hypo/hyperthyroïdie, goitre, nodules)."}
+];
+
+var TEST_QUESTIONS = [
+ {q:"Quels sont vos horaires ?", a:"Centre ouvert 7j/7, 24h/24 ; secrétariat lun.–ven. 7h30–17h30, sam. 8h00–14h00."},
+ {q:"Où êtes-vous situé ?", a:"Ntahangwa, Gihosha, Muyaga (Gasenyi), Avenue Karava n° 3, Bujumbura — code Maps J9WQ+QQR."},
+ {q:"Combien coûte une consultation ?", a:"Les prix ne sont pas publiés sur le site ; appeler le +257 79 669 002."},
+ {q:"Quelles sont vos spécialités ?", a:"6 spécialités : chirurgie, gynécologie-obstétrique, pédiatrie, ophtalmologie, néphrologie, endocrinologie-diabétologie."},
+ {q:"Comment prendre rendez-vous ?", a:"En ligne (confirmation via WhatsApp) ou par téléphone/SMS au +257 79 669 002 ; délai habituel 1 à 3 jours ouvrables."},
+ {q:"Faut-il une assurance pour être soigné ?", a:"Non — le centre est accessible à tous, avec ou sans couverture médicale."},
+ {q:"Que dois-je apporter à ma consultation ?", a:"Carnet de santé si existant, anciens résultats d'analyses ou d'imagerie, ordonnances en cours."},
+ {q:"Quand a lieu la campagne médicale gratuite ?", a:"16–17 mars 2026, 7h30–17h30, entrée libre sans rendez-vous (dates publiées sur le site)."}
+];
+
+// State (in-memory only, this session)
+var state = { flow:null, step:0, draft:{}, questions:0, rdvs:[], leads:[] };
+
+var chatBody = document.getElementById('chatBody');
+var inputEl = document.getElementById('input');
+
+function norm(s){ return (s||"").toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+function has(text, words){ var t = norm(text); for(var i=0;i<words.length;i++){ if(t.indexOf(norm(words[i]))!==-1) return true; } return false; }
+
+function addMsg(text, who){
+  var d = document.createElement('div');
+  d.className = 'msg ' + who;
+  d.textContent = text;
+  chatBody.appendChild(d);
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+function botSay(text){ state.questions++; updateOwner(); addMsg(text,'bot'); }
+
+// Tab navigation
+function switchTab(name){
+  var views = { chat:'view-chat', owner:'view-owner', infos:'view-infos', test:'view-test' };
+  Object.keys(views).forEach(function(k){
+    document.getElementById(views[k]).classList.toggle('active', k===name);
+  });
+  document.querySelectorAll('[data-tab]').forEach(function(btn){
+    btn.setAttribute('aria-selected', btn.getAttribute('data-tab')===name ? 'true' : 'false');
+  });
+  if(name==='chat'){ chatBody.scrollTop = chatBody.scrollHeight; }
+}
+document.querySelectorAll('[data-tab]').forEach(function(btn){
+  btn.addEventListener('click', function(){ switchTab(btn.getAttribute('data-tab')); });
+});
+
+function updateOwner(){
+  document.getElementById('stQ').textContent = state.questions;
+  document.getElementById('stRdv').textContent = state.rdvs.length;
+  document.getElementById('stLead').textContent = state.leads.length;
+  var total = state.rdvs.length + state.leads.length;
+  var badge = total > 0 ? String(total) : '';
+  document.getElementById('ownerCountTop').textContent = badge;
+  document.getElementById('ownerCountBottom').textContent = badge;
+  var box = document.getElementById('entries');
+  var empty = document.getElementById('emptyState');
+  var items = [];
+  state.rdvs.forEach(function(r){ items.push({tag:'Rendez-vous', title: r.name + ' — ' + r.specialty, sub: r.when + ' · Tél. ' + r.phone + ' · Réf. ' + r.ref}); });
+  state.leads.forEach(function(l){ items.push({tag:'Rappel demandé', title: l.name + ' — ' + l.subject, sub: 'Tél. ' + l.phone}); });
+  if(items.length===0){ if(empty) empty.style.display='block'; }
+  else{
+    if(empty) empty.style.display='none';
+    // rebuild non-empty entries
+    box.querySelectorAll('.entry').forEach(function(e){ e.remove(); });
+    items.slice().reverse().forEach(function(it){
+      var d=document.createElement('div'); d.className='entry';
+      d.innerHTML = '<span class="tag"></span><b></b><small></small>';
+      d.querySelector('.tag').textContent = it.tag;
+      d.querySelector('b').textContent = it.title;
+      d.querySelector('small').textContent = it.sub;
+      box.appendChild(d);
+    });
+  }
+  var s = document.getElementById('summary');
+  if(state.rdvs.length===0 && state.leads.length===0){
+    s.textContent = "Session en cours : " + state.questions + " réponse(s) donnée(s), aucune demande capturée pour le moment.";
+  } else {
+    var parts = [];
+    if(state.rdvs.length) parts.push(state.rdvs.length + " demande(s) de rendez-vous (" + state.rdvs.map(function(r){return r.specialty;}).join(', ') + ")");
+    if(state.leads.length) parts.push(state.leads.length + " demande(s) de rappel (" + state.leads.map(function(l){return l.subject;}).join(', ') + ")");
+    s.textContent = "Résumé de session : " + state.questions + " réponses données, " + parts.join(' et ') + ". En version réelle, ces demandes seraient transmises instantanément au centre.";
+  }
+}
+
+function refCode(){ return 'BETH-' + Math.random().toString(36).slice(2,6).toUpperCase(); }
+
+// Flows
+function startRdv(){
+  state.flow='rdv'; state.step=1; state.draft={};
+  botSay("Avec plaisir, je prépare votre demande de rendez-vous (simulation de test — rien n'est envoyé au centre).\n\nÉtape 1/4 — Quelle spécialité souhaitez-vous ?\n" + SPECIALTIES.map(function(s,i){return (i+1)+". "+s.name;}).join("\n") + "\n\nRépondez par le nom ou le numéro de la spécialité.");
+}
+function startCallback(){
+  state.flow='callback'; state.step=1; state.draft={};
+  botSay("Bien sûr. Je note votre demande de rappel (simulation de test — elle reste dans cette démo).\n\nÉtape 1/3 — Quel est votre nom ?");
+}
+
+function handleFlow(text){
+  var t = text.trim();
+  if(state.flow==='rdv'){
+    if(state.step===1){
+      var found=null;
+      SPECIALTIES.forEach(function(s){ if(has(t,[s.name,s.short]) || t===String(SPECIALTIES.indexOf(s)+1)) found=s; });
+      if(!found){ SPECIALTIES.forEach(function(s){ s.keys.forEach(function(k){ if(norm(t).indexOf(norm(k))!==-1) found=s; }); }); }
+      if(!found){ botSay("Je n'ai pas reconnu cette spécialité. Choisissez parmi : " + SPECIALTIES.map(function(s){return s.name;}).join(" · ") + "."); return true; }
+      state.draft.specialty = found.name; state.step=2;
+      botSay("Étape 2/4 — Quel jour et quel créneau vous conviennent ? (ex. : jeudi matin, ou lundi 12 à 10h)\nPour rappel, les rendez-vous sont généralement proposés sous 1 à 3 jours ouvrables selon la spécialité.");
+      return true;
+    }
+    if(state.step===2){ state.draft.when=t; state.step=3; botSay("Étape 3/4 — Quel est votre nom complet ?"); return true; }
+    if(state.step===3){ state.draft.name=t; state.step=4; botSay("Étape 4/4 — Quel est votre numéro de téléphone (joignable sur WhatsApp si possible) ?"); return true; }
+    if(state.step===4){
+      state.draft.phone=t;
+      var ref = refCode();
+      state.rdvs.push({specialty:state.draft.specialty, when:state.draft.when, name:state.draft.name, phone:state.draft.phone, ref:ref});
+      state.flow=null; state.step=0;
+      botSay("✅ Demande de rendez-vous enregistrée dans la démo.\n\nRécapitulatif :\n• Spécialité : " + state.rdvs[state.rdvs.length-1].specialty + "\n• Créneau souhaité : " + state.rdvs[state.rdvs.length-1].when + "\n• Nom : " + state.rdvs[state.rdvs.length-1].name + "\n• Téléphone : " + state.rdvs[state.rdvs.length-1].phone + "\n• Référence : " + ref + "\n\nSur le vrai site, cette demande se confirme via WhatsApp auprès du centre. Dans une version en production, elle serait transmise instantanément au centre. Ici, en test, elle apparaît uniquement dans la « Vue propriétaire » — aucune donnée n'est transmise au centre.\n\nPensez à apporter : carnet de santé si vous en avez un, anciens résultats d'analyses ou d'imagerie, ordonnances en cours.");
+      updateOwner(); return true;
+    }
+  }
+  if(state.flow==='callback'){
+    if(state.step===1){ state.draft.name=t; state.step=2; botSay("Étape 2/3 — Quel est votre numéro de téléphone ?"); return true; }
+    if(state.step===2){ state.draft.phone=t; state.step=3; botSay("Étape 3/3 — Quel est le sujet de votre demande ? (ex. : rendez-vous, tarifs, campagne gratuite…)"); return true; }
+    if(state.step===3){
+      state.draft.subject=t;
+      state.leads.push({name:state.draft.name, phone:state.draft.phone, subject:state.draft.subject});
+      state.flow=null; state.step=0;
+      botSay("✅ C'est noté, " + state.leads[state.leads.length-1].name + ". Votre demande de rappel (« " + state.leads[state.leads.length-1].subject + " ») est enregistrée dans la démo, visible dans la « Vue propriétaire ». En version réelle, le centre vous rappellerait au " + state.leads[state.leads.length-1].phone + ". Pour un besoin urgent, appelez directement le " + PHONE + ".");
+      updateOwner(); return true;
+    }
+  }
+  return false;
+}
+
+function answer(text){
+  var t = text.trim();
+  if(!t) return;
+  addMsg(t,'user');
+  if(state.flow){ if(handleFlow(t)) return; }
+
+  // Quick chips exact
+  if(t==="Prendre rendez-vous"){ startRdv(); return; }
+  if(t==="Être rappelé"){ startCallback(); return; }
+
+  // Medical safety first
+  if(has(t,["je souffre","j'ai mal","j ai mal","douleur","symptome","symptôme","je suis malade","diagnostic","quel medicament","quel médicament","traitement pour","urgence","urgent","saigne","accident"])){
+    botSay("Je suis un assistant d'information : je ne peux pas donner d'avis médical, de diagnostic ni de recommandation de traitement.\n\n• Si c'est urgent, appelez immédiatement le " + PHONE + " pour une orientation immédiate.\n• Sinon, le bon réflexe est de prendre rendez-vous pour une consultation. Voulez-vous que je lance une demande de rendez-vous ? Répondez « Prendre rendez-vous ».");
+    return;
+  }
+  // Prices — never invent
+  if(has(t,["tarif","prix","combien","coute","coûte","cout","coût","payer","paiement","fbu","franc"])){
+    if(has(t,["assurance","mutuelle"])){ /* fallthrough to insurance below */ }
+    else { botSay("Les tarifs ne sont pas publiés sur le site du centre. Le centre indique uniquement proposer des consultations à des tarifs accessibles et transparents, adaptés à la réalité locale — sans montants affichés.\n\nPour connaître le tarif exact d'une consultation ou d'un acte, appelez le " + PHONE + " (appels, SMS et WhatsApp). Je ne peux pas vous donner de montant : aucun prix n'est publié."); return; }
+  }
+  // Hours
+  if(has(t,["horaire","heure","ouvert","ferme","fermé","quand","dimanche","samedi"])){
+    botSay("Le centre est ouvert 7j/7, 24h/24.\n\nLe secrétariat et l'équipe téléphonique sont joignables :\n• Lundi à vendredi : 7h30 – 17h30\n• Samedi : 8h00 – 14h00\n• Dimanche : urgences uniquement\n\nWhatsApp est disponible 7j/7 au " + PHONE + ". En cas d'urgence, appelez directement ce numéro.");
+    return;
+  }
+  // Address
+  if(has(t,["adresse","ou etes","où","situe","situé","localisation","venir","acces","accès","maps","quartier"])){
+    botSay("Le Centre Médical Bethesda se trouve à :\nCommune Ntahangwa, Zone Gihosha, Q. Muyaga (Gasenyi), Avenue Karava N° 3, Bujumbura, Burundi.\n\nCode Google Maps : J9WQ+QQR Bujumbura.\nAccès en taxi, moto-taxi ou bus depuis le centre-ville.");
+    return;
+  }
+  // Contact
+  if(has(t,["telephone","téléphone","contact","appeler","numero","numéro","email","mail","whatsapp"])){
+    botSay("Pour joindre le centre :\n• Ligne principale (appels, SMS et WhatsApp) : " + PHONE + "\n• Autres lignes : +257 77 526 626 et +257 67 866 275\n• E-mail : bethesda2026centremedical@gmail.com (demandes administratives, devis, questions non urgentes)");
+    return;
+  }
+  // Specific specialty detail
+  for(var i=0;i<SPECIALTIES.length;i++){
+    var s=SPECIALTIES[i];
+    var hit=false;
+    s.keys.forEach(function(k){ if(norm(t).indexOf(norm(k))!==-1) hit=true; });
+    if(hit && !has(t,["specialite","spécialité","specialites","spécialités"])){
+      botSay(s.detail + "\n\nSouhaitez-vous prendre rendez-vous dans cette spécialité ? Répondez « Prendre rendez-vous ».");
+      return;
+    }
+  }
+  // Specialties list
+  if(has(t,["specialite","spécialité","specialites","spécialités","services","consultation","proposez","offrez"])){
+    botSay("Le centre compte 6 spécialités :\n" + SPECIALTIES.map(function(x,i){return (i+1)+". "+x.name;}).join("\n") + "\n\nDemandez-moi le détail d'une spécialité (ex. : « la pédiatrie ») ou répondez « Prendre rendez-vous ».");
+    return;
+  }
+  // Appointment info / start
+  if(has(t,["rendez-vous","rendez vous","reserver","réserver","rdv","appointment"])){
+    if(has(t,["comment"])){
+      botSay("Vous pouvez prendre rendez-vous :\n• En ligne, sur la page Contact du site officiel (choix de la date et du créneau, nom, téléphone et service, puis « Confirmer via WhatsApp »)\n• Par téléphone ou SMS au " + PHONE + "\n\nLes rendez-vous sont généralement disponibles sous 1 à 3 jours ouvrables selon la spécialité. Urgences : appelez directement le " + PHONE + ".\n\nVous pouvez aussi lancer la demande simulée ici avec le bouton « Prendre rendez-vous ».");
+      return;
+    }
+    startRdv();
+    return;
+  }
+  // Cancellation
+  if(has(t,["annuler","deplacer","déplacer","reporter","annulation"])){
+    botSay("L'annulation ou le report d'un rendez-vous se fait au moins 24 heures à l'avance, par téléphone ou WhatsApp au " + PHONE + ", sans frais.");
+    return;
+  }
+  // What to bring
+  if(has(t,["apporter","document","carnet","dossier","preparer","préparer"])){
+    botSay("Pour votre consultation, pensez à apporter :\n• Votre carnet de santé, si vous en avez un\n• Vos anciens résultats d'analyses ou d'imagerie\n• Vos ordonnances en cours");
+    return;
+  }
+  // Insurance / payment
+  if(has(t,["assurance","mutuelle","couverture","assure","assuré"])){
+    botSay("Aucune assurance n'est exigée : le centre est accessible à toutes et à tous, quelle que soit la couverture médicale. Le site ne nomme aucun partenaire d'assurance.\n\nLes moyens de paiement ne sont pas précisés sur le site — pour toute question à ce sujet, appelez le " + PHONE + ".");
+    return;
+  }
+  // Campaign
+  if(has(t,["campagne","gratuit","depistage","dépistage","screening"])){
+    botSay("Campagne médicale gratuite 2026 (telle que publiée sur le site) : les 16 et 17 mars 2026, de 7h30 à 17h30, entrée libre, sans rendez-vous.\n\nAu programme : consultations spécialisées gratuites dans les 6 spécialités, dépistage de l'hypertension, du diabète et de la goutte, échographies obstétricales gratuites pour les femmes enceintes, et médicaments gratuits pour les patients diagnostiqués hypertendus, diabétiques ou atteints de goutte.\n\nOuverte à tout résident du Burundi, aucun document obligatoire. Le centre organise chaque année des campagnes gratuites de dépistage (diabète, hypertension, maladies rénales) — aucune autre date n'est publiée pour le moment.");
+    return;
+  }
+  // Doctor names — not published
+  if(has(t,["docteur","medecin","médecin","nom du","qui soigne"])){
+    botSay("Le site ne publie pas les noms des médecins. Il indique que le centre a été fondé par des médecins burundais formés en Afrique et en Europe.\n\nPour toute question précise, appelez le " + PHONE + " ou demandez à être rappelé via le bouton « Être rappelé ».");
+    return;
+  }
+  // Greetings / thanks
+  if(has(t,["bonjour","bonsoir","salut","hello"])){
+    botSay("Bonjour, et bienvenue au Centre Médical Bethesda — Clinique & Hôpital à Bujumbura. Je peux vous renseigner sur nos 6 spécialités, les horaires, l'adresse, la prise de rendez-vous et la campagne gratuite. Que puis-je faire pour vous ?");
+    return;
+  }
+  if(has(t,["merci"])){ botSay("Avec plaisir. N'hésitez pas si vous avez une autre question — ou appelez le centre au " + PHONE + ". Bonne journée !"); return; }
+
+  // Unknown
+  botSay("Je n'ai pas cette information dans les informations publiées par le centre, et je préfère ne rien inventer.\n\nDeux possibilités :\n• Appelez le centre au " + PHONE + " (WhatsApp 7j/7)\n• Ou laissez vos coordonnées pour être rappelé : répondez « Être rappelé » et je note votre nom, votre numéro et le sujet.");
+}
+
+// Render test questions + specialties
+var tg = document.getElementById('testGrid');
+TEST_QUESTIONS.forEach(function(item, idx){
+  var b=document.createElement('button'); b.className='test-item'; b.type='button';
+  var bold=document.createElement('b');
+  var num=document.createElement('span'); num.className='test-num'; num.textContent=String(idx+1);
+  bold.appendChild(num);
+  bold.appendChild(document.createTextNode(item.q));
+  var span=document.createElement('span'); span.textContent='Réponse attendue : ' + item.a;
+  b.appendChild(bold); b.appendChild(span);
+  b.addEventListener('click', function(){ switchTab('chat'); answer(item.q); });
+  tg.appendChild(b);
+});
+var sg = document.getElementById('specGrid');
+SPECIALTIES.forEach(function(s){
+  var d=document.createElement('div'); d.className='spec-item';
+  var h=document.createElement('h3'); h.textContent=s.name;
+  var p=document.createElement('p'); p.textContent=s.detail.split(':')[1] ? s.detail.slice(s.detail.indexOf(':')+1).trim().split(',').slice(0,3).join(',') + '…' : s.detail;
+  d.appendChild(h); d.appendChild(p); sg.appendChild(d);
+});
+
+// Chips + form
+document.getElementById('chips').addEventListener('click', function(e){
+  var btn = e.target.closest('[data-q]'); if(!btn) return;
+  var q = btn.getAttribute('data-q');
+  if(q==='Horaires'){ answer("Quels sont vos horaires ?"); return; }
+  if(q==='Adresse'){ answer("Où êtes-vous situé ?"); return; }
+  if(q==='Tarifs'){ answer("Combien coûte une consultation ?"); return; }
+  if(q==='Nos spécialités'){ answer("Quelles sont vos spécialités ?"); return; }
+  answer(q);
+});
+document.getElementById('composer').addEventListener('submit', function(e){
+  e.preventDefault();
+  var v = inputEl.value; inputEl.value='';
+  answer(v);
+});
+
+// Welcome
+addMsg("Bonjour, je suis l'Assistant Bethesda (démo) du Centre Médical Bethesda, clinique et hôpital privé à Bujumbura.\n\nJe réponds uniquement à partir des informations publiques du centre : 6 spécialités, horaires, adresse, rendez-vous, campagne gratuite…\n\n⚠️ Je ne donne aucun avis médical. En cas d'urgence, appelez le +257 79 669 002.\n\nQue puis-je faire pour vous ? Utilisez les boutons ci-dessous ou écrivez votre question.", 'bot');
+updateOwner();
+</script>
+</body>
+</html>
