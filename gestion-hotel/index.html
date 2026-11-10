@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
 :root{
   --bg:#F7F3E6; --bg2:#F1EAD3; --surface:#FFFDF4; --surface2:#FBF7EA;
@@ -47,15 +48,16 @@ a{color:var(--teal)}
 
 /* ---------- Accès ---------- */
 #lock{min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(120% 90% at 50% 0%,var(--bg2),var(--bg))}
-.lock-card{width:100%;max-width:380px;background:var(--surface);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:30px 26px 26px;text-align:center}
+.lock-card{width:100%;max-width:420px;background:var(--surface);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:30px 26px 26px;text-align:center}
 .lock-mark{width:58px;height:58px;margin:0 auto 14px;border-radius:16px;background:var(--teal);color:#FFF9E8;display:flex;align-items:center;justify-content:center;font-family:"Lora",serif;font-size:30px;font-weight:700}
 .lock-card h1{font-size:23px;margin:0 0 4px}
-.lock-card p{color:var(--ink2);font-size:14px;margin:0 0 20px;line-height:1.5}
-.pin-row{display:flex;gap:10px;justify-content:center;margin-bottom:14px}
-.pin-row input{width:52px;height:58px;text-align:center;font-size:24px;font-weight:800;border:2px solid var(--line);border-radius:14px;background:var(--surface2);color:var(--ink)}
-.pin-row input:focus{outline:none;border-color:var(--teal)}
-.demo-chip{display:inline-block;background:var(--wood-soft);color:var(--wood-d);font-weight:700;font-size:13px;padding:7px 14px;border-radius:999px;margin-bottom:18px}
+.lock-card p{color:var(--ink2);font-size:14px;margin:0 0 16px;line-height:1.5}
+.lock-card .field{text-align:left}
+.demo-chip{display:inline-block;background:var(--wood-soft);color:var(--wood-d);font-weight:700;font-size:13px;padding:7px 14px;border-radius:999px;margin-bottom:14px}
 .lock-err{color:var(--red);font-size:13.5px;font-weight:700;min-height:20px;margin:6px 0 10px}
+.lock-sep{display:flex;align-items:center;gap:10px;color:var(--ink2);font-size:12.5px;font-weight:700;margin:16px 0 12px}
+.lock-sep::before,.lock-sep::after{content:"";flex:1;border-top:1px solid var(--line)}
+.quick-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
 
 /* ---------- Boutons / champs ---------- */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;cursor:pointer;border-radius:12px;padding:10px 18px;font-size:15px;font-weight:700;transition:transform .06s ease,background .15s}
@@ -85,9 +87,15 @@ a{color:var(--teal)}
 .brand-mark{width:40px;height:40px;border-radius:11px;background:var(--teal);color:#FFF9E8;display:flex;align-items:center;justify-content:center;font-family:"Lora",serif;font-size:21px;font-weight:700;flex:none}
 .brand b{font-family:"Lora",serif;font-size:16.5px;display:block;line-height:1.15;white-space:nowrap}
 .brand span{font-size:12px;color:var(--ink2);display:block;white-space:nowrap}
-.top-actions{margin-left:auto;display:flex;gap:8px;align-items:center;flex:none}
+.top-actions{margin-left:auto;display:flex;gap:8px;align-items:center;flex:none;flex-wrap:wrap}
 .date-line{font-size:13px;color:var(--ink2);font-weight:600;white-space:nowrap}
 @media(max-width:560px){.date-line{display:none}}
+.sync-chip{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700;color:var(--teal-d);background:var(--teal-soft);border-radius:999px;padding:6px 12px;white-space:nowrap}
+.sync-chip .dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex:none}
+.sync-chip.busy .dot{background:var(--amber)}
+.sync-chip.off .dot{background:var(--red)}
+.role-chip{display:inline-flex;align-items:center;font-size:12.5px;font-weight:800;color:var(--wood-d);background:var(--wood-soft);border-radius:999px;padding:6px 12px;white-space:nowrap}
+@media(max-width:700px){.role-chip{display:none}}
 .desk-nav{display:none;gap:4px;margin-left:10px;flex-wrap:wrap}
 @media(min-width:860px){.desk-nav{display:flex}}
 @media(min-width:860px) and (max-width:1279px){.desk-nav{order:3;width:100%;margin-left:0}}
@@ -96,8 +104,8 @@ a{color:var(--teal)}
 
 .tabbar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--surface);border-top:1px solid var(--line);display:flex;padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
 @media(min-width:860px){.tabbar{display:none}}
-.tabbar button{flex:1;background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 2px;border-radius:11px;color:var(--ink2);font-size:10.5px;font-weight:700;min-height:52px}
-.tabbar button svg{width:21px;height:21px}
+.tabbar button{flex:1;background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 2px;border-radius:11px;color:var(--ink2);font-size:10px;font-weight:700;min-height:52px}
+.tabbar button svg{width:20px;height:20px}
 .tabbar button.on{color:var(--teal);background:var(--teal-soft)}
 
 .page-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:22px 0 14px;flex-wrap:wrap}
@@ -107,6 +115,8 @@ a{color:var(--teal)}
 /* Stats */
 .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:18px}
 @media(min-width:700px){.stats{grid-template-columns:repeat(5,1fr)}}
+.stats.four{grid-template-columns:repeat(2,1fr)}
+@media(min-width:700px){.stats.four{grid-template-columns:repeat(4,1fr)}}
 .stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:15px 16px;box-shadow:var(--shadow)}
 .stat .n{font-family:"Lora",serif;font-size:31px;font-weight:700;line-height:1}
 .stat .n.teal{color:var(--teal)}.stat .n.wood{color:var(--wood)}
@@ -132,6 +142,9 @@ a{color:var(--teal)}
 .b-arrivee{background:var(--red-soft);color:var(--red)}
 .b-terminee{background:var(--surface2);color:var(--ink2);border:1px solid var(--line)}
 .b-annulee{background:var(--surface2);color:var(--ink2);border:1px solid var(--line);text-decoration:line-through}
+.src-badge{display:inline-flex;align-items:center;font-size:11.5px;font-weight:800;padding:4px 10px;border-radius:999px;background:var(--surface2);border:1px solid var(--line);color:var(--ink2);white-space:nowrap}
+.src-badge.site{background:var(--teal-soft);color:var(--teal-d);border-color:transparent}
+.src-badge.chatbot{background:var(--wood-soft);color:var(--wood-d);border-color:transparent}
 .money{font-weight:800}
 .money.due{color:var(--red)}
 .money.ok{color:var(--green)}
@@ -157,6 +170,20 @@ a{color:var(--teal)}
 .method-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:13px 15px;box-shadow:var(--shadow)}
 .method-card .m{font-size:12.5px;color:var(--ink2);font-weight:700}
 .method-card .v{font-family:"Lora",serif;font-size:21px;font-weight:700;margin-top:3px}
+
+/* Site public / chatbot */
+.pub-hero{background:var(--teal);color:#FFF9E8;border-radius:var(--r-lg);padding:22px 20px;margin-bottom:14px;box-shadow:var(--shadow)}
+.pub-hero h3{margin:0 0 4px;font-size:22px;color:#FFF9E8}
+.pub-hero p{margin:0;font-size:14px;line-height:1.55;opacity:.92}
+.chat-box{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:16px;margin-bottom:12px}
+.chat-log{display:flex;flex-direction:column;gap:9px;max-height:380px;overflow-y:auto;padding:2px 2px 6px}
+.msg{max-width:86%;padding:10px 13px;border-radius:15px;font-size:14.5px;line-height:1.5}
+.msg.bot{background:var(--surface2);border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:5px}
+.msg.user{background:var(--teal);color:#FFF9E8;align-self:flex-end;border-bottom-right-radius:5px}
+.chat-input{margin-top:10px;border-top:1px solid var(--line);padding-top:12px}
+.chat-input .row{display:flex;gap:8px;flex-wrap:wrap}
+.chat-input input,.chat-input select{flex:1;min-width:140px;border:1.5px solid var(--line);border-radius:11px;background:var(--surface);color:var(--ink);padding:10px 12px;font-size:15.5px;min-height:44px}
+.chat-input input:focus,.chat-input select:focus{outline:none;border-color:var(--teal)}
 
 /* Modale */
 .overlay{position:fixed;inset:0;z-index:60;background:rgba(30,24,12,.55);display:none;align-items:flex-end;justify-content:center}
@@ -184,9 +211,8 @@ a{color:var(--teal)}
 #toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:12px 20px;border-radius:12px;font-size:14.5px;font-weight:700;opacity:0;pointer-events:none;transition:.25s;z-index:80;max-width:88vw;text-align:center}
 @media(min-width:860px){#toast{bottom:28px}}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+#toast.err{background:var(--red);color:#FFF9E8}
 .note{font-size:13.5px;color:var(--ink2);line-height:1.6}
-.file-btn{position:relative;overflow:hidden}
-.file-btn input{position:absolute;inset:0;opacity:0;cursor:pointer}
 #printArea{display:none}
 @media print{
   @page{margin:14mm}
@@ -206,16 +232,16 @@ a{color:var(--teal)}
   <div class="lock-card">
     <div class="lock-mark">C</div>
     <h1>Gestion Hôtel Crescence</h1>
-    <p>Logiciel de réception — hébergements, réservations, caisse et clients. Entrez le code d'accès réception pour continuer.</p>
-    <div class="demo-chip">Code démo : 1234</div>
-    <div class="pin-row" id="pinRow">
-      <input inputmode="numeric" maxlength="1" aria-label="Chiffre 1" />
-      <input inputmode="numeric" maxlength="1" aria-label="Chiffre 2" />
-      <input inputmode="numeric" maxlength="1" aria-label="Chiffre 3" />
-      <input inputmode="numeric" maxlength="1" aria-label="Chiffre 4" />
-    </div>
+    <p>Système unifié : site, chatbot, réception et propriétaire travaillent sur <b>la même base partagée</b>. Connectez-vous avec un compte du personnel.</p>
+    <div class="field"><label>Adresse e-mail du personnel</label><input id="loginEmail" type="email" autocomplete="username" placeholder="reception@crescence.app" /></div>
+    <div class="field"><label>Mot de passe</label><input id="loginPass" type="password" autocomplete="current-password" placeholder="Mot de passe du compte" /></div>
     <div class="lock-err" id="lockErr"></div>
-    <button class="btn btn-teal btn-block" id="unlockBtn">Entrer dans le logiciel</button>
+    <button class="btn btn-teal btn-block" id="loginBtn">Se connecter à la base partagée</button>
+    <div class="lock-sep">Comptes du personnel</div>
+    <p class="note" style="text-align:left">Réception : <b>reception@crescence.app</b><br/>Propriétaire : <b>proprietaire@crescence.app</b><br/>Mot de passe : celui défini pour votre compte (géré dans Supabase).</p>
+    <div class="lock-sep">Côté client</div>
+    <button class="btn btn-ghost btn-block" id="publicBtn">Ouvrir le site public &amp; le chatbot</button>
+    <p class="note" style="margin-top:14px">Le site public lit les mêmes hébergements et y dépose les demandes de réservation : la réception les voit arriver sans ressaisie.</p>
   </div>
 </div>
 
@@ -229,7 +255,10 @@ a{color:var(--teal)}
       </div>
       <nav class="desk-nav" id="deskNav"></nav>
       <div class="top-actions">
+        <span class="sync-chip" id="syncChip"><span class="dot"></span><span id="syncTxt">Base partagée</span></span>
+        <span class="role-chip" id="roleChip"></span>
         <span class="date-line" id="todayLine"></span>
+        <button class="btn btn-soft btn-sm" id="refreshBtn">Actualiser</button>
         <button class="btn btn-soft btn-sm" id="lockBtn">Verrouiller</button>
       </div>
     </div>
@@ -245,37 +274,36 @@ a{color:var(--teal)}
 
 <script>
 "use strict";
-/* =============== Données =============== */
-var LS_KEY = "crescence_hotel_v2";
-var ACCESS_CODE = "1234";
+/* =============== S1 — Base partagée Supabase « Crescence » ===============
+   Une seule base pour le site, le chatbot, la réception et le propriétaire.
+   Projet : hzpxfiulxuhkrquelsno — tables hotels, hebergements, reservations,
+   paiements, profils. Le public (clé anon) peut lire les hébergements et
+   créer une demande « en_attente » (avec Prefer: return=minimal uniquement) ;
+   le personnel connecté voit et gère tout son hôtel. */
+var SB_URL = "https://hzpxfiulxuhkrquelsno.supabase.co";
+var SB_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh6cHhmaXVseHVoa3JxdWVsc25vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQzMTM1MzAsImV4cCI6MjEwOTg4OTUzMH0.o9m8xr81MfL8hoWsaZ2tjL81hSxr-MSjtu6DupnZlyI";
 var METHODS = ["Espèces","Mobile Money","Carte","Virement"];
 var ROOM_STATUS = ["Libre","Occupée","Ménage","Maintenance"];
 var RES_STATUS = ["En attente","Confirmée","Arrivée","Terminée","Annulée"];
 
-var seedRooms = [
-  {id:"r1", name:"Chambre Classique", type:"Chambre", capacity:2, priceNight:45, priceMonth:900, status:"Libre"},
-  {id:"r2", name:"Chambre Deluxe", type:"Chambre", capacity:2, priceNight:75, priceMonth:1500, status:"Libre"},
-  {id:"r3", name:"Suite", type:"Suite", capacity:3, priceNight:130, priceMonth:2600, status:"Libre"},
-  {id:"r4", name:"Appartement 1 chambre", type:"Appartement", capacity:3, priceNight:95, priceMonth:1900, status:"Libre"},
-  {id:"r5", name:"Appartement familial", type:"Appartement", capacity:5, priceNight:150, priceMonth:3000, status:"Libre"}
-];
+var RES_TO_DB = {"En attente":"en_attente","Confirmée":"confirmee","Arrivée":"arrivee","Terminée":"terminee","Annulée":"annulee"};
+var RES_FROM_DB = {"en_attente":"En attente","confirmee":"Confirmée","arrivee":"Arrivée","terminee":"Terminée","annulee":"Annulée"};
+var ROOM_TO_DB = {"Libre":"libre","Occupée":"occupee","Ménage":"menage","Maintenance":"maintenance"};
+var ROOM_FROM_DB = {"libre":"Libre","occupee":"Occupée","menage":"Ménage","maintenance":"Maintenance"};
+var METH_TO_DB = {"Espèces":"especes","Mobile Money":"mobile_money","Carte":"carte","Virement":"virement"};
+var METH_FROM_DB = {"especes":"Espèces","mobile_money":"Mobile Money","carte":"Carte","virement":"Virement"};
+var SRC_LABEL = {"site":"Site","chatbot":"Chatbot","reception":"Réception","telephone":"Téléphone"};
 
-var memoryFallback = null;
-var store = loadStore();
+/* =============== État =============== */
+var session = null;      /* {access, refresh, email, role, nom, userId, hotelId} */
+var publicMode = false;  /* visiteur du site public, sans compte personnel */
+var hotel = null;        /* ligne hotels */
+var store = { rooms: [], reservations: [], payments: [] };
+var dataReady = false;
+var syncMode = "Hors ligne";
+var lastSync = null;
+var reloadPending = false;
 
-function loadStore(){
-  try{
-    var raw = localStorage.getItem(LS_KEY);
-    if(raw){ var p = JSON.parse(raw); if(p && p.rooms && p.reservations && p.payments) return p; }
-  }catch(e){ if(memoryFallback) return memoryFallback; }
-  return { rooms: JSON.parse(JSON.stringify(seedRooms)), reservations: [], payments: [] };
-}
-function saveStore(){
-  try{ localStorage.setItem(LS_KEY, JSON.stringify(store)); }
-  catch(e){ memoryFallback = store; }
-}
-
-/* =============== État UI =============== */
 var ui = {
   tab: "today",
   resFilter: "all",
@@ -295,9 +323,8 @@ function lowerFirst(s){ return s ? s.charAt(0).toLowerCase() + s.slice(1) : s; }
 function fmtDate(str){ if(!str) return "—"; return lowerFirst(parseD(str).toLocaleDateString("fr-FR",{weekday:"short", day:"numeric", month:"short", year:"numeric"})); }
 function fmtDateLong(str){ return lowerFirst(parseD(str).toLocaleDateString("fr-FR",{weekday:"long", day:"numeric", month:"long", year:"numeric"})); }
 function fmt$(n){ n = Math.round((+n||0)*100)/100; return (n % 1 === 0 ? n.toLocaleString("fr-FR") : n.toLocaleString("fr-FR",{minimumFractionDigits:2, maximumFractionDigits:2})) + " $"; }
-function uid(p){ return p + Date.now().toString(36) + Math.floor(Math.random()*999).toString(36); }
 function nightsOf(r){ var n = Math.round((parseD(r.checkOut) - parseD(r.checkIn)) / 86400000); return n > 0 ? n : 0; }
-function resTotal(r){ return nightsOf(r) * (+r.priceNight||0); }
+function resTotal(r){ return (r.total != null ? +r.total : nightsOf(r) * (+r.priceNight||0)); }
 function resPaid(r){ var s=0; store.payments.forEach(function(p){ if(p.resId===r.id) s += +p.amount||0; }); return s; }
 function resDue(r){ return Math.max(0, resTotal(r) - resPaid(r)); }
 function resOverpaid(r){ return Math.max(0, resPaid(r) - resTotal(r)); }
@@ -308,59 +335,242 @@ function findConflict(data, excludeId){
   for(var i=0;i<store.reservations.length;i++){
     var x = store.reservations[i];
     if(x.id===excludeId || x.roomId!==data.roomId) continue;
-    if(x.status!=="Confirmée" && x.status!=="Arrivée") continue;
+    if(x.status!=="Confirmée" && x.status!=="Arrivée" && x.status!=="En attente") continue;
+    if(x.status==="En attente" && data.status==="En attente") continue;
     if(data.checkIn < x.checkOut && x.checkIn < data.checkOut) return x;
   }
   return null;
 }
-function acomptePayments(resId){ return store.payments.filter(function(p){ return p.resId===resId && p.label && p.label.indexOf("Acompte")===0; }); }
+function acomptePayments(resId){ return store.payments.filter(function(p){ return p.resId===resId && p.type==="acompte"; }); }
 function acompteAmount(resId){ var s=0; acomptePayments(resId).forEach(function(p){ s += +p.amount||0; }); return s; }
 function roomById(id){ for(var i=0;i<store.rooms.length;i++) if(store.rooms[i].id===id) return store.rooms[i]; return null; }
 function resById(id){ for(var i=0;i<store.reservations.length;i++) if(store.reservations[i].id===id) return store.reservations[i]; return null; }
 function roomBadge(st){ var m={"Libre":"b-libre","Occupée":"b-occupee","Ménage":"b-menage","Maintenance":"b-maintenance"}; return '<span class="badge '+(m[st]||"b-libre")+'">'+esc(st)+'</span>'; }
 function resBadge(st){ var m={"En attente":"b-attente","Confirmée":"b-confirmee","Arrivée":"b-arrivee","Terminée":"b-terminee","Annulée":"b-annulee"}; return '<span class="badge '+(m[st]||"b-confirmee")+'">'+esc(st)+'</span>'; }
-function toast(msg){ var t=$("#toast"); t.textContent=msg; t.classList.add("show"); setTimeout(function(){ t.classList.remove("show"); }, 2600); }
-function addPayment(resId, amount, method, dateStr, label){
-  store.payments.push({ id: uid("p"), resId: resId, amount: +amount||0, method: method||"Espèces", date: dateStr||todayStr(), label: label||"" });
+function srcBadge(src){ if(!src) return ""; var cls = src==="site" ? "site" : (src==="chatbot" ? "chatbot" : ""); return '<span class="src-badge '+cls+'">via ' + esc(SRC_LABEL[src]||src) + '</span>'; }
+function payLabel(p){
+  var r = resById(p.resId); var code = r ? (r.code||"") : "";
+  var m = {"acompte":"Acompte","paiement":"Paiement","solde":"Solde au départ","remboursement":"Remboursement","remboursement_acompte":"Remboursement acompte"};
+  return (m[p.type]||"Paiement") + (code ? " — " + code : "");
 }
+var toastTimer = null;
+function toast(msg, isErr){
+  var t=$("#toast"); t.textContent=msg; t.className = isErr ? "show err" : "show";
+  clearTimeout(toastTimer); toastTimer = setTimeout(function(){ t.className=""; }, 3400);
+}
+function genCode(){
+  var d = todayStr().replace(/-/g,"").slice(2);
+  for(var i=0;i<20;i++){
+    var c = "CR-" + d + "-" + Math.floor(100 + Math.random()*900);
+    var taken = store.reservations.some(function(r){ return r.code===c; });
+    if(!taken) return c;
+  }
+  return "CR-" + d + "-" + Date.now().toString().slice(-4);
+}
+
+/* =============== API Supabase (REST) =============== */
+function sbFetch(path, opts, tokenOverride){
+  opts = opts || {};
+  var headers = { "apikey": SB_ANON, "Content-Type": "application/json" };
+  headers["Authorization"] = "Bearer " + (tokenOverride || (session ? session.access : SB_ANON));
+  if(opts.prefer) headers["Prefer"] = opts.prefer;
+  return fetch(SB_URL + path, { method: opts.method||"GET", headers: headers, body: opts.body ? JSON.stringify(opts.body) : undefined })
+    .then(function(resp){
+      return resp.text().then(function(txt){
+        var data = null; try{ data = txt ? JSON.parse(txt) : null; }catch(e){}
+        if(!resp.ok){
+          var err = new Error((data && (data.message || data.error_description || data.error)) || ("Erreur " + resp.status));
+          err.status = resp.status;
+          throw err;
+        }
+        return data;
+      });
+    });
+}
+function sb(path, opts){
+  return sbFetch(path, opts).catch(function(err){
+    if(err.status===401 && session && session.refresh){
+      return refreshSession().then(function(){ return sbFetch(path, opts); });
+    }
+    throw err;
+  });
+}
+function refreshSession(){
+  return sbFetch("/auth/v1/token?grant_type=refresh_token", { method:"POST", body:{ refresh_token: session.refresh } }, SB_ANON)
+    .then(function(d){ session.access = d.access_token; session.refresh = d.refresh_token || session.refresh; });
+}
+function login(email, password){
+  return sbFetch("/auth/v1/token?grant_type=password", { method:"POST", body:{ email: email, password: password } }, SB_ANON)
+    .then(function(d){
+      session = { access: d.access_token, refresh: d.refresh_token, email: email, role: null, nom: "", userId: d.user ? d.user.id : null, hotelId: null };
+      return sb("/rest/v1/profils?select=role,nom,hotel_id");
+    })
+    .then(function(profs){
+      if(profs && profs.length){
+        session.role = profs[0].role; session.nom = profs[0].nom; session.hotelId = profs[0].hotel_id;
+      }
+      if(!session.role) throw new Error("Ce compte n'a pas de profil personnel dans la base.");
+    });
+}
+function signOut(){
+  var tok = session ? session.access : null;
+  session = null; publicMode = false; dataReady = false;
+  store = { rooms: [], reservations: [], payments: [] };
+  if(tok) sbFetch("/auth/v1/logout", { method:"POST" }, tok).catch(function(){});
+  stopRealtime();
+  $("#app").style.display = "none";
+  $("#lock").style.display = "flex";
+  $("#lockErr").textContent = "";
+  $("#loginPass").value = "";
+}
+
+/* =============== Chargement depuis la base partagée =============== */
+function mapRoom(x){
+  return { id: x.id, hotelId: x.hotel_id, name: x.nom, type: x.type, capacity: x.capacite,
+    priceNight: +x.prix_nuit||0, priceMonth: +x.prix_mois||0, description: x.description||"",
+    status: ROOM_FROM_DB[x.statut_manu] || "Libre", actif: x.actif !== false, ordre: x.ordre||0 };
+}
+function mapRes(x){
+  return { id: x.id, hotelId: x.hotel_id, roomId: x.hebergement_id, code: x.code||"", clientName: x.client_nom||"",
+    phone: x.client_tel||"", checkIn: x.arrivee, checkOut: x.depart, guests: x.voyageurs||0,
+    priceNight: +x.prix_nuit||0, total: x.total!=null ? +x.total : null,
+    status: RES_FROM_DB[x.statut] || "En attente", source: x.source||"reception", notes: x.notes||"", createdAt: x.created_at||"" };
+}
+function mapPay(x){
+  return { id: x.id, resId: x.reservation_id, amount: +x.montant||0, method: METH_FROM_DB[x.moyen] || "Espèces",
+    date: x.date, type: x.type||"paiement", createdAt: x.created_at||"" };
+}
+function loadAll(rerender){
+  setSync("busy", "Synchronisation…");
+  var p;
+  if(publicMode || !session){
+    p = sb("/rest/v1/hebergements?select=*&order=ordre.asc", {}, SB_ANON).then(function(rooms){
+      store.rooms = (rooms||[]).map(mapRoom);
+      store.reservations = []; store.payments = [];
+      if(store.rooms.length && !hotel) return loadHotel(store.rooms[0].hotelId);
+    });
+  } else {
+    p = Promise.all([
+      sb("/rest/v1/hebergements?select=*&order=ordre.asc"),
+      sb("/rest/v1/reservations?select=*&order=arrivee.desc"),
+      sb("/rest/v1/paiements?select=*&order=date.desc,created_at.desc")
+    ]).then(function(res){
+      store.rooms = (res[0]||[]).map(mapRoom);
+      store.reservations = (res[1]||[]).map(mapRes);
+      store.payments = (res[2]||[]).map(mapPay);
+      if(store.rooms.length && !hotel) return loadHotel(store.rooms[0].hotelId);
+    });
+  }
+  return p.then(function(){
+    dataReady = true; lastSync = new Date();
+    setSync("ok", syncMode === "Temps réel" ? "Base partagée · temps réel" : "Base partagée · à jour " + pad(lastSync.getHours()) + ":" + pad(lastSync.getMinutes()) + ":" + pad(lastSync.getSeconds()));
+    if(rerender !== false && !$("#overlay").classList.contains("open")) render();
+    if(rerender !== false && $("#overlay").classList.contains("open")) reloadPending = true;
+  }).catch(function(err){
+    setSync("off", "Base injoignable");
+    toast("Connexion à la base partagée impossible : " + err.message, true);
+  });
+}
+function loadHotel(hotelId){
+  return sb("/rest/v1/hotels?select=*&id=eq." + hotelId, {}, session ? null : SB_ANON).then(function(h){ if(h && h.length) hotel = h[0]; }).catch(function(){});
+}
+function setSync(state, txt){
+  var chip = $("#syncChip"); if(!chip) return;
+  chip.className = "sync-chip" + (state==="busy" ? " busy" : (state==="off" ? " off" : ""));
+  $("#syncTxt").textContent = txt;
+}
+
+/* =============== Temps réel + actualisation de secours =============== */
+var rtClient = null, rtChannel = null, rtTimer = null;
+function startRealtime(){
+  if(rtClient || !session) return;
+  if(window.supabase && window.supabase.createClient){
+    try{
+      rtClient = window.supabase.createClient(SB_URL, SB_ANON, { auth: { persistSession: false } });
+      if(rtClient.realtime && rtClient.realtime.setAuth) rtClient.realtime.setAuth(session.access);
+      rtChannel = rtClient.channel("crescence-s1")
+        .on("postgres_changes", { event: "*", schema: "public", table: "reservations" }, scheduleReload)
+        .on("postgres_changes", { event: "*", schema: "public", table: "paiements" }, scheduleReload)
+        .on("postgres_changes", { event: "*", schema: "public", table: "hebergements" }, scheduleReload)
+        .subscribe(function(status){ if(status==="SUBSCRIBED"){ syncMode = "Temps réel"; setSync("ok","Base partagée · temps réel"); } });
+    }catch(e){ rtClient = null; }
+  }
+  setInterval(function(){
+    if(session && !document.hidden) loadAll(true);
+  }, 30000);
+}
+function scheduleReload(){
+  if(rtTimer) return;
+  rtTimer = setTimeout(function(){ rtTimer = null; if(session) loadAll(true); }, 600);
+}
+function stopRealtime(){
+  if(rtClient && rtChannel){ try{ rtClient.removeChannel(rtChannel); }catch(e){} }
+  rtClient = null; rtChannel = null;
+}
+
+/* =============== Écritures dans la base partagée =============== */
+function dbInsertPayment(res, amount, methodLabel, type){
+  return sb("/rest/v1/paiements", { method:"POST", prefer:"return=minimal", body:{
+    hotel_id: res.hotelId || (hotel ? hotel.id : session.hotelId), reservation_id: res.id,
+    date: todayStr(), type: type, moyen: METH_TO_DB[methodLabel] || "especes", montant: amount
+  }});
+}
+function dbPatchRes(id, patch){ return sb("/rest/v1/reservations?id=eq." + id, { method:"PATCH", prefer:"return=minimal", body: patch }); }
+function dbPatchRoom(id, patch){ return sb("/rest/v1/hebergements?id=eq." + id, { method:"PATCH", prefer:"return=minimal", body: patch }); }
 
 /* =============== Navigation =============== */
 var TABS = [
-  {id:"today", label:"Aujourd'hui", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>'},
-  {id:"reservations", label:"Réservations", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V4H6.5A2.5 2.5 0 0 0 4 6.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>'},
-  {id:"rooms", label:"Héberg.", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M2 17h20"/></svg>'},
-  {id:"caisse", label:"Caisse", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 12h.01M18 12h.01"/></svg>'},
-  {id:"clients", label:"Clients", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>'},
-  {id:"backup", label:"Sauvegarde", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg>'}
+  {id:"today", label:"Aujourd'hui", short:"Auj.", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>'},
+  {id:"reservations", label:"Réservations", short:"Résa.", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V4H6.5A2.5 2.5 0 0 0 4 6.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>'},
+  {id:"rooms", label:"Hébergements", short:"Héberg.", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M2 17h20"/></svg>'},
+  {id:"caisse", label:"Caisse", short:"Caisse", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 12h.01M18 12h.01"/></svg>'},
+  {id:"clients", label:"Clients", short:"Clients", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>'},
+  {id:"site", label:"Site & chatbot", short:"Site", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>'},
+  {id:"owner", label:"Propriétaire", short:"Proprio.", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 15l4-6 4 3 5-8"/></svg>'},
+  {id:"base", label:"Base partagée", short:"Base", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5"/><path d="M3 12c0 1.7 4 3 9 3s9-1.3 9-3"/></svg>'}
 ];
+function visibleTabs(){
+  if(publicMode) return TABS.filter(function(t){ return t.id==="site"; });
+  return TABS;
+}
 function buildNav(){
   var tb = $("#tabbar"), dn = $("#deskNav");
   tb.innerHTML = ""; dn.innerHTML = "";
-  TABS.forEach(function(t){
+  visibleTabs().forEach(function(t){
     var b = document.createElement("button");
-    b.innerHTML = t.icon + "<span>" + t.label + "</span>";
+    b.innerHTML = t.icon + "<span>" + t.short + "</span>";
     if(ui.tab===t.id) b.className = "on";
     b.addEventListener("click", function(){ go(t.id); });
     tb.appendChild(b);
     var d = document.createElement("button");
-    d.textContent = t.label === "Héberg." ? "Hébergements" : t.label;
+    d.textContent = t.label;
     if(ui.tab===t.id) d.className = "on";
     d.addEventListener("click", function(){ go(t.id); });
     dn.appendChild(d);
   });
+  var rc = $("#roleChip");
+  if(publicMode){ rc.textContent = "Visiteur — site public"; }
+  else if(session){ rc.textContent = (session.role==="proprietaire" ? "Propriétaire" : "Réception") + " · " + session.email; }
+  else rc.textContent = "";
+  $("#refreshBtn").style.display = publicMode ? "none" : "";
+  $("#lockBtn").textContent = publicMode ? "Accès personnel" : "Verrouiller";
 }
 function go(tab){ ui.tab = tab; buildNav(); render(); window.scrollTo(0,0); }
 
 /* =============== Rendu principal =============== */
 function render(){
   $("#todayLine").textContent = fmtDateLong(todayStr());
+  if(reloadPending && !$("#overlay").classList.contains("open")) reloadPending = false;
   var v = $("#view");
+  if(!dataReady){ v.innerHTML = '<div class="empty" style="margin-top:26px">Chargement depuis la base partagée…</div>'; return; }
   if(ui.tab==="today") v.innerHTML = viewToday();
   else if(ui.tab==="reservations") v.innerHTML = viewReservations();
   else if(ui.tab==="rooms") v.innerHTML = viewRooms();
   else if(ui.tab==="caisse") v.innerHTML = viewCaisse();
   else if(ui.tab==="clients") v.innerHTML = viewClients();
-  else if(ui.tab==="backup") v.innerHTML = viewBackup();
+  else if(ui.tab==="site") v.innerHTML = viewSite();
+  else if(ui.tab==="owner") v.innerHTML = viewOwner();
+  else if(ui.tab==="base") v.innerHTML = viewBase();
   bindView();
 }
 
@@ -372,7 +582,6 @@ function viewToday(){
   var arrivees = store.reservations.filter(function(r){ return r.checkIn===t && (r.status==="Confirmée"||r.status==="En attente"||r.status==="Arrivée"); });
   var departs = store.reservations.filter(function(r){ return r.checkOut===t && (r.status==="Arrivée"||r.status==="Confirmée"); });
   var encaisse = 0; store.payments.forEach(function(p){ if(p.date===t) encaisse += +p.amount||0; });
-
   var h = '<div class="page-head"><div><h2>Bonjour, réception</h2><div class="sub">'+esc(fmtDateLong(t))+'</div></div>' +
     '<button class="btn btn-teal" data-act="new-res">+ Nouvelle réservation</button></div>';
   h += '<div class="stats">' +
@@ -381,14 +590,17 @@ function viewToday(){
     '<div class="stat"><div class="n teal">'+arrivees.length+'</div><div class="l">Arrivées</div></div>' +
     '<div class="stat"><div class="n wood">'+departs.length+'</div><div class="l">Départs</div></div>' +
     '<div class="stat"><div class="n teal">'+esc(fmt$(encaisse))+'</div><div class="l">Encaissé du jour</div></div></div>';
-
+  var pending = store.reservations.filter(function(r){ return r.status==="En attente"; });
+  if(pending.length){
+    h += '<h3 class="sec-title">Demandes en attente du site / chatbot (' + pending.length + ')</h3>';
+    h += pending.map(function(r){ return resCard(r, true); }).join("");
+  }
   h += '<h3 class="sec-title">Arrivées du jour</h3>';
   h += arrivees.length ? arrivees.map(function(r){ return resCard(r, true); }).join("") :
     '<div class="empty">Aucune arrivée prévue aujourd\'hui.</div>';
   h += '<h3 class="sec-title">Départs du jour</h3>';
   h += departs.length ? departs.map(function(r){ return resCard(r, true); }).join("") :
     '<div class="empty">Aucun départ prévu aujourd\'hui.</div>';
-
   h += '<h3 class="sec-title">Hébergements</h3>';
   h += store.rooms.map(roomCard).join("");
   return h;
@@ -406,8 +618,11 @@ function resCard(r, compact){
     '<div class="kv"><span>Total <b>' + esc(fmt$(total)) + '</b></span><span>Payé <b>' + esc(fmt$(paid)) + '</b></span>' +
     (r.status!=="Annulée" ? (over > 0 ? '<span>Trop-perçu : <b class="money due">' + esc(fmt$(over)) + ' à rembourser</b></span>' : '<span>Reste <b class="' + (due>0?"money due":"money ok") + '">' + esc(fmt$(due)) + '</b></span>') : '') + '</div>' +
     (r.notes ? '<div class="meta" style="margin-top:6px">' + esc(r.notes) + '</div>' : '') +
-    '</div><div>' + resBadge(r.status) + '</div></div>';
+    '</div><div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">' + resBadge(r.status) + srcBadge(r.source) + '</div></div>';
   h += '<div class="actions">';
+  if(r.status==="En attente"){
+    h += '<button class="btn btn-teal btn-sm" data-act="confirm-res" data-id="'+r.id+'">Confirmer</button>';
+  }
   if(r.status==="En attente" || r.status==="Confirmée"){
     h += '<button class="btn btn-teal btn-sm" data-act="checkin" data-id="'+r.id+'">Arrivée (check-in)</button>';
   }
@@ -428,14 +643,14 @@ function resCard(r, compact){
 function viewReservations(){
   var list = store.reservations.slice().sort(function(a,b){ return a.checkIn < b.checkIn ? 1 : -1; });
   if(ui.resFilter!=="all") list = list.filter(function(r){ return r.status===ui.resFilter; });
-  if(ui.search){ var q = ui.search.toLowerCase(); list = list.filter(function(r){ var rm = roomById(r.roomId); return (r.clientName||"").toLowerCase().indexOf(q)>=0 || (r.phone||"").toLowerCase().indexOf(q)>=0 || (rm && rm.name.toLowerCase().indexOf(q)>=0); }); }
-  var h = '<div class="page-head"><div><h2>Réservations</h2><div class="sub">' + store.reservations.length + ' réservation(s) au total</div></div>' +
+  if(ui.search){ var q = ui.search.toLowerCase(); list = list.filter(function(r){ var rm = roomById(r.roomId); return (r.clientName||"").toLowerCase().indexOf(q)>=0 || (r.phone||"").toLowerCase().indexOf(q)>=0 || (r.code||"").toLowerCase().indexOf(q)>=0 || (rm && rm.name.toLowerCase().indexOf(q)>=0); }); }
+  var h = '<div class="page-head"><div><h2>Réservations</h2><div class="sub">' + store.reservations.length + ' réservation(s) dans la base partagée — site, chatbot et réception réunis</div></div>' +
     '<button class="btn btn-teal" data-act="new-res">+ Nouvelle réservation</button></div>';
-  h += '<div class="searchbar"><input id="resSearch" type="search" aria-label="Rechercher une réservation" placeholder="Rechercher un client, un téléphone, un hébergement…" value="' + esc(ui.search) + '" /></div>';
+  h += '<div class="searchbar"><input id="resSearch" type="search" aria-label="Rechercher une réservation" placeholder="Rechercher un client, un téléphone, un code, un hébergement…" value="' + esc(ui.search) + '" /></div>';
   h += '<div class="chips"><button class="chip' + (ui.resFilter==="all"?" on":"") + '" data-filter="all">Toutes</button>' +
     RES_STATUS.map(function(s){ return '<button class="chip' + (ui.resFilter===s?" on":"") + '" data-filter="' + s + '">' + s + '</button>'; }).join("") + '</div>';
   h += list.length ? list.map(function(r){ return resCard(r); }).join("") :
-    '<div class="empty">Aucune réservation ici pour le moment.<br/>Créez la première avec le bouton « Nouvelle réservation ».</div>';
+    '<div class="empty">Aucune réservation ici pour le moment.<br/>Créez la première avec le bouton « Nouvelle réservation », ou déposez une demande depuis l\'onglet « Site &amp; chatbot ».</div>';
   return h;
 }
 
@@ -454,12 +669,15 @@ function roomCard(r){
   }
   return '<div class="card"><div class="card-row"><div class="grow"><h3>' + esc(r.name) + '</h3>' +
     '<div class="meta">' + esc(r.type) + ' · ' + r.capacity + ' pers. · ' + esc(fmt$(r.priceNight)) + ' / nuit · ' + esc(fmt$(r.priceMonth)) + ' / mois</div>' +
+    (r.description ? '<div class="meta">' + esc(r.description) + '</div>' : '') +
     (occ ? '<div class="meta">Occupé par <b>' + esc(occ.clientName) + '</b> jusqu\'au ' + esc(fmtDate(occ.checkOut)) + '</div>' : '') +
     '</div><div>' + roomBadge(eff) + '</div></div>' + actionsHtml + '</div>';
 }
 function viewRooms(){
-  var h = '<div class="page-head"><div><h2>Hébergements</h2><div class="sub">Statut en direct, prix par nuit et par mois</div></div>' +
-    '<button class="btn btn-teal" data-act="new-room">+ Ajouter</button></div>';
+  var isOwner = session && session.role==="proprietaire";
+  var h = '<div class="page-head"><div><h2>Hébergements</h2><div class="sub">Inventaire unique de la base partagée : le site vend exactement ce que la réception voit</div></div>' +
+    (isOwner ? '<button class="btn btn-teal" data-act="new-room">+ Ajouter</button>' : '') + '</div>';
+  if(!isOwner) h += '<p class="note" style="margin-bottom:12px">L\'ajout et la suppression d\'un hébergement sont réservés au compte propriétaire ; la réception peut modifier les prix, les infos et les statuts.</p>';
   h += store.rooms.map(roomCard).join("");
   return h;
 }
@@ -471,7 +689,7 @@ function viewCaisse(){
   var total = 0; pays.forEach(function(p){ total += +p.amount||0; });
   var byMethod = {}; METHODS.forEach(function(m){ byMethod[m]=0; });
   pays.forEach(function(p){ byMethod[p.method] = (byMethod[p.method]||0) + (+p.amount||0); });
-  var h = '<div class="page-head"><div><h2>Caisse</h2><div class="sub">Paiements enregistrés, jour par jour</div></div></div>';
+  var h = '<div class="page-head"><div><h2>Caisse</h2><div class="sub">Paiements de la base partagée, jour par jour</div></div></div>';
   h += '<div class="day-nav"><button class="btn btn-soft btn-sm" data-act="day-prev">← Jour précédent</button>' +
     '<span class="day-label">' + esc(fmtDateLong(d)) + '</span>' +
     '<button class="btn btn-soft btn-sm" data-act="day-next">Jour suivant →</button>' +
@@ -482,7 +700,7 @@ function viewCaisse(){
   if(pays.length){
     h += pays.slice().reverse().map(function(p){
       var r = resById(p.resId);
-      return '<div class="pay-row"><div><div>' + esc(p.label || "Paiement") + '</div><div class="who">' + (r ? esc(r.clientName) + ' · ' : '') + esc(p.method) + '</div></div><div class="money">' + esc(fmt$(p.amount)) + '</div></div>';
+      return '<div class="pay-row"><div><div>' + esc(payLabel(p)) + '</div><div class="who">' + (r ? esc(r.clientName) + ' · ' : '') + esc(p.method) + '</div></div><div class="money">' + esc(fmt$(p.amount)) + '</div></div>';
     }).join("");
   } else h += '<div class="meta" style="padding-top:8px">Aucun paiement enregistré ce jour-là.</div>';
   h += '</div>';
@@ -495,7 +713,6 @@ function viewClients(){
   store.reservations.forEach(function(r){
     var key = (r.clientName||"").trim().toLowerCase() + "|" + (r.phone||"").trim();
     if(!map[key]) map[key] = { name: r.clientName, phone: r.phone||"", stays: 0, spent: 0, last: "" };
-    /* Totaux nets : tous les paiements comptent, remboursements (négatifs) déduits — y compris ceux des réservations annulées. */
     map[key].spent += resPaid(r);
     if(r.status==="Annulée") return;
     map[key].stays++;
@@ -503,7 +720,7 @@ function viewClients(){
   });
   var list = Object.keys(map).map(function(k){ return map[k]; }).filter(function(c){ return c.stays > 0; }).sort(function(a,b){ return b.stays - a.stays || (a.name<b.name?-1:1); });
   if(ui.clientSearch){ var q = ui.clientSearch.toLowerCase(); list = list.filter(function(c){ return c.name.toLowerCase().indexOf(q)>=0 || c.phone.toLowerCase().indexOf(q)>=0; }); }
-  var h = '<div class="page-head"><div><h2>Clients</h2><div class="sub">Liste construite automatiquement à partir des réservations</div></div></div>';
+  var h = '<div class="page-head"><div><h2>Clients</h2><div class="sub">Liste construite automatiquement à partir des réservations de la base partagée</div></div></div>';
   h += '<div class="searchbar"><input id="clientSearch" type="search" aria-label="Rechercher un client" placeholder="Rechercher un client…" value="' + esc(ui.clientSearch) + '" /></div>';
   h += list.length ? list.map(function(c){
     return '<div class="card"><div class="card-row"><div class="grow"><h3>' + esc(c.name) + '</h3>' +
@@ -514,27 +731,226 @@ function viewClients(){
   return h;
 }
 
-/* ---------- Sauvegarde ---------- */
-function viewBackup(){
+/* ---------- Site public & chatbot (même base) ---------- */
+function publicRooms(){ return store.rooms.filter(function(r){ return r.actif; }); }
+function viewSite(){
+  var h = '<div class="page-head"><div><h2>Site public &amp; chatbot</h2><div class="sub">Le côté client du système unifié — tout ce qui est déposé ici arrive dans la même base que la réception</div></div></div>';
+  h += '<div class="pub-hero"><h3>' + esc(hotel ? hotel.nom : "Crescence Hôtel et Appartement") + '</h3>' +
+    '<p>' + esc(hotel ? (hotel.adresse||"") : "Bujumbura, Burundi") + ' · Réservez en ligne : votre demande part directement à la réception, qui la confirme dans le logiciel de gestion.</p></div>';
+  h += '<h3 class="sec-title">Nos hébergements</h3>';
+  h += publicRooms().map(function(r){
+    return '<div class="card"><div class="card-row"><div class="grow"><h3>' + esc(r.name) + '</h3>' +
+      '<div class="meta">' + esc(r.type) + ' · jusqu\'à ' + r.capacity + ' pers.' + (r.description ? ' · ' + esc(r.description) : '') + '</div></div>' +
+      '<div style="text-align:right"><div class="money" style="font-size:17px">' + esc(fmt$(r.priceNight)) + '</div><div class="meta">par nuit</div></div></div></div>';
+  }).join("");
+  h += '<h3 class="sec-title">Demande de réservation en ligne</h3>';
+  h += '<div class="card"><form id="pubForm">' +
+    '<div class="grid2"><div class="field"><label>Nom complet *</label><input name="clientName" required placeholder="Ex. : Aline Ndayisenga" /></div>' +
+    '<div class="field"><label>Téléphone *</label><input name="phone" required placeholder="Ex. : +257 79 00 00 00" /></div></div>' +
+    '<div class="field"><label>Hébergement</label><select name="roomId" id="pubRoom">' +
+      publicRooms().map(function(r){ return '<option value="'+r.id+'" data-price="'+r.priceNight+'">' + esc(r.name) + ' — ' + esc(fmt$(r.priceNight)) + ' / nuit</option>'; }).join("") + '</select></div>' +
+    '<div class="grid2"><div class="field"><label>Arrivée *</label><input type="date" name="checkIn" id="pubIn" required value="' + todayStr() + '" /></div>' +
+    '<div class="field"><label>Départ *</label><input type="date" name="checkOut" id="pubOut" required value="' + addDays(todayStr(),1) + '" /></div></div>' +
+    '<div class="grid2"><div class="field"><label>Voyageurs</label><input type="number" name="guests" min="1" step="1" value="2" /></div>' +
+    '<div class="field"><label>Total estimé</label><div class="total-box" id="pubTotal" style="margin:0"></div></div></div>' +
+    '<div class="field" style="margin-top:14px"><label>Message (optionnel)</label><textarea name="notes" placeholder="Heure d\'arrivée, demande particulière…"></textarea></div>' +
+    '<div class="actions"><button type="submit" class="btn btn-teal">Envoyer la demande à la réception</button></div>' +
+    '<p class="note" style="margin-top:10px">La demande est créée « En attente » dans la base partagée ; la réception la confirme après vérification des disponibilités. Aucun paiement n\'est demandé en ligne.</p>' +
+    '</form></div>';
+  h += '<h3 class="sec-title">Assistant de réservation (chatbot)</h3>';
+  h += '<div class="chat-box"><div class="chat-log" id="chatLog"></div><div class="chat-input" id="chatInput"></div></div>';
+  return h;
+}
+
+/* Chatbot : conversation guidée qui écrit dans la même base, source « chatbot ». */
+var chat = { step: 0, msgs: [], data: {} };
+function chatReset(){
+  chat = { step: 0, msgs: [], data: {} };
+  chat.msgs.push({ from:"bot", text:"Bonjour et bienvenue chez Crescence. Je vous aide à déposer une demande de réservation — elle arrivera directement à la réception. Quel hébergement vous intéresse ?" });
+}
+function chatRender(){
+  var log = $("#chatLog"); if(!log) return;
+  log.innerHTML = chat.msgs.map(function(m){ return '<div class="msg ' + m.from + '">' + esc(m.text) + '</div>'; }).join("");
+  log.scrollTop = log.scrollHeight;
+  var inp = $("#chatInput"); if(!inp) return;
+  var rooms = publicRooms();
+  if(chat.step===0){
+    inp.innerHTML = '<div class="row"><select id="chatVal" aria-label="Hébergement">' + rooms.map(function(r){ return '<option value="'+r.id+'">' + esc(r.name) + ' — ' + esc(fmt$(r.priceNight)) + ' / nuit</option>'; }).join("") + '</select><button class="btn btn-teal" id="chatSend">Choisir</button></div>';
+  } else if(chat.step===1){
+    inp.innerHTML = '<div class="row"><input type="date" id="chatVal" aria-label="Date d\'arrivée" value="' + todayStr() + '" /><button class="btn btn-teal" id="chatSend">Continuer</button></div><p class="note" style="margin-top:8px">Date d\'arrivée</p>';
+  } else if(chat.step===2){
+    inp.innerHTML = '<div class="row"><input type="date" id="chatVal" aria-label="Date de départ" value="' + addDays(chat.data.checkIn||todayStr(),1) + '" /><button class="btn btn-teal" id="chatSend">Continuer</button></div><p class="note" style="margin-top:8px">Date de départ</p>';
+  } else if(chat.step===3){
+    inp.innerHTML = '<div class="row"><input type="number" id="chatVal" aria-label="Nombre de voyageurs" min="1" step="1" value="2" /><button class="btn btn-teal" id="chatSend">Continuer</button></div><p class="note" style="margin-top:8px">Nombre de voyageurs</p>';
+  } else if(chat.step===4){
+    inp.innerHTML = '<div class="row"><input type="text" id="chatVal" aria-label="Votre nom" placeholder="Votre nom complet" /><button class="btn btn-teal" id="chatSend">Continuer</button></div>';
+  } else if(chat.step===5){
+    inp.innerHTML = '<div class="row"><input type="tel" id="chatVal" aria-label="Votre téléphone" placeholder="Ex. : +257 79 00 00 00" /><button class="btn btn-teal" id="chatSend">Continuer</button></div>';
+  } else if(chat.step===6){
+    var rm = roomById(chat.data.roomId);
+    var n = nightsOf(chat.data);
+    inp.innerHTML = '<div class="total-box" style="margin-bottom:10px">' + esc(rm ? rm.name : "") + ' · ' + esc(fmtDate(chat.data.checkIn)) + ' → ' + esc(fmtDate(chat.data.checkOut)) + ' · ' + n + ' nuit(s) · Total estimé : <b>' + esc(fmt$(n * (rm ? rm.priceNight : 0))) + '</b></div>' +
+      '<div class="row"><button class="btn btn-teal" id="chatSend">Envoyer la demande</button><button class="btn btn-soft" id="chatRestart">Recommencer</button></div>';
+    var rs = $("#chatRestart"); if(rs) rs.addEventListener("click", function(){ chatReset(); chatRender(); });
+  } else {
+    inp.innerHTML = '<div class="row"><button class="btn btn-soft" id="chatRestart">Nouvelle demande</button></div>';
+    var rs2 = $("#chatRestart"); if(rs2) rs2.addEventListener("click", function(){ chatReset(); chatRender(); });
+  }
+  var send = $("#chatSend");
+  if(send) send.addEventListener("click", chatNext);
+  var cv = $("#chatVal");
+  if(cv) cv.addEventListener("keydown", function(e){ if(e.key==="Enter"){ e.preventDefault(); chatNext(); } });
+}
+function chatNext(){
+  var cv = $("#chatVal");
+  var val = cv ? cv.value : "";
+  if(chat.step===0){
+    var rm = roomById(val); if(!rm) return;
+    chat.data.roomId = val;
+    chat.msgs.push({ from:"user", text: rm.name });
+    chat.msgs.push({ from:"bot", text:"Très bien : " + rm.name + " à " + fmt$(rm.priceNight) + " la nuit. Quel jour arrivez-vous ?" });
+    chat.step = 1;
+  } else if(chat.step===1){
+    if(!val){ toast("Choisissez une date d'arrivée."); return; }
+    chat.data.checkIn = val;
+    chat.msgs.push({ from:"user", text: fmtDate(val) });
+    chat.msgs.push({ from:"bot", text:"Et quel jour repartez-vous ?" });
+    chat.step = 2;
+  } else if(chat.step===2){
+    if(!val || nightsOf({ checkIn: chat.data.checkIn, checkOut: val }) <= 0){ toast("La date de départ doit être après la date d'arrivée."); return; }
+    chat.data.checkOut = val;
+    chat.msgs.push({ from:"user", text: fmtDate(val) });
+    chat.msgs.push({ from:"bot", text:"Pour combien de voyageurs ?" });
+    chat.step = 3;
+  } else if(chat.step===3){
+    chat.data.guests = Math.max(1, parseInt(val)||1);
+    chat.msgs.push({ from:"user", text: chat.data.guests + " voyageur(s)" });
+    chat.msgs.push({ from:"bot", text:"À quel nom dois-je mettre la demande ?" });
+    chat.step = 4;
+  } else if(chat.step===4){
+    if(!String(val).trim()){ toast("Votre nom est nécessaire."); return; }
+    chat.data.clientName = String(val).trim();
+    chat.msgs.push({ from:"user", text: chat.data.clientName });
+    chat.msgs.push({ from:"bot", text:"Et votre numéro de téléphone, pour que la réception puisse vous confirmer ?" });
+    chat.step = 5;
+  } else if(chat.step===5){
+    if(!String(val).trim()){ toast("Votre téléphone est nécessaire."); return; }
+    chat.data.phone = String(val).trim();
+    chat.msgs.push({ from:"user", text: chat.data.phone });
+    chat.msgs.push({ from:"bot", text:"Voici le résumé de votre demande. Si tout est juste, envoyez-la : elle apparaîtra aussitôt à la réception, dans le logiciel de gestion." });
+    chat.step = 6;
+  } else if(chat.step===6){
+    var d = chat.data; var room = roomById(d.roomId);
+    submitPublicRequest({ clientName: d.clientName, phone: d.phone, roomId: d.roomId, checkIn: d.checkIn, checkOut: d.checkOut, guests: d.guests, notes: "" }, "chatbot")
+      .then(function(code){
+        chat.msgs.push({ from:"bot", text:"Demande envoyée. Votre code : " + code + ". La réception la verra immédiatement dans ses demandes en attente et vous confirmera par téléphone. Merci !" });
+        chat.step = 7; chatRender();
+        if(session) loadAll(true);
+      })
+      .catch(function(err){
+        chat.msgs.push({ from:"bot", text:"L'envoi n'a pas abouti (" + err.message + "). Vérifiez votre connexion puis réessayez." });
+        chatRender();
+      });
+    return;
+  }
+  chatRender();
+}
+/* Insertion publique : clé anon seule, statut en_attente, sans retour de ligne (règle RLS). */
+function submitPublicRequest(data, source){
+  var room = null;
+  for(var i=0;i<store.rooms.length;i++) if(store.rooms[i].id===data.roomId) room = store.rooms[i];
+  if(!room) return Promise.reject(new Error("Hébergement introuvable"));
+  var n = nightsOf(data);
+  var code = "CR-" + todayStr().replace(/-/g,"").slice(2) + "-" + Math.floor(100 + Math.random()*900);
+  var body = {
+    hotel_id: room.hotelId, hebergement_id: room.id, code: code,
+    client_nom: data.clientName, client_tel: data.phone,
+    arrivee: data.checkIn, depart: data.checkOut, voyageurs: data.guests||1,
+    prix_nuit: room.priceNight, total: n * room.priceNight,
+    statut: "en_attente", source: source, notes: data.notes || null
+  };
+  return sbFetch("/rest/v1/reservations", { method:"POST", prefer:"return=minimal", body: body }, SB_ANON)
+    .then(function(){ return code; });
+}
+
+/* ---------- Vue propriétaire (même base) ---------- */
+function viewOwner(){
+  if(publicMode || !session){
+    return '<div class="page-head"><div><h2>Propriétaire</h2></div></div><div class="empty">Connectez-vous avec le compte propriétaire pour voir cette vue.</div>';
+  }
+  if(session.role!=="proprietaire"){
+    return '<div class="page-head"><div><h2>Propriétaire</h2><div class="sub">Vue réservée au compte propriétaire</div></div></div>' +
+      '<div class="empty">Vous êtes connecté comme <b>' + esc(session.email) + '</b> (rôle : réception).<br/>Les chiffres du propriétaire se calculent depuis la même base, mais seul le compte <b>proprietaire@crescence.app</b> y a accès.<br/><br/><button class="btn btn-teal" data-act="switch-account">Changer de compte</button></div>';
+  }
+  var t = todayStr();
+  var month = t.slice(0,7);
+  var daysInMonth = new Date(+t.slice(0,4), +t.slice(5,7), 0).getDate();
+  var occToday = store.rooms.filter(function(r){ return effectiveStatus(r)==="Occupée"; }).length;
+  var occPct = store.rooms.length ? Math.round(occToday / store.rooms.length * 100) : 0;
+  var monthRes = store.reservations.filter(function(r){ return r.status!=="Annulée" && r.checkIn.slice(0,7)===month; });
+  var nightsSold = 0, stayRevenue = 0;
+  monthRes.forEach(function(r){ nightsSold += nightsOf(r); stayRevenue += resTotal(r); });
+  var adr = nightsSold ? stayRevenue / nightsSold : 0;
+  var revpar = store.rooms.length && daysInMonth ? (stayRevenue / (store.rooms.length * daysInMonth)) : 0;
+  var cashMonth = 0; store.payments.forEach(function(p){ if(p.date.slice(0,7)===month) cashMonth += +p.amount||0; });
+  var pending = store.reservations.filter(function(r){ return r.status==="En attente"; });
+  var h = '<div class="page-head"><div><h2>Vue propriétaire</h2><div class="sub">Calculée en direct depuis la base partagée — aucune ressaisie</div></div></div>';
+  h += '<div class="stats four">' +
+    '<div class="stat"><div class="n teal">' + occPct + ' %</div><div class="l">Occupation du jour (' + occToday + '/' + store.rooms.length + ')</div></div>' +
+    '<div class="stat"><div class="n wood">' + esc(fmt$(cashMonth)) + '</div><div class="l">Encaissé ce mois-ci</div></div>' +
+    '<div class="stat"><div class="n teal">' + esc(fmt$(adr)) + '</div><div class="l">Prix moyen / nuit (ADR, mois)</div></div>' +
+    '<div class="stat"><div class="n wood">' + esc(fmt$(revpar)) + '</div><div class="l">RevPAR (mois)</div></div></div>';
+  h += '<div class="stats four">' +
+    '<div class="stat"><div class="n teal">' + nightsSold + '</div><div class="l">Nuits vendues (arrivées du mois)</div></div>' +
+    '<div class="stat"><div class="n wood">' + esc(fmt$(stayRevenue)) + '</div><div class="l">Valeur des séjours du mois</div></div>' +
+    '<div class="stat"><div class="n teal">' + pending.length + '</div><div class="l">Demandes en attente</div></div>' +
+    '<div class="stat"><div class="n wood">' + store.reservations.filter(function(r){ return r.status!=="Annulée"; }).length + '</div><div class="l">Réservations au total</div></div></div>';
+  h += '<h3 class="sec-title">Revenu par canal</h3><div class="card">';
+  var bySrc = {};
+  store.reservations.forEach(function(r){ if(r.status==="Annulée") return; var k = r.source||"reception"; if(!bySrc[k]) bySrc[k] = { n:0, v:0 }; bySrc[k].n++; bySrc[k].v += resTotal(r); });
+  var srcKeys = Object.keys(bySrc);
+  h += srcKeys.length ? srcKeys.map(function(k){
+    return '<div class="pay-row"><div><div>' + esc(SRC_LABEL[k]||k) + '</div><div class="who">' + bySrc[k].n + ' réservation(s)</div></div><div class="money">' + esc(fmt$(bySrc[k].v)) + '</div></div>';
+  }).join("") : '<div class="meta">Aucune réservation pour le moment.</div>';
+  h += '</div>';
+  h += '<h3 class="sec-title">Dernières opérations</h3><div class="card">';
+  var lastPays = store.payments.slice(0,8);
+  h += lastPays.length ? lastPays.map(function(p){
+    var r = resById(p.resId);
+    return '<div class="pay-row"><div><div>' + esc(payLabel(p)) + '</div><div class="who">' + (r ? esc(r.clientName) + ' · ' : '') + esc(fmtDate(p.date)) + ' · ' + esc(p.method) + '</div></div><div class="money">' + esc(fmt$(p.amount)) + '</div></div>';
+  }).join("") : '<div class="meta">Aucun paiement enregistré.</div>';
+  h += '</div>';
+  if(pending.length){
+    h += '<h3 class="sec-title">Demandes en attente de confirmation</h3>';
+    h += pending.map(function(r){ return resCard(r, true); }).join("");
+  }
+  return h;
+}
+
+/* ---------- Base partagée ---------- */
+function viewBase(){
   var counts = store.rooms.length + " hébergements · " + store.reservations.length + " réservations · " + store.payments.length + " paiements";
-  return '<div class="page-head"><div><h2>Sauvegarde</h2><div class="sub">Vos données restent sur cet appareil</div></div></div>' +
-  '<div class="card"><h3>État actuel</h3><div class="meta">' + counts + '</div>' +
-  '<p class="note" style="margin-top:10px">Les données sont enregistrées automatiquement dans le navigateur de cet appareil et survivent à la fermeture de la page. Pensez à exporter une sauvegarde de temps en temps, surtout avant de changer d\'appareil.</p>' +
-  '<div class="actions"><button class="btn btn-teal" data-act="export">Télécharger la sauvegarde (JSON)</button>' +
-  '<label class="btn btn-ghost file-btn">Importer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" /></label></div></div>' +
-  '<div class="card"><h3>Zone de réinitialisation</h3><p class="note">Efface toutes les réservations et tous les paiements, et remet les 5 hébergements de départ, tous Libres. À n\'utiliser qu\'en connaissance de cause.</p>' +
-  '<div class="actions"><button class="btn btn-danger" data-act="reset">Réinitialiser les données</button></div></div>';
+  var h = '<div class="page-head"><div><h2>Base partagée</h2><div class="sub">Le socle S1 : une seule base pour le site, le chatbot, la réception et le propriétaire</div></div></div>';
+  h += '<div class="card"><h3>Connexion</h3><div class="meta">Projet Supabase « Crescence » · ' + counts + '</div>' +
+    '<div class="kv"><span>Synchronisation <b>' + esc(syncMode) + '</b></span>' + (lastSync ? '<span>Dernière lecture <b>' + pad(lastSync.getHours()) + ':' + pad(lastSync.getMinutes()) + ':' + pad(lastSync.getSeconds()) + '</b></span>' : '') + '</div>' +
+    (session ? '<div class="kv"><span>Compte <b>' + esc(session.email) + '</b></span><span>Rôle <b>' + esc(session.role==="proprietaire" ? "Propriétaire" : "Réception") + '</b></span></div>' : '') +
+    '<p class="note" style="margin-top:10px">Chaque changement fait ici — ou déposé depuis le site et le chatbot — est écrit dans la même base et devient visible sur tous les écrans du système, sans ressaisie ni export à transporter.</p>' +
+    '<div class="actions"><button class="btn btn-teal" data-act="reload">Recharger depuis la base</button>' +
+    '<button class="btn btn-soft" data-act="export">Exporter une copie (JSON)</button></div></div>';
+  h += '<div class="card"><h3>Règles de la base</h3>' +
+    '<p class="note">Public : lecture des hébergements et création de demandes « En attente » uniquement — un visiteur ne peut ni lire les réservations des autres, ni confirmer la sienne.<br/>Personnel : accès complet à son hôtel avec son compte ; l\'ajout et la suppression d\'hébergements sont réservés au propriétaire.<br/>Les règles métier restent appliquées à l\'écran : acompte ≤ total, zéro double réservation confirmée, remboursement d\'annulation en caisse, chambre en maintenance non réservable, check-in jamais avant le jour d\'arrivée.</p></div>';
+  return h;
 }
 
 /* =============== Modales =============== */
 function openSheet(html){ $("#sheet").innerHTML = html; $("#overlay").classList.add("open"); }
-function closeSheet(){ $("#overlay").classList.remove("open"); $("#sheet").innerHTML = ""; }
+function closeSheet(){ $("#overlay").classList.remove("open"); $("#sheet").innerHTML = ""; if(reloadPending){ reloadPending = false; render(); } }
 $("#overlay").addEventListener("click", function(e){ if(e.target===this) closeSheet(); });
 document.addEventListener("keydown", function(e){
   if(e.key==="Escape" && $("#overlay").classList.contains("open")) closeSheet();
 });
-
 function methodOptions(sel){ return METHODS.map(function(m){ return '<option' + (m===sel?" selected":"") + '>' + m + '</option>'; }).join(""); }
+function fail(err){ toast("Base partagée : " + err.message, true); }
 
 function resForm(r){
   var isNew = !r;
@@ -550,11 +966,9 @@ function resForm(r){
   if(isNew && statusChoices.indexOf(r.status)<0) r.status = "Confirmée";
   var stOpts = statusChoices.map(function(s){ return '<option' + (s===r.status?" selected":"") + '>' + s + '</option>'; }).join("");
   var curDep = isNew ? 0 : acompteAmount(r.id);
-  var curDepPay = isNew ? null : (acomptePayments(r.id)[0] || null);
-  var curDepMethod = curDepPay ? curDepPay.method : "Espèces";
   openSheet(
     '<h3>' + (isNew ? "Nouvelle réservation" : "Modifier la réservation") + '</h3>' +
-    '<div class="sub">Le total se calcule tout seul : nuits × prix par nuit.</div>' +
+    '<div class="sub">Enregistrée directement dans la base partagée. Le total se calcule tout seul : nuits × prix par nuit.</div>' +
     '<form id="resForm">' +
     '<div class="field"><label>Nom du client *</label><input name="clientName" aria-label="Nom du client" required value="' + esc(r.clientName) + '" placeholder="Ex. : Aline Ndayisenga" /></div>' +
     '<div class="grid2"><div class="field"><label>Téléphone *</label><input name="phone" aria-label="Téléphone" required value="' + esc(r.phone||"") + '" placeholder="Ex. : +257 79 00 00 00" /></div>' +
@@ -565,7 +979,7 @@ function resForm(r){
     '<div class="grid2"><div class="field"><label>Prix par nuit ($)</label><input type="number" name="priceNight" id="fPrice" aria-label="Prix par nuit" min="0" step="0.5" value="' + r.priceNight + '" /></div>' +
     '<div class="field"><label>Statut</label><select name="status" aria-label="Statut">' + stOpts + '</select></div></div>' +
     '<div class="grid2"><div class="field"><label>Acompte reçu ($)</label><input type="number" name="deposit" aria-label="Acompte reçu" min="0" step="0.5" value="' + curDep + '" /></div>' +
-    '<div class="field"><label>Moyen de l\'acompte</label><select name="depositMethod" aria-label="Moyen de l\'acompte">' + methodOptions(curDepMethod) + '</select></div></div>' +
+    '<div class="field"><label>Moyen de l\'acompte</label><select name="depositMethod" aria-label="Moyen de l\'acompte">' + methodOptions("Espèces") + '</select></div></div>' +
     '<div class="total-box" id="fTotal"></div>' +
     '<div class="field"><label>Notes</label><textarea name="notes" aria-label="Notes" placeholder="Demande particulière, heure d\'arrivée…">' + esc(r.notes||"") + '</textarea></div>' +
     '<div class="actions sticky-actions"><button type="submit" class="btn btn-teal">' + (isNew ? "Créer la réservation" : "Enregistrer") + '</button>' +
@@ -588,88 +1002,120 @@ function resForm(r){
       guests: Math.max(1, parseInt(fd.get("guests"))||1),
       roomId: String(fd.get("roomId")), checkIn: String(fd.get("checkIn")), checkOut: String(fd.get("checkOut")),
       priceNight: parseFloat(fd.get("priceNight"))||0, status: String(fd.get("status")), notes: String(fd.get("notes")||"").trim() };
-    if(!data.clientName){ toast("Le nom du client est obligatoire."); return; }
-    if(!data.phone){ toast("Le téléphone du client est obligatoire."); return; }
-    if(nightsOf(data) <= 0){ toast("Vérifiez les dates : le départ doit suivre l'arrivée."); return; }
+    if(!data.clientName){ toast("Le nom du client est obligatoire.", true); return; }
+    if(!data.phone){ toast("Le téléphone du client est obligatoire.", true); return; }
+    if(nightsOf(data) <= 0){ toast("Vérifiez les dates : le départ doit suivre l'arrivée.", true); return; }
     var targetRoom = roomById(data.roomId);
-    if(!targetRoom){ toast("Choisissez un hébergement."); return; }
+    if(!targetRoom){ toast("Choisissez un hébergement.", true); return; }
     if(targetRoom.status==="Maintenance" && (isNew || data.roomId!==origRoomId)){
-      toast("« " + targetRoom.name + " » est en maintenance — indisponible à la réservation."); return;
+      toast("« " + targetRoom.name + " » est en maintenance — indisponible à la réservation.", true); return;
     }
     var total = nightsOf(data) * data.priceNight;
     var dep = parseFloat(fd.get("deposit"))||0;
     var depMethod = String(fd.get("depositMethod")||"Espèces");
-    if(dep < 0){ toast("L'acompte ne peut pas être négatif."); return; }
-    if(dep > total){ toast("Acompte refusé : " + fmt$(dep) + " dépasse le total du séjour (" + fmt$(total) + ")."); return; }
-    var conflict = findConflict(data, isNew ? null : r.id);
-    if(conflict){
-      toast("Conflit de dates : " + targetRoom.name + " est déjà réservé par " + conflict.clientName + " (" + (conflict.code||"") + ") du " + fmtDate(conflict.checkIn) + " au " + fmtDate(conflict.checkOut) + ".");
-      return;
-    }
-    if(isNew){
-      data.id = uid("res");
-      var code = "CR-" + String(store.reservations.length + 1).padStart(3,"0") + "-" + Math.floor(100 + Math.random()*900);
-      data.code = code;
-      store.reservations.push(data);
-      if(dep > 0) addPayment(data.id, dep, depMethod, todayStr(), "Acompte — " + data.code);
-      toast("Réservation créée : " + code);
-    } else {
-      var old = resById(r.id); if(!old){ closeSheet(); return; }
-      var prevStatus = old.status, prevRoomId = old.roomId;
-      Object.keys(data).forEach(function(k){ old[k] = data[k]; });
-      /* Correction de l'acompte : on remplace le(s) paiement(s) d'acompte liés par le nouveau montant/moyen. */
-      var acs = acomptePayments(old.id);
-      if(Math.abs(acompteAmount(old.id) - dep) > 0.001 || (acs.length && acs[0].method !== depMethod)){
-        var keepDate = acs.length ? acs[0].date : todayStr();
-        var acIds = {}; acs.forEach(function(p){ acIds[p.id] = true; });
-        store.payments = store.payments.filter(function(p){ return !acIds[p.id]; });
-        if(dep > 0) addPayment(old.id, dep, depMethod, keepDate, "Acompte — " + (old.code||""));
+    if(dep < 0){ toast("L'acompte ne peut pas être négatif.", true); return; }
+    if(dep > total){ toast("Acompte refusé : " + fmt$(dep) + " dépasse le total du séjour (" + fmt$(total) + ").", true); return; }
+    loadAll(false).then(function(){
+      var conflict = findConflict(data, isNew ? null : r.id);
+      if(conflict && conflict.status!=="En attente"){
+        toast("Conflit de dates : " + targetRoom.name + " est déjà réservé par " + conflict.clientName + " (" + (conflict.code||"") + ") du " + fmtDate(conflict.checkIn) + " au " + fmtDate(conflict.checkOut) + ".", true);
+        return;
       }
-      if(old.status==="Arrivée"){ var rm = roomById(old.roomId); if(rm) rm.status = "Occupée"; }
-      if(prevStatus==="Arrivée" && old.status!=="Arrivée"){
-        var prm = roomById(prevRoomId);
-        if(prm && !activeStay(prm.id)) prm.status = (old.status==="Terminée") ? "Ménage" : "Libre";
+      if(conflict && conflict.status==="En attente" && data.status!=="En attente"){
+        toast("Attention : une demande en attente de " + conflict.clientName + " (" + (conflict.code||"") + ") couvre déjà ces dates sur " + targetRoom.name + ".", true);
+        return;
       }
-      toast("Réservation mise à jour.");
-    }
-    saveStore(); closeSheet(); render();
+      var body = { hotel_id: targetRoom.hotelId, hebergement_id: data.roomId, client_nom: data.clientName, client_tel: data.phone,
+        arrivee: data.checkIn, depart: data.checkOut, voyageurs: data.guests, prix_nuit: data.priceNight, total: total,
+        statut: RES_TO_DB[data.status] || "confirmee", notes: data.notes || null };
+      if(isNew){
+        body.code = genCode(); body.source = "reception";
+        sb("/rest/v1/reservations", { method:"POST", prefer:"return=representation", body: body }).then(function(created){
+          var nr = created && created.length ? mapRes(created[0]) : null;
+          if(!nr) throw new Error("Création non confirmée par la base.");
+          if(dep > 0) return dbInsertPayment(nr, dep, depMethod, "acompte").then(function(){ return nr; });
+          return nr;
+        }).then(function(nr){
+          toast("Réservation créée dans la base partagée : " + nr.code);
+          closeSheet(); return loadAll(true);
+        }).catch(fail);
+      } else {
+        var old = resById(r.id); if(!old){ closeSheet(); return; }
+        var prevStatus = old.status, prevRoomId = old.roomId;
+        sb("/rest/v1/reservations?id=eq." + old.id, { method:"PATCH", prefer:"return=minimal", body: body }).then(function(){
+          var acs = acomptePayments(old.id);
+          var chain = Promise.resolve();
+          if(acs.length && (Math.abs(acompteAmount(old.id) - dep) > 0.001)){
+            chain = sb("/rest/v1/paiements?reservation_id=eq." + old.id + "&type=eq.acompte", { method:"DELETE", prefer:"return=minimal" })
+              .then(function(){ if(dep > 0) return dbInsertPayment(old, dep, depMethod, "acompte"); });
+          } else if(!acs.length && dep > 0){
+            chain = dbInsertPayment(old, dep, depMethod, "acompte");
+          }
+          return chain;
+        }).then(function(){
+          var chain2 = Promise.resolve();
+          var newMapped = { status: data.status, roomId: data.roomId };
+          if(newMapped.status==="Arrivée") chain2 = dbPatchRoom(newMapped.roomId, { statut_manu: "occupee" });
+          if(prevStatus==="Arrivée" && newMapped.status!=="Arrivée" && !activeStay(prevRoomId)){
+            chain2 = chain2.then(function(){ return dbPatchRoom(prevRoomId, { statut_manu: newMapped.status==="Terminée" ? "menage" : "libre" }); });
+          }
+          return chain2;
+        }).then(function(){
+          toast("Réservation mise à jour dans la base partagée.");
+          closeSheet(); return loadAll(true);
+        }).catch(fail);
+      }
+    }).catch(fail);
   });
 }
 
 function roomForm(r){
   var isNew = !r;
-  r = r || { name:"", type:"Chambre", capacity:2, priceNight:50, priceMonth:1000, status:"Libre" };
+  var isOwner = session && session.role==="proprietaire";
+  r = r || { name:"", type:"Chambre", capacity:2, priceNight:50, priceMonth:1000, status:"Libre", description:"" };
   var stay = isNew ? null : activeStay(r.id);
   var shownStatus = stay ? "Occupée" : r.status;
   var typeOpts = ["Chambre","Suite","Appartement"].map(function(t){ return '<option' + (t===r.type?" selected":"") + '>' + t + '</option>'; }).join("");
   var stOpts = ROOM_STATUS.map(function(s){ return '<option' + (s===shownStatus?" selected":"") + '>' + s + '</option>'; }).join("");
-  openSheet('<h3>' + (isNew ? "Nouvel hébergement" : "Modifier l'hébergement") + '</h3><div class="sub">' + esc(r.name||"") + '</div>' +
+  openSheet('<h3>' + (isNew ? "Nouvel hébergement" : "Modifier l'hébergement") + '</h3><div class="sub">' + esc(r.name||"") + ' — visible aussitôt sur le site public</div>' +
     '<form id="roomForm">' +
     '<div class="field"><label>Nom *</label><input name="name" required value="' + esc(r.name) + '" /></div>' +
     '<div class="grid2"><div class="field"><label>Type</label><select name="type">' + typeOpts + '</select></div>' +
     '<div class="field"><label>Capacité (pers.)</label><input type="number" name="capacity" min="1" value="' + r.capacity + '" /></div></div>' +
     '<div class="grid2"><div class="field"><label>Prix par nuit ($)</label><input type="number" name="priceNight" min="0" step="0.5" value="' + r.priceNight + '" /></div>' +
     '<div class="field"><label>Prix par mois ($)</label><input type="number" name="priceMonth" min="0" step="1" value="' + r.priceMonth + '" /></div></div>' +
+    '<div class="field"><label>Description</label><textarea name="description" placeholder="Ce que le client lit sur le site…">' + esc(r.description||"") + '</textarea></div>' +
     '<div class="field"><label>Statut</label><select name="status"' + (stay ? ' disabled' : '') + '>' + stOpts + '</select>' +
     (stay ? '<div class="note" style="margin-top:6px">Séjour en cours (' + esc(stay.clientName) + ') : le statut reste « Occupée » jusqu\'au départ.</div>' : '') + '</div>' +
     '<div class="actions sticky-actions"><button type="submit" class="btn btn-teal">Enregistrer</button><button type="button" class="btn btn-soft" data-act="close">Annuler</button>' +
-    (!isNew ? '<button type="button" class="btn btn-danger" id="delRoom">Supprimer</button>' : '') + '</div></form>');
+    (!isNew && isOwner ? '<button type="button" class="btn btn-danger" id="delRoom">Supprimer</button>' : '') + '</div></form>');
   $("#roomForm").addEventListener("submit", function(e){
     e.preventDefault();
     var fd = new FormData(this);
-    var data = { name: String(fd.get("name")||"").trim(), type: String(fd.get("type")), capacity: parseInt(fd.get("capacity"))||1,
-      priceNight: parseFloat(fd.get("priceNight"))||0, priceMonth: parseFloat(fd.get("priceMonth"))||0, status: String(fd.get("status")) };
-    if(!data.name){ toast("Le nom est obligatoire."); return; }
-    if(stay) data.status = "Occupée";
-    if(isNew){ data.id = uid("r"); store.rooms.push(data); toast("Hébergement ajouté."); }
-    else { var old = roomById(r.id); Object.keys(data).forEach(function(k){ old[k] = data[k]; }); toast("Hébergement mis à jour."); }
-    saveStore(); closeSheet(); render();
+    var body = { nom: String(fd.get("name")||"").trim(), type: String(fd.get("type")), capacite: parseInt(fd.get("capacity"))||1,
+      prix_nuit: parseFloat(fd.get("priceNight"))||0, prix_mois: parseFloat(fd.get("priceMonth"))||0,
+      description: String(fd.get("description")||"").trim() || null, statut_manu: ROOM_TO_DB[String(fd.get("status"))] || "libre" };
+    if(!body.nom){ toast("Le nom est obligatoire.", true); return; }
+    if(stay) body.statut_manu = "occupee";
+    var op;
+    if(isNew){
+      body.hotel_id = hotel ? hotel.id : session.hotelId;
+      body.ordre = store.rooms.length + 1; body.actif = true;
+      op = sb("/rest/v1/hebergements", { method:"POST", prefer:"return=minimal", body: body });
+    } else {
+      op = dbPatchRoom(r.id, body);
+    }
+    op.then(function(){
+      toast(isNew ? "Hébergement ajouté à la base partagée." : "Hébergement mis à jour dans la base partagée.");
+      closeSheet(); return loadAll(true);
+    }).catch(fail);
   });
   var del = $("#delRoom");
   if(del) del.addEventListener("click", function(){
-    confirmSheet("Supprimer « " + r.name + " » ?", "Les réservations liées garderont leur historique, mais l'hébergement disparaîtra des listes.", "Supprimer", function(){
-      store.rooms = store.rooms.filter(function(x){ return x.id!==r.id; });
-      saveStore(); closeSheet(); render(); toast("Hébergement supprimé.");
+    confirmSheet("Supprimer « " + r.name + " » ?", "L'hébergement disparaîtra de la base partagée, donc aussi du site public. Les réservations passées gardent leur historique.", "Supprimer", function(){
+      sb("/rest/v1/hebergements?id=eq." + r.id, { method:"DELETE", prefer:"return=minimal" }).then(function(){
+        closeSheet(); toast("Hébergement supprimé."); return loadAll(true);
+      }).catch(fail);
     });
   });
 }
@@ -684,10 +1130,12 @@ function payForm(r){
     e.preventDefault();
     var fd = new FormData(this);
     var amt = parseFloat(fd.get("amount"))||0;
-    if(amt <= 0){ toast("Montant invalide."); return; }
-    if(amt > resDue(r)){ toast("Paiement refusé : " + fmt$(amt) + " dépasse le reste à payer (" + fmt$(resDue(r)) + ")."); return; }
-    addPayment(r.id, amt, String(fd.get("method")), todayStr(), "Paiement — " + (r.code||""));
-    saveStore(); closeSheet(); render(); toast("Paiement de " + fmt$(amt) + " enregistré.");
+    if(amt <= 0){ toast("Montant invalide.", true); return; }
+    if(amt > resDue(r)){ toast("Paiement refusé : " + fmt$(amt) + " dépasse le reste à payer (" + fmt$(resDue(r)) + ").", true); return; }
+    dbInsertPayment(r, amt, String(fd.get("method")), "paiement").then(function(){
+      toast("Paiement de " + fmt$(amt) + " enregistré dans la base partagée.");
+      closeSheet(); return loadAll(true);
+    }).catch(fail);
   });
 }
 
@@ -705,11 +1153,15 @@ function checkoutForm(r){
     e.preventDefault();
     var fd = new FormData(this);
     var amt = parseFloat(fd.get("amount"))||0;
-    if(amt > resDue(r)){ toast("Paiement refusé : il dépasse le reste à régler (" + fmt$(resDue(r)) + ")."); return; }
-    if(amt > 0) addPayment(r.id, amt, String(fd.get("method")), todayStr(), "Solde au départ — " + (r.code||""));
-    r.status = "Terminée";
-    var rm = roomById(r.roomId); if(rm) rm.status = "Ménage";
-    saveStore(); closeSheet(); render(); toast("Départ enregistré — chambre en Ménage.");
+    if(amt > resDue(r)){ toast("Paiement refusé : il dépasse le reste à régler (" + fmt$(resDue(r)) + ").", true); return; }
+    var chain = Promise.resolve();
+    if(amt > 0) chain = dbInsertPayment(r, amt, String(fd.get("method")), "solde");
+    chain.then(function(){ return dbPatchRes(r.id, { statut: "terminee" }); })
+      .then(function(){ return dbPatchRoom(r.roomId, { statut_manu: "menage" }); })
+      .then(function(){
+        toast("Départ enregistré — chambre en Ménage.");
+        closeSheet(); return loadAll(true);
+      }).catch(fail);
   });
 }
 
@@ -743,23 +1195,20 @@ function confirmSheet(title, text, okLabel, onOk){
 function handleAct(act, el){
   var id = el.getAttribute("data-id");
   if(act==="close"){ closeSheet(); return; }
+  if(act==="switch-account"){ signOut(); return; }
+  if(act==="reload"){ loadAll(true); toast("Base rechargée."); return; }
   if(act==="new-res"){ resForm(null); return; }
   if(act==="new-room"){ roomForm(null); return; }
   if(act==="day-prev"){ ui.caisseDate = addDays(ui.caisseDate,-1); render(); return; }
   if(act==="day-next"){ ui.caisseDate = addDays(ui.caisseDate,1); render(); return; }
   if(act==="day-today"){ ui.caisseDate = todayStr(); render(); return; }
   if(act==="export"){
-    var blob = new Blob([JSON.stringify(store, null, 2)], {type:"application/json"});
+    var snapshot = { hotel: hotel, exporte_le: new Date().toISOString(), hebergements: store.rooms, reservations: store.reservations, paiements: store.payments };
+    var blob = new Blob([JSON.stringify(snapshot, null, 2)], {type:"application/json"});
     var a = document.createElement("a"); a.href = URL.createObjectURL(blob);
-    a.download = "crescence-hotel-sauvegarde-" + todayStr() + ".json"; a.click();
+    a.download = "crescence-base-partagee-" + todayStr() + ".json"; a.click();
     setTimeout(function(){ URL.revokeObjectURL(a.href); }, 2000);
-    toast("Sauvegarde téléchargée."); return;
-  }
-  if(act==="reset"){
-    confirmSheet("Réinitialiser toutes les données ?", "Toutes les réservations et tous les paiements seront effacés. Les 5 hébergements de départ seront restaurés, tous Libres.", "Tout effacer", function(){
-      store = { rooms: JSON.parse(JSON.stringify(seedRooms)), reservations: [], payments: [] };
-      saveStore(); closeSheet(); render(); toast("Données réinitialisées.");
-    }); return;
+    toast("Copie de la base partagée téléchargée."); return;
   }
   var r = id ? resById(id) : null;
   var rm = id ? roomById(id) : null;
@@ -768,38 +1217,65 @@ function handleAct(act, el){
   if(act==="room-status" && rm){
     var stay = activeStay(rm.id);
     var ns = el.getAttribute("data-status");
-    if(stay && ns!=="Occupée"){ toast("Impossible : " + rm.name + " est occupée par " + stay.clientName + " jusqu'au " + fmtDate(stay.checkOut) + " — statut modifiable après le départ."); return; }
-    rm.status = ns; saveStore(); render(); toast(rm.name + " → " + rm.status); return;
+    if(stay && ns!=="Occupée"){ toast("Impossible : " + rm.name + " est occupée par " + stay.clientName + " jusqu'au " + fmtDate(stay.checkOut) + " — statut modifiable après le départ.", true); return; }
+    dbPatchRoom(rm.id, { statut_manu: ROOM_TO_DB[ns] || "libre" }).then(function(){
+      toast(rm.name + " → " + ns); return loadAll(true);
+    }).catch(fail); return;
   }
   if(act==="pay" && r){ payForm(r); return; }
   if(act==="invoice" && r){ invoiceSheet(r); return; }
-  if(act==="print-invoice"){ window.print(); return; }
-  if(act==="checkin" && r){
-    if(r.checkIn > todayStr()){ toast("Arrivée prévue le " + fmtDateLong(r.checkIn) + " — check-in possible à partir de ce jour."); return; }
-    r.status = "Arrivée"; var room = roomById(r.roomId); if(room) room.status = "Occupée";
-    saveStore(); render(); toast("Arrivée enregistrée — " + (room ? room.name : "") + " occupée."); return;
+  if(act==="confirm-res" && r){
+    loadAll(false).then(function(){
+      var fresh = resById(r.id); if(!fresh) return;
+      var conflict = findConflict({ roomId: fresh.roomId, checkIn: fresh.checkIn, checkOut: fresh.checkOut, status: "Confirmée" }, fresh.id);
+      if(conflict){
+        toast("Confirmation impossible : " + (roomById(fresh.roomId)||{}).name + " est déjà réservé par " + conflict.clientName + " (" + (conflict.code||"") + ", " + conflict.status + ") sur ces dates.", true);
+        render(); return;
+      }
+      return dbPatchRes(fresh.id, { statut: "confirmee" }).then(function(){
+        toast("Demande " + (fresh.code||"") + " confirmée — visible partout dans le système.");
+        return loadAll(true);
+      });
+    }).catch(fail); return;
   }
+  if(act==="checkin" && r){
+    if(r.checkIn > todayStr()){ toast("Arrivée prévue le " + fmtDateLong(r.checkIn) + " — check-in possible à partir de ce jour.", true); return; }
+    if(r.status==="En attente"){
+      var conflict2 = findConflict({ roomId: r.roomId, checkIn: r.checkIn, checkOut: r.checkOut, status: "Confirmée" }, r.id);
+      if(conflict2){ toast("Check-in impossible : conflit avec la réservation de " + conflict2.clientName + " (" + (conflict2.code||"") + ").", true); return; }
+    }
+    dbPatchRes(r.id, { statut: "arrivee" }).then(function(){ return dbPatchRoom(r.roomId, { statut_manu: "occupee" }); })
+      .then(function(){
+        var room = roomById(r.roomId);
+        toast("Arrivée enregistrée — " + (room ? room.name : "") + " occupée.");
+        return loadAll(true);
+      }).catch(fail); return;
+  }
+  if(act==="print-invoice"){ window.print(); return; }
   if(act==="checkout" && r){ checkoutForm(r); return; }
   if(act==="cancel-res" && r){
     var netPaid = resPaid(r);
     var cancelText = r.clientName + " — " + (roomById(r.roomId) ? roomById(r.roomId).name : "") + ", du " + fmtDate(r.checkIn) + " au " + fmtDate(r.checkOut) + ".";
-    if(netPaid > 0) cancelText += " Acompte de " + fmt$(netPaid) + " — un remboursement sera enregistré en caisse.";
+    if(netPaid > 0) cancelText += " Montant net encaissé : " + fmt$(netPaid) + " — un remboursement du même montant sera enregistré en caisse.";
     confirmSheet("Annuler cette réservation ?", cancelText, "Annuler la réservation", function(){
-      if(resPaid(r) > 0){
-        var toRefund = store.payments.filter(function(p){ return p.resId===r.id && (+p.amount||0) > 0; });
-        toRefund.forEach(function(p){
-          var isAcompte = p.label && p.label.indexOf("Acompte")===0;
-          addPayment(r.id, -(+p.amount||0), p.method, todayStr(), (isAcompte ? "Remboursement acompte — " : "Remboursement — ") + (r.code||""));
-        });
-      }
-      r.status = "Annulée";
-      var room2 = roomById(r.roomId);
-      if(room2 && !activeStay(room2.id) && room2.status==="Occupée") room2.status = "Libre";
-      saveStore(); closeSheet(); render(); toast(netPaid > 0 ? "Réservation annulée — remboursement de " + fmt$(netPaid) + " enregistré en caisse." : "Réservation annulée.");
+      var positives = store.payments.filter(function(p){ return p.resId===r.id && (+p.amount||0) > 0; });
+      var chain = Promise.resolve();
+      positives.forEach(function(p){
+        chain = chain.then(function(){ return dbInsertPayment(r, -(+p.amount||0), p.method, p.type==="acompte" ? "remboursement_acompte" : "remboursement"); });
+      });
+      chain.then(function(){ return dbPatchRes(r.id, { statut: "annulee" }); })
+        .then(function(){
+          var room2 = roomById(r.roomId);
+          if(room2 && room2.status==="Occupée" && !activeStay(room2.id)) return dbPatchRoom(room2.id, { statut_manu: "libre" });
+        })
+        .then(function(){
+          closeSheet();
+          toast(netPaid > 0 ? "Réservation annulée — remboursement de " + fmt$(netPaid) + " enregistré en caisse." : "Réservation annulée.");
+          return loadAll(true);
+        }).catch(fail);
     }); return;
   }
 }
-/* Délégation globale : couvre la vue ET les modales (feuille), une seule fois. */
 document.addEventListener("click", function(e){
   var el = e.target && e.target.closest ? e.target.closest("[data-act]") : null;
   if(el) handleAct(el.getAttribute("data-act"), el);
@@ -812,54 +1288,72 @@ function bindView(){
   if(rs) rs.addEventListener("input", function(){ ui.search = this.value; var pos = this.selectionStart; render(); var n = $("#resSearch"); n.focus(); n.setSelectionRange(pos, pos); });
   var cs = $("#clientSearch");
   if(cs) cs.addEventListener("input", function(){ ui.clientSearch = this.value; var pos = this.selectionStart; render(); var n = $("#clientSearch"); n.focus(); n.setSelectionRange(pos, pos); });
-  var imp = $("#importFile");
-  if(imp) imp.addEventListener("change", function(){
-    var f = this.files[0]; if(!f) return;
-    var reader = new FileReader();
-    reader.onload = function(){
-      try{
-        var p = JSON.parse(String(reader.result));
-        if(!p || !p.rooms || !p.reservations || !p.payments) throw new Error("format");
-        store = p; saveStore(); render(); toast("Sauvegarde importée avec succès.");
-      }catch(e){ toast("Fichier invalide : import annulé."); }
+  var pf = $("#pubForm");
+  if(pf){
+    var updPub = function(){
+      var price = 0; var sel = $("#pubRoom"); if(sel && sel.selectedIndex>=0) price = parseFloat(sel.options[sel.selectedIndex].getAttribute("data-price"))||0;
+      var n = nightsOf({ checkIn: $("#pubIn").value, checkOut: $("#pubOut").value });
+      var box = $("#pubTotal");
+      if(box) box.innerHTML = n > 0 ? n + ' nuit(s) · <b>' + esc(fmt$(n*price)) + '</b>' : '<b style="color:var(--red)">Dates invalides</b>';
     };
-    reader.readAsText(f);
-  });
+    ["pubRoom","pubIn","pubOut"].forEach(function(i){ var el2 = document.getElementById(i); if(el2){ el2.addEventListener("input", updPub); el2.addEventListener("change", updPub); } });
+    updPub();
+    pf.addEventListener("submit", function(e){
+      e.preventDefault();
+      var fd = new FormData(pf);
+      var data = { clientName: String(fd.get("clientName")||"").trim(), phone: String(fd.get("phone")||"").trim(),
+        roomId: String(fd.get("roomId")), checkIn: String(fd.get("checkIn")), checkOut: String(fd.get("checkOut")),
+        guests: Math.max(1, parseInt(fd.get("guests"))||1), notes: String(fd.get("notes")||"").trim() };
+      if(!data.clientName || !data.phone){ toast("Nom et téléphone sont nécessaires pour que la réception vous rappelle.", true); return; }
+      if(nightsOf(data) <= 0){ toast("Vérifiez les dates : le départ doit suivre l'arrivée.", true); return; }
+      submitPublicRequest(data, "site").then(function(code){
+        toast("Demande envoyée — code " + code + ". La réception la voit déjà dans ses demandes en attente.");
+        pf.reset();
+        if(session) loadAll(true); else render();
+      }).catch(function(err){ toast("Envoi impossible : " + err.message, true); });
+    });
+  }
+  if($("#chatLog")){ if(!chat.msgs.length) chatReset(); chatRender(); }
 }
 
 /* =============== Accès =============== */
-var pinInputs = Array.prototype.slice.call(document.querySelectorAll("#pinRow input"));
-pinInputs.forEach(function(inp, i){
-  inp.addEventListener("input", function(){
-    this.value = this.value.replace(/\D/g,"").slice(0,1);
-    if(this.value && i < 3) pinInputs[i+1].focus();
-  });
-  inp.addEventListener("keydown", function(e){
-    if(e.key==="Backspace" && !this.value && i > 0) pinInputs[i-1].focus();
-    if(e.key==="Enter") tryUnlock();
-  });
-});
-function tryUnlock(){
-  var code = pinInputs.map(function(i){ return i.value; }).join("");
-  if(code === ACCESS_CODE){
-    $("#lock").style.display = "none";
-    $("#app").style.display = "block";
-    buildNav(); render();
-  } else {
-    $("#lockErr").textContent = "Code incorrect — réessayez (code démo : 1234).";
-    pinInputs.forEach(function(i){ i.value = ""; });
-    pinInputs[0].focus();
-  }
+function enterApp(){
+  $("#lock").style.display = "none";
+  $("#app").style.display = "block";
+  buildNav(); render();
 }
-$("#unlockBtn").addEventListener("click", tryUnlock);
-$("#lockBtn").addEventListener("click", function(){
-  $("#app").style.display = "none";
-  $("#lock").style.display = "flex";
-  pinInputs.forEach(function(i){ i.value = ""; });
-  $("#lockErr").textContent = "";
-  pinInputs[0].focus();
+function tryLogin(email, password){
+  var err = $("#lockErr");
+  email = String(email||"").trim(); password = String(password||"");
+  if(!email || !password){ err.textContent = "Entrez l'e-mail et le mot de passe de votre compte personnel."; return; }
+  err.textContent = "Connexion à la base partagée…";
+  login(email, password).then(function(){
+    err.textContent = "";
+    ui.tab = "today";
+    enterApp();
+    return loadAll(true);
+  }).then(function(){
+    startRealtime();
+    toast("Connecté à la base partagée — " + (session.role==="proprietaire" ? "vue propriétaire" : "réception") + ".");
+  }).catch(function(e){
+    err.textContent = "Connexion refusée : " + (e.message === "Invalid login credentials" ? "e-mail ou mot de passe incorrect." : e.message);
+  });
+}
+$("#loginBtn").addEventListener("click", function(){ tryLogin($("#loginEmail").value, $("#loginPass").value); });
+$("#loginPass").addEventListener("keydown", function(e){ if(e.key==="Enter") tryLogin($("#loginEmail").value, $("#loginPass").value); });
+$("#loginEmail").addEventListener("keydown", function(e){ if(e.key==="Enter") $("#loginPass").focus(); });
+$("#publicBtn").addEventListener("click", function(){
+  publicMode = true; session = null; ui.tab = "site";
+  enterApp();
+  loadAll(true);
 });
-pinInputs[0].focus();
+$("#lockBtn").addEventListener("click", function(){
+  if(publicMode){
+    publicMode = false; dataReady = false; store = { rooms: [], reservations: [], payments: [] };
+    $("#app").style.display = "none"; $("#lock").style.display = "flex";
+  } else if(session){ signOut(); }
+});
+$("#refreshBtn").addEventListener("click", function(){ if(session) loadAll(true); });
 </script>
 </body>
 </html>
