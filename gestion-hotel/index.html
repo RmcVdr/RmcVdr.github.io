@@ -266,6 +266,8 @@ a{color:var(--teal)}
 /* Modale */
 .overlay{position:fixed;inset:0;z-index:60;background:rgba(15,23,42,.48);backdrop-filter:blur(3px);display:none;align-items:flex-end;justify-content:center}
 .overlay.open{display:flex}
+.overlay.ov2{z-index:68;background:rgba(15,23,42,.38)}
+.overlay.ov2 .sheet{max-width:520px;max-height:86dvh}
 @media(min-width:700px){.overlay{align-items:center;padding:20px}}
 .sheet{background:#fff;width:100%;max-width:560px;max-height:92dvh;overflow-y:auto;border-radius:28px 28px 0 0;padding:24px 22px calc(24px + env(safe-area-inset-bottom));box-shadow:var(--shadow)}
 @media(min-width:700px){.sheet{border-radius:28px}}
@@ -422,6 +424,27 @@ a{color:var(--teal)}
 .pres-legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:12.5px;color:var(--ink2);font-weight:600}
 .pres-legend i{width:12px;height:12px;border-radius:4px;display:inline-block;margin-right:5px;vertical-align:-1px;border:1.5px solid}
 
+/* ---------- Lignes compactes façon ListCard + onglets internes ---------- */
+.lstack{display:flex;flex-direction:column;gap:10px}
+.lrow{display:flex;align-items:center;gap:12px;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-sm);padding:11px 14px;min-height:64px;cursor:pointer;text-align:left;color:var(--ink);font:inherit;transition:transform .12s ease}
+button.lrow:active{transform:scale(.99)}
+.lrow .grow{flex:1;min-width:0}
+.lrow .t{display:block;font-size:15px;font-weight:600;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lrow .s{display:block;font-size:12.8px;color:var(--ink2);line-height:1.45;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lrow .side{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:none}
+.lrow .amt{font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-0.01em}
+.lrow .chev{color:#94a3b8;display:flex;flex:none}
+.lrow .chev svg{width:18px;height:18px}
+div.lrow{cursor:default}
+.status-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.status-grid .btn{width:100%}
+.itabs{margin:2px 0 12px}
+.itabs .chips{margin-bottom:2px}
+@media(max-width:699px){.stat.wide{grid-column:1/-1}}
+.plan-scroll{overflow:auto;max-height:66dvh}
+.plan-head{position:sticky;top:0;z-index:5}
+.plan-head .plan-corner{z-index:6}
+
 #toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(20px);background:#0f172a;color:#f8fafc;padding:12px 20px;border-radius:14px;font-size:14.5px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:80;max-width:88vw;text-align:center;box-shadow:var(--shadow)}
 @media(min-width:1024px){#toast{bottom:28px}}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -500,6 +523,8 @@ a{color:var(--teal)}
 
 <!-- Modale générique -->
 <div class="overlay" id="overlay"><div class="sheet" id="sheet"></div></div>
+<!-- Feuille de niveau 2 : s'ouvre AU-DESSUS de la feuille de détail (niveau 1) -->
+<div class="overlay ov2" id="overlay2"><div class="sheet" id="sheet2"></div></div>
 <div id="toast"></div>
 <div id="printArea"></div>
 <div class="print-preview" id="printPreview"><div class="pp-bar"><button class="btn btn-teal btn-sm" id="ppPrint">Imprimer</button><button class="btn btn-soft btn-sm" id="ppClose">Fermer l'aperçu</button></div><div class="pp-doc" id="ppDoc"></div></div>
@@ -552,7 +577,12 @@ var ui = {
   ownerPreset: "month",
   ownerFrom: "",
   ownerTo: "",
-  hrMonth: todayStr().slice(0,7)
+  hrMonth: todayStr().slice(0,7),
+  restoTab: "commandes",
+  kitchenTab: "recue",
+  hrTab: "employes",
+  ownerTab: "vue",
+  caisseTab: "jour"
 };
 
 /* =============== Helpers =============== */
@@ -844,6 +874,7 @@ function loadAll(rerender){
     setSync("ok", syncMode === "Temps réel" ? "Base partagée · temps réel" : "Base partagée · à jour " + pad(lastSync.getHours()) + ":" + pad(lastSync.getMinutes()) + ":" + pad(lastSync.getSeconds()));
     if(rerender !== false && !$("#overlay").classList.contains("open")) render();
     if(rerender !== false && $("#overlay").classList.contains("open")) reloadPending = true;
+    refreshSheet1IfPending();
   }).catch(function(err){
     setSync("off", "Base injoignable");
     toast("Connexion impossible : " + err.message, true);
@@ -1182,7 +1213,15 @@ function render(){
   bindView();
 }
 
-/* ---------- Aujourd'hui ---------- */
+/* ---------- Aujourd'hui : tableau de bord seul, lignes compactes ---------- */
+function resRow(r){
+  var room = roomById(r.roomId);
+  return '<button class="lrow" data-act="folio" data-id="' + r.id + '"><span class="grow">' +
+    '<span class="t">' + esc(r.clientName) + '</span>' +
+    '<span class="s">' + esc(room ? room.name : "—") + ' · ' + esc(fmtDate(r.checkIn)) + ' → ' + esc(fmtDate(r.checkOut)) + (r.code ? ' · ' + esc(r.code) : '') + '</span></span>' +
+    '<span class="side">' + resBadge(r.status) + '<span class="amt">' + esc(fmt$(resGrandTotal(r))) + '</span></span>' +
+    '<span class="chev">' + CHEV_SVG + '</span></button>';
+}
 function viewToday(){
   var t = todayStr();
   var libres = store.rooms.filter(function(r){ return effectiveStatus(r)==="Libre"; }).length;
@@ -1198,62 +1237,26 @@ function viewToday(){
     '<div class="stat"><div class="n wood">'+occupees+'</div><div class="l">Occupées</div></div>' +
     '<div class="stat"><div class="n teal">'+arrivees.length+'</div><div class="l">Arrivées</div></div>' +
     '<div class="stat"><div class="n wood">'+departs.length+'</div><div class="l">Départs</div></div>' +
-    '<div class="stat"><div class="n teal">'+esc(fmt$(encaisse))+'</div><div class="l">Encaissé du jour</div></div></div>';
+    '<div class="stat wide"><div class="n teal">'+esc(fmt$(encaisse))+'</div><div class="l">Encaissé du jour</div></div></div>';
   var newDem = store.demandes.filter(function(d){ return d.statut==="nouvelle"; });
   if(newDem.length){
-    h += '<div class="closure-banner" style="border-color:var(--red)"><div class="grow"><h3>' + newDem.length + ' demande(s) client(s) nouvelle(s)</h3><div class="meta">Envoyées depuis les QR des chambres et des tables — prenez-les en charge depuis l\'onglet Demandes.</div></div><button class="btn btn-teal" data-act="goto-demandes">Voir les demandes</button></div>';
+    h += '<div class="closure-banner" style="border-color:var(--red)"><div class="grow"><h3>' + newDem.length + ' demande(s) client(s) nouvelle(s)</h3><div class="meta">Envoyées depuis les QR des chambres et des tables.</div></div><button class="btn btn-teal" data-act="goto-demandes">Voir</button></div>';
   }
   var pending = store.reservations.filter(function(r){ return r.status==="En attente"; });
   if(pending.length){
-    h += '<h3 class="sec-title">Demandes en attente du site / chatbot (' + pending.length + ')</h3>';
-    h += pending.map(function(r){ return resCard(r, true); }).join("");
+    h += '<h3 class="sec-title">Demandes en attente (' + pending.length + ')</h3>';
+    h += '<div class="lstack">' + pending.map(resRow).join("") + '</div>';
   }
   h += '<h3 class="sec-title">Arrivées du jour</h3>';
-  h += arrivees.length ? arrivees.map(function(r){ return resCard(r, true); }).join("") :
+  h += arrivees.length ? '<div class="lstack">' + arrivees.map(resRow).join("") + '</div>' :
     '<div class="empty">Aucune arrivée prévue aujourd\'hui.</div>';
   h += '<h3 class="sec-title">Départs du jour</h3>';
-  h += departs.length ? departs.map(function(r){ return resCard(r, true); }).join("") :
+  h += departs.length ? '<div class="lstack">' + departs.map(resRow).join("") + '</div>' :
     '<div class="empty">Aucun départ prévu aujourd\'hui.</div>';
-  h += '<h3 class="sec-title">Hébergements</h3>';
-  h += store.rooms.map(roomCard).join("");
   return h;
 }
 
-/* ---------- Réservations ---------- */
-function resCard(r, compact){
-  var room = roomById(r.roomId);
-  var n = nightsOf(r), total = resTotal(r), conso = resConsoTotal(r), paid = resPaid(r), due = resDue(r), over = resOverpaid(r);
-  var guests = r.guests ? parseInt(r.guests)||0 : 0;
-  var h = '<div class="card"><div class="card-row"><div class="grow">' +
-    '<h3>' + esc(r.clientName) + '</h3>' +
-    '<div class="meta">' + esc(room ? room.name : "—") + (r.phone ? ' · ' + esc(r.phone) : '') + (r.code ? ' · Code : <b>' + esc(r.code) + '</b>' : '') + '</div>' +
-    '<div class="meta">' + esc(fmtDate(r.checkIn)) + ' → ' + esc(fmtDate(r.checkOut)) + ' · ' + n + ' nuit' + (n>1?"s":"") + (guests ? ' · ' + guests + ' voyageur' + (guests>1?"s":"") : '') + '</div>' +
-    '<div class="kv"><span>Total <b>' + esc(fmt$(total + conso)) + '</b></span>' + (conso > 0 ? '<span>dont consommations <b>' + esc(fmt$(conso)) + '</b></span>' : '') + '<span>Payé <b>' + esc(fmt$(paid)) + '</b></span>' +
-    (r.status!=="Annulée" ? (over > 0 ? '<span>Trop-perçu : <b class="money due">' + esc(fmt$(over)) + ' à rembourser</b></span>' : '<span>Reste <b class="' + (due>0?"money due":"money ok") + '">' + esc(fmt$(due)) + '</b></span>') : '') + '</div>' +
-    (r.notes ? '<div class="meta" style="margin-top:6px">' + esc(r.notes) + '</div>' : '') +
-    '</div><div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">' + resBadge(r.status) + srcBadge(r.source) + '</div></div>';
-  h += '<div class="actions">';
-  if(r.status==="En attente"){
-    h += '<button class="btn btn-teal btn-sm" data-act="confirm-res" data-id="'+r.id+'">Confirmer</button>';
-  }
-  if(r.status==="En attente" || r.status==="Confirmée"){
-    h += '<button class="btn btn-teal btn-sm" data-act="checkin" data-id="'+r.id+'">Arrivée (check-in)</button>';
-  }
-  if(r.status==="Arrivée"){
-    h += '<button class="btn btn-wood btn-sm" data-act="checkout" data-id="'+r.id+'">Départ (check-out)</button>';
-  }
-  if(r.status!=="Annulée" && r.status!=="Terminée"){
-    h += '<button class="btn btn-soft btn-sm" data-act="pay" data-id="'+r.id+'">+ Paiement</button>';
-    h += '<button class="btn btn-soft btn-sm" data-act="edit-res" data-id="'+r.id+'">Modifier</button>';
-  }
-  h += '<button class="btn btn-ghost btn-sm" data-act="folio" data-id="'+r.id+'">Folio</button>';
-  h += '<button class="btn btn-soft btn-sm" data-act="invoice" data-id="'+r.id+'">Facture</button>';
-  if(r.status!=="Annulée" && r.status!=="Terminée"){
-    h += '<button class="btn btn-danger btn-sm" data-act="cancel-res" data-id="'+r.id+'">Annuler</button>';
-  }
-  h += '</div></div>';
-  return h;
-}
+/* ---------- Réservations : liste en lignes compactes, détail en feuille (folio) ---------- */
 function viewReservations(){
   var list = store.reservations.slice().sort(function(a,b){ return a.checkIn < b.checkIn ? 1 : -1; });
   if(ui.resFilter!=="all") list = list.filter(function(r){ return r.status===ui.resFilter; });
@@ -1263,80 +1266,87 @@ function viewReservations(){
   h += '<div class="searchbar"><input id="resSearch" type="search" aria-label="Rechercher une réservation" placeholder="Rechercher un client, un téléphone, un code, un hébergement…" value="' + esc(ui.search) + '" /></div>';
   h += '<div class="chips"><button class="chip' + (ui.resFilter==="all"?" on":"") + '" data-filter="all">Toutes</button>' +
     RES_STATUS.map(function(s){ return '<button class="chip' + (ui.resFilter===s?" on":"") + '" data-filter="' + s + '">' + s + '</button>'; }).join("") + '</div>';
-  h += list.length ? list.map(function(r){ return resCard(r); }).join("") :
+  h += list.length ? '<div class="lstack">' + list.map(resRow).join("") + '</div>' :
     '<div class="empty">Aucune réservation ici pour le moment.<br/>Créez la première avec le bouton « Nouvelle réservation », ou déposez une demande depuis l\'onglet « Site &amp; chatbot ».</div>';
   return h;
 }
 
-/* ---------- Hébergements ---------- */
-function roomCard(r){
+/* ---------- Hébergements : lignes compactes, détail + actions en feuille ---------- */
+function roomRow(r){
   var occ = activeStay(r.id);
   var eff = effectiveStatus(r);
-  var actionsHtml;
+  return '<button class="lrow" data-act="room-open" data-id="' + r.id + '"><span class="grow">' +
+    '<span class="t">' + esc(r.name) + '</span>' +
+    '<span class="s">' + esc(r.type) + ' · ' + r.capacity + ' pers. · ' + esc(fmt$(r.priceNight)) + ' / nuit' + (occ ? ' · ' + esc(occ.clientName) + ' jusqu\'au ' + esc(fmtDate(occ.checkOut)) : '') + '</span></span>' +
+    '<span class="side">' + roomBadge(eff) + '</span>' +
+    '<span class="chev">' + CHEV_SVG + '</span></button>';
+}
+function maintTicketHtml(tk){
+  var titreAffiche = tk.titre || (tk.desc ? tk.desc.slice(0,60) : "Problème signalé");
+  var h = '<div class="card" style="margin-bottom:10px"><div class="card-row"><div class="grow"><h3 style="font-size:15px">' + esc(titreAffiche) + '</h3>' +
+    (tk.desc ? '<div class="meta">' + esc(tk.desc) + '</div>' : '') +
+    '<div class="meta">Signalé le ' + esc(fmtDate(tk.date)) + (tk.statut==="Résolu" && tk.resoluAt ? ' · résolu le ' + esc(fmtDate(String(tk.resoluAt).slice(0,10))) : '') + '</div></div>' +
+    '<div><span class="badge ' + (tk.statut==="Résolu" ? "b-cmd-payee" : (tk.statut==="En cours" ? "b-cmd-imputee" : "b-cmd-ouverte")) + '">' + esc(tk.statut) + '</span></div></div>';
+  if(tk.statut==="Ouvert") h += '<div class="actions"><button class="btn btn-teal btn-sm" data-act="maint-next" data-id="' + tk.id + '">Prendre en charge</button></div>';
+  else if(tk.statut==="En cours") h += '<div class="actions"><button class="btn btn-teal btn-sm" data-act="maint-next" data-id="' + tk.id + '">Marquer résolu</button></div>';
+  return h + '</div>';
+}
+function roomSheet(r){
+  var occ = activeStay(r.id);
+  var eff = effectiveStatus(r);
+  var h = '<div class="folio-head">' + roomBadge(eff) + '<span class="src-badge">' + esc(r.type) + ' · ' + r.capacity + ' pers.</span></div>';
+  h += '<h3>' + esc(r.name) + '</h3>';
+  h += '<div class="kv"><span>Prix par nuit <b>' + esc(fmt$(r.priceNight)) + '</b></span><span>Prix par mois <b>' + esc(fmt$(r.priceMonth)) + '</b></span></div>';
+  if(r.description) h += '<p class="note" style="margin-top:8px">' + esc(r.description) + '</p>';
   if(occ){
-    actionsHtml = '<div class="meta" style="margin-top:10px">Statut verrouillé pendant le séjour en cours — modifiable après le départ.</div>' +
-      '<div class="actions"><button class="btn btn-soft btn-sm" data-act="edit-room" data-id="'+r.id+'">Modifier prix / infos</button></div>';
+    h += '<div class="warn-banner" style="margin-top:12px">Occupée par <b>' + esc(occ.clientName) + '</b> jusqu\'au ' + esc(fmtDate(occ.checkOut)) + ' — le statut est verrouillé pendant le séjour, modifiable après le départ.</div>';
   } else {
-    actionsHtml = '<div class="actions">' +
-      ROOM_STATUS.filter(function(s){ return s!==r.status; }).map(function(s){ return '<button class="btn btn-soft btn-sm" data-act="room-status" data-id="'+r.id+'" data-status="'+s+'">→ ' + s + '</button>'; }).join("") +
-      '<button class="btn btn-soft btn-sm" data-act="edit-room" data-id="'+r.id+'">Modifier prix / infos</button></div>';
+    if(HK_STATUS_FLOW.indexOf(r.status) >= 0){
+      h += '<div class="folio-sec">Ménage — circuit de nettoyage</div>' +
+        '<p class="note" style="margin-bottom:8px">Étape actuelle : <b>' + esc(r.status) + '</b> (à nettoyer → nettoyage → à contrôler → Libre).</p>' +
+        '<div class="actions" style="margin-top:0"><button class="btn btn-teal btn-sm" data-act="hk-next" data-id="' + r.id + '">' + esc(hkNextLabel(r)) + '</button></div>';
+    }
+    h += '<div class="folio-sec">Changer le statut</div><div class="status-grid">' +
+      ROOM_STATUS.filter(function(s){ return s!==r.status; }).map(function(s){
+        return '<button class="btn btn-soft" data-act="room-status" data-id="' + r.id + '" data-status="' + s + '">→ ' + s + '</button>';
+      }).join("") + '</div>';
   }
-  return '<div class="card"><div class="card-row"><div class="grow"><h3>' + esc(r.name) + '</h3>' +
-    '<div class="meta">' + esc(r.type) + ' · ' + r.capacity + ' pers. · ' + esc(fmt$(r.priceNight)) + ' / nuit · ' + esc(fmt$(r.priceMonth)) + ' / mois</div>' +
-    (r.description ? '<div class="meta">' + esc(r.description) + '</div>' : '') +
-    (occ ? '<div class="meta">Occupé par <b>' + esc(occ.clientName) + '</b> jusqu\'au ' + esc(fmtDate(occ.checkOut)) + '</div>' : '') +
-    '</div><div>' + roomBadge(eff) + '</div></div>' + actionsHtml + '</div>';
+  var tks = store.maintTickets.filter(function(t){ return t.roomId===r.id; });
+  h += '<div class="folio-sec">Maintenance de cet hébergement (' + tks.length + ')</div>';
+  h += tks.length ? tks.map(maintTicketHtml).join("") : '<p class="note">Aucun ticket de maintenance pour cet hébergement.</p>';
+  h += '<div class="actions"><button class="btn btn-soft btn-sm" data-act="new-maint-room" data-id="' + r.id + '">+ Signaler un problème</button></div>';
+  h += '<div class="actions sticky-actions"><button class="btn btn-teal" data-act="edit-room" data-id="' + r.id + '">Modifier prix / infos</button>' +
+    '<button class="btn btn-ghost" data-act="close">Fermer</button></div>';
+  openSheet1(h, function(){ var f = roomById(r.id); if(f) roomSheet(f); else closeAllSheets(); });
 }
 function viewRooms(){
   var isOwner = session && session.role==="proprietaire";
-  var h = '<div class="page-head"><div><h2>Hébergements</h2><div class="sub">Les hébergements proposés en ligne et à la réception</div></div>' +
+  var h = '<div class="page-head"><div><h2>Hébergements</h2><div class="sub">Touchez un hébergement pour son détail, ses statuts et sa maintenance</div></div>' +
     (isOwner ? '<button class="btn btn-teal" data-act="new-room">+ Ajouter</button>' : '') + '</div>';
-  if(!isOwner) h += '<p class="note" style="margin-bottom:12px">L\'ajout et la suppression d\'un hébergement sont réservés au compte propriétaire ; la réception peut modifier les prix, les infos et les statuts.</p>';
-  h += store.rooms.map(roomCard).join("");
-  /* -- : circuit ménage automatique (statut_manu : a_nettoyer → nettoyage → a_controler → libre) --- */
-  var hkRooms = store.rooms.filter(function(r){ return HK_STATUS_FLOW.indexOf(effectiveStatus(r)) >= 0; });
-  h += '<h3 class="sec-title">Ménage — circuit de nettoyage</h3>';
-  h += '<p class="note" style="margin-bottom:10px">Au départ d\'un client, la chambre passe <b>automatiquement en « À nettoyer »</b>. Elle suit ensuite le circuit : à nettoyer → nettoyage en cours → propre, à contrôler → contrôlée et remise disponible (Libre).</p>';
-  if(hkRooms.length){
-    h += hkRooms.map(function(r){
-      var idx = HK_STATUS_FLOW.indexOf(r.status);
-      var card = '<div class="card"><div class="card-row"><div class="grow"><h3>' + esc(r.name) + '</h3>' +
-        '<div class="meta">Étape du circuit : <b>' + esc(r.status) + '</b> (' + (idx+1) + ' / 4 — contrôlée = retour en Libre)</div></div>' +
-        '<div>' + roomBadge(r.status) + '</div></div><div class="actions">' +
-        '<button class="btn btn-teal btn-sm" data-act="hk-next" data-id="' + r.id + '">' + esc(hkNextLabel(r)) + '</button>';
-      return card + '</div></div>';
-    }).join("");
-  } else {
-    h += '<div class="empty">Aucune chambre en ménage pour le moment.<br/>Les chambres libérées par un départ arriveront ici automatiquement.</div>';
+  if(!isOwner) h += '<p class="note" style="margin-bottom:12px">Ajout et suppression réservés au propriétaire ; la réception modifie prix, infos et statuts.</p>';
+  h += '<div class="lstack">' + store.rooms.map(roomRow).join("") + '</div>';
+  var openTks = store.maintTickets.filter(function(t){ return t.statut!=="Résolu"; });
+  if(openTks.length){
+    h += '<h3 class="sec-title">Maintenance — tickets ouverts (' + openTks.length + ')</h3><div class="lstack">' +
+      openTks.map(function(tk){
+        var rm = roomById(tk.roomId);
+        return '<button class="lrow" data-act="room-open" data-id="' + tk.roomId + '"><span class="grow">' +
+          '<span class="t">' + esc(tk.titre || (tk.desc ? tk.desc.slice(0,60) : "Problème signalé")) + '</span>' +
+          '<span class="s">' + esc(rm ? rm.name : "Hébergement") + ' · signalé le ' + esc(fmtDate(tk.date)) + '</span></span>' +
+          '<span class="side"><span class="badge ' + (tk.statut==="En cours" ? "b-cmd-imputee" : "b-cmd-ouverte") + '">' + esc(tk.statut) + '</span></span>' +
+          '<span class="chev">' + CHEV_SVG + '</span></button>';
+      }).join("") + '</div>';
   }
-  /* -- : maintenance --- */
-  h += '<div class="page-head" style="margin-top:22px"><div><h2 style="font-size:21px">Maintenance</h2><div class="sub">Problèmes signalés dans les hébergements, suivis jusqu\'à résolution</div></div>' +
-    '<button class="btn btn-teal" data-act="new-maint">+ Signaler un problème</button></div>';
-  if(store.maintTickets.length){
-    h += store.maintTickets.slice().map(function(tk){
-      var rm = roomById(tk.roomId);
-      var titreAffiche = tk.titre || (tk.desc ? tk.desc.slice(0,60) : "Problème signalé");
-      var card = '<div class="card"><div class="card-row"><div class="grow"><h3>' + esc(titreAffiche) + '</h3>' +
-        '<div class="meta"><b>' + esc(rm ? rm.name : "Hébergement") + '</b></div>' +
-        (tk.desc ? '<div class="meta" style="font-size:14.5px;color:var(--ink)">' + esc(tk.desc) + '</div>' : '') +
-        '<div class="meta">Signalé le ' + esc(fmtDate(tk.date)) + (tk.statut==="Résolu" && tk.resoluAt ? ' · résolu le ' + esc(fmtDate(String(tk.resoluAt).slice(0,10))) : '') + '</div></div>' +
-        '<div><span class="badge ' + (tk.statut==="Résolu" ? "b-cmd-payee" : (tk.statut==="En cours" ? "b-cmd-imputee" : "b-cmd-ouverte")) + '">' + esc(tk.statut) + '</span></div></div>';
-      if(tk.statut==="Ouvert") card += '<div class="actions"><button class="btn btn-teal btn-sm" data-act="maint-next" data-id="' + tk.id + '">Prendre en charge</button></div>';
-      else if(tk.statut==="En cours") card += '<div class="actions"><button class="btn btn-teal btn-sm" data-act="maint-next" data-id="' + tk.id + '">Marquer résolu</button></div>';
-      return card + '</div>';
-    }).join("");
-  } else {
-    h += '<div class="empty">Aucun ticket de maintenance ouvert.<br/>Signalez une fuite, une ampoule, un équipement en panne : le ticket sera suivi ici.</div>';
-  }
+  h += '<div class="actions" style="margin-top:16px"><button class="btn btn-soft" data-act="new-maint">+ Signaler un problème</button></div>';
   return h;
 }
-function maintForm(){
+function maintForm(prefillRoomId){
   if(!store.rooms.length){ toast("Aucun hébergement enregistré.", true); return; }
   var MAINT_TYPES = ["Fuite / plomberie","Climatisation","Électricité / ampoule","Serrure / porte","Équipement en panne","Autre problème"];
   openSheet('<h3>Signaler un problème</h3>' +
-    '<div class="sub">Ticket de maintenance — suivi dans l\'onglet Hébergements jusqu\'à résolution.</div>' +
+    '<div class="sub">Ticket de maintenance — suivi dans la fiche de l\'hébergement jusqu\'à résolution.</div>' +
     '<form id="maintForm">' +
-    '<div class="field"><label>Hébergement</label><select name="roomId">' + store.rooms.map(function(r){ return '<option value="' + r.id + '">' + esc(r.name) + '</option>'; }).join("") + '</select></div>' +
+    '<div class="field"><label>Hébergement</label><select name="roomId">' + store.rooms.map(function(r){ return '<option value="' + r.id + '"' + (r.id===prefillRoomId ? " selected" : "") + '>' + esc(r.name) + '</option>'; }).join("") + '</select></div>' +
     '<div class="field"><label>Type de problème</label><select name="typeProbleme" id="maintType">' + MAINT_TYPES.map(function(t){ return '<option value="' + esc(t) + '">' + esc(t) + '</option>'; }).join("") + '</select></div>' +
     '<div class="field"><label>Titre du problème *</label><input type="text" name="titre" id="maintTitre" maxlength="120" value="' + esc(MAINT_TYPES[0]) + '" placeholder="Ex. : Fuite sous le lavabo" /></div>' +
     '<div class="field"><label>Description du problème *</label><textarea name="desc" required placeholder="Ex. : fuite sous le lavabo, climatiseur bruyant…"></textarea></div>' +
@@ -1371,7 +1381,7 @@ function maintForm(){
   });
 }
 
-/* ---------- Caisse ---------- */
+/* ---------- Caisse : résumé compact + onglets Jour / Clôtures ---------- */
 function viewCaisse(){
   var d = ui.caisseDate;
   var pays = store.payments.filter(function(p){ return p.date===d; });
@@ -1386,9 +1396,25 @@ function viewCaisse(){
   var cloToday = null;
   store.clotures.forEach(function(c){ if(c.date===todayStr()) cloToday = c; });
   if(cloToday){
-    h += '<div class="closure-banner done"><div class="grow"><h3>Journée du ' + esc(fmtDate(todayStr())) + ' clôturée</h3><div class="meta">Total encaissé figé à la clôture : <b>' + esc(fmt$(cloToday.total)) + '</b>. Les paiements restent consultables ci-dessous.</div></div></div>';
+    h += '<div class="closure-banner done"><div class="grow"><h3>Journée du ' + esc(fmtDate(todayStr())) + ' clôturée</h3><div class="meta">Total encaissé figé à la clôture : <b>' + esc(fmt$(cloToday.total)) + '</b>.</div></div></div>';
   } else {
-    h += '<div class="closure-banner"><div class="grow"><h3>Clôture de journée (night audit)</h3><div class="meta">La journée du ' + esc(fmtDate(todayStr())) + ' n\'est pas encore clôturée. Le récapitulatif est calculé depuis les paiements et réservations réels de la base.</div></div><button class="btn btn-teal" data-act="close-day">Clôturer la journée</button></div>';
+    h += '<div class="closure-banner"><div class="grow"><h3>Clôture de journée (night audit)</h3><div class="meta">La journée du ' + esc(fmtDate(todayStr())) + ' n\'est pas encore clôturée.</div></div><button class="btn btn-teal" data-act="close-day">Clôturer la journée</button></div>';
+  }
+  h += '<div class="itabs"><div class="chips">' +
+    '<button class="chip' + (ui.caisseTab==="jour" ? " on" : "") + '" data-ctab="jour">Jour</button>' +
+    '<button class="chip' + (ui.caisseTab==="clotures" ? " on" : "") + '" data-ctab="clotures">Historique des clôtures (' + store.clotures.length + ')</button></div></div>';
+  if(ui.caisseTab==="clotures"){
+    h += '<div class="card">';
+    if(store.clotures.length){
+      h += store.clotures.map(function(c){
+        var det = c.details || {};
+        return '<div class="pay-row"><div><div><b>' + esc(fmtDate(c.date)) + '</b></div><div class="who">' +
+          (det.nb_paiements!=null ? det.nb_paiements + ' paiement(s) · ' : '') +
+          (det.arrivees!=null ? det.arrivees + ' arrivée(s) · ' : '') +
+          (det.departs!=null ? det.departs + ' départ(s)' : '') + '</div></div><div class="money">' + esc(fmt$(c.total)) + '</div></div>';
+      }).join("");
+    } else h += '<div class="meta">Aucune clôture enregistrée pour le moment.</div>';
+    return h + '</div>';
   }
   h += '<div class="stats" style="grid-template-columns:1fr"><div class="stat"><div class="n teal">' + esc(fmt$(total)) + '</div><div class="l">Total encaissé ce jour · ' + pays.length + ' paiement(s)</div></div></div>';
   h += '<div class="method-grid">' + METHODS.map(function(m){ return '<div class="method-card"><div class="m">' + m + '</div><div class="v">' + esc(fmt$(byMethod[m])) + '</div></div>'; }).join("") + '</div>';
@@ -1396,8 +1422,8 @@ function viewCaisse(){
   var rbCmds = store.commandes.filter(function(c){ return cmdDate(c)===d && (c.status==="Payée" || c.status==="Imputée"); })
     .slice().sort(function(a,b){ return String(a.createdAt) < String(b.createdAt) ? -1 : 1; });
   h += '<h3 class="sec-title">Resto-bar du jour</h3><div class="card">' +
-    '<div class="pay-row"><div><div>Ventes encaissées directement</div><div class="who">' + rb.nbPayees + ' commande(s) payée(s) sur place — clients de passage et paiements directs</div></div><div class="money">' + esc(fmt$(rb.payees)) + '</div></div>' +
-    '<div class="pay-row"><div><div>Ventes imputées aux chambres</div><div class="who">' + rb.nbImputees + ' commande(s) portée(s) au folio — encaissées via les paiements du séjour, sans double comptage</div></div><div class="money">' + esc(fmt$(rb.imputees)) + '</div></div>' +
+    '<div class="pay-row"><div><div>Ventes encaissées directement</div><div class="who">' + rb.nbPayees + ' commande(s) payée(s) sur place</div></div><div class="money">' + esc(fmt$(rb.payees)) + '</div></div>' +
+    '<div class="pay-row"><div><div>Ventes imputées aux chambres</div><div class="who">' + rb.nbImputees + ' commande(s) portée(s) au folio — sans double comptage</div></div><div class="money">' + esc(fmt$(rb.imputees)) + '</div></div>' +
     '<div class="pay-row"><div><div><b>Total des ventes resto-bar</b></div><div class="who">Payées + imputées</div></div><div class="money">' + esc(fmt$(rb.total)) + '</div></div>';
   if(rbCmds.length){
     h += '<div class="cmd-lines">' + rbCmds.map(function(c){
@@ -1410,99 +1436,102 @@ function viewCaisse(){
   if(pays.length){
     h += pays.slice().reverse().map(function(p){
       var r = resById(p.resId);
-      return '<div class="pay-row"><div><div>' + esc(payLabel(p)) + '</div><div class="who">' + (r ? esc(r.clientName) + ' · ' : '') + esc(p.method) + '</div></div><div class="money">' + esc(fmt$(p.amount)) + '</div></div>';
+      return '<div class="pay-row"><div><div>' + esc(payLabel(p)) + '</div><div class="who">' + (r ? esc(r.clientName) + ' · ' : '') + esc(p.method) + (p.reference ? ' · Réf. ' + esc(p.reference) : '') + '</div></div><div class="money">' + esc(fmt$(p.amount)) + '</div></div>';
     }).join("");
   } else h += '<div class="meta" style="padding-top:8px">Aucun paiement enregistré ce jour-là.</div>';
-  h += '</div>';
-  h += '<h3 class="sec-title">Historique des clôtures</h3><div class="card">';
-  if(store.clotures.length){
-    h += store.clotures.map(function(c){
-      var det = c.details || {};
-      return '<div class="pay-row"><div><div><b>' + esc(fmtDate(c.date)) + '</b></div><div class="who">' +
-        (det.nb_paiements!=null ? det.nb_paiements + ' paiement(s) · ' : '') +
-        (det.arrivees!=null ? det.arrivees + ' arrivée(s) · ' : '') +
-        (det.departs!=null ? det.departs + ' départ(s)' : '') + '</div></div><div class="money">' + esc(fmt$(c.total)) + '</div></div>';
-    }).join("");
-  } else h += '<div class="meta">Aucune clôture enregistrée pour le moment.</div>';
   h += '</div>';
   return h;
 }
 
-/* ---------- Cuisine & stock ---------- */
+/* ---------- Cuisine : segments par statut + onglet Stock ---------- */
 function viewCuisine(){
   var t = todayStr();
   var todays = store.commandes.filter(function(c){ return cmdDate(c)===t && c.status!=="Annulée"; })
     .slice().sort(function(a,b){ return String(a.createdAt) < String(b.createdAt) ? -1 : 1; });
-  var active = todays.filter(function(c){ return kitchenStepOf(c)!=="terminee"; });
-  var done = todays.filter(function(c){ return kitchenStepOf(c)==="terminee"; });
+  var byStep = { recue: [], en_preparation: [], prete: [], terminee: [] };
+  todays.forEach(function(c){ byStep[kitchenStepOf(c)].push(c); });
   var lowStock = store.articles.filter(function(a){ return a.actif && stockLow(a); });
-  var h = '<div class="page-head"><div><h2>Cuisine</h2><div class="sub">Les commandes du jour avancent étape par étape : reçue → en préparation → prête → terminée</div></div></div>';
-  h += '<div class="stats">' +
-    '<div class="stat"><div class="n teal">' + active.filter(function(c){ return kitchenStepOf(c)==="recue"; }).length + '</div><div class="l">Reçues — à préparer</div></div>' +
-    '<div class="stat"><div class="n wood">' + active.filter(function(c){ return kitchenStepOf(c)==="en_preparation"; }).length + '</div><div class="l">En préparation</div></div>' +
-    '<div class="stat"><div class="n teal">' + active.filter(function(c){ return kitchenStepOf(c)==="prete"; }).length + '</div><div class="l">Prêtes à servir</div></div>' +
-    '<div class="stat"><div class="n wood">' + done.length + '</div><div class="l">Terminées aujourd\'hui</div></div>' +
-    '<div class="stat"><div class="n" style="color:var(--red)">' + lowStock.length + '</div><div class="l">Plat(s) en stock faible</div></div></div>';
+  var tab = ui.kitchenTab;
+  var h = '<div class="page-head"><div><h2>Cuisine</h2><div class="sub">Commandes du jour, étape par étape</div></div></div>';
   if(lowStock.length){
-    h += '<div class="warn-banner"><b>Stock faible</b> — ' + lowStock.map(function(a){ return esc(a.name) + ' : ' + stockOf(a) + ' portion(s) restante(s)'; }).join(" · ") + '. Pensez à réassortir ou à retirer le plat de la carte.</div>';
+    h += '<div class="warn-banner"><b>Stock faible</b> — ' + lowStock.map(function(a){ return esc(a.name) + ' : ' + stockOf(a) + ' portion(s)'; }).join(" · ") + '.</div>';
   }
-  if(!todays.length){
-    h += '<div class="empty">Aucune commande aujourd\'hui pour le moment.<br/>Les commandes prises au Resto-bar ou reçues par QR apparaîtront ici pour la cuisine.</div>';
-  } else {
-    if(active.length){
-      h += '<h3 class="sec-title">Tickets en cours (' + active.length + ')</h3>';
-      h += active.map(function(c){
-        var step = kitchenStepOf(c);
-        var res = c.resId ? resById(c.resId) : null;
-        var nextStep = KITCHEN_STEPS[KITCHEN_STEPS.indexOf(step)+1];
-        var card = '<div class="card"><div class="card-row"><div class="grow">' +
-          '<h3>' + esc(c.clientNom || (res ? res.clientName : "Client de passage")) + '</h3>' +
-          '<div class="meta">' + esc(demOrigin({ hebergementId: c.hebergementId, tableId: c.tableId, source: c.source })) + (res ? ' · Folio ' + esc(res.code||"") : ' · Client de passage') + (cmdTime(c) ? ' · ' + esc(cmdTime(c)) : '') + '</div>' +
-          '<div class="cmd-lines">' + lignesOf(c.id).map(function(l){
-            return '<div class="pay-row"><div>' + esc(l.articleNom) + '</div><div class="money">× ' + (+l.quantite||0) + '</div></div>';
-          }).join("") + '</div>' +
-          '</div><div><span class="badge ' + (step==="prete" ? "b-cmd-payee" : (step==="en_preparation" ? "b-cmd-imputee" : "b-cmd-ouverte")) + '">' + esc(KITCHEN_LABEL[step]) + '</span></div></div>';
-        if(nextStep) card += '<div class="actions"><button class="btn btn-teal btn-sm" data-act="kitchen-next" data-id="' + c.id + '">Passer à « ' + esc(KITCHEN_LABEL[nextStep]) + ' »</button></div>';
-        return card + '</div>';
-      }).join("");
+  h += '<div class="itabs"><div class="chips">' +
+    KITCHEN_STEPS.map(function(s){
+      return '<button class="chip' + (tab===s ? " on" : "") + '" data-ktab="' + s + '">' + KITCHEN_LABEL[s] + ' (' + byStep[s].length + ')</button>';
+    }).join("") +
+    '<button class="chip' + (tab==="stock" ? " on" : "") + '" data-ktab="stock">Stock' + (lowStock.length ? ' (' + lowStock.length + ' faible)' : '') + '</button></div></div>';
+  if(tab==="stock"){
+    var stocked = store.articles.filter(function(a){ return stockOf(a)!=null; });
+    if(stocked.length){
+      h += '<div class="card">' + stocked.map(function(a){
+        var st = stockOf(a);
+        return '<div class="pay-row"><div><div>' + esc(a.name) + '</div><div class="who">' + esc(CAT_LABEL[a.categorie]||a.categorie) + (a.stockAlerte!=null ? ' · seuil : ' + a.stockAlerte : '') + (stockLow(a) ? ' · <b style="color:var(--red)">stock faible</b>' : '') + '</div></div>' +
+          '<div style="display:flex;gap:6px;align-items:center"><button class="btn btn-soft btn-sm" data-act="stock-dec" data-id="' + a.id + '">−</button><span class="money">' + st + '</span><button class="btn btn-soft btn-sm" data-act="stock-inc" data-id="' + a.id + '">+</button></div></div>';
+      }).join("") + '<p class="note" style="margin-top:8px">Le stock se met à jour automatiquement à chaque commande (réception et QR clients). Ajustez-le ici après un réassort ou un inventaire.</p></div>';
     } else {
-      h += '<div class="empty">Tous les tickets du jour sont terminés.</div>';
+      h += '<div class="empty">Aucun plat ne suit encore ses portions.<br/>Renseignez le « Stock actuel » et le « Seuil d\'alerte » dans la fiche d\'un article (Resto-bar → Carte &amp; stock) pour activer le suivi.</div>';
     }
-    if(done.length){
-      h += '<h3 class="sec-title">Terminées (' + done.length + ')</h3>' + done.map(function(c){
-        return '<div class="card"><div class="card-row"><div class="grow"><h3>' + esc(c.clientNom || "Commande") + '</h3>' +
-          '<div class="meta">' + lignesOf(c.id).map(function(l){ return esc(l.articleNom) + ' × ' + (+l.quantite||0); }).join(", ") + '</div></div>' +
-          '<div><span class="badge b-cmd-payee">Terminée</span></div></div></div>';
-      }).join("");
-    }
+    return h;
   }
-  h += '<h3 class="sec-title">Stock des plats</h3>';
-  var stocked = store.articles.filter(function(a){ return stockOf(a)!=null; });
-  if(stocked.length){
-    h += '<div class="card">' + stocked.map(function(a){
-      var st = stockOf(a);
-      return '<div class="pay-row"><div><div>' + esc(a.name) + '</div><div class="who">' + esc(CAT_LABEL[a.categorie]||a.categorie) + (a.stockAlerte!=null ? ' · seuil d\'alerte : ' + a.stockAlerte : '') + (stockLow(a) ? ' · <b style="color:var(--red)">stock faible — au seuil ou en dessous</b>' : '') + '</div></div>' +
-        '<div style="display:flex;gap:6px;align-items:center"><button class="btn btn-soft btn-sm" data-act="stock-dec" data-id="' + a.id + '">−</button><span class="money">' + st + ' portion(s)</span><button class="btn btn-soft btn-sm" data-act="stock-inc" data-id="' + a.id + '">+</button></div></div>';
-    }).join("") + '<p class="note" style="margin-top:8px">Le stock se met à jour automatiquement à chaque commande, à la réception comme depuis les QR des clients. Ajustez-le ici après un réassort ou un inventaire avec les boutons + / −.</p></div>';
-  } else {
-    h += '<div class="empty">Aucun plat ne suit encore ses portions.<br/>Renseignez le « Stock actuel » et le « Seuil d\'alerte » dans la fiche d\'un article (onglet Resto-bar, Modifier) pour activer le suivi et les alertes de rupture.</div>';
+  var list = byStep[tab] || [];
+  if(!todays.length){
+    h += '<div class="empty">Aucune commande aujourd\'hui pour le moment.<br/>Les commandes prises au Resto-bar ou reçues par QR apparaîtront ici.</div>';
+    return h;
   }
+  if(!list.length){
+    h += '<div class="empty">Aucun ticket « ' + esc(KITCHEN_LABEL[tab]) + ' » pour le moment.</div>';
+    return h;
+  }
+  h += list.map(function(c){
+    var step = kitchenStepOf(c);
+    var res = c.resId ? resById(c.resId) : null;
+    var nextStep = KITCHEN_STEPS[KITCHEN_STEPS.indexOf(step)+1];
+    var card = '<div class="card" style="padding:14px 16px"><div class="card-row"><div class="grow">' +
+      '<h3 style="font-size:15.5px">' + esc(c.clientNom || (res ? res.clientName : "Client de passage")) + '</h3>' +
+      '<div class="meta">' + esc(demOrigin({ hebergementId: c.hebergementId, tableId: c.tableId, source: c.source })) + (res ? ' · Folio ' + esc(res.code||"") : '') + (cmdTime(c) ? ' · ' + esc(cmdTime(c)) : '') + '</div>' +
+      '<div class="meta" style="color:var(--ink)">' + lignesOf(c.id).map(function(l){ return esc(l.articleNom) + ' × ' + (+l.quantite||0); }).join(" · ") + '</div>' +
+      '</div><div><span class="badge ' + (step==="prete" || step==="terminee" ? "b-cmd-payee" : (step==="en_preparation" ? "b-cmd-imputee" : "b-cmd-ouverte")) + '">' + esc(KITCHEN_LABEL[step]) + '</span></div></div>';
+    if(nextStep) card += '<div class="actions"><button class="btn btn-teal btn-sm" data-act="kitchen-next" data-id="' + c.id + '">Passer à « ' + esc(KITCHEN_LABEL[nextStep]) + ' »</button></div>';
+    return card + '</div>';
+  }).join("");
   return h;
 }
 
-/* ---------- Demandes clients ---------- */
+/* ---------- Demandes clients : lignes compactes, actions en feuille ---------- */
+function demandeRow(d){
+  var heure = String(d.createdAt||"").length>=16 ? String(d.createdAt).slice(11,16) : "";
+  var msg = d.message ? (d.message.length > 64 ? d.message.slice(0,64) + "…" : d.message) : "";
+  return '<button class="lrow" data-act="dem-open" data-id="' + d.id + '"><span class="grow">' +
+    '<span class="t">' + esc(d.type || "Demande") + (d.clientNom ? ' — ' + esc(d.clientNom) : '') + '</span>' +
+    '<span class="s">' + (msg ? '« ' + esc(msg) + ' » · ' : '') + esc(demOrigin(d)) + ' · ' + esc(fmtDate(String(d.createdAt).slice(0,10) || todayStr())) + (heure ? ' · ' + heure : '') + '</span></span>' +
+    '<span class="side">' + demBadge(d.statut) + '</span>' +
+    '<span class="chev">' + CHEV_SVG + '</span></button>';
+}
+function demandeSheet(d){
+  var t = todayStr();
+  var res = d.resId ? resById(d.resId) : null;
+  var heure = String(d.createdAt||"").length>=16 ? String(d.createdAt).slice(11,16) : "";
+  var h = '<div class="folio-head">' + demBadge(d.statut) + '</div>';
+  h += '<h3>' + esc(d.type || "Demande") + (d.clientNom ? ' — ' + esc(d.clientNom) : '') + '</h3>';
+  if(d.message) h += '<p style="font-size:15.5px;line-height:1.6;margin:6px 0 4px">« ' + esc(d.message) + ' »</p>';
+  h += '<div class="kv"><span>Origine <b>' + esc(demOrigin(d)) + '</b></span>' +
+    (res ? '<span>Séjour <b>' + esc(res.code||"") + ' (' + esc(res.clientName) + ')</b></span>' : '') +
+    '<span>Reçue <b>' + esc(fmtDate(String(d.createdAt).slice(0,10) || t)) + (heure ? ' · ' + heure : '') + '</b></span>' +
+    (d.statut==="traitee" && d.traiteeAt ? '<span>Traitée <b>' + esc(fmtDate(String(d.traiteeAt).slice(0,10))) + '</b></span>' : '') + '</div>';
+  h += '<div class="actions sticky-actions">';
+  if(d.statut==="nouvelle"){
+    h += '<button class="btn btn-teal" data-act="dem-prendre" data-id="' + d.id + '">Prendre en charge</button>' +
+      '<button class="btn btn-soft" data-act="dem-traitee" data-id="' + d.id + '">Marquer traitée</button>';
+  } else if(d.statut==="prise_en_charge"){
+    h += '<button class="btn btn-teal" data-act="dem-traitee" data-id="' + d.id + '">Marquer traitée</button>';
+  }
+  h += '<button class="btn btn-ghost" data-act="close">Fermer</button></div>';
+  openSheet1(h, function(){ var f = demandeById(d.id); if(f) demandeSheet(f); else closeAllSheets(); });
+}
 function viewDemandes(){
   var nbNouv = nouvellesCount();
-  var nbPrise = store.demandes.filter(function(d){ return d.statut==="prise_en_charge"; }).length;
-  var t = todayStr();
-  var nbJour = store.demandes.filter(function(d){ return String(d.createdAt).slice(0,10)===t; }).length;
-  var h = '<div class="page-head"><div><h2>Demandes clients</h2><div class="sub">Envoyées depuis la page QR des chambres et des tables — suivies ici, en temps réel</div></div></div>';
-  h += '<div class="stats">' +
-    '<div class="stat"><div class="n" style="color:var(--red)">' + nbNouv + '</div><div class="l">Nouvelles — à prendre en charge</div></div>' +
-    '<div class="stat"><div class="n wood">' + nbPrise + '</div><div class="l">En cours de traitement</div></div>' +
-    '<div class="stat"><div class="n teal">' + nbJour + '</div><div class="l">Reçues aujourd\'hui</div></div>' +
-    '<div class="stat"><div class="n teal">' + store.demandes.length + '</div><div class="l">Total des demandes</div></div>' +
-    '<div class="stat"><div class="n wood">' + store.demandes.filter(function(d){ return d.statut==="traitee"; }).length + '</div><div class="l">Traitées</div></div></div>';
+  var h = '<div class="page-head"><div><h2>Demandes clients</h2><div class="sub">' + store.demandes.length + ' demande(s) au total' + (nbNouv ? ' · <b style="color:var(--red)">' + nbNouv + ' nouvelle(s)</b>' : '') + ' — envoyées depuis les QR des chambres et des tables</div></div></div>';
   h += '<div class="chips">' +
     '<button class="chip' + (ui.demFilter==="all" ? " on" : "") + '" data-demfilter="all">Toutes</button>' +
     '<button class="chip' + (ui.demFilter==="nouvelle" ? " on" : "") + '" data-demfilter="nouvelle">Nouvelles</button>' +
@@ -1517,48 +1546,52 @@ function viewDemandes(){
   }
   var order = { nouvelle: 0, prise_en_charge: 1, traitee: 2 };
   list.sort(function(a,b){ var oa = order[a.statut]!=null?order[a.statut]:1, ob = order[b.statut]!=null?order[b.statut]:1; if(oa!==ob) return oa-ob; return String(a.createdAt) < String(b.createdAt) ? 1 : -1; });
-  h += list.map(function(d){
-    var res = d.resId ? resById(d.resId) : null;
-    var heure = String(d.createdAt||"").length>=16 ? String(d.createdAt).slice(11,16) : "";
-    var card = '<div class="card"><div class="card-row"><div class="grow">' +
-      '<h3>' + esc(d.type || "Demande") + (d.clientNom ? ' — ' + esc(d.clientNom) : '') + '</h3>' +
-      (d.message ? '<div class="meta" style="font-size:14.5px;color:var(--ink)">« ' + esc(d.message) + ' »</div>' : '') +
-      '<div class="meta">' + esc(demOrigin(d)) + (res ? ' · Séjour ' + esc(res.code||"") + ' (' + esc(res.clientName) + ')' : '') +
-      ' · ' + esc(fmtDate(String(d.createdAt).slice(0,10) || t)) + (heure ? ' · ' + esc(heure) : '') +
-      (d.statut==="traitee" && d.traiteeAt ? ' · traitée le ' + esc(fmtDate(String(d.traiteeAt).slice(0,10))) + (String(d.traiteeAt).length>=16 ? ' à ' + esc(String(d.traiteeAt).slice(11,16)) : '') : '') + '</div>' +
-      '</div><div>' + demBadge(d.statut) + '</div></div>';
-    if(d.statut==="nouvelle"){
-      card += '<div class="actions"><button class="btn btn-teal btn-sm" data-act="dem-prendre" data-id="' + d.id + '">Prendre en charge</button>' +
-        '<button class="btn btn-soft btn-sm" data-act="dem-traitee" data-id="' + d.id + '">Marquer traitée directement</button></div>';
-    } else if(d.statut==="prise_en_charge"){
-      card += '<div class="actions"><button class="btn btn-teal btn-sm" data-act="dem-traitee" data-id="' + d.id + '">Marquer traitée</button></div>';
-    }
-    return card + '</div>';
-  }).join("");
+  h += '<div class="lstack">' + list.map(demandeRow).join("") + '</div>';
   return h;
 }
 
-/* ---------- Clients ---------- */
-function viewClients(){
+/* ---------- Clients : lignes compactes, historique en feuille ---------- */
+function clientsList(){
   var map = {};
   store.reservations.forEach(function(r){
     var key = (r.clientName||"").trim().toLowerCase() + "|" + (r.phone||"").trim();
-    if(!map[key]) map[key] = { name: r.clientName, phone: r.phone||"", stays: 0, spent: 0, last: "" };
+    if(!map[key]) map[key] = { key: key, name: r.clientName, phone: r.phone||"", stays: 0, spent: 0, last: "" };
     map[key].spent += resPaid(r);
     if(r.status==="Annulée") return;
     map[key].stays++;
     if(!map[key].last || r.checkIn > map[key].last) map[key].last = r.checkIn;
   });
-  var list = Object.keys(map).map(function(k){ return map[k]; }).filter(function(c){ return c.stays > 0; }).sort(function(a,b){ return b.stays - a.stays || (a.name<b.name?-1:1); });
+  return Object.keys(map).map(function(k){ return map[k]; }).filter(function(c){ return c.stays > 0; })
+    .sort(function(a,b){ return b.stays - a.stays || (a.name<b.name?-1:1); });
+}
+function clientSheet(key){
+  var c = null;
+  clientsList().forEach(function(x){ if(x.key===key) c = x; });
+  if(!c) return;
+  var res = store.reservations.filter(function(r){
+    return ((r.clientName||"").trim().toLowerCase() + "|" + (r.phone||"").trim()) === key;
+  }).slice().sort(function(a,b){ return a.checkIn < b.checkIn ? 1 : -1; });
+  var h = '<h3>' + esc(c.name) + '</h3>' +
+    '<div class="kv"><span>Séjours <b>' + c.stays + '</b></span><span>Total payé <b>' + esc(fmt$(c.spent)) + '</b></span>' +
+    (c.phone ? '<span>Téléphone <b>' + esc(c.phone) + '</b></span>' : '') +
+    '<span>Dernier séjour <b>' + esc(fmtDate(c.last)) + '</b></span></div>';
+  h += '<div class="folio-sec">Ses réservations</div>';
+  h += res.length ? '<div class="lstack">' + res.map(resRow).join("") + '</div>' : '<p class="note">Aucune réservation.</p>';
+  h += '<div class="actions sticky-actions"><button class="btn btn-ghost" data-act="close">Fermer</button></div>';
+  openSheet1(h, function(){ clientSheet(key); });
+}
+function viewClients(){
+  var list = clientsList();
   if(ui.clientSearch){ var q = ui.clientSearch.toLowerCase(); list = list.filter(function(c){ return c.name.toLowerCase().indexOf(q)>=0 || c.phone.toLowerCase().indexOf(q)>=0; }); }
-  var h = '<div class="page-head"><div><h2>Clients</h2><div class="sub">Liste construite automatiquement à partir des réservations</div></div></div>';
+  var h = '<div class="page-head"><div><h2>Clients</h2><div class="sub">' + list.length + ' client(s) — liste construite à partir des réservations</div></div></div>';
   h += '<div class="searchbar"><input id="clientSearch" type="search" aria-label="Rechercher un client" placeholder="Rechercher un client…" value="' + esc(ui.clientSearch) + '" /></div>';
-  h += list.length ? list.map(function(c){
-    return '<div class="card"><div class="card-row"><div class="grow"><h3>' + esc(c.name) + '</h3>' +
-      '<div class="meta">' + (c.phone ? esc(c.phone) + ' · ' : '') + 'Dernier séjour : ' + esc(fmtDate(c.last)) + '</div></div>' +
-      '<div style="text-align:right"><div class="money" style="font-size:17px">' + c.stays + ' séjour' + (c.stays>1?"s":"") + '</div>' +
-      '<div class="meta">Payé : ' + esc(fmt$(c.spent)) + '</div></div></div></div>';
-  }).join("") : '<div class="empty">Aucun client pour le moment.<br/>Les clients apparaissent ici dès la première réservation.</div>';
+  h += list.length ? '<div class="lstack">' + list.map(function(c){
+    return '<button class="lrow" data-act="client-open" data-key="' + esc(c.key) + '"><span class="grow">' +
+      '<span class="t">' + esc(c.name) + '</span>' +
+      '<span class="s">' + (c.phone ? esc(c.phone) + ' · ' : '') + 'Dernier séjour : ' + esc(fmtDate(c.last)) + '</span></span>' +
+      '<span class="side"><span class="amt">' + c.stays + ' séjour' + (c.stays>1?"s":"") + '</span><span class="s">Payé : ' + esc(fmt$(c.spent)) + '</span></span>' +
+      '<span class="chev">' + CHEV_SVG + '</span></button>';
+  }).join("") + '</div>' : '<div class="empty">Aucun client pour le moment.<br/>Les clients apparaissent ici dès la première réservation.</div>';
   return h;
 }
 
@@ -1569,11 +1602,11 @@ function viewSite(){
   h += '<div class="pub-hero"><h3>' + esc(hotel ? hotel.nom : "Crescence Hôtel et Appartement") + '</h3>' +
     '<p>' + esc(hotel ? (hotel.adresse||"") : "Bujumbura, Burundi") + ' · Réservez en ligne : votre demande part directement à la réception, qui la confirme dans le logiciel de gestion.</p></div>';
   h += '<h3 class="sec-title">Nos hébergements</h3>';
-  h += publicRooms().map(function(r){
-    return '<div class="card"><div class="card-row"><div class="grow"><h3>' + esc(r.name) + '</h3>' +
-      '<div class="meta">' + esc(r.type) + ' · jusqu\'à ' + r.capacity + ' pers.' + (r.description ? ' · ' + esc(r.description) : '') + '</div></div>' +
-      '<div style="text-align:right"><div class="money" style="font-size:17px">' + esc(fmt$(r.priceNight)) + '</div><div class="meta">par nuit</div></div></div></div>';
-  }).join("");
+  h += '<div class="lstack">' + publicRooms().map(function(r){
+    return '<div class="lrow"><span class="grow"><span class="t">' + esc(r.name) + '</span>' +
+      '<span class="s">' + esc(r.type) + ' · jusqu\'à ' + r.capacity + ' pers.' + (r.description ? ' · ' + esc(r.description) : '') + '</span></span>' +
+      '<span class="side"><span class="amt">' + esc(fmt$(r.priceNight)) + '</span><span class="s">par nuit</span></span></div>';
+  }).join("") + '</div>';
   h += '<h3 class="sec-title">Demande de réservation en ligne</h3>';
   h += '<div class="card"><form id="pubForm">' +
     '<div class="grid2"><div class="field"><label>Nom complet *</label><input name="clientName" required placeholder="Ex. : Aline Ndayisenga" /></div>' +
@@ -1715,33 +1748,76 @@ function restoDayTotals(dateStr){
   return { payees: payees, imputees: imputees, total: payees + imputees, nbPayees: nbPayees, nbImputees: nbImputees };
 }
 function cmdTime(c){ var s = String(c.createdAt||""); return s.length >= 16 ? s.slice(11,16) : ""; }
-function commandeCard(c){
+/* ---------- Resto-bar : onglets internes, lignes compactes, détails en feuilles ---------- */
+function commandeRow(c){
+  var res = c.resId ? resById(c.resId) : null;
+  var nb = lignesOf(c.id).length;
+  return '<button class="lrow" data-act="cmd-open" data-id="' + c.id + '"><span class="grow">' +
+    '<span class="t">' + esc(c.clientNom || (res ? res.clientName : "Client de passage")) + '</span>' +
+    '<span class="s">' + (res ? 'Folio ' + esc(res.code||"") + ' · ' : '') + esc(fmtDate(cmdDate(c) || todayStr())) + (cmdTime(c) ? ' · ' + esc(cmdTime(c)) : '') + ' · ' + nb + ' ligne' + (nb>1?"s":"") + '</span></span>' +
+    '<span class="side">' + cmdBadge(c.status) + '<span class="amt">' + esc(fmt$(commandeTotal(c))) + '</span></span>' +
+    '<span class="chev">' + CHEV_SVG + '</span></button>';
+}
+function commandeSheet(c){
   var res = c.resId ? resById(c.resId) : null;
   var room = res ? roomById(res.roomId) : null;
   var locked = !!(res && (res.status==="Terminée" || res.status==="Annulée"));
   var lines = lignesOf(c.id);
-  var h = '<div class="card"><div class="card-row"><div class="grow">' +
-    '<h3>' + esc(c.clientNom || (res ? res.clientName : "Client de passage")) + '</h3>' +
-    '<div class="meta">' + (res ? 'Séjour · ' + esc(room ? room.name : "—") + (res.code ? ' · ' + esc(res.code) : '') + ' · ' + esc(res.status) : 'Client de passage') +
-    ' · ' + esc(fmtDate(cmdDate(c) || todayStr())) + (cmdTime(c) ? ' · ' + esc(cmdTime(c)) : '') + '</div>' +
+  var h = '<div class="folio-head">' + cmdBadge(c.status) + cmdSourceBadge(c) + '</div>';
+  h += '<h3>' + esc(c.clientNom || (res ? res.clientName : "Client de passage")) + '</h3>' +
+    '<div class="meta" style="color:var(--ink2);font-size:13.5px">' + (res ? 'Séjour · ' + esc(room ? room.name : "—") + (res.code ? ' · ' + esc(res.code) : '') + ' · ' + esc(res.status) : 'Client de passage') +
+    ' · ' + esc(fmtDate(cmdDate(c) || todayStr())) + (cmdTime(c) ? ' · ' + esc(cmdTime(c)) : '') +
+    ' · Cuisine : ' + esc(KITCHEN_LABEL[kitchenStepOf(c)]) + '</div>' +
     '<div class="cmd-lines">' + (lines.length ? lines.map(function(l){
       return '<div class="pay-row"><div>' + esc(l.articleNom) + ' <span class="who">× ' + (+l.quantite||0) + ' · ' + esc(fmt$(l.prix)) + '</span></div><div class="money">' + esc(fmt$((+l.prix||0) * (+l.quantite||0))) + '</div></div>';
     }).join("") : '<div class="meta">Aucune ligne.</div>') + '</div>' +
     '<div class="kv"><span>Total <b>' + esc(fmt$(commandeTotal(c))) + '</b></span>' +
-    (cmdPaysOf(c).length ? '<span>Encaissé (commande) <b>' + esc(fmt$(cmdPaid(c))) + '</b></span><span>Reste dû <b class="' + (cmdDue(c)>0 ? 'money due' : 'money ok') + '">' + esc(fmt$(cmdDue(c))) + '</b></span>' : '') + '</div>' +
-    (cmdPaysOf(c).length ? '<div class="cmd-lines">' + cmdPaysOf(c).map(function(p){ var pe = p.employeId ? empById(p.employeId) : null; return '<div class="pay-row"><div>Encaissement · ' + esc(p.method) + (p.reference ? ' · Réf. ' + esc(p.reference) : '') + (pe ? ' · par ' + esc(pe.nom) : '') + '</div><div class="money">' + esc(fmt$(p.amount)) + '</div></div>'; }).join("") + '</div>' : '') + 
-    (locked && c.status==="Ouverte" ? '<div class="meta" style="margin-top:6px">Séjour ' + esc(lowerFirst(res.status)) + ' : cette commande n\'est plus modifiable.</div>' : '') +
-    '</div><div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">' + cmdBadge(c.status) + cmdSourceBadge(c) + '</div></div>';
+    (cmdPaysOf(c).length ? '<span>Encaissé <b>' + esc(fmt$(cmdPaid(c))) + '</b></span><span>Reste dû <b class="' + (cmdDue(c)>0 ? 'money due' : 'money ok') + '">' + esc(fmt$(cmdDue(c))) + '</b></span>' : '') + '</div>' +
+    (cmdPaysOf(c).length ? '<div class="cmd-lines">' + cmdPaysOf(c).map(function(p){ var pe = p.employeId ? empById(p.employeId) : null; return '<div class="pay-row"><div>Encaissement · ' + esc(p.method) + (p.reference ? ' · Réf. ' + esc(p.reference) : '') + (pe ? ' · par ' + esc(pe.nom) : '') + '</div><div class="money">' + esc(fmt$(p.amount)) + '</div></div>'; }).join("") + '</div>' : '') +
+    (locked && c.status==="Ouverte" ? '<p class="note" style="margin-top:8px">Séjour ' + esc(lowerFirst(res.status)) + ' : cette commande n\'est plus modifiable.</p>' : '');
+  h += '<div class="actions sticky-actions">';
   if(c.status==="Ouverte" && !locked){
-    h += '<div class="actions">';
-    if(c.resId) h += '<button class="btn btn-teal btn-sm" data-act="cmd-imputer" data-id="' + c.id + '">Imputer au folio</button>';
-    else if(c.source==="qr_chambre") h += '<button class="btn btn-teal btn-sm" data-act="cmd-imputer-sejour" data-id="' + c.id + '">Imputer au séjour</button>';
-    h += '<button class="btn btn-wood btn-sm" data-act="cmd-encaisser" data-id="' + c.id + '">Encaisser / paiement partiel</button>';
-    h += '<button class="btn btn-danger btn-sm" data-act="cmd-annuler" data-id="' + c.id + '">Annuler</button>';
-    h += '</div>';
+    if(c.resId) h += '<button class="btn btn-teal" data-act="cmd-imputer" data-id="' + c.id + '">Imputer au folio</button>';
+    else if(c.source==="qr_chambre") h += '<button class="btn btn-teal" data-act="cmd-imputer-sejour" data-id="' + c.id + '">Imputer au séjour</button>';
+    h += '<button class="btn btn-wood" data-act="cmd-encaisser" data-id="' + c.id + '">Encaisser / paiement partiel</button>';
+    h += '<button class="btn btn-danger" data-act="cmd-annuler" data-id="' + c.id + '">Annuler</button>';
   }
-  h += '</div>';
-  return h;
+  h += '<button class="btn btn-ghost" data-act="close">Fermer</button></div>';
+  openSheet1(h, function(){ var f = cmdById(c.id); if(f) commandeSheet(f); else closeAllSheets(); });
+}
+function articleRow(a){
+  return '<button class="lrow" data-act="article-open" data-id="' + a.id + '"><span class="grow">' +
+    '<span class="t">' + esc(a.name) + '</span>' +
+    '<span class="s">' + esc(fmt$(a.price)) + (stockOf(a)!=null ? ' · ' + stockOf(a) + ' portion(s)' + (stockLow(a) ? ' — stock faible' : '') : ' · stock non suivi') + (a.actif ? '' : ' · hors carte') + '</span></span>' +
+    '<span class="side">' + catBadge(a.categorie) + (a.actif ? '' : '<span class="badge b-off">Inactif</span>') + '</span>' +
+    '<span class="chev">' + CHEV_SVG + '</span></button>';
+}
+function articleSheet(a){
+  var h = '<div class="folio-head">' + catBadge(a.categorie) + (a.actif ? '<span class="badge b-libre">En vente</span>' : '<span class="badge b-off">Inactif</span>') + '</div>';
+  h += '<h3>' + esc(a.name) + '</h3>' +
+    '<div class="kv"><span>Prix <b>' + esc(fmt$(a.price)) + '</b></span>' +
+    (stockOf(a)!=null ? '<span>Stock <b' + (stockLow(a) ? ' style="color:var(--red)"' : '') + '>' + stockOf(a) + ' portion(s)</b></span>' + (a.stockAlerte!=null ? '<span>Alerte à <b>' + a.stockAlerte + '</b></span>' : '') : '<span>Stock <b>non suivi</b></span>') + '</div>' +
+    (a.desc ? '<p class="note" style="margin-top:8px">' + esc(a.desc) + '</p>' : '') +
+    (a.allergenes ? '<p class="note" style="margin-top:4px">Allergènes : ' + esc(a.allergenes) + '</p>' : '');
+  h += '<div class="actions sticky-actions"><button class="btn btn-teal" data-act="edit-article" data-id="' + a.id + '">Modifier</button>' +
+    '<button class="btn btn-soft" data-act="toggle-article" data-id="' + a.id + '">' + (a.actif ? 'Désactiver' : 'Activer') + '</button>' +
+    '<button class="btn btn-ghost" data-act="close">Fermer</button></div>';
+  openSheet1(h, function(){ var f = articleById(a.id); if(f) articleSheet(f); else closeAllSheets(); });
+}
+function tableSheet(tb){
+  var SITE_QR = "https://rmcvdr.github.io/crescence/";
+  var url = SITE_QR + "?table=" + tb.id;
+  var h = '<div class="folio-head">' + (tb.actif ? '<span class="badge b-libre">Active</span>' : '<span class="badge b-off">Inactive</span>') + '</div>';
+  h += '<h3>' + esc(tb.nom) + '</h3>' +
+    '<p class="note">' + (tb.actif ? 'En service — son QR reçoit commandes et demandes.' : 'Hors service — QR inactif côté client.') + '</p>' +
+    '<div class="qr-card" style="margin-top:12px"><div class="qr-box" data-qr="' + esc(url) + '"></div><div class="meta">Page client de la table<br/>' + esc(url) + '</div></div>';
+  h += '<div class="actions sticky-actions"><button class="btn btn-teal" data-act="edit-table" data-id="' + tb.id + '">Modifier</button>' +
+    '<button class="btn btn-soft" data-act="toggle-table" data-id="' + tb.id + '">' + (tb.actif ? 'Désactiver' : 'Activer') + '</button>' +
+    '<button class="btn btn-soft" data-act="print-qr">Imprimer les QR</button>' +
+    '<button class="btn btn-danger" data-act="del-table" data-id="' + tb.id + '">Supprimer</button>' +
+    '<button class="btn btn-ghost" data-act="close">Fermer</button></div>';
+  openSheet1(h, function(){ var f = tableRestoById(tb.id); if(f) tableSheet(f); else closeAllSheets(); });
+  renderQrBoxes($("#sheet"));
 }
 function cmdPayForm(c){
   var due = cmdDue(c);
@@ -1778,71 +1854,52 @@ function viewRestobar(){
   var t = todayStr();
   var totals = restoDayTotals(t);
   var openCount = store.commandes.filter(function(c){ return c.status==="Ouverte"; }).length;
-  var todayCount = store.commandes.filter(function(c){ return cmdDate(c)===t && c.status!=="Annulée"; }).length;
-  var activeArticles = store.articles.filter(function(a){ return a.actif; }).length;
-  var h = '<div class="page-head"><div><h2>Resto-bar</h2><div class="sub">Restaurant &amp; bar : une consommation de séjour rejoint automatiquement sa facture</div></div>' +
-    '<button class="btn btn-teal" data-act="new-order">+ Nouvelle commande</button></div>';
-  h += '<div class="stats">' +
-    '<div class="stat"><div class="n teal">' + esc(fmt$(totals.total)) + '</div><div class="l">Ventes resto-bar du jour</div></div>' +
-    '<div class="stat"><div class="n wood">' + esc(fmt$(totals.payees)) + '</div><div class="l">Encaissées directement</div></div>' +
-    '<div class="stat"><div class="n teal">' + esc(fmt$(totals.imputees)) + '</div><div class="l">Imputées aux folios</div></div>' +
-    '<div class="stat"><div class="n wood">' + openCount + '</div><div class="l">Commandes ouvertes</div></div>' +
-    '<div class="stat"><div class="n teal">' + todayCount + '</div><div class="l">Commandes du jour</div></div></div>';
-  h += '<h3 class="sec-title">Commandes</h3>';
-  h += '<div class="chips"><button class="chip' + (ui.cmdFilter==="today" ? " on" : "") + '" data-cmdfilter="today">Aujourd\'hui</button>' +
-    '<button class="chip' + (ui.cmdFilter==="all" ? " on" : "") + '" data-cmdfilter="all">Historique récent</button></div>';
-  var cmds = store.commandes.slice();
-  if(ui.cmdFilter==="today") cmds = cmds.filter(function(c){ return cmdDate(c)===t; });
-  cmds = cmds.slice(0, 40);
-  h += cmds.length ? cmds.map(commandeCard).join("") :
-    '<div class="empty">' + (ui.cmdFilter==="today" ? 'Aucune commande aujourd\'hui pour le moment.' : 'Aucune commande pour le moment.') + '<br/>Créez la première avec le bouton « Nouvelle commande ».</div>';
-  h += '<div class="page-head" style="margin-top:26px"><div><h2 style="font-size:21px">Articles — carte du restaurant &amp; du bar</h2><div class="sub">' + activeArticles + ' article(s) actif(s) sur ' + store.articles.length + '</div></div>' +
-    '<button class="btn btn-teal" data-act="new-article">+ Nouvel article</button></div>';
-  if(store.articles.length){
-    h += store.articles.map(function(a){
-      return '<div class="card"><div class="card-row"><div class="grow"><h3>' + esc(a.name) + '</h3>' +
-        '<div class="meta">' + esc(fmt$(a.price)) + ' · ' + (a.actif ? 'En vente' : 'Hors carte') + (stockOf(a)!=null ? ' · <b style="' + (stockLow(a) ? 'color:var(--red)' : '') + '">' + stockOf(a) + ' portion(s) en stock</b>' + (a.stockAlerte!=null ? ' (alerte à ' + a.stockAlerte + ')' : '') : '') + '</div>' +
-        (a.desc ? '<div class="meta">' + esc(a.desc) + '</div>' : '') +
-        (a.allergenes ? '<div class="meta">Allergènes : ' + esc(a.allergenes) + '</div>' : '') + '</div>' +
-        '<div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">' + catBadge(a.categorie) +
-        (a.actif ? '' : '<span class="badge b-off">Inactif</span>') + '</div></div>' +
-        '<div class="actions"><button class="btn btn-soft btn-sm" data-act="edit-article" data-id="' + a.id + '">Modifier</button>' +
-        '<button class="btn btn-soft btn-sm" data-act="toggle-article" data-id="' + a.id + '">' + (a.actif ? 'Désactiver' : 'Activer') + '</button></div></div>';
-    }).join("");
-  } else {
-    h += '<div class="empty">Aucun article enregistré pour le moment.<br/>Ajoutez les plats et boissons vendus au restaurant et au bar : ils serviront à composer les commandes.</div>';
+  var tab = ui.restoTab;
+  var h = '<div class="page-head"><div><h2>Resto-bar</h2><div class="sub">Restaurant &amp; bar — une consommation de séjour rejoint automatiquement sa facture</div></div>' +
+    (tab==="commandes" ? '<button class="btn btn-teal" data-act="new-order">+ Nouvelle commande</button>' : '') +
+    (tab==="carte" ? '<button class="btn btn-teal" data-act="new-article">+ Nouvel article</button>' : '') +
+    (tab==="tables" ? '<button class="btn btn-teal" data-act="new-table">+ Nouvelle table</button>' : '') + '</div>';
+  h += '<div class="itabs"><div class="chips">' +
+    '<button class="chip' + (tab==="commandes" ? " on" : "") + '" data-rtab="commandes">Commandes</button>' +
+    '<button class="chip' + (tab==="carte" ? " on" : "") + '" data-rtab="carte">Carte &amp; stock</button>' +
+    '<button class="chip' + (tab==="tables" ? " on" : "") + '" data-rtab="tables">Tables &amp; QR</button></div></div>';
+  if(tab==="commandes"){
+    h += '<div class="stats four">' +
+      '<div class="stat"><div class="n teal">' + esc(fmt$(totals.total)) + '</div><div class="l">Ventes du jour</div></div>' +
+      '<div class="stat"><div class="n wood">' + openCount + '</div><div class="l">Commandes ouvertes</div></div></div>';
+    h += '<div class="chips"><button class="chip' + (ui.cmdFilter==="today" ? " on" : "") + '" data-cmdfilter="today">Aujourd\'hui</button>' +
+      '<button class="chip' + (ui.cmdFilter==="all" ? " on" : "") + '" data-cmdfilter="all">Historique récent</button></div>';
+    var cmds = store.commandes.slice();
+    if(ui.cmdFilter==="today") cmds = cmds.filter(function(c){ return cmdDate(c)===t; });
+    cmds = cmds.slice(0, 40);
+    h += cmds.length ? '<div class="lstack">' + cmds.map(commandeRow).join("") + '</div>' :
+      '<div class="empty">' + (ui.cmdFilter==="today" ? 'Aucune commande aujourd\'hui pour le moment.' : 'Aucune commande pour le moment.') + '<br/>Créez la première avec le bouton « Nouvelle commande ».</div>';
+    return h;
   }
-  /* -- : Tables & QR codes --- */
+  if(tab==="carte"){
+    var activeArticles = store.articles.filter(function(a){ return a.actif; }).length;
+    h += '<p class="note" style="margin-bottom:12px">' + activeArticles + ' article(s) actif(s) sur ' + store.articles.length + ' — touchez un article pour le modifier ou gérer son stock.</p>';
+    h += store.articles.length ? '<div class="lstack">' + store.articles.map(articleRow).join("") + '</div>' :
+      '<div class="empty">Aucun article enregistré pour le moment.<br/>Ajoutez les plats et boissons vendus au restaurant et au bar.</div>';
+    return h;
+  }
+  /* Tables & QR */
   var SITE_QR = "https://rmcvdr.github.io/crescence/";
-  h += '<div class="page-head" style="margin-top:26px"><div><h2 style="font-size:21px">Tables &amp; QR codes</h2><div class="sub">Un QR par chambre et par table : le client scanne, voit le menu, commande et envoie ses demandes — tout arrive dans ce logiciel</div></div>' +
-    '<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-soft" data-act="print-qr">Imprimer les QR codes</button>' +
-    '<button class="btn btn-teal" data-act="new-table">+ Nouvelle table</button></div></div>';
-  h += '<h3 class="sec-title" style="margin-top:6px">QR des chambres</h3>';
+  h += '<div class="actions" style="margin:0 0 14px"><button class="btn btn-soft" data-act="print-qr">Imprimer les QR codes</button></div>';
+  h += '<h3 class="sec-title" style="margin-top:4px">Tables (' + store.tablesResto.length + ')</h3>';
+  h += store.tablesResto.length ? '<div class="lstack">' + store.tablesResto.map(function(tb){
+    return '<button class="lrow" data-act="table-open" data-id="' + tb.id + '"><span class="grow">' +
+      '<span class="t">' + esc(tb.nom) + '</span>' +
+      '<span class="s">' + (tb.actif ? 'En service — QR actif' : 'Hors service') + '</span></span>' +
+      '<span class="side">' + (tb.actif ? '<span class="badge b-libre">Active</span>' : '<span class="badge b-off">Inactive</span>') + '</span>' +
+      '<span class="chev">' + CHEV_SVG + '</span></button>';
+  }).join("") + '</div>' : '<div class="empty">Aucune table enregistrée.<br/>Créez les tables du restaurant (Table 1, Terrasse…) : chacune reçoit son QR code.</div>';
+  h += '<h3 class="sec-title">QR des chambres</h3>';
   var qrRooms = store.rooms.filter(function(r){ return r.actif; });
   h += qrRooms.length ? '<div class="qr-grid">' + qrRooms.map(function(r){
     var url = SITE_QR + "?chambre=" + r.id;
-    return '<div class="qr-card"><b>' + esc(r.name) + '</b><div class="qr-box" data-qr="' + esc(url) + '"></div><div class="meta">Page client de la chambre<br/>' + esc(url) + '</div></div>';
+    return '<div class="qr-card"><b>' + esc(r.name) + '</b><div class="qr-box" data-qr="' + esc(url) + '"></div><div class="meta">Page client de la chambre</div></div>';
   }).join("") + '</div>' : '<div class="empty">Aucun hébergement actif.</div>';
-  h += '<h3 class="sec-title">Tables du restaurant (' + store.tablesResto.length + ')</h3>';
-  if(store.tablesResto.length){
-    h += store.tablesResto.map(function(tb){
-      return '<div class="card"><div class="card-row"><div class="grow"><h3>' + esc(tb.nom) + '</h3>' +
-        '<div class="meta">' + (tb.actif ? 'En service — son QR reçoit commandes et demandes' : 'Hors service — QR inactif côté client') + '</div></div>' +
-        '<div>' + (tb.actif ? '<span class="badge b-libre">Active</span>' : '<span class="badge b-off">Inactive</span>') + '</div></div>' +
-        '<div class="actions"><button class="btn btn-soft btn-sm" data-act="edit-table" data-id="' + tb.id + '">Modifier</button>' +
-        '<button class="btn btn-soft btn-sm" data-act="toggle-table" data-id="' + tb.id + '">' + (tb.actif ? 'Désactiver' : 'Activer') + '</button>' +
-        '<button class="btn btn-danger btn-sm" data-act="del-table" data-id="' + tb.id + '">Supprimer</button></div></div>';
-    }).join("");
-  } else {
-    h += '<div class="empty">Aucune table enregistrée pour le moment.<br/>Créez les tables du restaurant (Table 1, Table 2, Terrasse…) : chacune reçoit son QR code ci-dessous.</div>';
-  }
-  var qrTables = store.tablesResto.filter(function(tb){ return tb.actif; });
-  if(qrTables.length){
-    h += '<h3 class="sec-title">QR des tables</h3><div class="qr-grid">' + qrTables.map(function(tb){
-      var url = SITE_QR + "?table=" + tb.id;
-      return '<div class="qr-card"><b>' + esc(tb.nom) + '</b><div class="qr-box" data-qr="' + esc(url) + '"></div><div class="meta">Page client de la table<br/>' + esc(url) + '</div></div>';
-    }).join("") + '</div>';
-  }
   return h;
 }
 function tableForm(tb){
@@ -2249,6 +2306,7 @@ function viewOwner(){
   var range = ownerPeriodRange();
   var st = computeOwnerPeriod(range.from, range.to);
   var pending = store.reservations.filter(function(r){ return r.status==="En attente"; });
+  var tab = ui.ownerTab;
   var presets = [["month","Ce mois-ci"],["lastMonth","Mois passé"],["last30","30 derniers jours"],["custom","Personnalisée"]];
   var h = '<div class="page-head"><div><h2>Vue propriétaire</h2><div class="sub">Indicateurs et rapports de l\'établissement, calculés automatiquement</div></div>' +
     '<button class="btn btn-teal" data-act="print-owner-report">Imprimer le rapport</button></div>';
@@ -2262,49 +2320,68 @@ function viewOwner(){
       '<div class="field"><label>Date de fin</label><input type="date" id="ownerToInput" value="' + esc(ui.ownerTo || range.to) + '" /></div>' +
       '<button class="btn btn-teal" data-act="owner-apply-custom">Appliquer la période</button></div>';
   }
-  h += '<p class="note" style="margin-top:10px">Tous les indicateurs et rapports ci-dessous se calculent sur cette période.</p></div>';
+  h += '</div>';
+  /* KPI compacts, toujours visibles */
   h += '<div class="stats owner-kpis">' +
-    '<div class="stat"><div class="n teal">' + esc(fmtPct(st.occ)) + '</div><div class="l">Taux d\'occupation</div><div class="def">Nuitées vendues ÷ nuitées disponibles · ' + st.sold + ' vendue(s) / ' + st.avail + ' disponible(s) (' + st.activeRooms + ' hébergement(s) actif(s) × ' + st.days + ' jour(s)). Nuits comptées au prorata des dates qui chevauchent la période, pour les séjours confirmés, en cours et terminés.</div></div>' +
-    '<div class="stat"><div class="n wood">' + esc(fmt$(st.stayRev)) + '</div><div class="l">Revenu hébergement (vendu)</div><div class="def">Totaux des mêmes séjours, au prorata : total de la réservation × nuits dans la période ÷ nuits du séjour.</div></div>' +
-    '<div class="stat"><div class="n teal">' + esc(fmt$(st.adr)) + '</div><div class="l">ADR — prix moyen / nuit vendue</div><div class="def">Revenu hébergement ÷ nuitées vendues.</div></div>' +
-    '<div class="stat"><div class="n wood">' + esc(fmt$(st.revpar)) + '</div><div class="l">RevPAR</div><div class="def">Revenu par nuitée disponible : revenu hébergement ÷ nuitées disponibles.</div></div>' +
-    '<div class="stat"><div class="n teal">' + esc(fmt$(st.cashNet)) + '</div><div class="l">Encaissé net de la période</div><div class="def">Somme des paiements datés dans la période, remboursements en négatif inclus.</div></div></div>';
-  h += '<h3 class="sec-title">Revenu par département</h3><div class="card">' +
-    '<div class="pay-row"><div><div><b>Hébergement</b></div><div class="who">Encaissé net — paiements de la période, remboursements inclus</div></div><div class="money">' + esc(fmt$(st.cashNet)) + '</div></div>' +
-    '<div class="pay-row"><div><div><b>Restaurant</b></div><div class="who">Ventes — commandes payées + imputées de la période, lignes de catégorie restaurant</div></div><div class="money">' + esc(fmt$(st.resto)) + '</div></div>' +
-    '<div class="pay-row"><div><div><b>Bar</b></div><div class="who">Ventes — commandes payées + imputées de la période, lignes de catégorie bar</div></div><div class="money">' + esc(fmt$(st.bar)) + '</div></div>' +
-    '<p class="note" style="margin-top:10px">Précision : l\'hébergement est présenté en <b>encaissements</b> (argent réellement reçu sur la période) ; le restaurant et le bar sont présentés en <b>ventes</b> (commandes encaissées directement ou imputées aux notes des séjours).</p></div>';
-  var maxSrc = 0;
-  st.bySource.forEach(function(x){ if(x.v > maxSrc) maxSrc = x.v; });
-  var hasSrc = st.bySource.some(function(x){ return x.n > 0; });
-  h += '<h3 class="sec-title">Revenu par source</h3><div class="card">' +
-    '<p class="note" style="margin-bottom:6px">Réservations <b>créées</b> dans la période (hors annulées), réparties par source : nombre et total vendu (total complet de chaque réservation).</p>' +
-    (hasSrc ? st.bySource.filter(function(x){ return x.n > 0; }).map(function(x, idx){
-      var pct = maxSrc > 0 ? Math.max(2, Math.round(x.v / maxSrc * 100)) : 0;
-      return '<div class="src-bar-row"><div class="src-bar-head"><div><b>' + esc(SRC_LABEL[x.key] || x.key) + '</b> <span class="who">· ' + x.n + ' réservation(s) créée(s)</span></div><div class="money">' + esc(fmt$(x.v)) + '</div></div>' +
-        '<div class="bar-track"><div class="bar-fill' + (idx % 2 === 1 ? " wood" : "") + '" style="width:' + pct + '%"></div></div></div>';
-    }).join("") : '<div class="meta">Aucune réservation créée dans cette période.</div>') + '</div>';
-  h += '<h3 class="sec-title">Top hébergements</h3><div class="card">' +
-    '<p class="note" style="margin-bottom:6px">Classement par nuitées vendues dans la période (au prorata), avec le revenu hébergement associé.</p>' +
-    (st.topRooms.length ? st.topRooms.map(function(x, idx){
-      return '<div class="pay-row"><div style="display:flex;gap:11px;align-items:center"><span class="rank-num">' + (idx+1) + '</span><div><div><b>' + esc(x.room.name) + '</b></div><div class="who">' + esc(x.room.type || "") + ' · ' + x.nights + ' nuitée(s) vendue(s)</div></div></div><div class="money">' + esc(fmt$(x.revenue)) + '</div></div>';
-    }).join("") : '<div class="meta">Aucune nuitée vendue dans cette période.</div>') + '</div>';
-  h += '<h3 class="sec-title">Journal des opérations</h3><div class="card">' +
-    '<p class="note" style="margin-bottom:6px">Chronologie des opérations de la période : réservations créées, paiements et remboursements, commandes encaissées ou imputées et clôtures de journée. Période affichée : du ' + esc(fmtDate(range.from)) + ' au ' + esc(fmtDate(range.to)) + '.</p>' +
+    '<div class="stat"><div class="n teal">' + esc(fmtPct(st.occ)) + '</div><div class="l">Taux d\'occupation</div></div>' +
+    '<div class="stat"><div class="n wood">' + esc(fmt$(st.stayRev)) + '</div><div class="l">Revenu hébergement (vendu)</div></div>' +
+    '<div class="stat"><div class="n teal">' + esc(fmt$(st.adr)) + '</div><div class="l">ADR — prix moyen / nuit</div></div>' +
+    '<div class="stat"><div class="n wood">' + esc(fmt$(st.revpar)) + '</div><div class="l">RevPAR</div></div>' +
+    '<div class="stat"><div class="n teal">' + esc(fmt$(st.cashNet)) + '</div><div class="l">Encaissé net de la période</div></div></div>';
+  h += '<div class="itabs"><div class="chips">' +
+    '<button class="chip' + (tab==="vue" ? " on" : "") + '" data-otab="vue">Vue d\'ensemble</button>' +
+    '<button class="chip' + (tab==="dept" ? " on" : "") + '" data-otab="dept">Départements &amp; sources</button>' +
+    '<button class="chip' + (tab==="journal" ? " on" : "") + '" data-otab="journal">Journal</button></div></div>';
+  if(tab==="vue"){
+    h += '<div class="card"><h3>Comment lire ces indicateurs</h3>' +
+      '<div class="pay-row"><div><div><b>Taux d\'occupation</b></div><div class="who">Nuitées vendues ÷ nuitées disponibles · ' + st.sold + ' vendue(s) / ' + st.avail + ' disponible(s) (' + st.activeRooms + ' hébergement(s) actif(s) × ' + st.days + ' jour(s)). Nuits comptées au prorata des dates qui chevauchent la période, pour les séjours confirmés, en cours et terminés.</div></div></div>' +
+      '<div class="pay-row"><div><div><b>Revenu hébergement (vendu)</b></div><div class="who">Totaux des mêmes séjours, au prorata : total de la réservation × nuits dans la période ÷ nuits du séjour.</div></div></div>' +
+      '<div class="pay-row"><div><div><b>ADR — prix moyen par nuit vendue</b></div><div class="who">Revenu hébergement ÷ nuitées vendues.</div></div></div>' +
+      '<div class="pay-row"><div><div><b>RevPAR</b></div><div class="who">Revenu par nuitée disponible : revenu hébergement ÷ nuitées disponibles.</div></div></div>' +
+      '<div class="pay-row"><div><div><b>Encaissé net de la période</b></div><div class="who">Somme des paiements datés dans la période, remboursements en négatif inclus.</div></div></div></div>';
+    if(pending.length){
+      h += '<h3 class="sec-title">Demandes en attente de confirmation (' + pending.length + ')</h3>';
+      h += '<div class="lstack">' + pending.map(resRow).join("") + '</div>';
+    } else {
+      h += '<div class="empty">Aucune demande en attente de confirmation.</div>';
+    }
+    return h;
+  }
+  if(tab==="dept"){
+    h += '<div class="card"><h3>Revenu par département</h3>' +
+      '<div class="pay-row"><div><div><b>Hébergement</b></div><div class="who">Encaissé net — paiements de la période, remboursements inclus</div></div><div class="money">' + esc(fmt$(st.cashNet)) + '</div></div>' +
+      '<div class="pay-row"><div><div><b>Restaurant</b></div><div class="who">Ventes — commandes payées + imputées de la période, lignes restaurant</div></div><div class="money">' + esc(fmt$(st.resto)) + '</div></div>' +
+      '<div class="pay-row"><div><div><b>Bar</b></div><div class="who">Ventes — commandes payées + imputées de la période, lignes bar</div></div><div class="money">' + esc(fmt$(st.bar)) + '</div></div>' +
+      '<p class="note" style="margin-top:10px">L\'hébergement est présenté en <b>encaissements</b> (argent réellement reçu) ; le restaurant et le bar en <b>ventes</b> (commandes encaissées directement ou imputées aux folios).</p></div>';
+    var maxSrc = 0;
+    st.bySource.forEach(function(x){ if(x.v > maxSrc) maxSrc = x.v; });
+    var hasSrc = st.bySource.some(function(x){ return x.n > 0; });
+    h += '<h3 class="sec-title">Revenu par source</h3><div class="card">' +
+      '<p class="note" style="margin-bottom:6px">Réservations <b>créées</b> dans la période (hors annulées) : nombre et total vendu.</p>' +
+      (hasSrc ? st.bySource.filter(function(x){ return x.n > 0; }).map(function(x, idx){
+        var pct = maxSrc > 0 ? Math.max(2, Math.round(x.v / maxSrc * 100)) : 0;
+        return '<div class="src-bar-row"><div class="src-bar-head"><div><b>' + esc(SRC_LABEL[x.key] || x.key) + '</b> <span class="who">· ' + x.n + ' réservation(s) créée(s)</span></div><div class="money">' + esc(fmt$(x.v)) + '</div></div>' +
+          '<div class="bar-track"><div class="bar-fill' + (idx % 2 === 1 ? " wood" : "") + '" style="width:' + pct + '%"></div></div></div>';
+      }).join("") : '<div class="meta">Aucune réservation créée dans cette période.</div>') + '</div>';
+    h += '<h3 class="sec-title">Top hébergements</h3><div class="card">' +
+      '<p class="note" style="margin-bottom:6px">Classement par nuitées vendues dans la période (au prorata), avec le revenu hébergement associé.</p>' +
+      (st.topRooms.length ? st.topRooms.map(function(x, idx){
+        return '<div class="pay-row"><div style="display:flex;gap:11px;align-items:center"><span class="rank-num">' + (idx+1) + '</span><div><div><b>' + esc(x.room.name) + '</b></div><div class="who">' + esc(x.room.type || "") + ' · ' + x.nights + ' nuitée(s) vendue(s)</div></div></div><div class="money">' + esc(fmt$(x.revenue)) + '</div></div>';
+      }).join("") : '<div class="meta">Aucune nuitée vendue dans cette période.</div>') + '</div>';
+    return h;
+  }
+  /* Journal */
+  h += '<div class="card"><h3>Journal des opérations</h3>' +
+    '<p class="note" style="margin-bottom:6px">Chronologie de la période : du ' + esc(fmtDate(range.from)) + ' au ' + esc(fmtDate(range.to)) + '.</p>' +
     (st.events.length ? st.events.slice(0, 60).map(function(ev){
       return '<div class="journal-row"><div class="j-date">' + esc(ev.when) + '</div><div class="j-body"><div><b>' + esc(ev.title) + '</b></div><div class="who">' + esc(ev.detail) + '</div></div>' + (ev.amount != null ? '<div class="j-amt money">' + esc(fmt$(ev.amount)) + '</div>' : '') + '</div>';
     }).join("") : '<div class="meta">Aucune opération datée dans cette période.</div>') +
-    (st.events.length > 60 ? '<p class="note" style="margin-top:8px">Affichage limité aux 60 opérations les plus récentes de la période (' + st.events.length + ' au total).</p>' : '') +
+    (st.events.length > 60 ? '<p class="note" style="margin-top:8px">Affichage limité aux 60 opérations les plus récentes (' + st.events.length + ' au total).</p>' : '') +
     '<div class="folio-sec">État actuel — réservations annulées</div>' +
-    '<p class="note">Ces réservations annulées sont présentées ici, <b>sans date d\'annulation</b>, et non dans la chronologie ci-dessus.</p>' +
     (st.cancelled.length ? st.cancelled.map(function(r){
       var rm2 = roomById(r.roomId);
-      return '<div class="pay-row"><div><div>' + esc(r.clientName) + (r.code ? ' · <b>' + esc(r.code) + '</b>' : '') + '</div><div class="who">' + esc(rm2 ? rm2.name : "—") + ' · séjour prévu du ' + esc(fmtDate(r.checkIn)) + ' au ' + esc(fmtDate(r.checkOut)) + ' · via ' + esc(SRC_LABEL[r.source] || r.source || "Réception") + ' · statut actuel : Annulée</div></div><div class="money">' + esc(fmt$(resTotal(r))) + '</div></div>';
+      return '<div class="pay-row"><div><div>' + esc(r.clientName) + (r.code ? ' · <b>' + esc(r.code) + '</b>' : '') + '</div><div class="who">' + esc(rm2 ? rm2.name : "—") + ' · séjour prévu du ' + esc(fmtDate(r.checkIn)) + ' au ' + esc(fmtDate(r.checkOut)) + ' · via ' + esc(SRC_LABEL[r.source] || r.source || "Réception") + '</div></div><div class="money">' + esc(fmt$(resTotal(r))) + '</div></div>';
     }).join("") : '<div class="meta">Aucune réservation annulée.</div>') + '</div>';
-  if(pending.length){
-    h += '<h3 class="sec-title">Demandes en attente de confirmation (' + pending.length + ')</h3>';
-    h += pending.map(function(r){ return resCard(r, true); }).join("");
-  }
   return h;
 }
 
@@ -2373,37 +2450,83 @@ function viewPersonnel(){
   if(!isOwner()){
     return '<div class="page-head"><div><h2>Accès réservé</h2></div></div><div class="empty">Cette vue est réservée au compte propriétaire.</div>';
   }
-  var owner = true;
   var info = hrMonthInfo();
-  var actifs = store.employes.filter(function(e){ return e.actif; });
-  var h = '<div class="page-head"><div><h2>Personnel</h2><div class="sub">Employés, présences, congés et paie de l\'établissement</div></div>' +
-    '<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-soft" data-act="new-conge">Nouvelle demande de congé</button>' +
-    '<button class="btn btn-teal" data-act="new-emp">Nouvel employé</button></div></div>';
-
-  /* --- Employés --- */
-  h += '<h3 class="sec-title">Employés (' + store.employes.length + ')</h3>';
-  if(!owner) h += '<p class="note" style="margin-bottom:10px">Salaires réservés au propriétaire : la colonne salaire est masquée pour la réception.</p>';
+  var tab = ui.hrTab;
+  var nbAttente = store.conges.filter(function(c){ return c.statut==="en_attente"; }).length;
+  var h = '<div class="page-head"><div><h2>Personnel</h2><div class="sub">Employés, présences, congés et paie de l\'établissement</div></div></div>';
+  h += '<div class="itabs"><div class="chips">' +
+    '<button class="chip' + (tab==="employes" ? " on" : "") + '" data-hrtab="employes">Employés</button>' +
+    '<button class="chip' + (tab==="presences" ? " on" : "") + '" data-hrtab="presences">Présences</button>' +
+    '<button class="chip' + (tab==="conges" ? " on" : "") + '" data-hrtab="conges">Congés' + (nbAttente ? ' (' + nbAttente + ' en attente)' : '') + '</button>' +
+    '<button class="chip' + (tab==="paie" ? " on" : "") + '" data-hrtab="paie">Paie</button></div></div>';
+  if(tab==="employes") h += hrEmployesHtml();
+  else if(tab==="presences") h += hrPresencesHtml(info);
+  else if(tab==="conges") h += hrCongesHtml();
+  else h += hrPaieHtml(info);
+  return h;
+}
+function hrEmployesHtml(){
+  var h = '<div class="page-head" style="margin-top:4px"><div><h2 style="font-size:19px">Employés (' + store.employes.length + ')</h2></div>' +
+    '<button class="btn btn-teal" data-act="new-emp">Nouvel employé</button></div>';
   if(!store.employes.length){
-    h += '<div class="empty">Aucun employé enregistré pour le moment.<br/>Ajoutez le premier avec le bouton « Nouvel employé ».</div>';
-  } else {
-    h += store.employes.map(function(e){
-      var card = '<div class="card"><div class="card-row"><div class="grow"><h3>' + esc(e.nom) + '</h3>' +
-        '<div class="meta">' + esc(e.poste || "Poste non renseigné") + (e.telephone ? ' · ' + esc(e.telephone) : '') + (e.embauche ? ' · embauché le ' + esc(fmtDate(e.embauche)) : '') + '</div>' +
-        (owner ? '<div class="kv"><span>Salaire mensuel <b>' + esc(fmt$(e.salaire)) + '</b></span><span>Commission <b>' + (+e.commissionPct||0) + ' %</b> des encaissements</span><span>Début de service <b>' + esc(e.heureDebut || "08:00") + '</b></span></div>' : '<div class="kv"><span>Salaire <b>réservé au propriétaire</b></span></div>') +
-        '</div><div>' + (e.actif ? '<span class="badge b-libre">Actif</span>' : '<span class="badge b-emp-off">Inactif</span>') + '</div></div>' +
-        '<div class="actions"><button class="btn btn-soft btn-sm" data-act="edit-emp" data-id="' + e.id + '">Modifier</button>' +
-        '<button class="btn ' + (e.actif ? 'btn-danger' : 'btn-teal') + ' btn-sm" data-act="emp-toggle" data-id="' + e.id + '">' + (e.actif ? 'Désactiver' : 'Réactiver') + '</button></div></div>';
-      return card;
-    }).join("");
+    return h + '<div class="empty">Aucun employé enregistré pour le moment.<br/>Ajoutez le premier avec le bouton « Nouvel employé ».</div>';
   }
-
-  /* --- Présences --- */
-  h += '<h3 class="sec-title">Présences — ' + esc(info.label) + '</h3>';
-  h += '<div class="plan-nav"><button class="btn btn-soft btn-sm" data-act="hr-prev" aria-label="Mois précédent">‹ Mois préc.</button>' +
+  h += '<div class="lstack">' + store.employes.map(function(e){
+    return '<button class="lrow" data-act="emp-open" data-id="' + e.id + '"><span class="grow">' +
+      '<span class="t">' + esc(e.nom) + '</span>' +
+      '<span class="s">' + esc(e.poste || "Poste non renseigné") + (e.telephone ? ' · ' + esc(e.telephone) : '') + '</span></span>' +
+      '<span class="side">' + (e.actif ? '<span class="badge b-libre">Actif</span>' : '<span class="badge b-emp-off">Inactif</span>') + '<span class="amt">' + esc(fmt$(e.salaire)) + '</span></span>' +
+      '<span class="chev">' + CHEV_SVG + '</span></button>';
+  }).join("") + '</div>';
+  return h;
+}
+function pointageInputsHtml(e, ptDate){
+  var ptRow = presRow(e.id, ptDate);
+  var pt = pointage[e.id + "|" + ptDate] || (ptRow ? { arrivee: ptRow.arrivee || "", depart: ptRow.depart || "" } : { arrivee: "", depart: "" });
+  var retard = "";
+  var debutRef = String(e.heureDebut || "08:00");
+  if(pt.arrivee){
+    var mins = (parseInt(pt.arrivee.slice(0,2))||0) * 60 + (parseInt(pt.arrivee.slice(3,5))||0);
+    var refMins = (parseInt(debutRef.slice(0,2))||0) * 60 + (parseInt(debutRef.slice(3,5))||0);
+    var late = mins - refMins;
+    retard = late > 0 ? '<span class="badge b-dem-nouvelle">' + late + ' min de retard</span>' : '<span class="badge b-dem-traitee">À l\'heure</span>';
+  }
+  return '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><label style="font-size:12.5px;font-weight:700;color:var(--ink2)">Arrivée<br/><input type="time" class="pt-input" data-emp="' + e.id + '" data-kind="arrivee" value="' + esc(pt.arrivee) + '" style="border:1.5px solid var(--line);border-radius:9px;padding:7px 9px;background:var(--surface);color:var(--ink)" /></label>' +
+    '<label style="font-size:12.5px;font-weight:700;color:var(--ink2)">Départ<br/><input type="time" class="pt-input" data-emp="' + e.id + '" data-kind="depart" value="' + esc(pt.depart) + '" style="border:1.5px solid var(--line);border-radius:9px;padding:7px 9px;background:var(--surface);color:var(--ink)" /></label>' + retard + '</div>';
+}
+function employeSheet(e){
+  var ptDate = todayStr();
+  var h = '<div class="folio-head">' + (e.actif ? '<span class="badge b-libre">Actif</span>' : '<span class="badge b-emp-off">Inactif</span>') + '</div>';
+  h += '<h3>' + esc(e.nom) + '</h3>' +
+    '<div class="kv"><span>Poste <b>' + esc(e.poste || "—") + '</b></span>' +
+    (e.telephone ? '<span>Téléphone <b>' + esc(e.telephone) + '</b></span>' : '') +
+    (e.embauche ? '<span>Embauche <b>' + esc(fmtDate(e.embauche)) + '</b></span>' : '') + '</div>' +
+    '<div class="kv"><span>Salaire mensuel <b>' + esc(fmt$(e.salaire)) + '</b></span><span>Commission <b>' + (+e.commissionPct||0) + ' %</b></span><span>Début de service <b>' + esc(e.heureDebut || "08:00") + '</b></span></div>';
+  h += '<div class="folio-sec">Pointage du jour — ' + esc(fmtDate(ptDate)) + '</div>' + pointageInputsHtml(e, ptDate);
+  var cgs = store.conges.filter(function(c){ return c.employeId===e.id; }).slice()
+    .sort(function(a,b){ return a.debut < b.debut ? 1 : -1; });
+  h += '<div class="folio-sec">Ses congés (' + cgs.length + ')</div>';
+  h += cgs.length ? cgs.map(function(c){
+    return '<div class="pay-row"><div><div>Du ' + esc(fmtDate(c.debut)) + ' au ' + esc(fmtDate(c.fin)) + ' · ' + congeDays(c) + ' jour(s)</div>' + (c.motif ? '<div class="who">' + esc(c.motif) + '</div>' : '') + '</div>' + cgBadge(c.statut) + '</div>';
+  }).join("") : '<p class="note">Aucune demande de congé pour cet employé.</p>';
+  var prs = primesOf(e.id, ui.hrMonth);
+  h += '<div class="folio-sec">Ses primes — ' + esc(hrMonthInfo().label) + '</div>';
+  h += prs.length ? prs.map(function(pr){
+    return '<div class="pay-row"><div>' + (pr.motif ? esc(pr.motif) : 'Prime') + '</div><div class="money">' + esc(fmt$(pr.montant)) + '</div></div>';
+  }).join("") : '<p class="note">Aucune prime ce mois. Les primes s\'ajoutent depuis l\'onglet Paie.</p>';
+  h += '<div class="actions sticky-actions"><button class="btn btn-teal" data-act="edit-emp" data-id="' + e.id + '">Modifier</button>' +
+    '<button class="btn ' + (e.actif ? 'btn-danger' : 'btn-teal') + '" data-act="emp-toggle" data-id="' + e.id + '">' + (e.actif ? 'Désactiver' : 'Réactiver') + '</button>' +
+    '<button class="btn btn-ghost" data-act="close">Fermer</button></div>';
+  openSheet1(h, function(){ var f = empById(e.id); if(f) employeSheet(f); else closeAllSheets(); });
+  attachPointageInputs($("#sheet"));
+}
+function hrPresencesHtml(info){
+  var actifs = store.employes.filter(function(e){ return e.actif; });
+  var h = '<div class="plan-nav"><button class="btn btn-soft btn-sm" data-act="hr-prev" aria-label="Mois précédent">‹ Mois préc.</button>' +
     '<span class="range">' + esc(info.label) + '</span>' +
     '<button class="btn btn-soft btn-sm" data-act="hr-next" aria-label="Mois suivant">Mois suiv. ›</button>' +
     '<button class="btn btn-soft btn-sm" data-act="hr-today">Mois courant</button></div>';
-  h += '<p class="note">Un appui sur une cellule fait défiler le statut : <b>Présent → Absent → Congé → Repos → vide</b>. Chaque changement est enregistré aussitôt. Les jours de <b>congé approuvé</b> s\'affichent automatiquement en ambre bordure pointillée — ils ne comptent jamais comme des absences.</p>';
+  h += '<p class="note">Un appui sur une cellule fait défiler le statut : <b>Présent → Absent → Congé → Repos → vide</b>. Les jours de <b>congé approuvé</b> s\'affichent automatiquement en ambre pointillé.</p>';
   if(!actifs.length){
     h += '<div class="empty">Aucun employé actif : la grille des présences est vide.</div>';
   } else {
@@ -2428,82 +2551,95 @@ function viewPersonnel(){
         '<td class="pres-sum" style="color:var(--green)">' + st.presents + '</td><td class="pres-sum" style="color:var(--red)">' + st.absents + '</td><td class="pres-sum" style="color:var(--amber)">' + st.conges + '</td></tr>';
     }).join("");
     h += '<div class="pres-scroll"><table class="pres-table"><thead>' + head + '</thead><tbody>' + rows + '</tbody></table></div>';
-    h += '<div class="pres-legend"><span><i style="background:var(--green-soft);border-color:var(--green)"></i>Présent</span><span><i style="background:var(--red-soft);border-color:var(--red)"></i>Absent</span><span><i style="background:var(--amber-soft);border-color:var(--amber)"></i>Congé</span><span><i style="background:var(--slate-soft);border-color:var(--slate)"></i>Repos</span><span>Résumé du mois à droite de chaque ligne : jours présents, absents et en congé.</span></div>';
+    h += '<div class="pres-legend"><span><i style="background:var(--green-soft);border-color:var(--green)"></i>Présent</span><span><i style="background:var(--red-soft);border-color:var(--red)"></i>Absent</span><span><i style="background:var(--amber-soft);border-color:var(--amber)"></i>Congé</span><span><i style="background:var(--slate-soft);border-color:var(--slate)"></i>Repos</span></div>';
   }
-
-  /* -- : pointage du jour --- */
   var ptDate = todayStr();
   h += '<h3 class="sec-title">Pointage du jour — ' + esc(fmtDate(ptDate)) + '</h3>';
-  h += '<div class="card"><p class="note" style="margin-bottom:10px">Heures d\'arrivée et de départ de chaque employé actif. Le retard est calculé contre <b>l\'heure de début de service propre à chaque employé</b> (fiche employé, 08:00 par défaut — ex. service à 08:00 et arrivée 08:30 = 30 min de retard). Le pointage marque aussi la présence du jour dans la grille.</p>';
+  h += '<div class="card"><p class="note" style="margin-bottom:10px">Heures d\'arrivée et de départ de chaque employé actif. Le retard est calculé contre <b>l\'heure de début de service propre à chaque employé</b> (08:00 par défaut).</p>';
   if(actifs.length){
     h += actifs.map(function(e){
-      var ptRow = presRow(e.id, ptDate);
-      var pt = pointage[e.id + "|" + ptDate] || (ptRow ? { arrivee: ptRow.arrivee || "", depart: ptRow.depart || "" } : { arrivee: "", depart: "" });
-      var retard = "";
-      var debutRef = String(e.heureDebut || "08:00");
-      if(pt.arrivee){
-        var mins = (parseInt(pt.arrivee.slice(0,2))||0) * 60 + (parseInt(pt.arrivee.slice(3,5))||0);
-        var refMins = (parseInt(debutRef.slice(0,2))||0) * 60 + (parseInt(debutRef.slice(3,5))||0);
-        var late = mins - refMins;
-        retard = late > 0 ? '<span class="badge b-dem-nouvelle">' + late + ' min de retard</span>' : '<span class="badge b-dem-traitee">À l\'heure</span>';
-      }
-      return '<div class="pay-row"><div><div><b>' + esc(e.nom) + '</b> <span class="who">' + esc(e.poste || "") + ' · service dès ' + esc(debutRef) + '</span></div></div>' +
-        '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><label style="font-size:12.5px;font-weight:700;color:var(--ink2)">Arrivée<br/><input type="time" class="pt-input" data-emp="' + e.id + '" data-kind="arrivee" value="' + esc(pt.arrivee) + '" style="border:1.5px solid var(--line);border-radius:9px;padding:7px 9px;background:var(--surface);color:var(--ink)" /></label>' +
-        '<label style="font-size:12.5px;font-weight:700;color:var(--ink2)">Départ<br/><input type="time" class="pt-input" data-emp="' + e.id + '" data-kind="depart" value="' + esc(pt.depart) + '" style="border:1.5px solid var(--line);border-radius:9px;padding:7px 9px;background:var(--surface);color:var(--ink)" /></label>' + retard + '</div></div>';
+      return '<div class="pay-row"><div><div><b>' + esc(e.nom) + '</b> <span class="who">' + esc(e.poste || "") + ' · service dès ' + esc(e.heureDebut || "08:00") + '</span></div></div>' + pointageInputsHtml(e, ptDate) + '</div>';
     }).join("");
   } else h += '<div class="meta">Aucun employé actif.</div>';
   h += '</div>';
-
-  /* --- Congés --- */
+  return h;
+}
+function hrCongesHtml(){
   var congesSorted = store.conges.slice().sort(function(a,b){
     var pa = a.statut==="en_attente" ? 0 : 1, pb = b.statut==="en_attente" ? 0 : 1;
     if(pa !== pb) return pa - pb;
     return a.debut < b.debut ? 1 : -1;
   });
-  h += '<h3 class="sec-title">Demandes de congé (' + store.conges.length + ')</h3>';
-  if(!owner && store.conges.some(function(c){ return c.statut==="en_attente"; })){
-    h += '<p class="note" style="margin-bottom:10px">La réception peut créer des demandes ; la décision (approuver ou refuser) est réservée au propriétaire.</p>';
-  }
-  if(!congesSorted.length){
-    h += '<div class="empty">Aucune demande de congé enregistrée.</div>';
-  } else {
-    h += congesSorted.map(function(c){
-      var e = empById(c.employeId);
-      var card = '<div class="card"><div class="card-row"><div class="grow"><h3>' + esc(e ? e.nom : "Employé inconnu") + '</h3>' +
-        '<div class="meta">Du ' + esc(fmtDate(c.debut)) + ' au ' + esc(fmtDate(c.fin)) + ' · ' + congeDays(c) + ' jour(s)' + (c.motif ? ' · ' + esc(c.motif) : '') + '</div></div>' +
-        '<div>' + cgBadge(c.statut) + '</div></div>';
-      if(c.statut==="en_attente" && owner){
-        card += '<div class="actions"><button class="btn btn-teal btn-sm" data-act="conge-approve" data-id="' + c.id + '">Approuver</button>' +
-          '<button class="btn btn-danger btn-sm" data-act="conge-refuse" data-id="' + c.id + '">Refuser</button></div>';
-      } else if(c.statut==="en_attente"){
-        card += '<p class="note" style="margin-top:8px">En attente de la décision du propriétaire.</p>';
-      }
-      return card + '</div>';
-    }).join("");
-  }
-
-  /* --- Paie simple --- */
-  h += '<h3 class="sec-title">Paie simple — ' + esc(info.label) + '</h3>';
-  if(!owner){
-    h += '<div class="empty"><b>Paie réservée au propriétaire.</b><br/>Les salaires et les estimations de paie ne s\'affichent qu\'avec le compte propriétaire.</div>';
-  } else {
-    var pay = computePayroll(info);
-    h += '<div class="stats four"><div class="stat"><div class="n wood">' + esc(fmt$(pay.total)) + '</div><div class="l">Masse salariale estimée — ' + esc(info.label) + '</div><div class="def">Somme des estimations ci-dessous, pour les ' + actifs.length + ' employé(s) actif(s).</div></div></div>';
-    h += '<div class="card"><p class="note" style="margin-bottom:8px"><b>Formule d\'estimation simple</b> (pas un bulletin de paie officiel) : estimation = salaire mensuel × jours payés ÷ ' + info.days + ' jours du mois. <b>Jours payés</b> = jours marqués « présent » dans la grille + jours de congé approuvé du mois, sans double compte. Les absences et les jours de repos ne sont pas payés dans cette estimation.</p>' +
-      (pay.rows.length ? pay.rows.map(function(rw){
-        return '<div class="pay-row"><div><div><b>' + esc(rw.emp.nom) + '</b></div><div class="who">Salaire ' + esc(fmt$(rw.emp.salaire)) + ' · ' + rw.stats.presents + ' présent(s) · ' + rw.stats.congeApprouve + ' jour(s) de congé approuvé · ' + rw.stats.paidDays + ' jour(s) payé(s) → base ' + esc(fmt$(rw.base)) + '</div>' +
-          '<div class="who">Commission <b>' + esc(fmt$(rw.commission)) + '</b> — ' + esc(fmt$(rw.commEncaisse)) + ' encaissés par cet employé ce mois (séjours et commandes) × ' + (+rw.emp.commissionPct||0) + ' % (taux sur sa fiche)</div>' +
-          (rw.primes.length ? rw.primes.map(function(pr){
-            return '<div class="who" style="margin-top:5px">Prime : <b>' + esc(fmt$(pr.montant)) + '</b>' + (pr.motif ? ' — ' + esc(pr.motif) : '') + ' <button class="btn btn-danger btn-sm" data-act="prime-del" data-id="' + pr.id + '" style="min-height:30px;padding:2px 9px">Retirer</button></div>';
-          }).join("") : '<div class="who" style="margin-top:5px">Aucune prime ce mois.</div>') +
-          '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;align-items:flex-end"><label style="font-size:12.5px;font-weight:700;color:var(--ink2)">Nouvelle prime ($)<br/><input type="number" class="prime-montant" min="0" step="0.5" placeholder="0" style="width:110px;border:1.5px solid var(--line);border-radius:9px;padding:7px 9px;background:var(--surface);color:var(--ink)" /></label>' +
-          '<label style="font-size:12.5px;font-weight:700;color:var(--ink2)">Motif<br/><input type="text" class="prime-motif" placeholder="Ex. : prime de performance" style="width:190px;border:1.5px solid var(--line);border-radius:9px;padding:7px 9px;background:var(--surface);color:var(--ink)" /></label>' +
-          '<button class="btn btn-soft btn-sm" data-act="prime-add" data-emp="' + rw.emp.id + '">Ajouter la prime</button></div></div><div class="money">' + esc(fmt$(rw.est)) + '</div></div>';
-      }).join("") : '<div class="meta">Aucun employé actif.</div>') +
-      '<p class="note" style="margin-top:8px"><b>Paie complète :</b> total = base au prorata des jours payés + <b>commission</b> sur les encaissements réalisés par l\'employé dans le mois + <b>primes du mois</b> ajoutées par le propriétaire.</p>' +
-      '<div class="actions"><button class="btn btn-teal" data-act="print-payroll">Imprimer la paie</button></div></div>';
-  }
+  var h = '<div class="page-head" style="margin-top:4px"><div><h2 style="font-size:19px">Demandes de congé (' + store.conges.length + ')</h2></div>' +
+    '<button class="btn btn-teal" data-act="new-conge">Nouvelle demande</button></div>';
+  if(!congesSorted.length) return h + '<div class="empty">Aucune demande de congé enregistrée.</div>';
+  h += '<div class="lstack">' + congesSorted.map(function(c){
+    var e = empById(c.employeId);
+    return '<button class="lrow" data-act="conge-open" data-id="' + c.id + '"><span class="grow">' +
+      '<span class="t">' + esc(e ? e.nom : "Employé inconnu") + '</span>' +
+      '<span class="s">Du ' + esc(fmtDate(c.debut)) + ' au ' + esc(fmtDate(c.fin)) + ' · ' + congeDays(c) + ' jour(s)' + (c.motif ? ' · ' + esc(c.motif) : '') + '</span></span>' +
+      '<span class="side">' + cgBadge(c.statut) + '</span>' +
+      '<span class="chev">' + CHEV_SVG + '</span></button>';
+  }).join("") + '</div>';
   return h;
+}
+function congeSheet(c){
+  var e = empById(c.employeId);
+  var h = '<div class="folio-head">' + cgBadge(c.statut) + '</div>';
+  h += '<h3>' + esc(e ? e.nom : "Employé inconnu") + '</h3>' +
+    '<div class="kv"><span>Du <b>' + esc(fmtDate(c.debut)) + '</b></span><span>Au <b>' + esc(fmtDate(c.fin)) + '</b></span><span>Durée <b>' + congeDays(c) + ' jour(s)</b></span></div>' +
+    (c.motif ? '<p class="note" style="margin-top:8px">Motif : ' + esc(c.motif) + '</p>' : '');
+  h += '<div class="actions sticky-actions">';
+  if(c.statut==="en_attente"){
+    h += '<button class="btn btn-teal" data-act="conge-approve" data-id="' + c.id + '">Approuver</button>' +
+      '<button class="btn btn-danger" data-act="conge-refuse" data-id="' + c.id + '">Refuser</button>';
+  }
+  h += '<button class="btn btn-ghost" data-act="close">Fermer</button></div>';
+  openSheet1(h, function(){
+    var f = null;
+    for(var i=0;i<store.conges.length;i++) if(store.conges[i].id===c.id) f = store.conges[i];
+    if(f) congeSheet(f); else closeAllSheets();
+  });
+}
+function hrPaieHtml(info){
+  var pay = computePayroll(info);
+  var h = '<div class="stats" style="grid-template-columns:1fr"><div class="stat"><div class="n wood">' + esc(fmt$(pay.total)) + '</div><div class="l">Masse salariale estimée — ' + esc(info.label) + '</div></div></div>';
+  h += '<p class="note" style="margin-bottom:12px"><b>Formule simple</b> (pas un bulletin officiel) : base = salaire mensuel × jours payés ÷ ' + info.days + ' jours. Jours payés = jours « présent » + jours de congé approuvé. Total = base + commission sur les encaissements de l\'employé + primes du mois. Touchez un employé pour le détail.</p>';
+  h += pay.rows.length ? '<div class="lstack">' + pay.rows.map(function(rw){
+    return '<button class="lrow" data-act="paie-open" data-emp="' + rw.emp.id + '"><span class="grow">' +
+      '<span class="t">' + esc(rw.emp.nom) + '</span>' +
+      '<span class="s">Base ' + esc(fmt$(rw.base)) + ' · commission ' + esc(fmt$(rw.commission)) + ' · primes ' + esc(fmt$(rw.prime)) + '</span></span>' +
+      '<span class="side"><span class="amt">' + esc(fmt$(rw.est)) + '</span></span>' +
+      '<span class="chev">' + CHEV_SVG + '</span></button>';
+  }).join("") + '</div>' : '<div class="empty">Aucun employé actif.</div>';
+  h += '<div class="actions" style="margin-top:16px"><button class="btn btn-teal" data-act="print-payroll">Imprimer la paie</button></div>';
+  return h;
+}
+function paieSheet(empId){
+  var info = hrMonthInfo();
+  var pay = computePayroll(info);
+  var rw = null;
+  pay.rows.forEach(function(x){ if(x.emp.id===empId) rw = x; });
+  if(!rw) return;
+  var e = rw.emp;
+  var h = '<h3>Paie — ' + esc(e.nom) + '</h3><div class="sub">' + esc(info.label) + ' · ' + esc(e.poste || "") + '</div>';
+  h += '<table class="folio-lines">' +
+    '<tr><td>Salaire mensuel</td><td class="r">' + esc(fmt$(e.salaire)) + '</td></tr>' +
+    '<tr><td>Jours payés (' + rw.stats.presents + ' présent(s) + ' + rw.stats.congeApprouve + ' congé approuvé)</td><td class="r">' + rw.stats.paidDays + '</td></tr>' +
+    '<tr><td>Base au prorata</td><td class="r">' + esc(fmt$(rw.base)) + '</td></tr>' +
+    '<tr><td>Commission — ' + esc(fmt$(rw.commEncaisse)) + ' encaissés × ' + (+e.commissionPct||0) + ' %</td><td class="r">' + esc(fmt$(rw.commission)) + '</td></tr>' +
+    '<tr><td>Primes du mois</td><td class="r">' + esc(fmt$(rw.prime)) + '</td></tr>' +
+    '<tr><td><b>Total estimé</b></td><td class="r"><b>' + esc(fmt$(rw.est)) + '</b></td></tr></table>';
+  h += '<div class="folio-sec">Primes du mois</div>';
+  h += rw.primes.length ? rw.primes.map(function(pr){
+    return '<div class="pay-row"><div>' + (pr.motif ? esc(pr.motif) : 'Prime') + '</div><div style="display:flex;gap:8px;align-items:center"><span class="money">' + esc(fmt$(pr.montant)) + '</span><button class="btn btn-danger btn-sm" data-act="prime-del" data-id="' + pr.id + '">Retirer</button></div></div>';
+  }).join("") : '<p class="note">Aucune prime ce mois.</p>';
+  h += '<div class="pay-row"><div><div style="display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end"><label style="font-size:12.5px;font-weight:700;color:var(--ink2)">Nouvelle prime ($)<br/><input type="number" class="prime-montant" min="0" step="0.5" placeholder="0" style="width:110px;border:1.5px solid var(--line);border-radius:9px;padding:7px 9px;background:var(--surface);color:var(--ink)" /></label>' +
+    '<label style="font-size:12.5px;font-weight:700;color:var(--ink2)">Motif<br/><input type="text" class="prime-motif" placeholder="Ex. : prime de performance" style="width:190px;border:1.5px solid var(--line);border-radius:9px;padding:7px 9px;background:var(--surface);color:var(--ink)" /></label>' +
+    '<button class="btn btn-soft btn-sm" data-act="prime-add" data-emp="' + e.id + '">Ajouter la prime</button></div></div></div>';
+  h += '<div class="actions sticky-actions"><button class="btn btn-teal" data-act="print-payroll">Imprimer la paie</button>' +
+    '<button class="btn btn-ghost" data-act="close">Fermer</button></div>';
+  openSheet1(h, function(){ paieSheet(empId); });
 }
 function computePayroll(info){
   var rows = [], total = 0;
@@ -2622,10 +2758,58 @@ function viewBase(){
   return h;
 }
 
-/* =============== Modales =============== */
-function openSheet(html){ $("#sheet").innerHTML = html; $("#overlay").classList.add("open"); }
-function closeSheet(){ $("#overlay").classList.remove("open"); $("#sheet").innerHTML = ""; if(reloadPending){ reloadPending = false; render(); } }
+/* =============== Feuilles empilées — patron DUKABIF à 2 niveaux ===============
+ Niveau 1 : feuille de DÉTAIL d'un élément (réservation, hébergement, commande,
+ employé, client…), ouverte depuis sa ligne compacte via openSheet1().
+ Niveau 2 : action focalisée ouverte DEPUIS le niveau 1 (paiement, facture,
+ modification, encaissement, confirmation…) via openSheet() — elle se pose
+ au-dessus, le niveau 1 reste en place dessous. Jamais de niveau 3 :
+ openSheet() remplace le contenu du niveau 2 s'il est déjà ouvert.
+ Fermer le niveau 2 ramène au niveau 1, rafraîchi si les données ont changé,
+ défilement préservé. Fermer le niveau 1 ramène à la page, à sa position. */
+var sheet1Refresh = null;
+function openSheet(html){
+  var o2 = $("#overlay2");
+  if(o2.classList.contains("open")){ $("#sheet2").innerHTML = html; $("#sheet2").scrollTop = 0; return; }
+  if($("#overlay").classList.contains("open")){ $("#sheet2").innerHTML = html; o2.classList.add("open"); return; }
+  sheet1Refresh = null;
+  $("#sheet").innerHTML = html; $("#overlay").classList.add("open");
+}
+function openSheet1(html, refreshFn){
+  var o2 = $("#overlay2");
+  if(o2){ o2.classList.remove("open"); $("#sheet2").innerHTML = ""; }
+  sheet1Refresh = refreshFn || null;
+  $("#sheet").innerHTML = html; $("#overlay").classList.add("open");
+}
+function refreshSheet1IfPending(){
+  if(!reloadPending || !sheet1Refresh) return;
+  if(!$("#overlay").classList.contains("open")) return;
+  if($("#overlay2").classList.contains("open")) return;
+  reloadPending = false;
+  var sc = $("#sheet").scrollTop;
+  try{ sheet1Refresh(); }catch(e){}
+  var sh = $("#sheet"); if(sh) sh.scrollTop = sc;
+}
+function closeSheet(){
+  var o2 = $("#overlay2");
+  if(o2 && o2.classList.contains("open")){
+    o2.classList.remove("open"); $("#sheet2").innerHTML = "";
+    refreshSheet1IfPending();
+    return;
+  }
+  $("#overlay").classList.remove("open"); $("#sheet").innerHTML = "";
+  sheet1Refresh = null;
+  if(reloadPending){ reloadPending = false; render(); }
+}
+function closeAllSheets(){
+  var o2 = $("#overlay2");
+  if(o2){ o2.classList.remove("open"); $("#sheet2").innerHTML = ""; }
+  $("#overlay").classList.remove("open"); $("#sheet").innerHTML = "";
+  sheet1Refresh = null;
+  if(reloadPending){ reloadPending = false; render(); }
+}
 $("#overlay").addEventListener("click", function(e){ if(e.target===this) closeSheet(); });
+$("#overlay2").addEventListener("click", function(e){ if(e.target===this) closeSheet(); });
 document.addEventListener("keydown", function(e){
   if(e.key==="Escape" && $("#overlay").classList.contains("open")) closeSheet();
 });
@@ -3030,7 +3214,7 @@ function folioSheet(r){
   h += '<button class="btn btn-teal" data-act="print-folio" data-id="' + r.id + '">Imprimer / enregistrer en PDF</button>';
   if(r.status!=="Annulée" && r.status!=="Terminée") h += '<button class="btn btn-danger" data-act="cancel-res" data-id="' + r.id + '">Annuler</button>';
   h += '<button class="btn btn-ghost" data-act="close">Fermer</button></div>';
-  openSheet(h);
+  openSheet1(h, function(){ var f = resById(r.id); if(f) folioSheet(f); else closeAllSheets(); });
 }
 
 /* ---------- Clôture de journée — night audit simplifié ---------- */
@@ -3074,6 +3258,22 @@ function closeDaySheet(){
 function handleAct(act, el){
   var id = el.getAttribute("data-id");
   if(act==="close"){ closeSheet(); return; }
+  /* Ouvertures des feuilles de détail (niveau 1) depuis les lignes compactes */
+  if(act==="room-open"){ var ro = id ? roomById(id) : null; if(ro) roomSheet(ro); return; }
+  if(act==="cmd-open"){ var co = id ? cmdById(id) : null; if(co) commandeSheet(co); return; }
+  if(act==="article-open"){ var ao = id ? articleById(id) : null; if(ao) articleSheet(ao); return; }
+  if(act==="table-open"){ var to = id ? tableRestoById(id) : null; if(to) tableSheet(to); return; }
+  if(act==="dem-open"){ var dmo = id ? demandeById(id) : null; if(dmo) demandeSheet(dmo); return; }
+  if(act==="client-open"){ clientSheet(el.getAttribute("data-key")); return; }
+  if(act==="emp-open"){ var eo = id ? empById(id) : null; if(eo && isOwner()) employeSheet(eo); return; }
+  if(act==="conge-open"){
+    if(!isOwner()){ toast("Personnel réservé au propriétaire.", true); return; }
+    var cgo = null;
+    for(var cgi=0; cgi<store.conges.length; cgi++) if(store.conges[cgi].id===id) cgo = store.conges[cgi];
+    if(cgo) congeSheet(cgo); return;
+  }
+  if(act==="paie-open"){ var peo = el.getAttribute("data-emp"); if(peo && isOwner()) paieSheet(peo); return; }
+  if(act==="new-maint-room"){ maintForm(id || null); return; }
   if(act==="print-doc"){ showPrintPreview(); return; }
   if(act==="print-folio"){
     var pr = id ? resById(id) : null;
@@ -3210,7 +3410,7 @@ function handleAct(act, el){
       return loadAll(true);
     }).catch(fail); return;
   }
-  if(act==="new-maint"){ maintForm(); return; }
+  if(act==="new-maint"){ maintForm(null); return; }
   if(act==="maint-next"){
     var mtk = null;
     for(var mi=0; mi<store.maintTickets.length; mi++) if(store.maintTickets[mi].id===id) mtk = store.maintTickets[mi];
@@ -3407,6 +3607,22 @@ document.addEventListener("click", function(e){
   var el = e.target && e.target.closest ? e.target.closest("[data-act]") : null;
   if(el) handleAct(el.getAttribute("data-act"), el);
 });
+function attachPointageInputs(root){
+  (root || document).querySelectorAll(".pt-input").forEach(function(inp){
+    if(inp.getAttribute("data-bound")) return;
+    inp.setAttribute("data-bound", "1");
+    inp.addEventListener("change", function(){
+      var key = this.getAttribute("data-emp") + "|" + todayStr();
+      if(!pointage[key]) pointage[key] = { arrivee: "", depart: "" };
+      pointage[key][this.getAttribute("data-kind")] = this.value;
+      var ptBody = { hotel_id: (hotel ? hotel.id : session.hotelId), employe_id: this.getAttribute("data-emp"), date: todayStr(), statut: "present",
+        heure_arrivee: pointage[key].arrivee || null, heure_depart: pointage[key].depart || null };
+      sb("/rest/v1/presences?on_conflict=employe_id,date", { method: "POST", prefer: "resolution=merge-duplicates,return=minimal", body: ptBody })
+        .then(function(){ return loadAll(true); })
+        .catch(function(err){ fail(err); loadAll(true); });
+    });
+  });
+}
 function bindView(){
   var psc = $("#planShowCancelled");
   if(psc) psc.addEventListener("change", function(){ ui.showCancelled = this.checked; render(); });
@@ -3423,20 +3639,24 @@ function bindView(){
     el.addEventListener("click", function(){ ui.demFilter = el.getAttribute("data-demfilter"); render(); });
   });
   renderQrBoxes();
-  document.querySelectorAll(".pt-input").forEach(function(inp){
-    inp.addEventListener("change", function(){
-      var key = this.getAttribute("data-emp") + "|" + todayStr();
-      if(!pointage[key]) pointage[key] = { arrivee: "", depart: "" };
-      pointage[key][this.getAttribute("data-kind")] = this.value;
-      var ptBody = { hotel_id: (hotel ? hotel.id : session.hotelId), employe_id: this.getAttribute("data-emp"), date: todayStr(), statut: "present",
-        heure_arrivee: pointage[key].arrivee || null, heure_depart: pointage[key].depart || null };
-      sb("/rest/v1/presences?on_conflict=employe_id,date", { method: "POST", prefer: "resolution=merge-duplicates,return=minimal", body: ptBody })
-        .then(function(){ return loadAll(true); })
-        .catch(function(err){ fail(err); loadAll(true); });
-    });
-  });
+  attachPointageInputs(document);
   document.querySelectorAll("[data-cmdfilter]").forEach(function(el){
     el.addEventListener("click", function(){ ui.cmdFilter = el.getAttribute("data-cmdfilter"); render(); });
+  });
+  document.querySelectorAll("[data-rtab]").forEach(function(el){
+    el.addEventListener("click", function(){ ui.restoTab = el.getAttribute("data-rtab"); render(); });
+  });
+  document.querySelectorAll("[data-ktab]").forEach(function(el){
+    el.addEventListener("click", function(){ ui.kitchenTab = el.getAttribute("data-ktab"); render(); });
+  });
+  document.querySelectorAll("[data-hrtab]").forEach(function(el){
+    el.addEventListener("click", function(){ ui.hrTab = el.getAttribute("data-hrtab"); render(); });
+  });
+  document.querySelectorAll("[data-otab]").forEach(function(el){
+    el.addEventListener("click", function(){ ui.ownerTab = el.getAttribute("data-otab"); render(); });
+  });
+  document.querySelectorAll("[data-ctab]").forEach(function(el){
+    el.addEventListener("click", function(){ ui.caisseTab = el.getAttribute("data-ctab"); render(); });
   });
   var rs = $("#resSearch");
   if(rs) rs.addEventListener("input", function(){ ui.search = this.value; var pos = this.selectionStart; render(); var n = $("#resSearch"); n.focus(); n.setSelectionRange(pos, pos); });
