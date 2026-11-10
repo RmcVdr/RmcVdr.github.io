@@ -18,6 +18,7 @@
   --red:#B3402E; --red-soft:#F6DCD4;
   --amber:#A86E14; --amber-soft:#F5E7C3;
   --green:#2E7D4F; --green-soft:#DDEEDD;
+  --maint:#54687E; --maint-soft:#DFE5EC;
   --shadow:0 2px 10px rgba(62,48,20,.08),0 10px 30px rgba(62,48,20,.06);
   --r-lg:18px; --r-md:13px; --r-sm:9px;
 }
@@ -30,6 +31,7 @@
     --red:#E08A76; --red-soft:#472A22;
     --amber:#E3B95C; --amber-soft:#453A1E;
     --green:#7CC48F; --green-soft:#263D2A;
+    --maint:#9FB4C9; --maint-soft:#2E3A46;
     --shadow:0 2px 10px rgba(0,0,0,.35),0 10px 30px rgba(0,0,0,.3);
   }
 }
@@ -78,17 +80,18 @@ a{color:var(--teal)}
 /* ---------- App ---------- */
 #app{display:none}
 .topbar{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.topbar-in{max-width:1060px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:12px}
-.brand{display:flex;align-items:center;gap:11px;min-width:0}
+.topbar-in{max-width:1360px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:11px;min-width:0;flex:none}
 .brand-mark{width:40px;height:40px;border-radius:11px;background:var(--teal);color:#FFF9E8;display:flex;align-items:center;justify-content:center;font-family:"Lora",serif;font-size:21px;font-weight:700;flex:none}
-.brand b{font-family:"Lora",serif;font-size:17.5px;display:block;line-height:1.15;white-space:nowrap}
+.brand b{font-family:"Lora",serif;font-size:16.5px;display:block;line-height:1.15;white-space:nowrap}
 .brand span{font-size:12px;color:var(--ink2);display:block;white-space:nowrap}
-.top-actions{margin-left:auto;display:flex;gap:8px;align-items:center}
-.date-line{font-size:13px;color:var(--ink2);font-weight:600}
+.top-actions{margin-left:auto;display:flex;gap:8px;align-items:center;flex:none}
+.date-line{font-size:13px;color:var(--ink2);font-weight:600;white-space:nowrap}
 @media(max-width:560px){.date-line{display:none}}
-.desk-nav{display:none;gap:4px;margin-left:18px}
+.desk-nav{display:none;gap:4px;margin-left:10px;flex-wrap:wrap}
 @media(min-width:860px){.desk-nav{display:flex}}
-.desk-nav button{background:none;border:none;cursor:pointer;font-size:14.5px;font-weight:700;color:var(--ink2);padding:9px 13px;border-radius:10px;min-height:40px}
+@media(min-width:860px) and (max-width:1279px){.desk-nav{order:3;width:100%;margin-left:0}}
+.desk-nav button{background:none;border:none;cursor:pointer;font-size:14.5px;font-weight:700;color:var(--ink2);padding:9px 12px;border-radius:10px;min-height:40px;white-space:nowrap}
 .desk-nav button.on{background:var(--teal);color:#FFF9E8}
 
 .tabbar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--surface);border-top:1px solid var(--line);display:flex;padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
@@ -123,7 +126,7 @@ a{color:var(--teal)}
 .b-libre{background:var(--green-soft);color:var(--green)}
 .b-occupee{background:var(--red-soft);color:var(--red)}
 .b-menage{background:var(--amber-soft);color:var(--amber)}
-.b-maintenance{background:var(--wood-soft);color:var(--wood-d)}
+.b-maintenance{background:var(--maint-soft);color:var(--maint)}
 .b-attente{background:var(--amber-soft);color:var(--amber)}
 .b-confirmee{background:var(--teal-soft);color:var(--teal)}
 .b-arrivee{background:var(--red-soft);color:var(--red)}
@@ -145,7 +148,7 @@ a{color:var(--teal)}
 
 /* Caisse */
 .day-nav{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
-.day-nav .day-label{font-family:"Lora",serif;font-size:18px;font-weight:600;text-transform:capitalize}
+.day-nav .day-label{font-family:"Lora",serif;font-size:18px;font-weight:600}
 .pay-row{display:flex;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid var(--line);font-size:14.5px}
 .pay-row:last-child{border-bottom:none}
 .pay-row .who{color:var(--ink2);font-size:13px}
@@ -176,6 +179,7 @@ a{color:var(--teal)}
 .invoice td.r,.invoice th.r{text-align:right}
 .invoice .inv-total{font-size:17px;font-weight:800;color:#256D66}
 .invoice .small{color:#6B6252;font-size:12.5px}
+.nobr{white-space:nowrap}
 
 #toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:12px 20px;border-radius:12px;font-size:14.5px;font-weight:700;opacity:0;pointer-events:none;transition:.25s;z-index:80;max-width:88vw;text-align:center}
 @media(min-width:860px){#toast{bottom:28px}}
@@ -185,9 +189,13 @@ a{color:var(--teal)}
 .file-btn input{position:absolute;inset:0;opacity:0;cursor:pointer}
 #printArea{display:none}
 @media print{
+  @page{margin:14mm}
+  html,body{background:#fff !important}
   body>*{display:none !important}
-  #printArea{display:block !important}
-  #printArea .invoice{border-radius:0;padding:8px}
+  #printArea{display:block !important;position:static !important;width:100% !important}
+  #printArea .invoice{border-radius:0;padding:4px;box-shadow:none;width:100%}
+  #printArea .invoice td,#printArea .invoice th{white-space:normal}
+  #printArea .nobr{white-space:nowrap}
 }
 </style>
 </head>
@@ -283,14 +291,30 @@ function pad(n){ return (n<10?"0":"")+n; }
 function todayStr(){ var d=new Date(); return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate()); }
 function addDays(str, n){ var d = parseD(str); d.setDate(d.getDate()+n); return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate()); }
 function parseD(str){ var p = String(str).split("-"); return new Date(+p[0], (+p[1])-1, +p[2]); }
-function fmtDate(str){ if(!str) return "—"; return parseD(str).toLocaleDateString("fr-FR",{weekday:"short", day:"numeric", month:"short", year:"numeric"}); }
-function fmtDateLong(str){ return parseD(str).toLocaleDateString("fr-FR",{weekday:"long", day:"numeric", month:"long", year:"numeric"}); }
+function lowerFirst(s){ return s ? s.charAt(0).toLowerCase() + s.slice(1) : s; }
+function fmtDate(str){ if(!str) return "—"; return lowerFirst(parseD(str).toLocaleDateString("fr-FR",{weekday:"short", day:"numeric", month:"short", year:"numeric"})); }
+function fmtDateLong(str){ return lowerFirst(parseD(str).toLocaleDateString("fr-FR",{weekday:"long", day:"numeric", month:"long", year:"numeric"})); }
 function fmt$(n){ n = Math.round((+n||0)*100)/100; return (n % 1 === 0 ? n.toLocaleString("fr-FR") : n.toLocaleString("fr-FR",{minimumFractionDigits:2, maximumFractionDigits:2})) + " $"; }
 function uid(p){ return p + Date.now().toString(36) + Math.floor(Math.random()*999).toString(36); }
 function nightsOf(r){ var n = Math.round((parseD(r.checkOut) - parseD(r.checkIn)) / 86400000); return n > 0 ? n : 0; }
 function resTotal(r){ return nightsOf(r) * (+r.priceNight||0); }
 function resPaid(r){ var s=0; store.payments.forEach(function(p){ if(p.resId===r.id) s += +p.amount||0; }); return s; }
 function resDue(r){ return Math.max(0, resTotal(r) - resPaid(r)); }
+function resOverpaid(r){ return Math.max(0, resPaid(r) - resTotal(r)); }
+function activeStay(roomId){ for(var i=0;i<store.reservations.length;i++){ var x = store.reservations[i]; if(x.roomId===roomId && x.status==="Arrivée") return x; } return null; }
+function effectiveStatus(room){ return activeStay(room.id) ? "Occupée" : room.status; }
+function findConflict(data, excludeId){
+  if(data.status==="Annulée" || data.status==="Terminée") return null;
+  for(var i=0;i<store.reservations.length;i++){
+    var x = store.reservations[i];
+    if(x.id===excludeId || x.roomId!==data.roomId) continue;
+    if(x.status!=="Confirmée" && x.status!=="Arrivée") continue;
+    if(data.checkIn < x.checkOut && x.checkIn < data.checkOut) return x;
+  }
+  return null;
+}
+function acomptePayments(resId){ return store.payments.filter(function(p){ return p.resId===resId && p.label && p.label.indexOf("Acompte")===0; }); }
+function acompteAmount(resId){ var s=0; acomptePayments(resId).forEach(function(p){ s += +p.amount||0; }); return s; }
 function roomById(id){ for(var i=0;i<store.rooms.length;i++) if(store.rooms[i].id===id) return store.rooms[i]; return null; }
 function resById(id){ for(var i=0;i<store.reservations.length;i++) if(store.reservations[i].id===id) return store.reservations[i]; return null; }
 function roomBadge(st){ var m={"Libre":"b-libre","Occupée":"b-occupee","Ménage":"b-menage","Maintenance":"b-maintenance"}; return '<span class="badge '+(m[st]||"b-libre")+'">'+esc(st)+'</span>'; }
@@ -343,13 +367,13 @@ function render(){
 /* ---------- Aujourd'hui ---------- */
 function viewToday(){
   var t = todayStr();
-  var libres = store.rooms.filter(function(r){ return r.status==="Libre"; }).length;
-  var occupees = store.rooms.filter(function(r){ return r.status==="Occupée"; }).length;
+  var libres = store.rooms.filter(function(r){ return effectiveStatus(r)==="Libre"; }).length;
+  var occupees = store.rooms.filter(function(r){ return effectiveStatus(r)==="Occupée"; }).length;
   var arrivees = store.reservations.filter(function(r){ return r.checkIn===t && (r.status==="Confirmée"||r.status==="En attente"||r.status==="Arrivée"); });
   var departs = store.reservations.filter(function(r){ return r.checkOut===t && (r.status==="Arrivée"||r.status==="Confirmée"); });
   var encaisse = 0; store.payments.forEach(function(p){ if(p.date===t) encaisse += +p.amount||0; });
 
-  var h = '<div class="page-head"><div><h2>Bonjour, réception</h2><div class="sub" style="text-transform:capitalize">'+esc(fmtDateLong(t))+'</div></div>' +
+  var h = '<div class="page-head"><div><h2>Bonjour, réception</h2><div class="sub">'+esc(fmtDateLong(t))+'</div></div>' +
     '<button class="btn btn-teal" data-act="new-res">+ Nouvelle réservation</button></div>';
   h += '<div class="stats">' +
     '<div class="stat"><div class="n teal">'+libres+'</div><div class="l">Libres</div></div>' +
@@ -373,13 +397,14 @@ function viewToday(){
 /* ---------- Réservations ---------- */
 function resCard(r, compact){
   var room = roomById(r.roomId);
-  var n = nightsOf(r), total = resTotal(r), paid = resPaid(r), due = resDue(r);
+  var n = nightsOf(r), total = resTotal(r), paid = resPaid(r), due = resDue(r), over = resOverpaid(r);
+  var guests = r.guests ? parseInt(r.guests)||0 : 0;
   var h = '<div class="card"><div class="card-row"><div class="grow">' +
     '<h3>' + esc(r.clientName) + '</h3>' +
-    '<div class="meta">' + esc(room ? room.name : "—") + (r.phone ? ' · ' + esc(r.phone) : '') + '</div>' +
-    '<div class="meta">' + esc(fmtDate(r.checkIn)) + ' → ' + esc(fmtDate(r.checkOut)) + ' · ' + n + ' nuit' + (n>1?"s":"") + '</div>' +
+    '<div class="meta">' + esc(room ? room.name : "—") + (r.phone ? ' · ' + esc(r.phone) : '') + (r.code ? ' · Code : <b>' + esc(r.code) + '</b>' : '') + '</div>' +
+    '<div class="meta">' + esc(fmtDate(r.checkIn)) + ' → ' + esc(fmtDate(r.checkOut)) + ' · ' + n + ' nuit' + (n>1?"s":"") + (guests ? ' · ' + guests + ' voyageur' + (guests>1?"s":"") : '') + '</div>' +
     '<div class="kv"><span>Total <b>' + esc(fmt$(total)) + '</b></span><span>Payé <b>' + esc(fmt$(paid)) + '</b></span>' +
-    (r.status!=="Annulée" ? '<span>Reste <b class="' + (due>0?"money due":"money ok") + '">' + esc(fmt$(due)) + '</b></span>' : '') + '</div>' +
+    (r.status!=="Annulée" ? (over > 0 ? '<span>Trop-perçu : <b class="money due">' + esc(fmt$(over)) + ' à rembourser</b></span>' : '<span>Reste <b class="' + (due>0?"money due":"money ok") + '">' + esc(fmt$(due)) + '</b></span>') : '') + '</div>' +
     (r.notes ? '<div class="meta" style="margin-top:6px">' + esc(r.notes) + '</div>' : '') +
     '</div><div>' + resBadge(r.status) + '</div></div>';
   h += '<div class="actions">';
@@ -416,15 +441,21 @@ function viewReservations(){
 
 /* ---------- Hébergements ---------- */
 function roomCard(r){
-  var occ = store.reservations.filter(function(x){ return x.roomId===r.id && x.status==="Arrivée"; })[0];
+  var occ = activeStay(r.id);
+  var eff = effectiveStatus(r);
+  var actionsHtml;
+  if(occ){
+    actionsHtml = '<div class="meta" style="margin-top:10px">Statut verrouillé pendant le séjour en cours — modifiable après le départ.</div>' +
+      '<div class="actions"><button class="btn btn-soft btn-sm" data-act="edit-room" data-id="'+r.id+'">Modifier prix / infos</button></div>';
+  } else {
+    actionsHtml = '<div class="actions">' +
+      ROOM_STATUS.filter(function(s){ return s!==r.status; }).map(function(s){ return '<button class="btn btn-soft btn-sm" data-act="room-status" data-id="'+r.id+'" data-status="'+s+'">→ ' + s + '</button>'; }).join("") +
+      '<button class="btn btn-soft btn-sm" data-act="edit-room" data-id="'+r.id+'">Modifier prix / infos</button></div>';
+  }
   return '<div class="card"><div class="card-row"><div class="grow"><h3>' + esc(r.name) + '</h3>' +
     '<div class="meta">' + esc(r.type) + ' · ' + r.capacity + ' pers. · ' + esc(fmt$(r.priceNight)) + ' / nuit · ' + esc(fmt$(r.priceMonth)) + ' / mois</div>' +
     (occ ? '<div class="meta">Occupé par <b>' + esc(occ.clientName) + '</b> jusqu\'au ' + esc(fmtDate(occ.checkOut)) + '</div>' : '') +
-    '</div><div>' + roomBadge(r.status) + '</div></div>' +
-    '<div class="actions">' +
-    ROOM_STATUS.filter(function(s){ return s!==r.status; }).map(function(s){ return '<button class="btn btn-soft btn-sm" data-act="room-status" data-id="'+r.id+'" data-status="'+s+'">→ ' + s + '</button>'; }).join("") +
-    '<button class="btn btn-soft btn-sm" data-act="edit-room" data-id="'+r.id+'">Modifier prix / infos</button>' +
-    '</div></div>';
+    '</div><div>' + roomBadge(eff) + '</div></div>' + actionsHtml + '</div>';
 }
 function viewRooms(){
   var h = '<div class="page-head"><div><h2>Hébergements</h2><div class="sub">Statut en direct, prix par nuit et par mois</div></div>' +
@@ -462,13 +493,15 @@ function viewCaisse(){
 function viewClients(){
   var map = {};
   store.reservations.forEach(function(r){
-    if(r.status==="Annulée") return;
     var key = (r.clientName||"").trim().toLowerCase() + "|" + (r.phone||"").trim();
-    if(!map[key]) map[key] = { name: r.clientName, phone: r.phone||"", stays: 0, spent: 0, last: r.checkIn };
-    map[key].stays++; map[key].spent += resPaid(r);
-    if(r.checkIn > map[key].last) map[key].last = r.checkIn;
+    if(!map[key]) map[key] = { name: r.clientName, phone: r.phone||"", stays: 0, spent: 0, last: "" };
+    /* Totaux nets : tous les paiements comptent, remboursements (négatifs) déduits — y compris ceux des réservations annulées. */
+    map[key].spent += resPaid(r);
+    if(r.status==="Annulée") return;
+    map[key].stays++;
+    if(!map[key].last || r.checkIn > map[key].last) map[key].last = r.checkIn;
   });
-  var list = Object.keys(map).map(function(k){ return map[k]; }).sort(function(a,b){ return b.stays - a.stays || (a.name<b.name?-1:1); });
+  var list = Object.keys(map).map(function(k){ return map[k]; }).filter(function(c){ return c.stays > 0; }).sort(function(a,b){ return b.stays - a.stays || (a.name<b.name?-1:1); });
   if(ui.clientSearch){ var q = ui.clientSearch.toLowerCase(); list = list.filter(function(c){ return c.name.toLowerCase().indexOf(q)>=0 || c.phone.toLowerCase().indexOf(q)>=0; }); }
   var h = '<div class="page-head"><div><h2>Clients</h2><div class="sub">Liste construite automatiquement à partir des réservations</div></div></div>';
   h += '<div class="searchbar"><input id="clientSearch" type="search" aria-label="Rechercher un client" placeholder="Rechercher un client…" value="' + esc(ui.clientSearch) + '" /></div>';
@@ -497,27 +530,42 @@ function viewBackup(){
 function openSheet(html){ $("#sheet").innerHTML = html; $("#overlay").classList.add("open"); }
 function closeSheet(){ $("#overlay").classList.remove("open"); $("#sheet").innerHTML = ""; }
 $("#overlay").addEventListener("click", function(e){ if(e.target===this) closeSheet(); });
+document.addEventListener("keydown", function(e){
+  if(e.key==="Escape" && $("#overlay").classList.contains("open")) closeSheet();
+});
 
 function methodOptions(sel){ return METHODS.map(function(m){ return '<option' + (m===sel?" selected":"") + '>' + m + '</option>'; }).join(""); }
 
 function resForm(r){
   var isNew = !r;
-  r = r || { clientName:"", phone:"", roomId: store.rooms[0] ? store.rooms[0].id : "", checkIn: todayStr(), checkOut: addDays(todayStr(),1), priceNight: store.rooms[0] ? store.rooms[0].priceNight : 0, status:"Confirmée", notes:"" };
-  var roomOpts = store.rooms.map(function(rm){ return '<option value="'+rm.id+'" data-price="'+rm.priceNight+'"'+(rm.id===r.roomId?" selected":"")+'>' + esc(rm.name) + ' — ' + esc(fmt$(rm.priceNight)) + ' / nuit</option>'; }).join("");
-  var stOpts = RES_STATUS.map(function(s){ return '<option' + (s===r.status?" selected":"") + '>' + s + '</option>'; }).join("");
+  var firstAvail = store.rooms.filter(function(rm){ return rm.status!=="Maintenance"; })[0] || store.rooms[0];
+  r = r || { clientName:"", phone:"", guests:2, roomId: firstAvail ? firstAvail.id : "", checkIn: todayStr(), checkOut: addDays(todayStr(),1), priceNight: firstAvail ? firstAvail.priceNight : 0, status:"Confirmée", notes:"" };
+  var origRoomId = r.roomId;
+  var roomOpts = store.rooms.map(function(rm){
+    var maint = rm.status==="Maintenance";
+    var dis = maint && !( !isNew && rm.id===origRoomId );
+    return '<option value="'+rm.id+'" data-price="'+rm.priceNight+'"'+(rm.id===r.roomId?" selected":"")+(dis?" disabled":"")+'>' + esc(rm.name) + ' — ' + esc(fmt$(rm.priceNight)) + ' / nuit' + (maint ? ' — Maintenance — indisponible' : '') + '</option>';
+  }).join("");
+  var statusChoices = isNew ? ["Confirmée","En attente"] : RES_STATUS;
+  if(isNew && statusChoices.indexOf(r.status)<0) r.status = "Confirmée";
+  var stOpts = statusChoices.map(function(s){ return '<option' + (s===r.status?" selected":"") + '>' + s + '</option>'; }).join("");
+  var curDep = isNew ? 0 : acompteAmount(r.id);
+  var curDepPay = isNew ? null : (acomptePayments(r.id)[0] || null);
+  var curDepMethod = curDepPay ? curDepPay.method : "Espèces";
   openSheet(
     '<h3>' + (isNew ? "Nouvelle réservation" : "Modifier la réservation") + '</h3>' +
     '<div class="sub">Le total se calcule tout seul : nuits × prix par nuit.</div>' +
     '<form id="resForm">' +
     '<div class="field"><label>Nom du client *</label><input name="clientName" aria-label="Nom du client" required value="' + esc(r.clientName) + '" placeholder="Ex. : Aline Ndayisenga" /></div>' +
-    '<div class="field"><label>Téléphone</label><input name="phone" aria-label="Téléphone" value="' + esc(r.phone||"") + '" placeholder="Ex. : +257 79 00 00 00" /></div>' +
+    '<div class="grid2"><div class="field"><label>Téléphone *</label><input name="phone" aria-label="Téléphone" required value="' + esc(r.phone||"") + '" placeholder="Ex. : +257 79 00 00 00" /></div>' +
+    '<div class="field"><label>Nombre de voyageurs</label><input type="number" name="guests" aria-label="Nombre de voyageurs" min="1" step="1" value="' + (r.guests ? parseInt(r.guests)||1 : 2) + '" /></div></div>' +
     '<div class="field"><label>Hébergement</label><select name="roomId" id="fRoom" aria-label="Hébergement">' + roomOpts + '</select></div>' +
     '<div class="grid2"><div class="field"><label>Arrivée *</label><input type="date" name="checkIn" id="fIn" aria-label="Date d\'arrivée" required value="' + r.checkIn + '" /></div>' +
     '<div class="field"><label>Départ *</label><input type="date" name="checkOut" id="fOut" aria-label="Date de départ" required value="' + r.checkOut + '" /></div></div>' +
     '<div class="grid2"><div class="field"><label>Prix par nuit ($)</label><input type="number" name="priceNight" id="fPrice" aria-label="Prix par nuit" min="0" step="0.5" value="' + r.priceNight + '" /></div>' +
     '<div class="field"><label>Statut</label><select name="status" aria-label="Statut">' + stOpts + '</select></div></div>' +
-    (isNew ? '<div class="grid2"><div class="field"><label>Acompte reçu ($)</label><input type="number" name="deposit" aria-label="Acompte reçu" min="0" step="0.5" value="0" /></div>' +
-    '<div class="field"><label>Moyen de l\'acompte</label><select name="depositMethod" aria-label="Moyen de l\'acompte">' + methodOptions("Espèces") + '</select></div></div>' : '') +
+    '<div class="grid2"><div class="field"><label>Acompte reçu ($)</label><input type="number" name="deposit" aria-label="Acompte reçu" min="0" step="0.5" value="' + curDep + '" /></div>' +
+    '<div class="field"><label>Moyen de l\'acompte</label><select name="depositMethod" aria-label="Moyen de l\'acompte">' + methodOptions(curDepMethod) + '</select></div></div>' +
     '<div class="total-box" id="fTotal"></div>' +
     '<div class="field"><label>Notes</label><textarea name="notes" aria-label="Notes" placeholder="Demande particulière, heure d\'arrivée…">' + esc(r.notes||"") + '</textarea></div>' +
     '<div class="actions sticky-actions"><button type="submit" class="btn btn-teal">' + (isNew ? "Créer la réservation" : "Enregistrer") + '</button>' +
@@ -537,22 +585,51 @@ function resForm(r){
     e.preventDefault();
     var fd = new FormData(form);
     var data = { clientName: String(fd.get("clientName")||"").trim(), phone: String(fd.get("phone")||"").trim(),
+      guests: Math.max(1, parseInt(fd.get("guests"))||1),
       roomId: String(fd.get("roomId")), checkIn: String(fd.get("checkIn")), checkOut: String(fd.get("checkOut")),
       priceNight: parseFloat(fd.get("priceNight"))||0, status: String(fd.get("status")), notes: String(fd.get("notes")||"").trim() };
     if(!data.clientName){ toast("Le nom du client est obligatoire."); return; }
+    if(!data.phone){ toast("Le téléphone du client est obligatoire."); return; }
     if(nightsOf(data) <= 0){ toast("Vérifiez les dates : le départ doit suivre l'arrivée."); return; }
+    var targetRoom = roomById(data.roomId);
+    if(!targetRoom){ toast("Choisissez un hébergement."); return; }
+    if(targetRoom.status==="Maintenance" && (isNew || data.roomId!==origRoomId)){
+      toast("« " + targetRoom.name + " » est en maintenance — indisponible à la réservation."); return;
+    }
+    var total = nightsOf(data) * data.priceNight;
+    var dep = parseFloat(fd.get("deposit"))||0;
+    var depMethod = String(fd.get("depositMethod")||"Espèces");
+    if(dep < 0){ toast("L'acompte ne peut pas être négatif."); return; }
+    if(dep > total){ toast("Acompte refusé : " + fmt$(dep) + " dépasse le total du séjour (" + fmt$(total) + ")."); return; }
+    var conflict = findConflict(data, isNew ? null : r.id);
+    if(conflict){
+      toast("Conflit de dates : " + targetRoom.name + " est déjà réservé par " + conflict.clientName + " (" + (conflict.code||"") + ") du " + fmtDate(conflict.checkIn) + " au " + fmtDate(conflict.checkOut) + ".");
+      return;
+    }
     if(isNew){
       data.id = uid("res");
       var code = "CR-" + String(store.reservations.length + 1).padStart(3,"0") + "-" + Math.floor(100 + Math.random()*900);
       data.code = code;
       store.reservations.push(data);
-      var dep = parseFloat(fd.get("deposit"))||0;
-      if(dep > 0) addPayment(data.id, dep, String(fd.get("depositMethod")), todayStr(), "Acompte — " + data.code);
+      if(dep > 0) addPayment(data.id, dep, depMethod, todayStr(), "Acompte — " + data.code);
       toast("Réservation créée : " + code);
     } else {
       var old = resById(r.id); if(!old){ closeSheet(); return; }
+      var prevStatus = old.status, prevRoomId = old.roomId;
       Object.keys(data).forEach(function(k){ old[k] = data[k]; });
+      /* Correction de l'acompte : on remplace le(s) paiement(s) d'acompte liés par le nouveau montant/moyen. */
+      var acs = acomptePayments(old.id);
+      if(Math.abs(acompteAmount(old.id) - dep) > 0.001 || (acs.length && acs[0].method !== depMethod)){
+        var keepDate = acs.length ? acs[0].date : todayStr();
+        var acIds = {}; acs.forEach(function(p){ acIds[p.id] = true; });
+        store.payments = store.payments.filter(function(p){ return !acIds[p.id]; });
+        if(dep > 0) addPayment(old.id, dep, depMethod, keepDate, "Acompte — " + (old.code||""));
+      }
       if(old.status==="Arrivée"){ var rm = roomById(old.roomId); if(rm) rm.status = "Occupée"; }
+      if(prevStatus==="Arrivée" && old.status!=="Arrivée"){
+        var prm = roomById(prevRoomId);
+        if(prm && !activeStay(prm.id)) prm.status = (old.status==="Terminée") ? "Ménage" : "Libre";
+      }
       toast("Réservation mise à jour.");
     }
     saveStore(); closeSheet(); render();
@@ -562,8 +639,10 @@ function resForm(r){
 function roomForm(r){
   var isNew = !r;
   r = r || { name:"", type:"Chambre", capacity:2, priceNight:50, priceMonth:1000, status:"Libre" };
+  var stay = isNew ? null : activeStay(r.id);
+  var shownStatus = stay ? "Occupée" : r.status;
   var typeOpts = ["Chambre","Suite","Appartement"].map(function(t){ return '<option' + (t===r.type?" selected":"") + '>' + t + '</option>'; }).join("");
-  var stOpts = ROOM_STATUS.map(function(s){ return '<option' + (s===r.status?" selected":"") + '>' + s + '</option>'; }).join("");
+  var stOpts = ROOM_STATUS.map(function(s){ return '<option' + (s===shownStatus?" selected":"") + '>' + s + '</option>'; }).join("");
   openSheet('<h3>' + (isNew ? "Nouvel hébergement" : "Modifier l'hébergement") + '</h3><div class="sub">' + esc(r.name||"") + '</div>' +
     '<form id="roomForm">' +
     '<div class="field"><label>Nom *</label><input name="name" required value="' + esc(r.name) + '" /></div>' +
@@ -571,7 +650,8 @@ function roomForm(r){
     '<div class="field"><label>Capacité (pers.)</label><input type="number" name="capacity" min="1" value="' + r.capacity + '" /></div></div>' +
     '<div class="grid2"><div class="field"><label>Prix par nuit ($)</label><input type="number" name="priceNight" min="0" step="0.5" value="' + r.priceNight + '" /></div>' +
     '<div class="field"><label>Prix par mois ($)</label><input type="number" name="priceMonth" min="0" step="1" value="' + r.priceMonth + '" /></div></div>' +
-    '<div class="field"><label>Statut</label><select name="status">' + stOpts + '</select></div>' +
+    '<div class="field"><label>Statut</label><select name="status"' + (stay ? ' disabled' : '') + '>' + stOpts + '</select>' +
+    (stay ? '<div class="note" style="margin-top:6px">Séjour en cours (' + esc(stay.clientName) + ') : le statut reste « Occupée » jusqu\'au départ.</div>' : '') + '</div>' +
     '<div class="actions sticky-actions"><button type="submit" class="btn btn-teal">Enregistrer</button><button type="button" class="btn btn-soft" data-act="close">Annuler</button>' +
     (!isNew ? '<button type="button" class="btn btn-danger" id="delRoom">Supprimer</button>' : '') + '</div></form>');
   $("#roomForm").addEventListener("submit", function(e){
@@ -580,6 +660,7 @@ function roomForm(r){
     var data = { name: String(fd.get("name")||"").trim(), type: String(fd.get("type")), capacity: parseInt(fd.get("capacity"))||1,
       priceNight: parseFloat(fd.get("priceNight"))||0, priceMonth: parseFloat(fd.get("priceMonth"))||0, status: String(fd.get("status")) };
     if(!data.name){ toast("Le nom est obligatoire."); return; }
+    if(stay) data.status = "Occupée";
     if(isNew){ data.id = uid("r"); store.rooms.push(data); toast("Hébergement ajouté."); }
     else { var old = roomById(r.id); Object.keys(data).forEach(function(k){ old[k] = data[k]; }); toast("Hébergement mis à jour."); }
     saveStore(); closeSheet(); render();
@@ -604,15 +685,17 @@ function payForm(r){
     var fd = new FormData(this);
     var amt = parseFloat(fd.get("amount"))||0;
     if(amt <= 0){ toast("Montant invalide."); return; }
+    if(amt > resDue(r)){ toast("Paiement refusé : " + fmt$(amt) + " dépasse le reste à payer (" + fmt$(resDue(r)) + ")."); return; }
     addPayment(r.id, amt, String(fd.get("method")), todayStr(), "Paiement — " + (r.code||""));
     saveStore(); closeSheet(); render(); toast("Paiement de " + fmt$(amt) + " enregistré.");
   });
 }
 
 function checkoutForm(r){
-  var due = resDue(r);
+  var due = resDue(r), over = resOverpaid(r);
   openSheet('<h3>Départ — ' + esc(r.clientName) + '</h3>' +
-    '<div class="total-box">Total du séjour : <b>' + esc(fmt$(resTotal(r))) + '</b><br/>Déjà payé : <b>' + esc(fmt$(resPaid(r))) + '</b><br/>Reste à régler : <b>' + esc(fmt$(due)) + '</b></div>' +
+    '<div class="total-box">Total du séjour : <b>' + esc(fmt$(resTotal(r))) + '</b><br/>Déjà payé : <b>' + esc(fmt$(resPaid(r))) + '</b><br/>Reste à régler : <b>' + esc(fmt$(due)) + '</b>' +
+    (over > 0 ? '<br/><b style="color:var(--red)">Trop-perçu : ' + esc(fmt$(over)) + ' à rembourser au client.</b>' : '') + '</div>' +
     '<form id="coForm">' +
     (due > 0 ? '<div class="grid2"><div class="field"><label>Paiement final ($)</label><input type="number" name="amount" aria-label="Paiement final" min="0" step="0.5" value="' + due + '" /></div>' +
     '<div class="field"><label>Moyen</label><select name="method" aria-label="Moyen du paiement final">' + methodOptions("Espèces") + '</select></div></div>' : '<p class="note">Le séjour est déjà soldé : aucun paiement final à enregistrer.</p>') +
@@ -622,6 +705,7 @@ function checkoutForm(r){
     e.preventDefault();
     var fd = new FormData(this);
     var amt = parseFloat(fd.get("amount"))||0;
+    if(amt > resDue(r)){ toast("Paiement refusé : il dépasse le reste à régler (" + fmt$(resDue(r)) + ")."); return; }
     if(amt > 0) addPayment(r.id, amt, String(fd.get("method")), todayStr(), "Solde au départ — " + (r.code||""));
     r.status = "Terminée";
     var rm = roomById(r.roomId); if(rm) rm.status = "Ménage";
@@ -631,15 +715,17 @@ function checkoutForm(r){
 
 function invoiceSheet(r){
   var room = roomById(r.roomId);
-  var n = nightsOf(r), total = resTotal(r), paid = resPaid(r), due = resDue(r);
+  var n = nightsOf(r), total = resTotal(r), paid = resPaid(r), due = resDue(r), over = resOverpaid(r);
+  var guests = r.guests ? parseInt(r.guests)||0 : 0;
   var inv = '<div class="invoice"><div class="inv-head"><div><h3>Crescence Hôtel et Appartement</h3><div class="small">Bujumbura, Burundi · Réception — Gestion hôtel</div></div>' +
     '<div style="text-align:right"><div><b>Facture ' + esc(r.code || r.id) + '</b></div><div class="small">Émise le ' + esc(fmtDate(todayStr())) + '</div></div></div>' +
-    '<div><b>Client :</b> ' + esc(r.clientName) + (r.phone ? ' · ' + esc(r.phone) : '') + '<br/><b>Hébergement :</b> ' + esc(room ? room.name : "—") + '</div>' +
+    '<div><b>Client :</b> ' + esc(r.clientName) + (r.phone ? ' · ' + esc(r.phone) : '') + (guests ? '<br/><b>Voyageurs :</b> ' + guests : '') + '<br/><b>Hébergement :</b> ' + esc(room ? room.name : "—") + '</div>' +
     '<table><tr><th>Description</th><th class="r">Détail</th><th class="r">Montant</th></tr>' +
-    '<tr><td>Séjour du ' + esc(fmtDate(r.checkIn)) + ' au ' + esc(fmtDate(r.checkOut)) + '</td><td class="r">' + n + ' nuit(s) × ' + esc(fmt$(r.priceNight)) + '</td><td class="r">' + esc(fmt$(total)) + '</td></tr></table>' +
-    '<table><tr><td>Total du séjour</td><td class="r inv-total">' + esc(fmt$(total)) + '</td></tr>' +
-    '<tr><td>Déjà payé</td><td class="r">' + esc(fmt$(paid)) + '</td></tr>' +
-    '<tr><td><b>Reste à payer</b></td><td class="r"><b>' + esc(fmt$(due)) + '</b></td></tr></table>' +
+    '<tr><td>Séjour du ' + esc(fmtDate(r.checkIn)) + ' au ' + esc(fmtDate(r.checkOut)) + '</td><td class="r"><span class="nobr">' + n + ' nuit(s) × ' + esc(fmt$(r.priceNight)) + '</span></td><td class="r"><span class="nobr">' + esc(fmt$(total)) + '</span></td></tr></table>' +
+    '<table><tr><td>Total du séjour</td><td class="r inv-total"><span class="nobr">' + esc(fmt$(total)) + '</span></td></tr>' +
+    '<tr><td>Déjà payé</td><td class="r"><span class="nobr">' + esc(fmt$(paid)) + '</span></td></tr>' +
+    (over > 0 ? '<tr><td><b>Trop-perçu — à rembourser</b></td><td class="r"><b><span class="nobr">' + esc(fmt$(over)) + '</span></b></td></tr>' : '<tr><td><b>Reste à payer</b></td><td class="r"><b><span class="nobr">' + esc(fmt$(due)) + '</span></b></td></tr>') +
+    '</table>' +
     '<div class="small">Merci de votre séjour chez Crescence. Statut de la réservation : ' + esc(r.status) + '.</div></div>';
   openSheet('<h3>Facture</h3><div class="sub">' + esc(r.clientName) + ' · ' + esc(r.code || "") + '</div>' + inv +
     '<div class="actions"><button class="btn btn-teal" data-act="print-invoice" data-id="' + r.id + '">Imprimer / enregistrer en PDF</button>' +
@@ -679,28 +765,46 @@ function handleAct(act, el){
   var rm = id ? roomById(id) : null;
   if(act==="edit-res" && r){ resForm(r); return; }
   if(act==="edit-room" && rm){ roomForm(rm); return; }
-  if(act==="room-status" && rm){ rm.status = el.getAttribute("data-status"); saveStore(); render(); toast(rm.name + " → " + rm.status); return; }
+  if(act==="room-status" && rm){
+    var stay = activeStay(rm.id);
+    var ns = el.getAttribute("data-status");
+    if(stay && ns!=="Occupée"){ toast("Impossible : " + rm.name + " est occupée par " + stay.clientName + " jusqu'au " + fmtDate(stay.checkOut) + " — statut modifiable après le départ."); return; }
+    rm.status = ns; saveStore(); render(); toast(rm.name + " → " + rm.status); return;
+  }
   if(act==="pay" && r){ payForm(r); return; }
   if(act==="invoice" && r){ invoiceSheet(r); return; }
   if(act==="print-invoice"){ window.print(); return; }
   if(act==="checkin" && r){
+    if(r.checkIn > todayStr()){ toast("Arrivée prévue le " + fmtDateLong(r.checkIn) + " — check-in possible à partir de ce jour."); return; }
     r.status = "Arrivée"; var room = roomById(r.roomId); if(room) room.status = "Occupée";
     saveStore(); render(); toast("Arrivée enregistrée — " + (room ? room.name : "") + " occupée."); return;
   }
   if(act==="checkout" && r){ checkoutForm(r); return; }
   if(act==="cancel-res" && r){
-    confirmSheet("Annuler cette réservation ?", r.clientName + " — " + (roomById(r.roomId) ? roomById(r.roomId).name : "") + ", du " + fmtDate(r.checkIn) + " au " + fmtDate(r.checkOut) + ".", "Annuler la réservation", function(){
+    var netPaid = resPaid(r);
+    var cancelText = r.clientName + " — " + (roomById(r.roomId) ? roomById(r.roomId).name : "") + ", du " + fmtDate(r.checkIn) + " au " + fmtDate(r.checkOut) + ".";
+    if(netPaid > 0) cancelText += " Acompte de " + fmt$(netPaid) + " — un remboursement sera enregistré en caisse.";
+    confirmSheet("Annuler cette réservation ?", cancelText, "Annuler la réservation", function(){
+      if(resPaid(r) > 0){
+        var toRefund = store.payments.filter(function(p){ return p.resId===r.id && (+p.amount||0) > 0; });
+        toRefund.forEach(function(p){
+          var isAcompte = p.label && p.label.indexOf("Acompte")===0;
+          addPayment(r.id, -(+p.amount||0), p.method, todayStr(), (isAcompte ? "Remboursement acompte — " : "Remboursement — ") + (r.code||""));
+        });
+      }
       r.status = "Annulée";
       var room2 = roomById(r.roomId);
-      if(room2 && room2.status==="Occupée" && !store.reservations.some(function(x){ return x.roomId===room2.id && x.status==="Arrivée"; })) room2.status = "Libre";
-      saveStore(); closeSheet(); render(); toast("Réservation annulée.");
+      if(room2 && !activeStay(room2.id) && room2.status==="Occupée") room2.status = "Libre";
+      saveStore(); closeSheet(); render(); toast(netPaid > 0 ? "Réservation annulée — remboursement de " + fmt$(netPaid) + " enregistré en caisse." : "Réservation annulée.");
     }); return;
   }
 }
+/* Délégation globale : couvre la vue ET les modales (feuille), une seule fois. */
+document.addEventListener("click", function(e){
+  var el = e.target && e.target.closest ? e.target.closest("[data-act]") : null;
+  if(el) handleAct(el.getAttribute("data-act"), el);
+});
 function bindView(){
-  document.querySelectorAll("[data-act]").forEach(function(el){
-    el.addEventListener("click", function(){ handleAct(el.getAttribute("data-act"), el); });
-  });
   document.querySelectorAll("[data-filter]").forEach(function(el){
     el.addEventListener("click", function(){ ui.resFilter = el.getAttribute("data-filter"); render(); });
   });
