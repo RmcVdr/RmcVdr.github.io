@@ -1904,7 +1904,7 @@ loadPublicData();
       hebergement_id: isRoom ? placeId : null, table_id: isRoom ? null : placeId };
     var lignes = keys.map(function(k){
       var a = artById(k);
-      return { commande_id: cmdId, article_nom: a.nom, prix: +a.prix || 0, quantite: G.cart[k] };
+      return { commande_id: cmdId, article_id: a.id, article_nom: a.nom, prix: +a.prix || 0, quantite: G.cart[k] };
     });
     var total = cartTotal(), recap = lignes.map(function(l){ return l.article_nom + " × " + l.quantite; }).join(", ");
     sbFetch("/rest/v1/commandes", { method: "POST", prefer: "return=minimal", body: body })

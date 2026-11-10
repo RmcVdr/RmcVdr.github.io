@@ -409,7 +409,7 @@ a{color:var(--teal)}
   </header>
   <div class="version-banner" id="versionBanner" role="status">
     <div class="version-banner-in">
-      <div class="version-banner-txt"><strong>Nouvelle version — S9 · Série S6 à S9 terminée</strong><span>S6 : QR chambres &amp; tables et demandes clients suivies en temps réel. S7 : écran Cuisine (reçue → en préparation → prête → terminée) et stock des plats décrémenté à chaque commande, avec alertes de rupture. S8 : ménage automatique au départ, circuit à nettoyer → en cours → propre → contrôlée, et tickets de maintenance. S9 : paiements partiels avec référence et reste dû suivi, paie avec commissions et primes, pointage avec retards, journée à l’heure d’Africa/Bujumbura.</span></div>
+      <div class="version-banner-txt"><strong>Nouvelle version — S9.1 · Correctifs stock et encaissements</strong><span>S9.1 : le stock est désormais décrémenté par la base elle-même (déclencheurs) pour toutes les commandes — réception et commandes QR des clients — via l’article_id porté par chaque ligne ; plus aucun décrément ni restauration dans l’application. Encaissements de commandes : la base remplit automatiquement l’hôtel depuis la commande parente. La série S6 à S9 reste en place : QR chambres &amp; tables et demandes clients, Cuisine (reçue → en préparation → prête → terminée) et alertes de rupture, ménage automatique et maintenance, paiements partiels avec référence, paie avec commissions et primes, pointage avec retards, journée à l’heure d’Africa/Bujumbura.</span></div>
     </div>
   </div>
   <main class="wrap" id="view"></main>
@@ -687,7 +687,7 @@ function cmdSourceBadge(c){
 function dbPatchDemande(id, patch){ return sb("/rest/v1/demandes?id=eq." + id, { method:"PATCH", prefer:"return=minimal", body: patch }); }
 function dbPatchTableResto(id, patch){ return sb("/rest/v1/tables_resto?id=eq." + id, { method:"PATCH", prefer:"return=minimal", body: patch }); }
 function mapLigne(x){
-  return { id: x.id, commandeId: x.commande_id, articleNom: x.article_nom||"", prix: +x.prix||0, quantite: +x.quantite||0 };
+  return { id: x.id, commandeId: x.commande_id, articleId: x.article_id || null, articleNom: x.article_nom||"", prix: +x.prix||0, quantite: +x.quantite||0 };
 }
 /* S5 — Ressources humaines */
 function mapEmploye(x){
@@ -838,7 +838,10 @@ function dbPatchConge(id, patch){ return sb("/rest/v1/conges?id=eq." + id, { met
    Contrat réel de la base partagée (vérifié dans Supabase) :
    - Cuisine : commandes.statut_cuisine (recue|en_preparation|prete|terminee).
    - Stock : articles.stock_actuel (NULL = non suivi) et articles.stock_alerte (seuil) ;
-     décrémenté à l'écriture de chaque ligne de commande, restauré si la commande est annulée.
+     décrémenté PAR LA BASE (déclencheurs sur commande_lignes.article_id), pour toutes
+     les commandes — réception et QR clients. L'application n'écrit jamais le stock
+     lors d'une commande ou d'une annulation (S9.1) ; seul le réassort manuel +/−
+     en Cuisine écrit directement stock_actuel.
    - Ménage : le circuit vit dans hebergements.statut_manu —
      a_nettoyer → nettoyage → a_controler → libre (l'ancienne valeur menage vaut a_nettoyer).
    - Maintenance : table tickets_maintenance (statut ouvert|en_cours|resolu, resolu_at).
@@ -1271,7 +1274,7 @@ function viewCuisine(){
       var st = stockOf(a);
       return '<div class="pay-row"><div><div>' + esc(a.name) + '</div><div class="who">' + esc(CAT_LABEL[a.categorie]||a.categorie) + (a.stockAlerte!=null ? ' · seuil d\'alerte : ' + a.stockAlerte : '') + (stockLow(a) ? ' · <b style="color:var(--red)">stock faible — au seuil ou en dessous</b>' : '') + '</div></div>' +
         '<div style="display:flex;gap:6px;align-items:center"><button class="btn btn-soft btn-sm" data-act="stock-dec" data-id="' + a.id + '">−</button><span class="money">' + st + ' portion(s)</span><button class="btn btn-soft btn-sm" data-act="stock-inc" data-id="' + a.id + '">+</button></div></div>';
-    }).join("") + '<p class="note" style="margin-top:8px">Le stock se décrémente automatiquement à chaque commande enregistrée (quantités des lignes). Ajustez ici après un réassort ou un inventaire.</p></div>';
+    }).join("") + '<p class="note" style="margin-top:8px">Le stock est décrémenté par la base elle-même à chaque commande enregistrée — réception comme commandes QR des clients (quantités des lignes, via article_id). Ajustez ici après un réassort ou un inventaire : ces boutons +/− écrivent directement le stock.</p></div>';
   } else {
     h += '<div class="empty">Aucun plat ne suit encore ses portions.<br/>Renseignez le « Stock actuel » et le « Seuil d\'alerte » dans la fiche d\'un article (onglet Resto-bar, Modifier) pour activer le suivi et les alertes de rupture.</div>';
   }
@@ -1711,7 +1714,7 @@ function articleForm(a){
     '<div class="field"><label>Allergènes</label><input name="allergenes" value="' + esc(a.allergenes||"") + '" placeholder="Ex. : arachides, gluten, lactose…" /></div>' +
     '<div class="grid2"><div class="field"><label>Stock actuel — portions (vide = stock non suivi)</label><input type="number" name="stockActuel" min="0" step="1" value="' + (a.stockActuel!=null ? a.stockActuel : "") + '" placeholder="Ex. : 20" /></div>' +
     '<div class="field"><label>Seuil d\'alerte stock</label><input type="number" name="stockAlerte" min="0" step="1" value="' + (a.stockAlerte!=null ? a.stockAlerte : "") + '" placeholder="Ex. : 3" /></div></div>' +
-    '<p class="note" style="margin-bottom:12px">Le stock actuel baisse automatiquement à chaque commande et remonte si une commande est annulée. Réassort rapide : boutons − / + de la section « Stock des plats » (onglet Cuisine).</p>' +
+    '<p class="note" style="margin-bottom:12px">Le stock actuel est mis à jour par la base à chaque commande (réception et QR clients), via l\'identifiant d\'article porté par chaque ligne. Réassort rapide : boutons − / + de la section « Stock des plats » (onglet Cuisine).</p>' +
     '<div class="field"><label>Disponibilité</label><select name="actif">' + actOpts + '</select></div>' +
     '<div class="actions sticky-actions"><button type="submit" class="btn btn-teal">' + (isNew ? "Ajouter l'article" : "Enregistrer") + '</button>' +
     '<button type="button" class="btn btn-soft" data-act="close">Annuler</button></div></form>');
@@ -1829,16 +1832,11 @@ function orderForm(prefillResId){
     }}).then(function(created){
       var cmd = created && created.length ? created[0] : null;
       if(!cmd || !cmd.id) throw new Error("Création de la commande non confirmée par la base.");
-      var rows = ls.map(function(l){ return { commande_id: cmd.id, article_nom: l.article_nom, prix: l.prix, quantite: l.quantite }; });
-      return sb("/rest/v1/commande_lignes", { method:"POST", prefer:"return=minimal", body: rows }).then(function(){
-        /* S7 — décrément du stock à l'écriture de chaque ligne, pour les articles suivis (stock_actuel non NULL). */
-        var decs = [];
-        ls.forEach(function(l){
-          var art = l.article_id ? articleById(l.article_id) : null;
-          if(art && art.stockActuel!=null) decs.push(dbPatchArticle(art.id, { stock_actuel: Math.max(0, art.stockActuel - l.quantite) }));
-        });
-        return Promise.all(decs);
-      }).then(function(){ return cmd; });
+      /* S9.1 — chaque ligne porte article_id : c'est lui que les déclencheurs de la
+         base utilisent pour décrémenter le stock (réception ET commandes QR).
+         L'application ne décrémente plus le stock elle-même (double décrément sinon). */
+      var rows = ls.map(function(l){ return { commande_id: cmd.id, article_id: l.article_id || null, article_nom: l.article_nom, prix: l.prix, quantite: l.quantite }; });
+      return sb("/rest/v1/commande_lignes", { method:"POST", prefer:"return=minimal", body: rows }).then(function(){ return cmd; });
     }).then(function(){
       toast("Commande enregistrée — " + (resId ? "elle apparaîtra au folio du séjour." : "client de passage."));
       closeSheet(); return loadAll(true);
@@ -2386,7 +2384,7 @@ function viewBase(){
   /* S5.1 — pour la réception, aucun récapitulatif RH (employés, congés) n'apparaît ici. */
   var counts = store.rooms.length + " hébergements · " + store.reservations.length + " réservations · " + store.payments.length + " paiements · " + store.clotures.length + " clôtures · " + store.articles.length + " articles · " + store.commandes.length + " commandes resto-bar · " + store.tablesResto.length + " tables · " + store.demandes.length + " demandes clients" + (ownerView ? " · " + store.employes.length + " employés · " + store.conges.length + " demandes de congé" : "");
   var h = '<div class="page-head"><div><h2>Base partagée</h2><div class="sub">Le socle S1 : une seule base pour le site, le chatbot, la réception et le propriétaire</div></div></div>';
-  h += '<div class="card" style="border-color:var(--teal)"><h3>Version S9 — série S6–S9 (QR, cuisine, stock, ménage, maintenance, paie complète)</h3><div class="meta">Nouvelle version — S6 : un QR code par chambre et par table mène à la page client du site ; les commandes QR portent leur provenance et s\'imputent au séjour, et les demandes des clients arrivent dans l\'onglet « Demandes » avec compteur en temps réel. Le socle S1–S5.1 reste en place (base partagée, planning, folio, resto-bar, rapports propriétaire, personnel à accès strict). Jour métier calculé à l\'heure d\'Africa/Bujumbura. Vérifiez ce libellé pour confirmer que vous êtes sur la dernière version publiée : si vous ne le voyez pas, rechargez la page (cache du téléphone).</div>' +
+  h += '<div class="card" style="border-color:var(--teal)"><h3>Version S9.1 — correctifs stock (base) et encaissements</h3><div class="meta">Correctif S9.1 — Stock : la décrémentation ne se fait plus dans l\'application ; la base la fait elle-même par déclencheurs, pour toutes les commandes (réception ET commandes QR des clients), grâce à l\'article_id désormais écrit dans chaque ligne de commande. Plus de décrément à la création ni de restauration à l\'annulation côté logiciel (le double décrément disparaît) ; l\'affichage du stock, les alertes de seuil, les champs stock des articles et le réassort manuel +/− en Cuisine restent en place. Encaissements de commandes : le formulaire d\'encaissement partiel (montant, moyen, référence, employé encaissant) est inchangé — la base remplit automatiquement l\'hôtel depuis la commande parente, ce qui lève le rejet d\'insertion. La série S6–S9 et le socle S1–S5.1 restent en place (QR chambres &amp; tables, demandes clients, cuisine, ménage automatique, maintenance, paiements partiels, paie avec commissions et primes, pointage, accès par rôles stricts). Jour métier calculé à l\'heure d\'Africa/Bujumbura. Vérifiez ce libellé pour confirmer que vous êtes sur la dernière version publiée : si vous ne le voyez pas, rechargez la page (cache du téléphone).</div>' +
     '<div class="kv"><span>Accès <b>' + (publicMode ? "Site public" : (ownerView ? "Propriétaire — tous les onglets" : "Réception — onglets Propriétaire et Personnel masqués")) + '</b></span></div></div>';
   h += '<div class="card"><h3>Connexion</h3><div class="meta">Projet Supabase « Crescence » · ' + counts + '</div>' +
     '<div class="kv"><span>Synchronisation <b>' + esc(syncMode) + '</b></span>' + (lastSync ? '<span>Dernière lecture <b>' + pad(lastSync.getHours()) + ':' + pad(lastSync.getMinutes()) + ':' + pad(lastSync.getSeconds()) + '</b></span>' : '') + '</div>' +
@@ -3072,17 +3070,10 @@ function handleAct(act, el){
     }
     if(act==="cmd-encaisser"){ cmdPayForm(cmd); return; }
     confirmSheet("Annuler cette commande ?", (cmd.clientNom || "Client de passage") + " — total " + fmt$(commandeTotal(cmd)) + ". Une commande annulée ne compte ni au folio ni dans les ventes.", "Annuler la commande", function(){
+      /* S9.1 — aucune restauration de stock côté application : la base gère le stock
+         par déclencheurs pour toutes les commandes. */
       dbPatchCommande(cmd.id, { statut: "annulee" }).then(function(){
-        /* S7 — restauration du stock des articles suivis quand une commande est annulée. */
-        var restores = [];
-        lignesOf(cmd.id).forEach(function(l){
-          var art = null;
-          store.articles.forEach(function(x){ if(x.name===l.articleNom) art = x; });
-          if(art && art.stockActuel!=null) restores.push(dbPatchArticle(art.id, { stock_actuel: art.stockActuel + (+l.quantite||0) }));
-        });
-        return Promise.all(restores);
-      }).then(function(){
-        closeSheet(); toast("Commande annulée — stock restauré pour les articles suivis."); return loadAll(true);
+        closeSheet(); toast("Commande annulée."); return loadAll(true);
       }).catch(fail);
     }); return;
   }
