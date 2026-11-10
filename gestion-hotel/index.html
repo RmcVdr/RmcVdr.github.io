@@ -43,7 +43,7 @@ h1,h2,h3,.serif{font-family:"Lora",Georgia,serif}
 button,[role="button"],select,input,textarea{font-family:inherit}
 button,select,input:not([type="checkbox"]){min-height:44px}
 a{color:var(--teal)}
-.wrap{max-width:1060px;margin:0 auto;padding:0 16px 110px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px 110px}
 @media(min-width:860px){.wrap{padding-bottom:40px}}
 
 /* ---------- Accès ---------- */
@@ -81,7 +81,7 @@ a{color:var(--teal)}
 
 /* ---------- App ---------- */
 #app{display:none}
-.topbar{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar{position:sticky;top:0;z-index:30;box-shadow:0 1px 0 rgba(62,48,20,.04),0 8px 24px rgba(62,48,20,.05);background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .topbar-in{max-width:1360px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:11px;min-width:0;flex:none}
 .brand-mark{width:40px;height:40px;border-radius:11px;background:var(--teal);color:#FFF9E8;display:flex;align-items:center;justify-content:center;font-family:"Lora",serif;font-size:21px;font-weight:700;flex:none}
@@ -118,7 +118,10 @@ a{color:var(--teal)}
 .stats.four{grid-template-columns:repeat(2,1fr)}
 @media(min-width:700px){.stats.four{grid-template-columns:repeat(4,1fr)}}
 .stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:15px 16px;box-shadow:var(--shadow)}
-.stat .n{font-family:"Lora",serif;font-size:31px;font-weight:700;line-height:1}
+.stat{position:relative;overflow:hidden}
+.stat::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--teal-soft)}
+.stat .n{font-family:"Lora",serif;font-size:32px;font-weight:700;line-height:1;letter-spacing:-.01em}
+.stat .l{letter-spacing:.04em;text-transform:uppercase;font-size:11.5px}
 .stat .n.teal{color:var(--teal)}.stat .n.wood{color:var(--wood)}
 .stat .l{font-size:13px;color:var(--ink2);font-weight:600;margin-top:5px}
 
@@ -207,6 +210,55 @@ a{color:var(--teal)}
 .invoice .inv-total{font-size:17px;font-weight:800;color:#256D66}
 .invoice .small{color:#6B6252;font-size:12.5px}
 .nobr{white-space:nowrap}
+
+
+/* ---------- Planning (S2) ---------- */
+.plan-nav{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.plan-nav .range{font-family:"Lora",serif;font-size:16.5px;font-weight:600;margin:0 4px}
+.plan-check{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;color:var(--ink2);cursor:pointer;margin-left:auto;min-height:38px}
+.plan-check input{width:19px;height:19px;accent-color:var(--teal);min-height:0}
+.plan-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);box-shadow:var(--shadow)}
+.plan-inner{min-width:1060px}
+.plan-head,.plan-row{display:grid;grid-template-columns:150px repeat(14,1fr)}
+.plan-head{border-bottom:1.5px solid var(--line);background:var(--surface2)}
+.plan-corner{position:sticky;left:0;z-index:3;background:var(--surface2);padding:10px 12px;font-size:12px;font-weight:800;color:var(--ink2);letter-spacing:.05em;text-transform:uppercase;border-right:1.5px solid var(--line);display:flex;align-items:center}
+.plan-day{padding:8px 2px;text-align:center;font-size:11.5px;font-weight:700;color:var(--ink2);border-right:1px solid var(--line);line-height:1.3}
+.plan-day:last-child{border-right:none}
+.plan-day b{display:block;font-size:15px;color:var(--ink)}
+.plan-day.today{background:var(--teal-soft);color:var(--teal-d)}
+.plan-day.today b{color:var(--teal-d)}
+.plan-row{border-bottom:1px solid var(--line)}
+.plan-row:last-child{border-bottom:none}
+.plan-room{position:sticky;left:0;z-index:2;background:var(--surface);padding:10px 12px;border-right:1.5px solid var(--line);display:flex;flex-direction:column;justify-content:center;gap:2px}
+.plan-room b{font-size:13.5px;line-height:1.25}
+.plan-room span{font-size:11.5px;color:var(--ink2)}
+.plan-cell{position:relative;border-right:1px solid var(--line);cursor:pointer;min-height:56px}
+.plan-cell:last-child{border-right:none}
+.plan-cell:hover{background:var(--surface2)}
+.plan-cell.today{background:color-mix(in srgb,var(--teal-soft) 45%,transparent)}
+.plan-block{position:absolute;left:2px;top:11px;height:34px;z-index:4;border-radius:9px;padding:6px 9px;font-size:12.5px;font-weight:800;color:#FFF9E8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;box-shadow:0 2px 6px rgba(30,24,12,.18);display:flex;align-items:center}
+.plan-block small{font-weight:600;opacity:.85;margin-left:6px;font-size:11px}
+.pb-attente{background:var(--amber);color:#FFF6DE}
+.pb-confirmee{background:var(--teal)}
+.pb-arrivee{background:var(--green)}
+.pb-terminee{background:#8A8172}
+.pb-annulee{background:transparent;color:var(--ink2);border:1.5px dashed var(--ink2);box-shadow:none;text-decoration:line-through}
+.plan-legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:12.5px;color:var(--ink2);font-weight:700}
+.plan-legend i{width:12px;height:12px;border-radius:4px;display:inline-block;margin-right:5px;vertical-align:-1px}
+
+/* ---------- Avertissement / clôture / folio (S2) ---------- */
+.warn-banner{background:var(--amber-soft);border:1.5px solid var(--amber);color:var(--ink);border-radius:var(--r-md);padding:11px 14px;font-size:13.5px;line-height:1.55;margin-bottom:14px}
+.warn-banner b{color:var(--amber)}
+.closure-banner{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:14px 16px;box-shadow:var(--shadow);margin-bottom:14px}
+.closure-banner .grow{flex:1;min-width:200px}
+.closure-banner h3{margin:0 0 2px;font-size:16.5px}
+.closure-banner.done{border-color:var(--green);background:var(--green-soft)}
+.folio-head{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:6px}
+.folio-lines{width:100%;border-collapse:collapse;margin:10px 0 4px;font-size:14.5px}
+.folio-lines td,.folio-lines th{padding:9px 4px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.folio-lines td.r,.folio-lines th.r{text-align:right;white-space:nowrap}
+.folio-sec{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2);margin:18px 0 4px}
+.conso-empty{border:1.5px dashed var(--line);border-radius:var(--r-md);padding:13px 15px;color:var(--ink2);font-size:14px;background:var(--surface2)}
 
 #toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:12px 20px;border-radius:12px;font-size:14.5px;font-weight:700;opacity:0;pointer-events:none;transition:.25s;z-index:80;max-width:88vw;text-align:center}
 @media(min-width:860px){#toast{bottom:28px}}
@@ -298,7 +350,7 @@ var SRC_LABEL = {"site":"Site","chatbot":"Chatbot","reception":"Réception","tel
 var session = null;      /* {access, refresh, email, role, nom, userId, hotelId} */
 var publicMode = false;  /* visiteur du site public, sans compte personnel */
 var hotel = null;        /* ligne hotels */
-var store = { rooms: [], reservations: [], payments: [] };
+var store = { rooms: [], reservations: [], payments: [], clotures: [] };
 var dataReady = false;
 var syncMode = "Hors ligne";
 var lastSync = null;
@@ -309,7 +361,9 @@ var ui = {
   resFilter: "all",
   search: "",
   caisseDate: todayStr(),
-  clientSearch: ""
+  clientSearch: "",
+  planStart: todayStr(),
+  showCancelled: false
 };
 
 /* =============== Helpers =============== */
@@ -330,16 +384,39 @@ function resDue(r){ return Math.max(0, resTotal(r) - resPaid(r)); }
 function resOverpaid(r){ return Math.max(0, resPaid(r) - resTotal(r)); }
 function activeStay(roomId){ for(var i=0;i<store.reservations.length;i++){ var x = store.reservations[i]; if(x.roomId===roomId && x.status==="Arrivée") return x; } return null; }
 function effectiveStatus(room){ return activeStay(room.id) ? "Occupée" : room.status; }
-function findConflict(data, excludeId){
+/* Règle S2 : seuls les séjours « Confirmée » et « Arrivée » bloquent.
+   Une demande « En attente » qui chevauche = avertissement, jamais un refus. */
+function overlaps(a, b){ return a.checkIn < b.checkOut && b.checkIn < a.checkOut; }
+function findHardConflict(data, excludeId){
   if(data.status==="Annulée" || data.status==="Terminée") return null;
   for(var i=0;i<store.reservations.length;i++){
     var x = store.reservations[i];
     if(x.id===excludeId || x.roomId!==data.roomId) continue;
-    if(x.status!=="Confirmée" && x.status!=="Arrivée" && x.status!=="En attente") continue;
-    if(x.status==="En attente" && data.status==="En attente") continue;
-    if(data.checkIn < x.checkOut && x.checkIn < data.checkOut) return x;
+    if(x.status!=="Confirmée" && x.status!=="Arrivée") continue;
+    if(overlaps(data, x)) return x;
   }
   return null;
+}
+function findPendingOverlaps(data, excludeId){
+  var out = [];
+  if(data.status==="Annulée" || data.status==="Terminée") return out;
+  for(var i=0;i<store.reservations.length;i++){
+    var x = store.reservations[i];
+    if(x.id===excludeId || x.roomId!==data.roomId) continue;
+    if(x.status!=="En attente") continue;
+    if(overlaps(data, x)) out.push(x);
+  }
+  return out;
+}
+function pendingNote(list){
+  if(!list.length) return "";
+  return " Attention : demande(s) en attente sur ces dates : " + list.map(function(x){ return x.clientName + " (" + (x.code||"") + ")"; }).join(", ") + " — à traiter par la réception.";
+}
+function pendingBannerHtml(list, roomName){
+  if(!list.length) return "";
+  return '<div class="warn-banner"><b>Demande(s) en attente sur ces dates</b> — ' +
+    list.map(function(x){ return "<b>" + esc(x.clientName) + "</b> (" + esc(x.code||"") + ", " + esc(fmtDate(x.checkIn)) + " → " + esc(fmtDate(x.checkOut)) + ")"; }).join(" · ") +
+    " couvre déjà " + esc(roomName||"cet hébergement") + ". Vous pouvez continuer : la réception choisira quelle demande confirmer.</div>";
 }
 function acomptePayments(resId){ return store.payments.filter(function(p){ return p.resId===resId && p.type==="acompte"; }); }
 function acompteAmount(resId){ var s=0; acomptePayments(resId).forEach(function(p){ s += +p.amount||0; }); return s; }
@@ -415,7 +492,7 @@ function login(email, password){
 function signOut(){
   var tok = session ? session.access : null;
   session = null; publicMode = false; dataReady = false;
-  store = { rooms: [], reservations: [], payments: [] };
+  store = { rooms: [], reservations: [], payments: [], clotures: [] };
   if(tok) sbFetch("/auth/v1/logout", { method:"POST" }, tok).catch(function(){});
   stopRealtime();
   $("#app").style.display = "none";
@@ -453,11 +530,13 @@ function loadAll(rerender){
     p = Promise.all([
       sb("/rest/v1/hebergements?select=*&order=ordre.asc"),
       sb("/rest/v1/reservations?select=*&order=arrivee.desc"),
-      sb("/rest/v1/paiements?select=*&order=date.desc,created_at.desc")
+      sb("/rest/v1/paiements?select=*&order=date.desc,created_at.desc"),
+      sb("/rest/v1/clotures?select=*&order=date.desc").catch(function(){ return []; })
     ]).then(function(res){
       store.rooms = (res[0]||[]).map(mapRoom);
       store.reservations = (res[1]||[]).map(mapRes);
       store.payments = (res[2]||[]).map(mapPay);
+      store.clotures = (res[3]||[]).map(function(x){ return { id: x.id, date: x.date, total: +x.total||0, details: x.details||{} }; });
       if(store.rooms.length && !hotel) return loadHotel(store.rooms[0].hotelId);
     });
   }
@@ -492,6 +571,7 @@ function startRealtime(){
         .on("postgres_changes", { event: "*", schema: "public", table: "reservations" }, scheduleReload)
         .on("postgres_changes", { event: "*", schema: "public", table: "paiements" }, scheduleReload)
         .on("postgres_changes", { event: "*", schema: "public", table: "hebergements" }, scheduleReload)
+        .on("postgres_changes", { event: "*", schema: "public", table: "clotures" }, scheduleReload)
         .subscribe(function(status){ if(status==="SUBSCRIBED"){ syncMode = "Temps réel"; setSync("ok","Base partagée · temps réel"); } });
     }catch(e){ rtClient = null; }
   }
@@ -521,6 +601,7 @@ function dbPatchRoom(id, patch){ return sb("/rest/v1/hebergements?id=eq." + id, 
 /* =============== Navigation =============== */
 var TABS = [
   {id:"today", label:"Aujourd'hui", short:"Auj.", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>'},
+  {id:"planning", label:"Planning", short:"Plan.", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4M8 21v-6M16 21v-6"/>'},
   {id:"reservations", label:"Réservations", short:"Résa.", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V4H6.5A2.5 2.5 0 0 0 4 6.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>'},
   {id:"rooms", label:"Hébergements", short:"Héberg.", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M2 17h20"/></svg>'},
   {id:"caisse", label:"Caisse", short:"Caisse", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 12h.01M18 12h.01"/></svg>'},
@@ -564,6 +645,7 @@ function render(){
   var v = $("#view");
   if(!dataReady){ v.innerHTML = '<div class="empty" style="margin-top:26px">Chargement depuis la base partagée…</div>'; return; }
   if(ui.tab==="today") v.innerHTML = viewToday();
+  else if(ui.tab==="planning") v.innerHTML = viewPlanning();
   else if(ui.tab==="reservations") v.innerHTML = viewReservations();
   else if(ui.tab==="rooms") v.innerHTML = viewRooms();
   else if(ui.tab==="caisse") v.innerHTML = viewCaisse();
@@ -633,6 +715,7 @@ function resCard(r, compact){
     h += '<button class="btn btn-soft btn-sm" data-act="pay" data-id="'+r.id+'">+ Paiement</button>';
     h += '<button class="btn btn-soft btn-sm" data-act="edit-res" data-id="'+r.id+'">Modifier</button>';
   }
+  h += '<button class="btn btn-ghost btn-sm" data-act="folio" data-id="'+r.id+'">Folio</button>';
   h += '<button class="btn btn-soft btn-sm" data-act="invoice" data-id="'+r.id+'">Facture</button>';
   if(r.status!=="Annulée" && r.status!=="Terminée"){
     h += '<button class="btn btn-danger btn-sm" data-act="cancel-res" data-id="'+r.id+'">Annuler</button>';
@@ -694,6 +777,13 @@ function viewCaisse(){
     '<span class="day-label">' + esc(fmtDateLong(d)) + '</span>' +
     '<button class="btn btn-soft btn-sm" data-act="day-next">Jour suivant →</button>' +
     (d!==todayStr() ? '<button class="btn btn-ghost btn-sm" data-act="day-today">Aujourd\'hui</button>' : '') + '</div>';
+  var cloToday = null;
+  store.clotures.forEach(function(c){ if(c.date===todayStr()) cloToday = c; });
+  if(cloToday){
+    h += '<div class="closure-banner done"><div class="grow"><h3>Journée du ' + esc(fmtDate(todayStr())) + ' clôturée</h3><div class="meta">Total encaissé figé à la clôture : <b>' + esc(fmt$(cloToday.total)) + '</b>. Les paiements restent consultables ci-dessous.</div></div></div>';
+  } else {
+    h += '<div class="closure-banner"><div class="grow"><h3>Clôture de journée (night audit)</h3><div class="meta">La journée du ' + esc(fmtDate(todayStr())) + ' n\'est pas encore clôturée. Le récapitulatif est calculé depuis les paiements et réservations réels de la base.</div></div><button class="btn btn-teal" data-act="close-day">Clôturer la journée</button></div>';
+  }
   h += '<div class="stats" style="grid-template-columns:1fr"><div class="stat"><div class="n teal">' + esc(fmt$(total)) + '</div><div class="l">Total encaissé ce jour · ' + pays.length + ' paiement(s)</div></div></div>';
   h += '<div class="method-grid">' + METHODS.map(function(m){ return '<div class="method-card"><div class="m">' + m + '</div><div class="v">' + esc(fmt$(byMethod[m])) + '</div></div>'; }).join("") + '</div>';
   h += '<div class="card"><h3>Détail du jour</h3>';
@@ -703,6 +793,17 @@ function viewCaisse(){
       return '<div class="pay-row"><div><div>' + esc(payLabel(p)) + '</div><div class="who">' + (r ? esc(r.clientName) + ' · ' : '') + esc(p.method) + '</div></div><div class="money">' + esc(fmt$(p.amount)) + '</div></div>';
     }).join("");
   } else h += '<div class="meta" style="padding-top:8px">Aucun paiement enregistré ce jour-là.</div>';
+  h += '</div>';
+  h += '<h3 class="sec-title">Historique des clôtures</h3><div class="card">';
+  if(store.clotures.length){
+    h += store.clotures.map(function(c){
+      var det = c.details || {};
+      return '<div class="pay-row"><div><div><b>' + esc(fmtDate(c.date)) + '</b></div><div class="who">' +
+        (det.nb_paiements!=null ? det.nb_paiements + ' paiement(s) · ' : '') +
+        (det.arrivees!=null ? det.arrivees + ' arrivée(s) · ' : '') +
+        (det.departs!=null ? det.departs + ' départ(s)' : '') + '</div></div><div class="money">' + esc(fmt$(c.total)) + '</div></div>';
+    }).join("");
+  } else h += '<div class="meta">Aucune clôture enregistrée pour le moment.</div>';
   h += '</div>';
   return h;
 }
@@ -929,7 +1030,7 @@ function viewOwner(){
 
 /* ---------- Base partagée ---------- */
 function viewBase(){
-  var counts = store.rooms.length + " hébergements · " + store.reservations.length + " réservations · " + store.payments.length + " paiements";
+  var counts = store.rooms.length + " hébergements · " + store.reservations.length + " réservations · " + store.payments.length + " paiements · " + store.clotures.length + " clôtures";
   var h = '<div class="page-head"><div><h2>Base partagée</h2><div class="sub">Le socle S1 : une seule base pour le site, le chatbot, la réception et le propriétaire</div></div></div>';
   h += '<div class="card"><h3>Connexion</h3><div class="meta">Projet Supabase « Crescence » · ' + counts + '</div>' +
     '<div class="kv"><span>Synchronisation <b>' + esc(syncMode) + '</b></span>' + (lastSync ? '<span>Dernière lecture <b>' + pad(lastSync.getHours()) + ':' + pad(lastSync.getMinutes()) + ':' + pad(lastSync.getSeconds()) + '</b></span>' : '') + '</div>' +
@@ -952,10 +1053,15 @@ document.addEventListener("keydown", function(e){
 function methodOptions(sel){ return METHODS.map(function(m){ return '<option' + (m===sel?" selected":"") + '>' + m + '</option>'; }).join(""); }
 function fail(err){ toast("Base partagée : " + err.message, true); }
 
-function resForm(r){
+function resForm(r, prefill){
   var isNew = !r;
   var firstAvail = store.rooms.filter(function(rm){ return rm.status!=="Maintenance"; })[0] || store.rooms[0];
   r = r || { clientName:"", phone:"", guests:2, roomId: firstAvail ? firstAvail.id : "", checkIn: todayStr(), checkOut: addDays(todayStr(),1), priceNight: firstAvail ? firstAvail.priceNight : 0, status:"Confirmée", notes:"" };
+  if(prefill){
+    if(prefill.roomId && roomById(prefill.roomId)){ r.roomId = prefill.roomId; r.priceNight = roomById(prefill.roomId).priceNight; }
+    if(prefill.checkIn) r.checkIn = prefill.checkIn;
+    if(prefill.checkOut) r.checkOut = prefill.checkOut;
+  }
   var origRoomId = r.roomId;
   var roomOpts = store.rooms.map(function(rm){
     var maint = rm.status==="Maintenance";
@@ -980,6 +1086,7 @@ function resForm(r){
     '<div class="field"><label>Statut</label><select name="status" aria-label="Statut">' + stOpts + '</select></div></div>' +
     '<div class="grid2"><div class="field"><label>Acompte reçu ($)</label><input type="number" name="deposit" aria-label="Acompte reçu" min="0" step="0.5" value="' + curDep + '" /></div>' +
     '<div class="field"><label>Moyen de l\'acompte</label><select name="depositMethod" aria-label="Moyen de l\'acompte">' + methodOptions("Espèces") + '</select></div></div>' +
+    '<div id="fWarn"></div>' +
     '<div class="total-box" id="fTotal"></div>' +
     '<div class="field"><label>Notes</label><textarea name="notes" aria-label="Notes" placeholder="Demande particulière, heure d\'arrivée…">' + esc(r.notes||"") + '</textarea></div>' +
     '<div class="actions sticky-actions"><button type="submit" class="btn btn-teal">' + (isNew ? "Créer la réservation" : "Enregistrer") + '</button>' +
@@ -991,9 +1098,21 @@ function resForm(r){
     var n = nightsOf(tmp);
     $("#fTotal").innerHTML = n > 0 ? 'Durée : <b>' + n + ' nuit' + (n>1?"s":"") + '</b> · Total du séjour : <b>' + esc(fmt$(n * tmp.priceNight)) + '</b>'
       : '<b style="color:var(--red)">La date de départ doit être après la date d\'arrivée.</b>';
+    var selRoom = roomById($("#fRoom").value);
+    var probe = { roomId: $("#fRoom").value, checkIn: $("#fIn").value, checkOut: $("#fOut").value, status: form.querySelector('[name="status"]').value };
+    var warnEl = $("#fWarn");
+    if(warnEl){
+      if(n > 0){
+        var pend = findPendingOverlaps(probe, isNew ? null : r.id);
+        var hard = findHardConflict(probe, isNew ? null : r.id);
+        warnEl.innerHTML = pendingBannerHtml(pend, selRoom ? selRoom.name : "") +
+          (hard ? '<div class="warn-banner" style="border-color:var(--red);background:var(--red-soft)"><b style="color:var(--red)">Dates déjà prises</b> — ' + esc(hard.clientName) + ' (' + esc(hard.code||"") + ', ' + esc(hard.status) + ') occupe déjà ces dates : l\'enregistrement sera refusé.</div>' : '');
+      } else warnEl.innerHTML = "";
+    }
   }
   ["#fIn","#fOut","#fPrice"].forEach(function(s){ $(s).addEventListener("input", updTotal); $(s).addEventListener("change", updTotal); });
   $("#fRoom").addEventListener("change", function(){ var o = this.options[this.selectedIndex]; $("#fPrice").value = o.getAttribute("data-price"); updTotal(); });
+  form.querySelector('[name="status"]').addEventListener("change", updTotal);
   updTotal();
   form.addEventListener("submit", function(e){
     e.preventDefault();
@@ -1016,15 +1135,12 @@ function resForm(r){
     if(dep < 0){ toast("L'acompte ne peut pas être négatif.", true); return; }
     if(dep > total){ toast("Acompte refusé : " + fmt$(dep) + " dépasse le total du séjour (" + fmt$(total) + ").", true); return; }
     loadAll(false).then(function(){
-      var conflict = findConflict(data, isNew ? null : r.id);
-      if(conflict && conflict.status!=="En attente"){
-        toast("Conflit de dates : " + targetRoom.name + " est déjà réservé par " + conflict.clientName + " (" + (conflict.code||"") + ") du " + fmtDate(conflict.checkIn) + " au " + fmtDate(conflict.checkOut) + ".", true);
+      var conflict = findHardConflict(data, isNew ? null : r.id);
+      if(conflict){
+        toast("Conflit de dates : " + targetRoom.name + " est déjà réservé par " + conflict.clientName + " (" + (conflict.code||"") + ", " + conflict.status + ") du " + fmtDate(conflict.checkIn) + " au " + fmtDate(conflict.checkOut) + ".", true);
         return;
       }
-      if(conflict && conflict.status==="En attente" && data.status!=="En attente"){
-        toast("Attention : une demande en attente de " + conflict.clientName + " (" + (conflict.code||"") + ") couvre déjà ces dates sur " + targetRoom.name + ".", true);
-        return;
-      }
+      var pendingWarn = pendingNote(findPendingOverlaps(data, isNew ? null : r.id));
       var body = { hotel_id: targetRoom.hotelId, hebergement_id: data.roomId, client_nom: data.clientName, client_tel: data.phone,
         arrivee: data.checkIn, depart: data.checkOut, voyageurs: data.guests, prix_nuit: data.priceNight, total: total,
         statut: RES_TO_DB[data.status] || "confirmee", notes: data.notes || null };
@@ -1036,7 +1152,7 @@ function resForm(r){
           if(dep > 0) return dbInsertPayment(nr, dep, depMethod, "acompte").then(function(){ return nr; });
           return nr;
         }).then(function(nr){
-          toast("Réservation créée dans la base partagée : " + nr.code);
+          toast("Réservation créée dans la base partagée : " + nr.code + pendingWarn);
           closeSheet(); return loadAll(true);
         }).catch(fail);
       } else {
@@ -1061,7 +1177,7 @@ function resForm(r){
           }
           return chain2;
         }).then(function(){
-          toast("Réservation mise à jour dans la base partagée.");
+          toast("Réservation mise à jour dans la base partagée." + pendingWarn);
           closeSheet(); return loadAll(true);
         }).catch(fail);
       }
@@ -1180,7 +1296,8 @@ function invoiceSheet(r){
     '</table>' +
     '<div class="small">Merci de votre séjour chez Crescence. Statut de la réservation : ' + esc(r.status) + '.</div></div>';
   openSheet('<h3>Facture</h3><div class="sub">' + esc(r.clientName) + ' · ' + esc(r.code || "") + '</div>' + inv +
-    '<div class="actions"><button class="btn btn-teal" data-act="print-invoice" data-id="' + r.id + '">Imprimer / enregistrer en PDF</button>' +
+    '<p class="note" style="margin-top:12px">Pour imprimer ou enregistrer en PDF : utilisez la fonction d\'impression de votre navigateur (menu ⋮ → Imprimer, ou Ctrl+P) — seule la facture ci-dessus sera imprimée, mise en page automatiquement.</p>' +
+    '<div class="actions">' +
     '<button class="btn btn-soft" data-act="close">Fermer</button></div>');
   $("#printArea").innerHTML = inv;
 }
@@ -1191,6 +1308,136 @@ function confirmSheet(title, text, okLabel, onOk){
   $("#cfOk").addEventListener("click", onOk);
 }
 
+
+/* ---------- Planning (S2) : grille hébergements × 14 jours, motif des PMS pro ---------- */
+function viewPlanning(){
+  var start = ui.planStart, days = [], i;
+  for(i=0;i<14;i++) days.push(addDays(start,i));
+  var end = addDays(start,14), t = todayStr();
+  var h = '<div class="page-head"><div><h2>Planning</h2><div class="sub">Un bloc par séjour, coloré par statut. Cliquez un bloc pour ouvrir son folio ; cliquez une case libre pour créer une réservation pré-remplie.</div></div></div>';
+  h += '<div class="plan-nav"><button class="btn btn-soft btn-sm" data-act="plan-prev" aria-label="Reculer de 7 jours">‹ 7 jours</button>' +
+    '<span class="range">' + esc(fmtDate(days[0])) + ' → ' + esc(fmtDate(days[13])) + '</span>' +
+    '<button class="btn btn-soft btn-sm" data-act="plan-next" aria-label="Avancer de 7 jours">7 jours ›</button>' +
+    '<button class="btn btn-ghost btn-sm" data-act="plan-today">Aujourd\'hui</button>' +
+    '<label class="plan-check"><input type="checkbox" id="planShowCancelled"' + (ui.showCancelled ? ' checked' : '') + ' /> Afficher les annulées</label></div>';
+  h += '<div class="plan-scroll"><div class="plan-inner">';
+  h += '<div class="plan-head"><div class="plan-corner">Hébergement</div>' + days.map(function(d){
+    var dt = parseD(d);
+    return '<div class="plan-day' + (d===t ? ' today' : '') + '">' + esc(dt.toLocaleDateString("fr-FR",{weekday:"short"}).replace(".","")) + '<b>' + dt.getDate() + '</b>' + esc(dt.toLocaleDateString("fr-FR",{month:"short"}).replace(".","")) + '</div>';
+  }).join("") + '</div>';
+  var cls = {"En attente":"pb-attente","Confirmée":"pb-confirmee","Arrivée":"pb-arrivee","Terminée":"pb-terminee","Annulée":"pb-annulee"};
+  store.rooms.forEach(function(room){
+    var blocks = [];
+    store.reservations.forEach(function(r){
+      if(r.roomId!==room.id) return;
+      if(r.status==="Annulée" && !ui.showCancelled) return;
+      if(!(r.checkIn < end && start < r.checkOut)) return;
+      var cs = r.checkIn < start ? start : r.checkIn;
+      var ce = r.checkOut > end ? end : r.checkOut;
+      var off = Math.round((parseD(cs)-parseD(start))/86400000);
+      var span = Math.max(1, Math.round((parseD(ce)-parseD(cs))/86400000));
+      var lane = 0, clash = true;
+      while(clash){
+        clash = blocks.some(function(b){ return b.lane===lane && off < b.off+b.span && b.off < off+span; });
+        if(clash) lane++;
+      }
+      blocks.push({ r: r, off: off, span: span, lane: lane });
+    });
+    var lanes = 1;
+    blocks.forEach(function(b){ if(b.lane+1 > lanes) lanes = b.lane+1; });
+    var rowH = 56 + (lanes-1)*38;
+    h += '<div class="plan-row" style="min-height:' + rowH + 'px"><div class="plan-room"><b>' + esc(room.name) + '</b><span>' + esc(fmt$(room.priceNight)) + ' / nuit · ' + esc(effectiveStatus(room)) + '</span></div>';
+    days.forEach(function(d, di){
+      h += '<div class="plan-cell' + (d===t ? ' today' : '') + '" data-act="plan-new" data-room="' + room.id + '" data-date="' + d + '" title="Réserver ' + esc(room.name) + ' à partir du ' + esc(fmtDate(d)) + '">';
+      blocks.forEach(function(b){
+        if(b.off===di){
+          h += '<div class="plan-block ' + (cls[b.r.status]||"pb-confirmee") + '" style="width:calc(' + (b.span*100) + '% - 4px);top:' + (11 + b.lane*38) + 'px" data-act="folio" data-id="' + b.r.id + '" title="' + esc(b.r.clientName) + ' · ' + esc(b.r.code||"") + ' · ' + esc(b.r.status) + ' · ' + esc(fmtDate(b.r.checkIn)) + ' → ' + esc(fmtDate(b.r.checkOut)) + '">' + esc(b.r.clientName) + '<small>' + esc(b.r.code||"") + '</small></div>';
+        }
+      });
+      h += '</div>';
+    });
+    h += '</div>';
+  });
+  h += '</div></div>';
+  h += '<div class="plan-legend"><span><i style="background:var(--amber)"></i>En attente</span><span><i style="background:var(--teal)"></i>Confirmée</span><span><i style="background:var(--green)"></i>Arrivée (en séjour)</span><span><i style="background:#8A8172"></i>Terminée</span></div>';
+  return h;
+}
+
+/* ---------- Folio unique par séjour (S2) ---------- */
+function folioSheet(r){
+  var room = roomById(r.roomId);
+  var n = nightsOf(r), total = resTotal(r), paid = resPaid(r), due = resDue(r), over = resOverpaid(r);
+  var guests = r.guests ? parseInt(r.guests)||0 : 0;
+  var pays = store.payments.filter(function(p){ return p.resId===r.id; }).slice().sort(function(a,b){
+    var ka = (a.date||"") + (a.createdAt||""), kb = (b.date||"") + (b.createdAt||"");
+    return ka < kb ? -1 : (ka > kb ? 1 : 0);
+  });
+  var typeLbl = {"acompte":"Acompte","paiement":"Paiement","solde":"Solde au départ","remboursement":"Remboursement","remboursement_acompte":"Remboursement acompte"};
+  var h = '<h3>Folio du séjour</h3><div class="sub">' + esc(r.clientName) + (r.code ? ' · ' + esc(r.code) : '') + '</div>';
+  h += '<div class="folio-head">' + resBadge(r.status) + srcBadge(r.source) + '</div>';
+  h += '<div class="kv"><span>Hébergement <b>' + esc(room ? room.name : "—") + '</b></span>' +
+    (r.phone ? '<span>Téléphone <b>' + esc(r.phone) + '</b></span>' : '') +
+    (guests ? '<span>Voyageurs <b>' + guests + '</b></span>' : '') + '</div>';
+  h += '<div class="kv"><span>Arrivée <b>' + esc(fmtDate(r.checkIn)) + '</b></span><span>Départ <b>' + esc(fmtDate(r.checkOut)) + '</b></span><span>Durée <b>' + n + ' nuit' + (n>1?"s":"") + '</b></span></div>';
+  if(r.notes) h += '<div class="meta" style="margin-top:8px">' + esc(r.notes) + '</div>';
+  h += '<div class="folio-sec">Séjour</div><table class="folio-lines"><tr><th>Description</th><th class="r">Détail</th><th class="r">Montant</th></tr>' +
+    '<tr><td>' + esc(room ? room.name : "Hébergement") + ' — du ' + esc(fmtDate(r.checkIn)) + ' au ' + esc(fmtDate(r.checkOut)) + '</td><td class="r">' + n + ' nuit(s) × ' + esc(fmt$(r.priceNight)) + '</td><td class="r"><b>' + esc(fmt$(total)) + '</b></td></tr></table>';
+  h += '<div class="folio-sec">Consommations — restaurant &amp; bar</div>' +
+    '<div class="conso-empty">Aucune consommation enregistrée pour ce séjour.</div>';
+  h += '<div class="folio-sec">Paiements</div>';
+  if(pays.length){
+    h += '<table class="folio-lines">' + pays.map(function(p){
+      return '<tr><td>' + esc(typeLbl[p.type]||"Paiement") + '</td><td>' + esc(fmtDate(p.date)) + ' · ' + esc(p.method) + '</td><td class="r">' + esc(fmt$(p.amount)) + '</td></tr>';
+    }).join("") + '</table>';
+  } else h += '<p class="note">Aucun paiement enregistré pour ce séjour.</p>';
+  h += '<div class="total-box" style="margin-top:14px">Total du séjour : <b>' + esc(fmt$(total)) + '</b><br/>Payé : <b>' + esc(fmt$(paid)) + '</b><br/>' +
+    (over > 0 ? '<b style="color:var(--red)">Trop-perçu : ' + esc(fmt$(over)) + ' à rembourser au client.</b>' : 'Reste à payer : <b>' + esc(fmt$(due)) + '</b>') + '</div>';
+  h += '<div class="actions sticky-actions">';
+  if(r.status==="En attente") h += '<button class="btn btn-teal" data-act="confirm-res" data-id="' + r.id + '">Confirmer</button>';
+  if(r.status==="En attente" || r.status==="Confirmée") h += '<button class="btn btn-teal" data-act="checkin" data-id="' + r.id + '">Arrivée (check-in)</button>';
+  if(r.status==="Arrivée") h += '<button class="btn btn-wood" data-act="checkout" data-id="' + r.id + '">Départ (check-out)</button>';
+  if(r.status!=="Annulée" && r.status!=="Terminée"){
+    h += '<button class="btn btn-soft" data-act="pay" data-id="' + r.id + '">+ Paiement</button>';
+    h += '<button class="btn btn-soft" data-act="edit-res" data-id="' + r.id + '">Modifier</button>';
+  }
+  h += '<button class="btn btn-soft" data-act="invoice" data-id="' + r.id + '">Imprimer le folio</button>';
+  if(r.status!=="Annulée" && r.status!=="Terminée") h += '<button class="btn btn-danger" data-act="cancel-res" data-id="' + r.id + '">Annuler</button>';
+  h += '<button class="btn btn-ghost" data-act="close">Fermer</button></div>';
+  openSheet(h);
+}
+
+/* ---------- Clôture de journée — night audit simplifié (S2) ---------- */
+var pendingCloture = null;
+function dayRecap(date){
+  var pays = store.payments.filter(function(p){ return p.date===date; });
+  var total = 0, byMethod = {};
+  METHODS.forEach(function(m){ byMethod[m] = 0; });
+  pays.forEach(function(p){ total += +p.amount||0; byMethod[p.method] = (byMethod[p.method]||0) + (+p.amount||0); });
+  return {
+    date: date, total: total, nbPaiements: pays.length, byMethod: byMethod,
+    arrivees: store.reservations.filter(function(r){ return r.checkIn===date && r.status!=="Annulée"; }).length,
+    departs: store.reservations.filter(function(r){ return r.checkOut===date && (r.status==="Arrivée" || r.status==="Terminée" || r.status==="Confirmée"); }).length,
+    menage: store.rooms.filter(function(r){ return effectiveStatus(r)==="Ménage"; }).length,
+    enAttente: store.reservations.filter(function(r){ return r.status==="En attente"; }).length
+  };
+}
+function closeDaySheet(){
+  var rec = dayRecap(todayStr());
+  pendingCloture = rec;
+  var h = '<h3>Clôturer la journée</h3><div class="sub">' + esc(fmtDateLong(rec.date)) + ' — récapitulatif calculé depuis les données réelles de la base partagée</div>';
+  h += '<div class="total-box">Encaissé total : <b>' + esc(fmt$(rec.total)) + '</b> · ' + rec.nbPaiements + ' paiement(s)</div>';
+  h += '<div class="method-grid">' + METHODS.map(function(m){ return '<div class="method-card"><div class="m">' + m + '</div><div class="v">' + esc(fmt$(rec.byMethod[m])) + '</div></div>'; }).join("") + '</div>';
+  h += '<table class="folio-lines">' +
+    '<tr><td>Arrivées du jour</td><td class="r"><b>' + rec.arrivees + '</b></td></tr>' +
+    '<tr><td>Départs du jour</td><td class="r"><b>' + rec.departs + '</b></td></tr>' +
+    '<tr><td>Hébergements en ménage</td><td class="r"><b>' + rec.menage + '</b></td></tr>' +
+    '<tr><td>Demandes en attente non traitées</td><td class="r"><b>' + rec.enAttente + '</b></td></tr></table>';
+  if(rec.enAttente > 0) h += '<div class="warn-banner"><b>' + rec.enAttente + ' demande(s) en attente</b> restent sans réponse : pensez à les confirmer ou les annuler avant de clôturer.</div>';
+  h += '<p class="note">La confirmation enregistre ce récapitulatif dans la table des clôtures de la base partagée ; la journée s\'affichera ensuite « Journée clôturée » dans la Caisse.</p>';
+  h += '<div class="actions sticky-actions"><button class="btn btn-teal" data-act="confirm-close-day">Confirmer la clôture</button><button class="btn btn-soft" data-act="close">Pas encore</button></div>';
+  openSheet(h);
+}
+
 /* =============== Actions =============== */
 function handleAct(act, el){
   var id = el.getAttribute("data-id");
@@ -1198,12 +1445,41 @@ function handleAct(act, el){
   if(act==="switch-account"){ signOut(); return; }
   if(act==="reload"){ loadAll(true); toast("Base rechargée."); return; }
   if(act==="new-res"){ resForm(null); return; }
+  if(act==="folio"){ var fr = id ? resById(id) : null; if(fr) folioSheet(fr); return; }
+  if(act==="plan-prev"){ ui.planStart = addDays(ui.planStart,-7); render(); return; }
+  if(act==="plan-next"){ ui.planStart = addDays(ui.planStart,7); render(); return; }
+  if(act==="plan-today"){ ui.planStart = todayStr(); render(); return; }
+  if(act==="plan-new"){
+    var pRoom = el.getAttribute("data-room"), pDate = el.getAttribute("data-date");
+    if(pRoom && pDate) resForm(null, { roomId: pRoom, checkIn: pDate, checkOut: addDays(pDate,1) });
+    return;
+  }
+  if(act==="close-day"){ closeDaySheet(); return; }
+  if(act==="confirm-close-day"){
+    if(!pendingCloture) return;
+    var rec = pendingCloture;
+    var details = { total: rec.total, par_moyen: rec.byMethod, nb_paiements: rec.nbPaiements, arrivees: rec.arrivees, departs: rec.departs, menage: rec.menage, en_attente: rec.enAttente };
+    sb("/rest/v1/clotures", { method:"POST", prefer:"return=minimal", body:{ hotel_id: (hotel ? hotel.id : session.hotelId), date: rec.date, total: rec.total, details: details } })
+      .then(function(){
+        pendingCloture = null; closeSheet();
+        toast("Journée du " + fmtDate(rec.date) + " clôturée — total " + fmt$(rec.total) + " enregistré dans la base partagée.");
+        return loadAll(true);
+      })
+      .catch(function(err){
+        if(err.status===409 || /duplicate|unique/i.test(err.message || "")){
+          pendingCloture = null; closeSheet();
+          toast("Cette journée est déjà clôturée dans la base.", true);
+          loadAll(true);
+        } else fail(err);
+      });
+    return;
+  }
   if(act==="new-room"){ roomForm(null); return; }
   if(act==="day-prev"){ ui.caisseDate = addDays(ui.caisseDate,-1); render(); return; }
   if(act==="day-next"){ ui.caisseDate = addDays(ui.caisseDate,1); render(); return; }
   if(act==="day-today"){ ui.caisseDate = todayStr(); render(); return; }
   if(act==="export"){
-    var snapshot = { hotel: hotel, exporte_le: new Date().toISOString(), hebergements: store.rooms, reservations: store.reservations, paiements: store.payments };
+    var snapshot = { hotel: hotel, exporte_le: new Date().toISOString(), hebergements: store.rooms, reservations: store.reservations, paiements: store.payments, clotures: store.clotures };
     var blob = new Blob([JSON.stringify(snapshot, null, 2)], {type:"application/json"});
     var a = document.createElement("a"); a.href = URL.createObjectURL(blob);
     a.download = "crescence-base-partagee-" + todayStr() + ".json"; a.click();
@@ -1227,13 +1503,16 @@ function handleAct(act, el){
   if(act==="confirm-res" && r){
     loadAll(false).then(function(){
       var fresh = resById(r.id); if(!fresh) return;
-      var conflict = findConflict({ roomId: fresh.roomId, checkIn: fresh.checkIn, checkOut: fresh.checkOut, status: "Confirmée" }, fresh.id);
+      var probe = { roomId: fresh.roomId, checkIn: fresh.checkIn, checkOut: fresh.checkOut, status: "Confirmée" };
+      var conflict = findHardConflict(probe, fresh.id);
       if(conflict){
         toast("Confirmation impossible : " + (roomById(fresh.roomId)||{}).name + " est déjà réservé par " + conflict.clientName + " (" + (conflict.code||"") + ", " + conflict.status + ") sur ces dates.", true);
         render(); return;
       }
+      var othersPending = findPendingOverlaps(probe, fresh.id);
       return dbPatchRes(fresh.id, { statut: "confirmee" }).then(function(){
-        toast("Demande " + (fresh.code||"") + " confirmée — visible partout dans le système.");
+        closeSheet();
+        toast("Demande " + (fresh.code||"") + " confirmée — visible partout dans le système." + (othersPending.length ? " Autres demandes en attente sur ces dates, à traiter : " + othersPending.map(function(x){ return x.clientName + " (" + (x.code||"") + ")"; }).join(", ") + "." : ""));
         return loadAll(true);
       });
     }).catch(fail); return;
@@ -1241,17 +1520,17 @@ function handleAct(act, el){
   if(act==="checkin" && r){
     if(r.checkIn > todayStr()){ toast("Arrivée prévue le " + fmtDateLong(r.checkIn) + " — check-in possible à partir de ce jour.", true); return; }
     if(r.status==="En attente"){
-      var conflict2 = findConflict({ roomId: r.roomId, checkIn: r.checkIn, checkOut: r.checkOut, status: "Confirmée" }, r.id);
+      var conflict2 = findHardConflict({ roomId: r.roomId, checkIn: r.checkIn, checkOut: r.checkOut, status: "Confirmée" }, r.id);
       if(conflict2){ toast("Check-in impossible : conflit avec la réservation de " + conflict2.clientName + " (" + (conflict2.code||"") + ").", true); return; }
     }
     dbPatchRes(r.id, { statut: "arrivee" }).then(function(){ return dbPatchRoom(r.roomId, { statut_manu: "occupee" }); })
       .then(function(){
+        closeSheet();
         var room = roomById(r.roomId);
         toast("Arrivée enregistrée — " + (room ? room.name : "") + " occupée.");
         return loadAll(true);
       }).catch(fail); return;
   }
-  if(act==="print-invoice"){ window.print(); return; }
   if(act==="checkout" && r){ checkoutForm(r); return; }
   if(act==="cancel-res" && r){
     var netPaid = resPaid(r);
@@ -1281,6 +1560,8 @@ document.addEventListener("click", function(e){
   if(el) handleAct(el.getAttribute("data-act"), el);
 });
 function bindView(){
+  var psc = $("#planShowCancelled");
+  if(psc) psc.addEventListener("change", function(){ ui.showCancelled = this.checked; render(); });
   document.querySelectorAll("[data-filter]").forEach(function(el){
     el.addEventListener("click", function(){ ui.resFilter = el.getAttribute("data-filter"); render(); });
   });
@@ -1349,7 +1630,7 @@ $("#publicBtn").addEventListener("click", function(){
 });
 $("#lockBtn").addEventListener("click", function(){
   if(publicMode){
-    publicMode = false; dataReady = false; store = { rooms: [], reservations: [], payments: [] };
+    publicMode = false; dataReady = false; store = { rooms: [], reservations: [], payments: [], clotures: [] };
     $("#app").style.display = "none"; $("#lock").style.display = "flex";
   } else if(session){ signOut(); }
 });
