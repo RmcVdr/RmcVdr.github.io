@@ -260,6 +260,24 @@ a{color:var(--teal)}
 .folio-sec{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2);margin:18px 0 4px}
 .conso-empty{border:1.5px dashed var(--line);border-radius:var(--r-md);padding:13px 15px;color:var(--ink2);font-size:14px;background:var(--surface2)}
 
+/* ---------- Resto-bar (S3) ---------- */
+.b-cmd-ouverte{background:var(--amber-soft);color:var(--amber)}
+.b-cmd-imputee{background:var(--teal-soft);color:var(--teal-d)}
+.b-cmd-payee{background:var(--green-soft);color:var(--green)}
+.b-cmd-annulee{background:var(--surface2);color:var(--ink2);border:1px solid var(--line);text-decoration:line-through}
+.b-cat-restaurant{background:var(--wood-soft);color:var(--wood-d)}
+.b-cat-bar{background:var(--teal-soft);color:var(--teal-d)}
+.b-off{background:var(--surface2);color:var(--ink2);border:1px solid var(--line)}
+.cmd-lines{margin-top:8px;border-top:1px dashed var(--line);padding-top:8px}
+.cmd-lines .pay-row{padding:6px 0}
+.order-line-row{display:grid;grid-template-columns:1fr 92px 64px 40px;gap:8px;align-items:end;margin-bottom:10px}
+.order-line-row .field{margin-bottom:0}
+.order-line-row .del-line{min-height:44px;padding:0}
+.dest-toggle{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.dest-toggle button{border:1.5px solid var(--line);background:var(--surface);color:var(--ink2);border-radius:12px;padding:11px 10px;font-size:14.5px;font-weight:800;cursor:pointer;min-height:48px}
+.dest-toggle button.on{background:var(--teal);border-color:var(--teal);color:#FFF9E8}
+@media(max-width:480px){.order-line-row{grid-template-columns:1fr 78px 56px 38px;gap:6px}}
+
 #toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:12px 20px;border-radius:12px;font-size:14.5px;font-weight:700;opacity:0;pointer-events:none;transition:.25s;z-index:80;max-width:88vw;text-align:center}
 @media(min-width:860px){#toast{bottom:28px}}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -345,12 +363,15 @@ var ROOM_FROM_DB = {"libre":"Libre","occupee":"Occupée","menage":"Ménage","mai
 var METH_TO_DB = {"Espèces":"especes","Mobile Money":"mobile_money","Carte":"carte","Virement":"virement"};
 var METH_FROM_DB = {"especes":"Espèces","mobile_money":"Mobile Money","carte":"Carte","virement":"Virement"};
 var SRC_LABEL = {"site":"Site","chatbot":"Chatbot","reception":"Réception","telephone":"Téléphone"};
+var CMD_TO_DB = {"Ouverte":"ouverte","Imputée":"imputee","Payée":"payee","Annulée":"annulee"};
+var CMD_FROM_DB = {"ouverte":"Ouverte","imputee":"Imputée","payee":"Payée","annulee":"Annulée"};
+var CAT_LABEL = {"restaurant":"Restaurant","bar":"Bar"};
 
 /* =============== État =============== */
 var session = null;      /* {access, refresh, email, role, nom, userId, hotelId} */
 var publicMode = false;  /* visiteur du site public, sans compte personnel */
 var hotel = null;        /* ligne hotels */
-var store = { rooms: [], reservations: [], payments: [], clotures: [] };
+var store = { rooms: [], reservations: [], payments: [], clotures: [], articles: [], commandes: [], lignes: [] };
 var dataReady = false;
 var syncMode = "Hors ligne";
 var lastSync = null;
@@ -363,7 +384,8 @@ var ui = {
   caisseDate: todayStr(),
   clientSearch: "",
   planStart: todayStr(),
-  showCancelled: false
+  showCancelled: false,
+  cmdFilter: "today"
 };
 
 /* =============== Helpers =============== */
@@ -380,8 +402,22 @@ function fmt$(n){ n = Math.round((+n||0)*100)/100; return (n % 1 === 0 ? n.toLoc
 function nightsOf(r){ var n = Math.round((parseD(r.checkOut) - parseD(r.checkIn)) / 86400000); return n > 0 ? n : 0; }
 function resTotal(r){ return (r.total != null ? +r.total : nightsOf(r) * (+r.priceNight||0)); }
 function resPaid(r){ var s=0; store.payments.forEach(function(p){ if(p.resId===r.id) s += +p.amount||0; }); return s; }
-function resDue(r){ return Math.max(0, resTotal(r) - resPaid(r)); }
-function resOverpaid(r){ return Math.max(0, resPaid(r) - resTotal(r)); }
+/* S3 — Consommations resto-bar imputées au folio : seules les commandes
+   « Ouverte » et « Imputée » d'un séjour comptent dans son total général.
+   Une commande « Payée » l'a été directement (pas de double comptage) et
+   une commande « Annulée » ne compte jamais. */
+function lignesOf(cmdId){ return store.lignes.filter(function(l){ return l.commandeId===cmdId; }); }
+function commandeTotal(c){ var s=0; lignesOf(c.id).forEach(function(l){ s += (+l.prix||0) * (+l.quantite||0); }); return s; }
+function commandesForRes(resId){ return store.commandes.filter(function(c){ return c.resId===resId && (c.status==="Ouverte" || c.status==="Imputée"); }); }
+function resConsoTotal(r){ var s=0; commandesForRes(r.id).forEach(function(c){ s += commandeTotal(c); }); return s; }
+function resGrandTotal(r){ return resTotal(r) + resConsoTotal(r); }
+function resDue(r){ return Math.max(0, resGrandTotal(r) - resPaid(r)); }
+function resOverpaid(r){ return Math.max(0, resPaid(r) - resGrandTotal(r)); }
+function cmdById(id){ for(var i=0;i<store.commandes.length;i++) if(store.commandes[i].id===id) return store.commandes[i]; return null; }
+function articleById(id){ for(var i=0;i<store.articles.length;i++) if(store.articles[i].id===id) return store.articles[i]; return null; }
+function cmdDate(c){ return c.createdAt ? String(c.createdAt).slice(0,10) : ""; }
+function cmdBadge(st){ var m={"Ouverte":"b-cmd-ouverte","Imputée":"b-cmd-imputee","Payée":"b-cmd-payee","Annulée":"b-cmd-annulee"}; return '<span class="badge '+(m[st]||"b-cmd-ouverte")+'">'+esc(st)+'</span>'; }
+function catBadge(cat){ return '<span class="src-badge '+(cat==="bar"?"site":"")+'" style="'+(cat==="restaurant"?"background:var(--wood-soft);color:var(--wood-d);border-color:transparent":"")+'">'+esc(CAT_LABEL[cat]||cat)+'</span>'; }
 function activeStay(roomId){ for(var i=0;i<store.reservations.length;i++){ var x = store.reservations[i]; if(x.roomId===roomId && x.status==="Arrivée") return x; } return null; }
 function effectiveStatus(room){ return activeStay(room.id) ? "Occupée" : room.status; }
 /* Règle S2 : seuls les séjours « Confirmée » et « Arrivée » bloquent.
@@ -492,7 +528,7 @@ function login(email, password){
 function signOut(){
   var tok = session ? session.access : null;
   session = null; publicMode = false; dataReady = false;
-  store = { rooms: [], reservations: [], payments: [], clotures: [] };
+  store = { rooms: [], reservations: [], payments: [], clotures: [], articles: [], commandes: [], lignes: [] };
   if(tok) sbFetch("/auth/v1/logout", { method:"POST" }, tok).catch(function(){});
   stopRealtime();
   $("#app").style.display = "none";
@@ -517,13 +553,24 @@ function mapPay(x){
   return { id: x.id, resId: x.reservation_id, amount: +x.montant||0, method: METH_FROM_DB[x.moyen] || "Espèces",
     date: x.date, type: x.type||"paiement", createdAt: x.created_at||"" };
 }
+function mapArticle(x){
+  return { id: x.id, hotelId: x.hotel_id, name: x.nom||"", price: +x.prix||0,
+    categorie: x.categorie==="bar" ? "bar" : "restaurant", actif: x.actif !== false, ordre: x.ordre||0 };
+}
+function mapCommande(x){
+  return { id: x.id, hotelId: x.hotel_id, resId: x.reservation_id || null, clientNom: x.client_nom||"",
+    status: CMD_FROM_DB[x.statut] || "Ouverte", createdAt: x.created_at||"" };
+}
+function mapLigne(x){
+  return { id: x.id, commandeId: x.commande_id, articleNom: x.article_nom||"", prix: +x.prix||0, quantite: +x.quantite||0 };
+}
 function loadAll(rerender){
   setSync("busy", "Synchronisation…");
   var p;
   if(publicMode || !session){
     p = sb("/rest/v1/hebergements?select=*&order=ordre.asc", {}, SB_ANON).then(function(rooms){
       store.rooms = (rooms||[]).map(mapRoom);
-      store.reservations = []; store.payments = [];
+      store.reservations = []; store.payments = []; store.articles = []; store.commandes = []; store.lignes = [];
       if(store.rooms.length && !hotel) return loadHotel(store.rooms[0].hotelId);
     });
   } else {
@@ -531,12 +578,18 @@ function loadAll(rerender){
       sb("/rest/v1/hebergements?select=*&order=ordre.asc"),
       sb("/rest/v1/reservations?select=*&order=arrivee.desc"),
       sb("/rest/v1/paiements?select=*&order=date.desc,created_at.desc"),
-      sb("/rest/v1/clotures?select=*&order=date.desc").catch(function(){ return []; })
+      sb("/rest/v1/clotures?select=*&order=date.desc").catch(function(){ return []; }),
+      sb("/rest/v1/articles?select=*&order=ordre.asc,nom.asc").catch(function(){ return []; }),
+      sb("/rest/v1/commandes?select=*&order=created_at.desc").catch(function(){ return []; }),
+      sb("/rest/v1/commande_lignes?select=*").catch(function(){ return []; })
     ]).then(function(res){
       store.rooms = (res[0]||[]).map(mapRoom);
       store.reservations = (res[1]||[]).map(mapRes);
       store.payments = (res[2]||[]).map(mapPay);
       store.clotures = (res[3]||[]).map(function(x){ return { id: x.id, date: x.date, total: +x.total||0, details: x.details||{} }; });
+      store.articles = (res[4]||[]).map(mapArticle);
+      store.commandes = (res[5]||[]).map(mapCommande);
+      store.lignes = (res[6]||[]).map(mapLigne);
       if(store.rooms.length && !hotel) return loadHotel(store.rooms[0].hotelId);
     });
   }
@@ -572,6 +625,9 @@ function startRealtime(){
         .on("postgres_changes", { event: "*", schema: "public", table: "paiements" }, scheduleReload)
         .on("postgres_changes", { event: "*", schema: "public", table: "hebergements" }, scheduleReload)
         .on("postgres_changes", { event: "*", schema: "public", table: "clotures" }, scheduleReload)
+        .on("postgres_changes", { event: "*", schema: "public", table: "articles" }, scheduleReload)
+        .on("postgres_changes", { event: "*", schema: "public", table: "commandes" }, scheduleReload)
+        .on("postgres_changes", { event: "*", schema: "public", table: "commande_lignes" }, scheduleReload)
         .subscribe(function(status){ if(status==="SUBSCRIBED"){ syncMode = "Temps réel"; setSync("ok","Base partagée · temps réel"); } });
     }catch(e){ rtClient = null; }
   }
@@ -597,6 +653,8 @@ function dbInsertPayment(res, amount, methodLabel, type){
 }
 function dbPatchRes(id, patch){ return sb("/rest/v1/reservations?id=eq." + id, { method:"PATCH", prefer:"return=minimal", body: patch }); }
 function dbPatchRoom(id, patch){ return sb("/rest/v1/hebergements?id=eq." + id, { method:"PATCH", prefer:"return=minimal", body: patch }); }
+function dbPatchCommande(id, patch){ return sb("/rest/v1/commandes?id=eq." + id, { method:"PATCH", prefer:"return=minimal", body: patch }); }
+function dbPatchArticle(id, patch){ return sb("/rest/v1/articles?id=eq." + id, { method:"PATCH", prefer:"return=minimal", body: patch }); }
 
 /* =============== Navigation =============== */
 var TABS = [
@@ -605,6 +663,7 @@ var TABS = [
   {id:"reservations", label:"Réservations", short:"Résa.", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V4H6.5A2.5 2.5 0 0 0 4 6.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>'},
   {id:"rooms", label:"Hébergements", short:"Héberg.", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M2 17h20"/></svg>'},
   {id:"caisse", label:"Caisse", short:"Caisse", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 12h.01M18 12h.01"/></svg>'},
+  {id:"restobar", label:"Resto-bar", short:"Resto", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 2v7a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2V2"/><path d="M6 2v20"/><path d="M20 15V2a5 5 0 0 0-4 5v6a2 2 0 0 0 2 2h2zm0 0v7"/></svg>'},
   {id:"clients", label:"Clients", short:"Clients", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>'},
   {id:"site", label:"Site & chatbot", short:"Site", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>'},
   {id:"owner", label:"Propriétaire", short:"Proprio.", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 15l4-6 4 3 5-8"/></svg>'},
@@ -649,6 +708,7 @@ function render(){
   else if(ui.tab==="reservations") v.innerHTML = viewReservations();
   else if(ui.tab==="rooms") v.innerHTML = viewRooms();
   else if(ui.tab==="caisse") v.innerHTML = viewCaisse();
+  else if(ui.tab==="restobar") v.innerHTML = viewRestobar();
   else if(ui.tab==="clients") v.innerHTML = viewClients();
   else if(ui.tab==="site") v.innerHTML = viewSite();
   else if(ui.tab==="owner") v.innerHTML = viewOwner();
@@ -691,13 +751,13 @@ function viewToday(){
 /* ---------- Réservations ---------- */
 function resCard(r, compact){
   var room = roomById(r.roomId);
-  var n = nightsOf(r), total = resTotal(r), paid = resPaid(r), due = resDue(r), over = resOverpaid(r);
+  var n = nightsOf(r), total = resTotal(r), conso = resConsoTotal(r), paid = resPaid(r), due = resDue(r), over = resOverpaid(r);
   var guests = r.guests ? parseInt(r.guests)||0 : 0;
   var h = '<div class="card"><div class="card-row"><div class="grow">' +
     '<h3>' + esc(r.clientName) + '</h3>' +
     '<div class="meta">' + esc(room ? room.name : "—") + (r.phone ? ' · ' + esc(r.phone) : '') + (r.code ? ' · Code : <b>' + esc(r.code) + '</b>' : '') + '</div>' +
     '<div class="meta">' + esc(fmtDate(r.checkIn)) + ' → ' + esc(fmtDate(r.checkOut)) + ' · ' + n + ' nuit' + (n>1?"s":"") + (guests ? ' · ' + guests + ' voyageur' + (guests>1?"s":"") : '') + '</div>' +
-    '<div class="kv"><span>Total <b>' + esc(fmt$(total)) + '</b></span><span>Payé <b>' + esc(fmt$(paid)) + '</b></span>' +
+    '<div class="kv"><span>Total <b>' + esc(fmt$(total + conso)) + '</b></span>' + (conso > 0 ? '<span>dont consommations <b>' + esc(fmt$(conso)) + '</b></span>' : '') + '<span>Payé <b>' + esc(fmt$(paid)) + '</b></span>' +
     (r.status!=="Annulée" ? (over > 0 ? '<span>Trop-perçu : <b class="money due">' + esc(fmt$(over)) + ' à rembourser</b></span>' : '<span>Reste <b class="' + (due>0?"money due":"money ok") + '">' + esc(fmt$(due)) + '</b></span>') : '') + '</div>' +
     (r.notes ? '<div class="meta" style="margin-top:6px">' + esc(r.notes) + '</div>' : '') +
     '</div><div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">' + resBadge(r.status) + srcBadge(r.source) + '</div></div>';
@@ -786,7 +846,21 @@ function viewCaisse(){
   }
   h += '<div class="stats" style="grid-template-columns:1fr"><div class="stat"><div class="n teal">' + esc(fmt$(total)) + '</div><div class="l">Total encaissé ce jour · ' + pays.length + ' paiement(s)</div></div></div>';
   h += '<div class="method-grid">' + METHODS.map(function(m){ return '<div class="method-card"><div class="m">' + m + '</div><div class="v">' + esc(fmt$(byMethod[m])) + '</div></div>'; }).join("") + '</div>';
-  h += '<div class="card"><h3>Détail du jour</h3>';
+  var rb = restoDayTotals(d);
+  var rbCmds = store.commandes.filter(function(c){ return cmdDate(c)===d && (c.status==="Payée" || c.status==="Imputée"); })
+    .slice().sort(function(a,b){ return String(a.createdAt) < String(b.createdAt) ? -1 : 1; });
+  h += '<h3 class="sec-title">Resto-bar du jour</h3><div class="card">' +
+    '<div class="pay-row"><div><div>Ventes encaissées directement</div><div class="who">' + rb.nbPayees + ' commande(s) payée(s) sur place — clients de passage et paiements directs</div></div><div class="money">' + esc(fmt$(rb.payees)) + '</div></div>' +
+    '<div class="pay-row"><div><div>Ventes imputées aux chambres</div><div class="who">' + rb.nbImputees + ' commande(s) portée(s) au folio — encaissées via les paiements du séjour, sans double comptage</div></div><div class="money">' + esc(fmt$(rb.imputees)) + '</div></div>' +
+    '<div class="pay-row"><div><div><b>Total des ventes resto-bar</b></div><div class="who">Payées + imputées</div></div><div class="money">' + esc(fmt$(rb.total)) + '</div></div>';
+  if(rbCmds.length){
+    h += '<div class="cmd-lines">' + rbCmds.map(function(c){
+      var res = c.resId ? resById(c.resId) : null;
+      return '<div class="pay-row"><div><div>' + esc(c.clientNom || (res ? res.clientName : "Client de passage")) + '</div><div class="who">' + (res ? 'Folio · ' + esc(res.code||"") + ' · ' : 'Client de passage · ') + esc(c.status) + (cmdTime(c) ? ' · ' + esc(cmdTime(c)) : '') + '</div></div><div class="money">' + esc(fmt$(commandeTotal(c))) + '</div></div>';
+    }).join("") + '</div>';
+  }
+  h += '</div>';
+  h += '<div class="card"><h3>Détail du jour — hébergement</h3>';
   if(pays.length){
     h += pays.slice().reverse().map(function(p){
       var r = resById(p.resId);
@@ -974,6 +1048,212 @@ function submitPublicRequest(data, source){
     .then(function(){ return code; });
 }
 
+/* ---------- Resto-bar (S3) : articles, commandes, folio ---------- */
+function restoDayTotals(dateStr){
+  var payees = 0, imputees = 0, nbPayees = 0, nbImputees = 0;
+  store.commandes.forEach(function(c){
+    if(cmdDate(c)!==dateStr) return;
+    if(c.status==="Payée"){ payees += commandeTotal(c); nbPayees++; }
+    else if(c.status==="Imputée"){ imputees += commandeTotal(c); nbImputees++; }
+  });
+  return { payees: payees, imputees: imputees, total: payees + imputees, nbPayees: nbPayees, nbImputees: nbImputees };
+}
+function cmdTime(c){ var s = String(c.createdAt||""); return s.length >= 16 ? s.slice(11,16) : ""; }
+function commandeCard(c){
+  var res = c.resId ? resById(c.resId) : null;
+  var room = res ? roomById(res.roomId) : null;
+  var locked = !!(res && (res.status==="Terminée" || res.status==="Annulée"));
+  var lines = lignesOf(c.id);
+  var h = '<div class="card"><div class="card-row"><div class="grow">' +
+    '<h3>' + esc(c.clientNom || (res ? res.clientName : "Client de passage")) + '</h3>' +
+    '<div class="meta">' + (res ? 'Séjour · ' + esc(room ? room.name : "—") + (res.code ? ' · ' + esc(res.code) : '') + ' · ' + esc(res.status) : 'Client de passage') +
+    ' · ' + esc(fmtDate(cmdDate(c) || todayStr())) + (cmdTime(c) ? ' · ' + esc(cmdTime(c)) : '') + '</div>' +
+    '<div class="cmd-lines">' + (lines.length ? lines.map(function(l){
+      return '<div class="pay-row"><div>' + esc(l.articleNom) + ' <span class="who">× ' + (+l.quantite||0) + ' · ' + esc(fmt$(l.prix)) + '</span></div><div class="money">' + esc(fmt$((+l.prix||0) * (+l.quantite||0))) + '</div></div>';
+    }).join("") : '<div class="meta">Aucune ligne.</div>') + '</div>' +
+    '<div class="kv"><span>Total <b>' + esc(fmt$(commandeTotal(c))) + '</b></span></div>' +
+    (locked && c.status==="Ouverte" ? '<div class="meta" style="margin-top:6px">Séjour ' + esc(lowerFirst(res.status)) + ' : cette commande n\'est plus modifiable.</div>' : '') +
+    '</div><div>' + cmdBadge(c.status) + '</div></div>';
+  if(c.status==="Ouverte" && !locked){
+    h += '<div class="actions">';
+    if(c.resId) h += '<button class="btn btn-teal btn-sm" data-act="cmd-imputer" data-id="' + c.id + '">Imputer au folio</button>';
+    h += '<button class="btn btn-wood btn-sm" data-act="cmd-encaisser" data-id="' + c.id + '">Encaisser</button>';
+    h += '<button class="btn btn-danger btn-sm" data-act="cmd-annuler" data-id="' + c.id + '">Annuler</button>';
+    h += '</div>';
+  }
+  h += '</div>';
+  return h;
+}
+function viewRestobar(){
+  var t = todayStr();
+  var totals = restoDayTotals(t);
+  var openCount = store.commandes.filter(function(c){ return c.status==="Ouverte"; }).length;
+  var todayCount = store.commandes.filter(function(c){ return cmdDate(c)===t && c.status!=="Annulée"; }).length;
+  var activeArticles = store.articles.filter(function(a){ return a.actif; }).length;
+  var h = '<div class="page-head"><div><h2>Resto-bar</h2><div class="sub">Restaurant &amp; bar branchés sur le folio : une consommation de séjour tombe sur sa facture, sans ressaisie</div></div>' +
+    '<button class="btn btn-teal" data-act="new-order">+ Nouvelle commande</button></div>';
+  h += '<div class="stats">' +
+    '<div class="stat"><div class="n teal">' + esc(fmt$(totals.total)) + '</div><div class="l">Ventes resto-bar du jour</div></div>' +
+    '<div class="stat"><div class="n wood">' + esc(fmt$(totals.payees)) + '</div><div class="l">Encaissées directement</div></div>' +
+    '<div class="stat"><div class="n teal">' + esc(fmt$(totals.imputees)) + '</div><div class="l">Imputées aux folios</div></div>' +
+    '<div class="stat"><div class="n wood">' + openCount + '</div><div class="l">Commandes ouvertes</div></div>' +
+    '<div class="stat"><div class="n teal">' + todayCount + '</div><div class="l">Commandes du jour</div></div></div>';
+  h += '<h3 class="sec-title">Commandes</h3>';
+  h += '<div class="chips"><button class="chip' + (ui.cmdFilter==="today" ? " on" : "") + '" data-cmdfilter="today">Aujourd\'hui</button>' +
+    '<button class="chip' + (ui.cmdFilter==="all" ? " on" : "") + '" data-cmdfilter="all">Historique récent</button></div>';
+  var cmds = store.commandes.slice();
+  if(ui.cmdFilter==="today") cmds = cmds.filter(function(c){ return cmdDate(c)===t; });
+  cmds = cmds.slice(0, 40);
+  h += cmds.length ? cmds.map(commandeCard).join("") :
+    '<div class="empty">' + (ui.cmdFilter==="today" ? 'Aucune commande aujourd\'hui pour le moment.' : 'Aucune commande pour le moment.') + '<br/>Créez la première avec le bouton « Nouvelle commande ».</div>';
+  h += '<div class="page-head" style="margin-top:26px"><div><h2 style="font-size:21px">Articles — carte du restaurant &amp; du bar</h2><div class="sub">' + activeArticles + ' article(s) actif(s) sur ' + store.articles.length + '</div></div>' +
+    '<button class="btn btn-teal" data-act="new-article">+ Nouvel article</button></div>';
+  if(store.articles.length){
+    h += store.articles.map(function(a){
+      return '<div class="card"><div class="card-row"><div class="grow"><h3>' + esc(a.name) + '</h3>' +
+        '<div class="meta">' + esc(fmt$(a.price)) + ' · ' + (a.actif ? 'En vente' : 'Hors carte') + '</div></div>' +
+        '<div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">' + catBadge(a.categorie) +
+        (a.actif ? '' : '<span class="badge b-off">Inactif</span>') + '</div></div>' +
+        '<div class="actions"><button class="btn btn-soft btn-sm" data-act="edit-article" data-id="' + a.id + '">Modifier</button>' +
+        '<button class="btn btn-soft btn-sm" data-act="toggle-article" data-id="' + a.id + '">' + (a.actif ? 'Désactiver' : 'Activer') + '</button></div></div>';
+    }).join("");
+  } else {
+    h += '<div class="empty">Aucun article dans la base pour le moment.<br/>Ajoutez les plats et boissons vendus au restaurant et au bar : ils serviront à composer les commandes.</div>';
+  }
+  return h;
+}
+function articleForm(a){
+  var isNew = !a;
+  a = a || { name: "", price: 0, categorie: "restaurant", actif: true };
+  var catOpts = ["restaurant","bar"].map(function(c){ return '<option value="' + c + '"' + (a.categorie===c ? " selected" : "") + '>' + CAT_LABEL[c] + '</option>'; }).join("");
+  var actOpts = ['<option value="1"' + (a.actif ? " selected" : "") + '>Actif — en vente</option>', '<option value="0"' + (!a.actif ? " selected" : "") + '>Inactif — hors carte</option>'].join("");
+  openSheet('<h3>' + (isNew ? "Nouvel article" : "Modifier l'article") + '</h3>' +
+    '<div class="sub">Enregistré dans la table des articles de la base partagée.</div>' +
+    '<form id="articleForm">' +
+    '<div class="field"><label>Nom de l\'article *</label><input name="name" required value="' + esc(a.name) + '" placeholder="Ex. : Poulet yassa, Primus 65 cl…" /></div>' +
+    '<div class="grid2"><div class="field"><label>Prix ($)</label><input type="number" name="price" min="0" step="0.5" value="' + a.price + '" /></div>' +
+    '<div class="field"><label>Catégorie</label><select name="categorie">' + catOpts + '</select></div></div>' +
+    '<div class="field"><label>Disponibilité</label><select name="actif">' + actOpts + '</select></div>' +
+    '<div class="actions sticky-actions"><button type="submit" class="btn btn-teal">' + (isNew ? "Ajouter l'article" : "Enregistrer") + '</button>' +
+    '<button type="button" class="btn btn-soft" data-act="close">Annuler</button></div></form>');
+  $("#articleForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    var fd = new FormData(this);
+    var body = { nom: String(fd.get("name")||"").trim(), prix: parseFloat(fd.get("price"))||0,
+      categorie: String(fd.get("categorie"))==="bar" ? "bar" : "restaurant", actif: String(fd.get("actif"))==="1" };
+    if(!body.nom){ toast("Le nom de l'article est obligatoire.", true); return; }
+    var op;
+    if(isNew){
+      body.hotel_id = hotel ? hotel.id : session.hotelId;
+      body.ordre = store.articles.length + 1;
+      op = sb("/rest/v1/articles", { method:"POST", prefer:"return=minimal", body: body });
+    } else {
+      op = dbPatchArticle(a.id, body);
+    }
+    op.then(function(){
+      toast(isNew ? "Article ajouté à la carte." : "Article mis à jour.");
+      closeSheet(); return loadAll(true);
+    }).catch(fail);
+  });
+}
+function orderForm(prefillResId){
+  var stays = store.reservations.filter(function(r){ return r.status==="Arrivée" || r.status==="Confirmée"; })
+    .slice().sort(function(a,b){ return a.checkIn < b.checkIn ? -1 : 1; });
+  var arts = store.articles.filter(function(a){ return a.actif; });
+  var dest = prefillResId ? "stay" : (stays.length ? "stay" : "pass");
+  openSheet('<h3>Nouvelle commande</h3>' +
+    '<div class="sub">Restaurant &amp; bar — la commande part dans la base partagée ; imputée à un séjour, elle rejoint son folio.</div>' +
+    '<div class="dest-toggle"><button type="button" id="destStay">Pour un séjour</button><button type="button" id="destPass">Client de passage</button></div>' +
+    '<div class="field" id="ordStayWrap"><label>Séjour (client en chambre ou confirmé)</label><select id="ordRes">' +
+      (stays.length ? stays.map(function(r){ var rm = roomById(r.roomId); return '<option value="' + r.id + '"' + (r.id===prefillResId ? " selected" : "") + '>' + esc(r.clientName) + ' · ' + esc(rm ? rm.name : "—") + (r.code ? ' · ' + esc(r.code) : '') + ' · ' + esc(r.status) + '</option>'; }).join("") : '<option value="">Aucun séjour en cours ou confirmé</option>') +
+    '</select></div>' +
+    '<div class="field" id="ordPassWrap" style="display:none"><label>Nom du client de passage *</label><input id="ordPassName" placeholder="Ex. : Client terrasse" /></div>' +
+    '<div class="folio-sec" style="margin-top:4px">Lignes de la commande</div>' +
+    '<div id="ordLines"></div>' +
+    '<button type="button" class="btn btn-soft btn-sm" id="ordAddLine">+ Ajouter une ligne</button>' +
+    '<div class="total-box" id="ordTotal" style="margin-top:14px"></div>' +
+    '<div class="actions sticky-actions"><button type="button" class="btn btn-teal" id="ordSave">Enregistrer la commande</button>' +
+    '<button type="button" class="btn btn-soft" data-act="close">Annuler</button></div>');
+  var linesEl = $("#ordLines"), totalEl = $("#ordTotal");
+  function artOptions(selId){
+    return arts.map(function(a){ return '<option value="' + a.id + '" data-price="' + a.price + '"' + (a.id===selId ? " selected" : "") + '>' + esc(a.name) + ' — ' + esc(fmt$(a.price)) + '</option>'; }).join("");
+  }
+  function addLine(articleId){
+    var row = document.createElement("div");
+    row.className = "order-line-row";
+    var a0 = articleId ? articleById(articleId) : arts[0];
+    row.innerHTML = '<div class="field"><label>Article</label><select class="ol-art">' + artOptions(a0 ? a0.id : "") + '</select></div>' +
+      '<div class="field"><label>Prix ($)</label><input type="number" class="ol-price" min="0" step="0.5" value="' + (a0 ? a0.price : 0) + '" /></div>' +
+      '<div class="field"><label>Qté</label><input type="number" class="ol-qty" min="1" step="1" value="1" /></div>' +
+      '<button type="button" class="btn btn-danger del-line" aria-label="Retirer cette ligne">✕</button>';
+    linesEl.appendChild(row);
+    row.querySelector(".ol-art").addEventListener("change", function(){
+      var o = this.options[this.selectedIndex];
+      row.querySelector(".ol-price").value = o ? (o.getAttribute("data-price")||0) : 0;
+      updTotal();
+    });
+    row.querySelector(".ol-price").addEventListener("input", updTotal);
+    row.querySelector(".ol-qty").addEventListener("input", updTotal);
+    row.querySelector(".del-line").addEventListener("click", function(){ row.remove(); updTotal(); });
+    updTotal();
+  }
+  function collectLines(){
+    var out = [];
+    linesEl.querySelectorAll(".order-line-row").forEach(function(row){
+      var sel = row.querySelector(".ol-art");
+      var art = sel ? articleById(sel.value) : null;
+      var prix = parseFloat(row.querySelector(".ol-price").value)||0;
+      var qty = Math.max(0, parseInt(row.querySelector(".ol-qty").value)||0);
+      if(art && qty > 0) out.push({ article_nom: art.name, prix: prix, quantite: qty });
+    });
+    return out;
+  }
+  function updTotal(){
+    var ls = collectLines(), s = 0;
+    ls.forEach(function(l){ s += l.prix * l.quantite; });
+    totalEl.innerHTML = ls.length ? 'Lignes : <b>' + ls.length + '</b> · Total de la commande : <b>' + esc(fmt$(s)) + '</b>' : '<b style="color:var(--red)">Ajoutez au moins une ligne avec une quantité.</b>';
+  }
+  function setDest(d){
+    dest = d;
+    $("#destStay").className = d==="stay" ? "on" : "";
+    $("#destPass").className = d==="pass" ? "on" : "";
+    $("#ordStayWrap").style.display = d==="stay" ? "" : "none";
+    $("#ordPassWrap").style.display = d==="pass" ? "" : "none";
+  }
+  $("#destStay").addEventListener("click", function(){ setDest("stay"); });
+  $("#destPass").addEventListener("click", function(){ setDest("pass"); });
+  setDest(dest);
+  $("#ordAddLine").addEventListener("click", function(){ addLine(); });
+  if(arts.length) addLine(); else totalEl.innerHTML = '<b style="color:var(--red)">Aucun article actif : créez d\'abord un article dans la carte ci-dessous.</b>';
+  $("#ordSave").addEventListener("click", function(){
+    var ls = collectLines();
+    if(!arts.length){ toast("Aucun article actif à vendre.", true); return; }
+    if(!ls.length){ toast("Ajoutez au moins une ligne à la commande.", true); return; }
+    var resId = null, clientNom = "";
+    if(dest==="stay"){
+      var selRes = $("#ordRes").value;
+      var res = selRes ? resById(selRes) : null;
+      if(!res){ toast("Choisissez le séjour destinataire.", true); return; }
+      resId = res.id; clientNom = res.clientName;
+    } else {
+      clientNom = String($("#ordPassName").value||"").trim();
+      if(!clientNom){ toast("Le nom du client de passage est nécessaire.", true); return; }
+    }
+    var btn = this; btn.disabled = true;
+    sb("/rest/v1/commandes", { method:"POST", prefer:"return=representation", body:{
+      hotel_id: hotel ? hotel.id : session.hotelId, reservation_id: resId, client_nom: clientNom, statut: "ouverte"
+    }}).then(function(created){
+      var cmd = created && created.length ? created[0] : null;
+      if(!cmd || !cmd.id) throw new Error("Création de la commande non confirmée par la base.");
+      var rows = ls.map(function(l){ return { commande_id: cmd.id, article_nom: l.article_nom, prix: l.prix, quantite: l.quantite }; });
+      return sb("/rest/v1/commande_lignes", { method:"POST", prefer:"return=minimal", body: rows }).then(function(){ return cmd; });
+    }).then(function(){
+      toast("Commande enregistrée — " + (resId ? "elle apparaîtra au folio du séjour." : "client de passage."));
+      closeSheet(); return loadAll(true);
+    }).catch(function(err){ btn.disabled = false; fail(err); });
+  });
+}
+
 /* ---------- Vue propriétaire (même base) ---------- */
 function viewOwner(){
   if(publicMode || !session){
@@ -1030,7 +1310,7 @@ function viewOwner(){
 
 /* ---------- Base partagée ---------- */
 function viewBase(){
-  var counts = store.rooms.length + " hébergements · " + store.reservations.length + " réservations · " + store.payments.length + " paiements · " + store.clotures.length + " clôtures";
+  var counts = store.rooms.length + " hébergements · " + store.reservations.length + " réservations · " + store.payments.length + " paiements · " + store.clotures.length + " clôtures · " + store.articles.length + " articles · " + store.commandes.length + " commandes resto-bar";
   var h = '<div class="page-head"><div><h2>Base partagée</h2><div class="sub">Le socle S1 : une seule base pour le site, le chatbot, la réception et le propriétaire</div></div></div>';
   h += '<div class="card"><h3>Connexion</h3><div class="meta">Projet Supabase « Crescence » · ' + counts + '</div>' +
     '<div class="kv"><span>Synchronisation <b>' + esc(syncMode) + '</b></span>' + (lastSync ? '<span>Dernière lecture <b>' + pad(lastSync.getHours()) + ':' + pad(lastSync.getMinutes()) + ':' + pad(lastSync.getSeconds()) + '</b></span>' : '') + '</div>' +
@@ -1256,10 +1536,14 @@ function payForm(r){
 }
 
 function checkoutForm(r){
-  var due = resDue(r), over = resOverpaid(r);
+  var due = resDue(r), over = resOverpaid(r), conso = resConsoTotal(r);
+  var openCmds = store.commandes.filter(function(c){ return c.resId===r.id && c.status==="Ouverte"; });
   openSheet('<h3>Départ — ' + esc(r.clientName) + '</h3>' +
-    '<div class="total-box">Total du séjour : <b>' + esc(fmt$(resTotal(r))) + '</b><br/>Déjà payé : <b>' + esc(fmt$(resPaid(r))) + '</b><br/>Reste à régler : <b>' + esc(fmt$(due)) + '</b>' +
+    '<div class="total-box">Total du séjour : <b>' + esc(fmt$(resTotal(r))) + '</b>' +
+    (conso > 0 ? '<br/>Consommations resto-bar au folio : <b>' + esc(fmt$(conso)) + '</b>' : '') +
+    '<br/>Total général : <b>' + esc(fmt$(resGrandTotal(r))) + '</b><br/>Déjà payé : <b>' + esc(fmt$(resPaid(r))) + '</b><br/>Reste à régler (séjour + consommations) : <b>' + esc(fmt$(due)) + '</b>' +
     (over > 0 ? '<br/><b style="color:var(--red)">Trop-perçu : ' + esc(fmt$(over)) + ' à rembourser au client.</b>' : '') + '</div>' +
+    (openCmds.length ? '<div class="warn-banner"><b>' + openCmds.length + ' commande(s) resto-bar encore « Ouverte(s) »</b> sur ce séjour : elles comptent déjà dans le reste à régler ci-dessus. Pensez à les passer en « Imputée » depuis l\'onglet Resto-bar pour la traçabilité.</div>' : '') +
     '<form id="coForm">' +
     (due > 0 ? '<div class="grid2"><div class="field"><label>Paiement final ($)</label><input type="number" name="amount" aria-label="Paiement final" min="0" step="0.5" value="' + due + '" /></div>' +
     '<div class="field"><label>Moyen</label><select name="method" aria-label="Moyen du paiement final">' + methodOptions("Espèces") + '</select></div></div>' : '<p class="note">Le séjour est déjà soldé : aucun paiement final à enregistrer.</p>') +
@@ -1281,23 +1565,40 @@ function checkoutForm(r){
   });
 }
 
-function invoiceSheet(r){
+function buildInvoiceHtml(r){
   var room = roomById(r.roomId);
-  var n = nightsOf(r), total = resTotal(r), paid = resPaid(r), due = resDue(r), over = resOverpaid(r);
+  var n = nightsOf(r), total = resTotal(r), conso = resConsoTotal(r), grand = resGrandTotal(r), paid = resPaid(r), due = resDue(r), over = resOverpaid(r);
   var guests = r.guests ? parseInt(r.guests)||0 : 0;
+  var cmds = commandesForRes(r.id);
   var inv = '<div class="invoice"><div class="inv-head"><div><h3>Crescence Hôtel et Appartement</h3><div class="small">Bujumbura, Burundi · Réception — Gestion hôtel</div></div>' +
     '<div style="text-align:right"><div><b>Facture ' + esc(r.code || r.id) + '</b></div><div class="small">Émise le ' + esc(fmtDate(todayStr())) + '</div></div></div>' +
     '<div><b>Client :</b> ' + esc(r.clientName) + (r.phone ? ' · ' + esc(r.phone) : '') + (guests ? '<br/><b>Voyageurs :</b> ' + guests : '') + '<br/><b>Hébergement :</b> ' + esc(room ? room.name : "—") + '</div>' +
     '<table><tr><th>Description</th><th class="r">Détail</th><th class="r">Montant</th></tr>' +
-    '<tr><td>Séjour du ' + esc(fmtDate(r.checkIn)) + ' au ' + esc(fmtDate(r.checkOut)) + '</td><td class="r"><span class="nobr">' + n + ' nuit(s) × ' + esc(fmt$(r.priceNight)) + '</span></td><td class="r"><span class="nobr">' + esc(fmt$(total)) + '</span></td></tr></table>' +
-    '<table><tr><td>Total du séjour</td><td class="r inv-total"><span class="nobr">' + esc(fmt$(total)) + '</span></td></tr>' +
+    '<tr><td>Séjour du ' + esc(fmtDate(r.checkIn)) + ' au ' + esc(fmtDate(r.checkOut)) + '</td><td class="r"><span class="nobr">' + n + ' nuit(s) × ' + esc(fmt$(r.priceNight)) + '</span></td><td class="r"><span class="nobr">' + esc(fmt$(total)) + '</span></td></tr></table>';
+  if(cmds.length){
+    inv += '<table><tr><th>Consommations — restaurant &amp; bar</th><th class="r">Détail</th><th class="r">Montant</th></tr>';
+    cmds.forEach(function(c){
+      lignesOf(c.id).forEach(function(l){
+        inv += '<tr><td>' + esc(l.articleNom) + ' <span class="small">(' + esc(fmtDate(cmdDate(c) || todayStr())) + ')</span></td><td class="r"><span class="nobr">' + (+l.quantite||0) + ' × ' + esc(fmt$(l.prix)) + '</span></td><td class="r"><span class="nobr">' + esc(fmt$((+l.prix||0) * (+l.quantite||0))) + '</span></td></tr>';
+      });
+    });
+    inv += '<tr><td colspan="2" style="text-align:right"><b>Total consommations</b></td><td class="r"><b><span class="nobr">' + esc(fmt$(conso)) + '</span></b></td></tr></table>';
+  }
+  inv += '<table><tr><td>Total du séjour</td><td class="r"><span class="nobr">' + esc(fmt$(total)) + '</span></td></tr>' +
+    (conso > 0 ? '<tr><td>Total consommations</td><td class="r"><span class="nobr">' + esc(fmt$(conso)) + '</span></td></tr>' : '') +
+    '<tr><td><b>Total général</b></td><td class="r inv-total"><span class="nobr">' + esc(fmt$(grand)) + '</span></td></tr>' +
     '<tr><td>Déjà payé</td><td class="r"><span class="nobr">' + esc(fmt$(paid)) + '</span></td></tr>' +
     (over > 0 ? '<tr><td><b>Trop-perçu — à rembourser</b></td><td class="r"><b><span class="nobr">' + esc(fmt$(over)) + '</span></b></td></tr>' : '<tr><td><b>Reste à payer</b></td><td class="r"><b><span class="nobr">' + esc(fmt$(due)) + '</span></b></td></tr>') +
     '</table>' +
     '<div class="small">Merci de votre séjour chez Crescence. Statut de la réservation : ' + esc(r.status) + '.</div></div>';
+  return inv;
+}
+function invoiceSheet(r){
+  var inv = buildInvoiceHtml(r);
   openSheet('<h3>Facture</h3><div class="sub">' + esc(r.clientName) + ' · ' + esc(r.code || "") + '</div>' + inv +
-    '<p class="note" style="margin-top:12px">Pour imprimer ou enregistrer en PDF : utilisez la fonction d\'impression de votre navigateur (menu ⋮ → Imprimer, ou Ctrl+P) — seule la facture ci-dessus sera imprimée, mise en page automatiquement.</p>' +
+    '<p class="note" style="margin-top:12px">Le bouton ci-dessous ouvre l\'impression du navigateur : choisissez votre imprimante, ou « Enregistrer au format PDF ». Seule la facture sera imprimée (raccourci possible : Ctrl+P).</p>' +
     '<div class="actions">' +
+    '<button class="btn btn-teal" data-act="print-doc">Imprimer / enregistrer en PDF</button>' +
     '<button class="btn btn-soft" data-act="close">Fermer</button></div>');
   $("#printArea").innerHTML = inv;
 }
@@ -1366,7 +1667,8 @@ function viewPlanning(){
 /* ---------- Folio unique par séjour (S2) ---------- */
 function folioSheet(r){
   var room = roomById(r.roomId);
-  var n = nightsOf(r), total = resTotal(r), paid = resPaid(r), due = resDue(r), over = resOverpaid(r);
+  var n = nightsOf(r), total = resTotal(r), conso = resConsoTotal(r), grand = resGrandTotal(r), paid = resPaid(r), due = resDue(r), over = resOverpaid(r);
+  var cmds = commandesForRes(r.id);
   var guests = r.guests ? parseInt(r.guests)||0 : 0;
   var pays = store.payments.filter(function(p){ return p.resId===r.id; }).slice().sort(function(a,b){
     var ka = (a.date||"") + (a.createdAt||""), kb = (b.date||"") + (b.createdAt||"");
@@ -1382,15 +1684,28 @@ function folioSheet(r){
   if(r.notes) h += '<div class="meta" style="margin-top:8px">' + esc(r.notes) + '</div>';
   h += '<div class="folio-sec">Séjour</div><table class="folio-lines"><tr><th>Description</th><th class="r">Détail</th><th class="r">Montant</th></tr>' +
     '<tr><td>' + esc(room ? room.name : "Hébergement") + ' — du ' + esc(fmtDate(r.checkIn)) + ' au ' + esc(fmtDate(r.checkOut)) + '</td><td class="r">' + n + ' nuit(s) × ' + esc(fmt$(r.priceNight)) + '</td><td class="r"><b>' + esc(fmt$(total)) + '</b></td></tr></table>';
-  h += '<div class="folio-sec">Consommations — restaurant &amp; bar</div>' +
-    '<div class="conso-empty">Aucune consommation enregistrée pour ce séjour.</div>';
+  h += '<div class="folio-sec">Consommations — restaurant &amp; bar</div>';
+  if(cmds.length){
+    cmds.forEach(function(c){
+      h += '<div style="margin-bottom:10px"><div class="kv" style="margin-top:2px"><span>Commande du <b>' + esc(fmtDate(cmdDate(c) || todayStr())) + (cmdTime(c) ? ' · ' + esc(cmdTime(c)) : '') + '</b></span>' + cmdBadge(c.status) + '</div>' +
+        '<table class="folio-lines" style="margin-top:4px">' + lignesOf(c.id).map(function(l){
+          return '<tr><td>' + esc(l.articleNom) + '</td><td class="r">' + (+l.quantite||0) + ' × ' + esc(fmt$(l.prix)) + '</td><td class="r">' + esc(fmt$((+l.prix||0) * (+l.quantite||0))) + '</td></tr>';
+        }).join("") +
+        '<tr><td colspan="2" style="text-align:right">Total de la commande</td><td class="r"><b>' + esc(fmt$(commandeTotal(c))) + '</b></td></tr></table></div>';
+    });
+  } else {
+    h += '<div class="conso-empty">Aucune consommation enregistrée pour ce séjour. Les commandes du restaurant et du bar imputées à ce séjour apparaîtront ici automatiquement.</div>';
+  }
+  if(r.status!=="Annulée" && r.status!=="Terminée"){
+    h += '<div class="actions" style="margin-top:10px"><button class="btn btn-soft btn-sm" data-act="new-order-for" data-id="' + r.id + '">+ Nouvelle commande pour ce séjour</button></div>';
+  }
   h += '<div class="folio-sec">Paiements</div>';
   if(pays.length){
     h += '<table class="folio-lines">' + pays.map(function(p){
       return '<tr><td>' + esc(typeLbl[p.type]||"Paiement") + '</td><td>' + esc(fmtDate(p.date)) + ' · ' + esc(p.method) + '</td><td class="r">' + esc(fmt$(p.amount)) + '</td></tr>';
     }).join("") + '</table>';
   } else h += '<p class="note">Aucun paiement enregistré pour ce séjour.</p>';
-  h += '<div class="total-box" style="margin-top:14px">Total du séjour : <b>' + esc(fmt$(total)) + '</b><br/>Payé : <b>' + esc(fmt$(paid)) + '</b><br/>' +
+  h += '<div class="total-box" style="margin-top:14px">Total séjour : <b>' + esc(fmt$(total)) + '</b><br/>Total consommations : <b>' + esc(fmt$(conso)) + '</b><br/>Total général : <b>' + esc(fmt$(grand)) + '</b><br/>Payé : <b>' + esc(fmt$(paid)) + '</b><br/>' +
     (over > 0 ? '<b style="color:var(--red)">Trop-perçu : ' + esc(fmt$(over)) + ' à rembourser au client.</b>' : 'Reste à payer : <b>' + esc(fmt$(due)) + '</b>') + '</div>';
   h += '<div class="actions sticky-actions">';
   if(r.status==="En attente") h += '<button class="btn btn-teal" data-act="confirm-res" data-id="' + r.id + '">Confirmer</button>';
@@ -1400,7 +1715,8 @@ function folioSheet(r){
     h += '<button class="btn btn-soft" data-act="pay" data-id="' + r.id + '">+ Paiement</button>';
     h += '<button class="btn btn-soft" data-act="edit-res" data-id="' + r.id + '">Modifier</button>';
   }
-  h += '<button class="btn btn-soft" data-act="invoice" data-id="' + r.id + '">Imprimer le folio</button>';
+  h += '<button class="btn btn-soft" data-act="invoice" data-id="' + r.id + '">Facture</button>';
+  h += '<button class="btn btn-teal" data-act="print-folio" data-id="' + r.id + '">Imprimer / enregistrer en PDF</button>';
   if(r.status!=="Annulée" && r.status!=="Terminée") h += '<button class="btn btn-danger" data-act="cancel-res" data-id="' + r.id + '">Annuler</button>';
   h += '<button class="btn btn-ghost" data-act="close">Fermer</button></div>';
   openSheet(h);
@@ -1413,12 +1729,14 @@ function dayRecap(date){
   var total = 0, byMethod = {};
   METHODS.forEach(function(m){ byMethod[m] = 0; });
   pays.forEach(function(p){ total += +p.amount||0; byMethod[p.method] = (byMethod[p.method]||0) + (+p.amount||0); });
+  var rb = restoDayTotals(date);
   return {
     date: date, total: total, nbPaiements: pays.length, byMethod: byMethod,
     arrivees: store.reservations.filter(function(r){ return r.checkIn===date && r.status!=="Annulée"; }).length,
     departs: store.reservations.filter(function(r){ return r.checkOut===date && (r.status==="Arrivée" || r.status==="Terminée" || r.status==="Confirmée"); }).length,
     menage: store.rooms.filter(function(r){ return effectiveStatus(r)==="Ménage"; }).length,
-    enAttente: store.reservations.filter(function(r){ return r.status==="En attente"; }).length
+    enAttente: store.reservations.filter(function(r){ return r.status==="En attente"; }).length,
+    restoTotal: rb.total, restoPaye: rb.payees, restoImpute: rb.imputees
   };
 }
 function closeDaySheet(){
@@ -1431,7 +1749,10 @@ function closeDaySheet(){
     '<tr><td>Arrivées du jour</td><td class="r"><b>' + rec.arrivees + '</b></td></tr>' +
     '<tr><td>Départs du jour</td><td class="r"><b>' + rec.departs + '</b></td></tr>' +
     '<tr><td>Hébergements en ménage</td><td class="r"><b>' + rec.menage + '</b></td></tr>' +
-    '<tr><td>Demandes en attente non traitées</td><td class="r"><b>' + rec.enAttente + '</b></td></tr></table>';
+    '<tr><td>Demandes en attente non traitées</td><td class="r"><b>' + rec.enAttente + '</b></td></tr>' +
+    '<tr><td>Ventes resto-bar du jour (payées + imputées)</td><td class="r"><b>' + esc(fmt$(rec.restoTotal)) + '</b></td></tr>' +
+    '<tr><td>dont encaissées directement</td><td class="r">' + esc(fmt$(rec.restoPaye)) + '</td></tr>' +
+    '<tr><td>dont imputées aux folios</td><td class="r">' + esc(fmt$(rec.restoImpute)) + '</td></tr></table>';
   if(rec.enAttente > 0) h += '<div class="warn-banner"><b>' + rec.enAttente + ' demande(s) en attente</b> restent sans réponse : pensez à les confirmer ou les annuler avant de clôturer.</div>';
   h += '<p class="note">La confirmation enregistre ce récapitulatif dans la table des clôtures de la base partagée ; la journée s\'affichera ensuite « Journée clôturée » dans la Caisse.</p>';
   h += '<div class="actions sticky-actions"><button class="btn btn-teal" data-act="confirm-close-day">Confirmer la clôture</button><button class="btn btn-soft" data-act="close">Pas encore</button></div>';
@@ -1442,6 +1763,12 @@ function closeDaySheet(){
 function handleAct(act, el){
   var id = el.getAttribute("data-id");
   if(act==="close"){ closeSheet(); return; }
+  if(act==="print-doc"){ window.print(); return; }
+  if(act==="print-folio"){
+    var pr = id ? resById(id) : null;
+    if(pr){ $("#printArea").innerHTML = buildInvoiceHtml(pr); setTimeout(function(){ window.print(); }, 60); }
+    return;
+  }
   if(act==="switch-account"){ signOut(); return; }
   if(act==="reload"){ loadAll(true); toast("Base rechargée."); return; }
   if(act==="new-res"){ resForm(null); return; }
@@ -1458,7 +1785,7 @@ function handleAct(act, el){
   if(act==="confirm-close-day"){
     if(!pendingCloture) return;
     var rec = pendingCloture;
-    var details = { total: rec.total, par_moyen: rec.byMethod, nb_paiements: rec.nbPaiements, arrivees: rec.arrivees, departs: rec.departs, menage: rec.menage, en_attente: rec.enAttente };
+    var details = { total: rec.total, par_moyen: rec.byMethod, nb_paiements: rec.nbPaiements, arrivees: rec.arrivees, departs: rec.departs, menage: rec.menage, en_attente: rec.enAttente, resto_total: rec.restoTotal, resto_paye: rec.restoPaye, resto_impute: rec.restoImpute };
     sb("/rest/v1/clotures", { method:"POST", prefer:"return=minimal", body:{ hotel_id: (hotel ? hotel.id : session.hotelId), date: rec.date, total: rec.total, details: details } })
       .then(function(){
         pendingCloture = null; closeSheet();
@@ -1475,11 +1802,48 @@ function handleAct(act, el){
     return;
   }
   if(act==="new-room"){ roomForm(null); return; }
+  if(act==="new-article"){ articleForm(null); return; }
+  if(act==="new-order"){ orderForm(null); return; }
+  if(act==="new-order-for"){ orderForm(id || null); return; }
+  if(act==="edit-article"){ var ea = id ? articleById(id) : null; if(ea) articleForm(ea); return; }
+  if(act==="toggle-article"){
+    var ta = id ? articleById(id) : null; if(!ta) return;
+    dbPatchArticle(ta.id, { actif: !ta.actif }).then(function(){
+      toast(ta.actif ? "« " + ta.name + " » retiré de la carte." : "« " + ta.name + " » remis en vente.");
+      return loadAll(true);
+    }).catch(fail); return;
+  }
+  if(act==="cmd-imputer" || act==="cmd-encaisser" || act==="cmd-annuler"){
+    var cmd = id ? cmdById(id) : null; if(!cmd) return;
+    var cmdRes = cmd.resId ? resById(cmd.resId) : null;
+    if(cmdRes && (cmdRes.status==="Terminée" || cmdRes.status==="Annulée")){ toast("Séjour " + lowerFirst(cmdRes.status) + " : cette commande n'est plus modifiable.", true); return; }
+    if(cmd.status!=="Ouverte"){ toast("Cette commande n'est plus ouverte.", true); return; }
+    if(act==="cmd-imputer"){
+      if(!cmd.resId){ toast("Commande d'un client de passage : rien à imputer, encaissez-la.", true); return; }
+      dbPatchCommande(cmd.id, { statut: "imputee" }).then(function(){
+        closeSheet();
+        toast("Commande de " + fmt$(commandeTotal(cmd)) + " imputée au folio de " + (cmdRes ? cmdRes.clientName : "") + " — elle compte dans le reste à payer du séjour.");
+        return loadAll(true);
+      }).catch(fail); return;
+    }
+    if(act==="cmd-encaisser"){
+      dbPatchCommande(cmd.id, { statut: "payee" }).then(function(){
+        closeSheet();
+        toast("Commande de " + fmt$(commandeTotal(cmd)) + " encaissée directement.");
+        return loadAll(true);
+      }).catch(fail); return;
+    }
+    confirmSheet("Annuler cette commande ?", (cmd.clientNom || "Client de passage") + " — total " + fmt$(commandeTotal(cmd)) + ". Une commande annulée ne compte ni au folio ni dans les ventes.", "Annuler la commande", function(){
+      dbPatchCommande(cmd.id, { statut: "annulee" }).then(function(){
+        closeSheet(); toast("Commande annulée."); return loadAll(true);
+      }).catch(fail);
+    }); return;
+  }
   if(act==="day-prev"){ ui.caisseDate = addDays(ui.caisseDate,-1); render(); return; }
   if(act==="day-next"){ ui.caisseDate = addDays(ui.caisseDate,1); render(); return; }
   if(act==="day-today"){ ui.caisseDate = todayStr(); render(); return; }
   if(act==="export"){
-    var snapshot = { hotel: hotel, exporte_le: new Date().toISOString(), hebergements: store.rooms, reservations: store.reservations, paiements: store.payments, clotures: store.clotures };
+    var snapshot = { hotel: hotel, exporte_le: new Date().toISOString(), hebergements: store.rooms, reservations: store.reservations, paiements: store.payments, clotures: store.clotures, articles: store.articles, commandes: store.commandes, commande_lignes: store.lignes };
     var blob = new Blob([JSON.stringify(snapshot, null, 2)], {type:"application/json"});
     var a = document.createElement("a"); a.href = URL.createObjectURL(blob);
     a.download = "crescence-base-partagee-" + todayStr() + ".json"; a.click();
@@ -1565,6 +1929,9 @@ function bindView(){
   document.querySelectorAll("[data-filter]").forEach(function(el){
     el.addEventListener("click", function(){ ui.resFilter = el.getAttribute("data-filter"); render(); });
   });
+  document.querySelectorAll("[data-cmdfilter]").forEach(function(el){
+    el.addEventListener("click", function(){ ui.cmdFilter = el.getAttribute("data-cmdfilter"); render(); });
+  });
   var rs = $("#resSearch");
   if(rs) rs.addEventListener("input", function(){ ui.search = this.value; var pos = this.selectionStart; render(); var n = $("#resSearch"); n.focus(); n.setSelectionRange(pos, pos); });
   var cs = $("#clientSearch");
@@ -1630,7 +1997,7 @@ $("#publicBtn").addEventListener("click", function(){
 });
 $("#lockBtn").addEventListener("click", function(){
   if(publicMode){
-    publicMode = false; dataReady = false; store = { rooms: [], reservations: [], payments: [], clotures: [] };
+    publicMode = false; dataReady = false; store = { rooms: [], reservations: [], payments: [], clotures: [], articles: [], commandes: [], lignes: [] };
     $("#app").style.display = "none"; $("#lock").style.display = "flex";
   } else if(session){ signOut(); }
 });
