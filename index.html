@@ -1,76 +1,125 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Live Product Demos — AI Receptionists for Local Businesses</title>
+<title>Démonstrations en direct — MATECH Burundi · BATA & sites clients</title>
+<meta name="description" content="Toutes les démonstrations MATECH Burundi en un seul endroit : l'agent BATA pour hôtels, restaurants et lieux de loisirs, un site vitrine, un modèle de site client clé en main et des prototypes par secteur. Essayez-les sur votre téléphone.">
 <style>
-  :root{--ink:#0f2233;--muted:#5b7183;--brand:#0e7c86;--card:#ffffff;--bg:#eef4f6;--line:#d8e4e8}
+  :root{--ink:#0f2233;--muted:#5b7183;--brand:#0e7c86;--brand2:#12a5b4;--card:#ffffff;--bg:#eef4f6;--line:#d8e4e8;--night:#0b1f2a}
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);min-height:100dvh;display:flex;flex-direction:column;align-items:center;padding:32px 16px 48px}
-  header{max-width:880px;width:100%;text-align:center;margin-bottom:28px}
-  h1{font-size:clamp(24px,4.5vw,36px);line-height:1.15;margin-bottom:10px}
-  header p{color:var(--muted);font-size:16px;line-height:1.5;max-width:620px;margin:0 auto}
-  .grid{max-width:880px;width:100%;display:grid;grid-template-columns:1fr;gap:16px}
+  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);min-height:100dvh}
+  .hero{background:linear-gradient(135deg,var(--night),var(--brand));color:#fff;padding:44px 18px 34px;text-align:center}
+  .hero .brandline{font-size:12px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;opacity:.85}
+  .hero h1{font-size:clamp(26px,6vw,40px);line-height:1.15;margin:12px auto 10px;max-width:720px}
+  .hero p{font-size:16px;line-height:1.55;opacity:.92;max-width:640px;margin:0 auto}
+  .hero .cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+  .hero a{display:inline-block;padding:13px 20px;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px;min-height:48px}
+  .hero a.primary{background:#fff;color:var(--brand)}
+  .hero a.ghost{border:2px solid rgba(255,255,255,.7);color:#fff}
+  main{max-width:920px;margin:0 auto;padding:26px 16px 20px}
+  h2.section{font-size:20px;margin:22px 0 6px}
+  p.section-sub{color:var(--muted);font-size:14.5px;line-height:1.55;margin-bottom:14px}
+  .grid{display:grid;grid-template-columns:1fr;gap:16px}
   @media(min-width:700px){.grid{grid-template-columns:1fr 1fr}}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:8px;box-shadow:0 2px 10px rgba(15,34,51,.05)}
-  .tag{align-self:flex-start;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--brand);background:#e2f2f3;border-radius:999px;padding:4px 10px}
-  .card h2{font-size:19px}
-  .card p{color:var(--muted);font-size:14px;line-height:1.55;flex:1}
-  .card a{display:inline-block;margin-top:6px;background:var(--brand);color:#fff;text-decoration:none;font-weight:600;font-size:14px;padding:11px 16px;border-radius:10px;text-align:center}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:8px;box-shadow:0 2px 10px rgba(15,34,51,.05)}
+  .card.feature{border:2px solid var(--brand2)}
+  .tag{align-self:flex-start;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--brand);background:#e2f2f3;border-radius:999px;padding:4px 10px}
+  .card h3{font-size:19px}
+  .card p{color:var(--muted);font-size:14.5px;line-height:1.55;flex:1}
+  .card a{display:inline-block;margin-top:6px;background:var(--brand);color:#fff;text-decoration:none;font-weight:700;font-size:15px;padding:12px 16px;border-radius:12px;text-align:center;min-height:48px}
   .card a:hover{filter:brightness(1.08)}
-  footer{margin-top:30px;color:var(--muted);font-size:12.5px;text-align:center;max-width:640px;line-height:1.6}
+  .strip{max-width:920px;margin:6px auto 0;padding:0 16px}
+  .strip .inner{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px 22px;box-shadow:0 2px 10px rgba(15,34,51,.05)}
+  .strip h3{font-size:17px;margin-bottom:6px}
+  .strip p{color:var(--muted);font-size:14.5px;line-height:1.6}
+  footer{max-width:920px;margin:26px auto 0;padding:0 16px 44px;color:var(--muted);font-size:12.5px;line-height:1.65;text-align:center}
 </style>
 </head>
 <body>
-<header>
-  <h1>AI Receptionists for Local Businesses — Live Demos</h1>
-  <p>Each demo below is a working product: ask questions, book an appointment or a service call, then open the Owner Dashboard inside the demo and watch your own request being captured.</p>
+<header class="hero">
+  <div class="brandline">MATECH Burundi</div>
+  <h1>Des agents qui répondent à vos clients, jour et nuit.</h1>
+  <p>Toutes nos démonstrations en direct, en un seul endroit. Ouvrez-en une sur votre téléphone, posez vos questions comme un client, faites une réservation d'essai — et voyez ce que vos propres clients vivraient.</p>
+  <div class="cta">
+    <a class="primary" href="./matech/">Découvrir BATA</a>
+    <a class="ghost" href="./splash/">Voir la démo Splash</a>
+  </div>
 </header>
-<main class="grid">
-  <section class="card">
-    <span class="tag">Parc de loisirs &amp; restaurant · FR</span>
-    <h2>Splash Burundi — avec BATA (MATECH)</h2>
-    <p>Démonstration non officielle réalisée par MATECH Burundi pour Splash (Bujumbura) : site mobile du parc de loisirs et restaurant, avec l'agent BATA intégré — questions, horaires, piscines, anniversaires et demande de réservation simulée. Aucun prix inventé : les tarifs sont marqués « à valider avec Splash ».</p>
-    <a href="./splash/">Open the live demo</a>
-  </section>
-  <section class="card">
-    <span class="tag">Plateforme BATA · FR</span>
-    <h2>BATA — Prévisualisation, simulation et test</h2>
-    <p>Simulation de la plateforme BATA (MATECH Burundi) : côté visiteur, discutez avec l'agent d'un établissement pilote ; côté établissement, ajoutez les informations et les prix que l'agent utilise pour répondre.</p>
-    <a href="./bata/">Open the live demo</a>
-  </section>
-  <section class="card">
-    <span class="tag">Dental clinic · EN</span>
-    <h2>BrightSmile Dental Studio</h2>
-    <p>An AI receptionist that answers fees, insurance and hours, books appointments step by step and captures callbacks — the Standard package in action.</p>
-    <a href="./brightsmile/">Open the live demo</a>
-  </section>
-  <section class="card">
-    <span class="tag">Home services · EN</span>
-    <h2>RapidFlow Plumbing &amp; HVAC</h2>
-    <p>A 24/7 AI receptionist for after-hours emergencies: it qualifies urgent jobs, books services and alerts the on-call technician immediately.</p>
-    <a href="./rapidflow/">Open the live demo</a>
-  </section>
-  <section class="card">
-    <span class="tag">Medical centre · FR</span>
-    <h2>Centre Médical Bethesda — test prototype</h2>
-    <p>Unofficial test prototype (Bujumbura) built only from the centre's public website information. It invents nothing: unpublished prices are stated as such.</p>
-    <a href="./bethesda/">Open the test demo</a>
-  </section>
-  <section class="card">
-    <span class="tag">Hotel &amp; Apartments · FR</span>
-    <h2>Crescence Hôtel et Appartement</h2>
-    <p>Fictional hotel and apartment demo (Bujumbura): rooms and apartments with rates, services, and an assistant that answers questions and takes a full booking request step by step.</p>
-    <a href="./crescence/">Open the live demo</a>
-  </section>
-  <section class="card">
-    <span class="tag">Restaurant · FR</span>
-    <h2>Kiriri Garden Hotel Restaurant — test prototype</h2>
-    <p>Unofficial test prototype (Bujumbura) built only from the hotel's official website and online menu. Table reservations and callback capture included.</p>
-    <a href="./kiriri/">Open the test demo</a>
-  </section>
+
+<main>
+  <h2 class="section">Nouveau — BATA par MATECH Burundi</h2>
+  <p class="section-sub">BATA est l'agent intelligent pour hôtels, restaurants et lieux de loisirs : il répond sur WhatsApp, Messenger, Instagram et le site web, en français, kirundi et anglais, uniquement avec les informations validées par l'établissement.</p>
+  <div class="grid">
+    <section class="card feature">
+      <span class="tag">Site vitrine · FR</span>
+      <h3>BATA par MATECH Burundi</h3>
+      <p>Le site qui présente BATA aux patrons d'établissements : le problème, la solution, les canaux, et l'offre pilote de 30 jours pour démarrer sans risque.</p>
+      <a href="./matech/">Découvrir l'offre BATA</a>
+    </section>
+    <section class="card feature">
+      <span class="tag">Modèle de site client · FR</span>
+      <h3>Le site que nous livrons à nos clients</h3>
+      <p>Un modèle clé en main pour hôtel-restaurant, avec l'agent BATA intégré : chambres, restaurant, réservation en ligne. L'établissement montré est fictif — le vôtre prendrait sa place, avec vos prix et vos couleurs.</p>
+      <a href="./modele-client/">Voir le modèle client</a>
+    </section>
+    <section class="card">
+      <span class="tag">Parc de loisirs &amp; restaurant · FR</span>
+      <h3>Splash Burundi — avec BATA</h3>
+      <p>Démonstration réalisée par MATECH pour Splash, vrai parc de loisirs de Bujumbura : piscines, restaurant, anniversaires, et l'agent BATA qui refuse d'inventer les tarifs qu'il n'a pas.</p>
+      <a href="./splash/">Ouvrir la démo Splash</a>
+    </section>
+    <section class="card">
+      <span class="tag">Plateforme BATA · FR</span>
+      <h3>BATA — Prévisualisation et test</h3>
+      <p>La simulation de la plateforme : côté visiteur, discutez avec l'agent d'un établissement pilote ; côté établissement, ajoutez les informations et les prix dont l'agent se sert pour répondre.</p>
+      <a href="./bata/">Ouvrir la simulation BATA</a>
+    </section>
+  </div>
+
+  <h2 class="section">Autres démonstrations</h2>
+  <p class="section-sub">Des réceptionnistes intelligents par secteur — posez des questions, réservez, puis ouvrez le tableau de bord du patron dans la démo pour voir votre demande arriver.</p>
+  <div class="grid">
+    <section class="card">
+      <span class="tag">Dental clinic · EN</span>
+      <h3>BrightSmile Dental Studio</h3>
+      <p>An AI receptionist that answers fees, insurance and hours, books appointments step by step and captures callbacks — the Standard package in action.</p>
+      <a href="./brightsmile/">Open the live demo</a>
+    </section>
+    <section class="card">
+      <span class="tag">Home services · EN</span>
+      <h3>RapidFlow Plumbing &amp; HVAC</h3>
+      <p>A 24/7 AI receptionist for after-hours emergencies: it qualifies urgent jobs, books services and alerts the on-call technician immediately.</p>
+      <a href="./rapidflow/">Open the live demo</a>
+    </section>
+    <section class="card">
+      <span class="tag">Medical centre · FR</span>
+      <h3>Centre Médical Bethesda — prototype de test</h3>
+      <p>Prototype de test non officiel (Bujumbura), construit uniquement à partir des informations publiques du centre. Il n'invente rien : les prix non publiés sont dits tels quels.</p>
+      <a href="./bethesda/">Open the test demo</a>
+    </section>
+    <section class="card">
+      <span class="tag">Hotel &amp; Apartments · FR</span>
+      <h3>Crescence Hôtel et Appartement</h3>
+      <p>Fictional hotel and apartment demo (Bujumbura): rooms and apartments with rates, services, and an assistant that answers questions and takes a full booking request step by step.</p>
+      <a href="./crescence/">Open the live demo</a>
+    </section>
+    <section class="card">
+      <span class="tag">Restaurant · FR</span>
+      <h3>Kiriri Garden Hotel Restaurant — prototype de test</h3>
+      <p>Prototype de test non officiel (Bujumbura), construit uniquement à partir du site officiel et du menu en ligne de l'hôtel. Réservations de table et demandes de rappel incluses.</p>
+      <a href="./kiriri/">Open the test demo</a>
+    </section>
+  </div>
 </main>
-<footer>Demonstration pages. The two English demos present fictional businesses created for demonstration; the French pages are unofficial evaluation prototypes for real businesses, based solely on their public information, and no data entered there is transmitted to them. The Splash and BATA pages are MATECH Burundi demonstrations: Splash is a real business pitched with this demo (not its official site), and the BATA page is a simulation of the BATA platform, not the hosted production application.</footer>
+
+<div class="strip">
+  <div class="inner">
+    <h3>Vous tenez un hôtel, un restaurant, un lieu de loisirs ?</h3>
+    <p>BATA démarre par un <strong>pilote de 30 jours</strong> sur votre numéro WhatsApp actuel, configuré avec votre menu, vos tarifs et vos règles — vous validez chaque information avant qu'elle ne soit dite à un client. Commencez par le site vitrine, puis essayez une démo comme si vous étiez votre propre client.</p>
+  </div>
+</div>
+
+<footer>Pages de démonstration MATECH Burundi. BrightSmile, RapidFlow, Crescence et l'Hôtel-Restaurant Amahoro du modèle client sont des établissements fictifs créés pour la démonstration. Bethesda, Kiriri et Splash sont de vrais établissements de Bujumbura : leurs pages sont des prototypes non officiels, construits uniquement à partir de leurs informations publiques, et aucune donnée saisie dans ces démos ne leur est transmise. La page BATA est une simulation de la plateforme, pas l'application de production hébergée.</footer>
 </body>
 </html>
