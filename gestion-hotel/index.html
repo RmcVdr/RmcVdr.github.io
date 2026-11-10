@@ -278,6 +278,32 @@ a{color:var(--teal)}
 .dest-toggle button.on{background:var(--teal);border-color:var(--teal);color:#FFF9E8}
 @media(max-width:480px){.order-line-row{grid-template-columns:1fr 78px 56px 38px;gap:6px}}
 
+/* ---------- Propriétaire S4 : période, KPI, revenus, journal ---------- */
+.stat .def{font-size:11.8px;color:var(--ink2);line-height:1.5;margin-top:7px;font-weight:500}
+.stats.owner-kpis{grid-template-columns:repeat(2,1fr)}
+@media(min-width:700px){.stats.owner-kpis{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:1020px){.stats.owner-kpis{grid-template-columns:repeat(5,1fr)}}
+.period-bar{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:14px 16px;box-shadow:var(--shadow);margin-bottom:16px}
+.period-bar .pb-label{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2);margin-bottom:9px}
+.period-bar .pb-range{font-family:"Lora",serif;font-size:16.5px;font-weight:600;margin-top:2px}
+.period-dates{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;align-items:flex-end}
+.period-dates .field{margin-bottom:0;flex:1;min-width:150px}
+.src-bar-row{padding:11px 0;border-bottom:1px solid var(--line)}
+.src-bar-row:last-child{border-bottom:none}
+.src-bar-head{display:flex;justify-content:space-between;gap:10px;font-size:14.5px;align-items:baseline}
+.src-bar-head .who{color:var(--ink2);font-size:13px}
+.bar-track{height:10px;background:var(--surface2);border:1px solid var(--line);border-radius:999px;overflow:hidden;margin-top:7px}
+.bar-fill{height:100%;background:var(--teal);border-radius:999px;min-width:2px}
+.bar-fill.wood{background:var(--wood)}
+.rank-num{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:var(--teal-soft);color:var(--teal-d);font-weight:800;font-size:13.5px;flex:none}
+.journal-row{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.journal-row:last-child{border-bottom:none}
+.journal-row .j-date{flex:none;width:148px;color:var(--ink2);font-size:12.8px;font-weight:700;line-height:1.45;padding-top:2px}
+.journal-row .j-body{flex:1;min-width:0}
+.journal-row .j-body .who{color:var(--ink2);font-size:13px;line-height:1.5}
+.journal-row .j-amt{flex:none}
+@media(max-width:560px){.journal-row{flex-wrap:wrap}.journal-row .j-date{width:100%}}
+
 #toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:12px 20px;border-radius:12px;font-size:14.5px;font-weight:700;opacity:0;pointer-events:none;transition:.25s;z-index:80;max-width:88vw;text-align:center}
 @media(min-width:860px){#toast{bottom:28px}}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -385,7 +411,10 @@ var ui = {
   clientSearch: "",
   planStart: todayStr(),
   showCancelled: false,
-  cmdFilter: "today"
+  cmdFilter: "today",
+  ownerPreset: "month",
+  ownerFrom: "",
+  ownerTo: ""
 };
 
 /* =============== Helpers =============== */
@@ -1254,55 +1283,245 @@ function orderForm(prefillResId){
   });
 }
 
-/* ---------- Vue propriétaire (même base) ---------- */
+/* ---------- Vue propriétaire S4 : période, KPI PMS, départements, sources, journal ---------- */
+function isoDatePart(v){ return v ? String(v).slice(0,10) : ""; }
+function isoTimePart(v){ var x = String(v || ""); return x.length >= 16 ? x.slice(11,16) : ""; }
+function fmtCreatedAt(v){
+  if(!v) return "—";
+  var d = isoDatePart(v);
+  var base = d ? fmtDate(d) : "—";
+  var t = isoTimePart(v);
+  return t ? base + " · " + t : base;
+}
+function fmtDateObj(d){ return d.getFullYear() + "-" + pad(d.getMonth()+1) + "-" + pad(d.getDate()); }
+function inPeriod(dateStr, from, to){ return !!dateStr && dateStr >= from && dateStr <= to; }
+function fmtPct(x){ return (Math.round(x*10)/10).toLocaleString("fr-FR",{maximumFractionDigits:1}) + " %"; }
+function articleCatByName(name){
+  for(var i=0;i<store.articles.length;i++){ if(store.articles[i].name===name) return store.articles[i].categorie; }
+  return "restaurant";
+}
+function overlapNightsInPeriod(r, from, to){
+  var start = r.checkIn > from ? r.checkIn : from;
+  var periodEndExcl = addDays(to, 1);
+  var end = r.checkOut < periodEndExcl ? r.checkOut : periodEndExcl;
+  var n = Math.round((parseD(end) - parseD(start)) / 86400000);
+  return n > 0 ? n : 0;
+}
+function ownerPeriodRange(){
+  var t = todayStr();
+  if(ui.ownerPreset==="lastMonth"){
+    var d0 = parseD(t);
+    var first = new Date(d0.getFullYear(), d0.getMonth()-1, 1);
+    var last = new Date(d0.getFullYear(), d0.getMonth(), 0);
+    return { from: fmtDateObj(first), to: fmtDateObj(last), label: "Mois passé" };
+  }
+  if(ui.ownerPreset==="last30"){
+    return { from: addDays(t, -29), to: t, label: "30 derniers jours" };
+  }
+  if(ui.ownerPreset==="custom"){
+    var f = ui.ownerFrom || (t.slice(0,8) + "01");
+    var tt = ui.ownerTo || t;
+    if(f > tt){ var tmp = f; f = tt; tt = tmp; }
+    return { from: f, to: tt, label: "Période personnalisée" };
+  }
+  var dm = parseD(t);
+  var fm = new Date(dm.getFullYear(), dm.getMonth(), 1);
+  var lm = new Date(dm.getFullYear(), dm.getMonth()+1, 0);
+  return { from: fmtDateObj(fm), to: fmtDateObj(lm), label: "Ce mois-ci" };
+}
+function computeOwnerPeriod(from, to){
+  var days = Math.round((parseD(to) - parseD(from)) / 86400000) + 1;
+  if(days < 1) days = 1;
+  var activeRooms = store.rooms.filter(function(r){ return r.actif; }).length;
+  var avail = activeRooms * days;
+  var sold = 0, stayRev = 0;
+  var perRoom = {};
+  store.rooms.forEach(function(rm){ perRoom[rm.id] = { room: rm, nights: 0, revenue: 0 }; });
+  var soldStatuses = ["Confirmée","Arrivée","Terminée"];
+  store.reservations.forEach(function(r){
+    if(soldStatuses.indexOf(r.status) < 0) return;
+    var ov = overlapNightsInPeriod(r, from, to);
+    if(ov <= 0) return;
+    var tot = nightsOf(r);
+    var rev = tot > 0 ? resTotal(r) * ov / tot : 0;
+    sold += ov; stayRev += rev;
+    if(perRoom[r.roomId]){ perRoom[r.roomId].nights += ov; perRoom[r.roomId].revenue += rev; }
+  });
+  var cashNet = 0;
+  store.payments.forEach(function(p){ if(inPeriod(p.date, from, to)) cashNet += +p.amount || 0; });
+  var resto = 0, bar = 0;
+  store.commandes.forEach(function(c){
+    if(c.status!=="Payée" && c.status!=="Imputée") return;
+    if(!inPeriod(cmdDate(c), from, to)) return;
+    lignesOf(c.id).forEach(function(l){
+      var amt = (+l.prix || 0) * (+l.quantite || 0);
+      if(articleCatByName(l.articleNom)==="bar") bar += amt; else resto += amt;
+    });
+  });
+  var srcMap = {};
+  ["chatbot","site","reception","telephone"].forEach(function(k){ srcMap[k] = { key: k, n: 0, v: 0 }; });
+  store.reservations.forEach(function(r){
+    if(r.status==="Annulée") return;
+    var cd = isoDatePart(r.createdAt);
+    if(!cd || !inPeriod(cd, from, to)) return;
+    var k = r.source || "reception";
+    if(!srcMap[k]) srcMap[k] = { key: k, n: 0, v: 0 };
+    srcMap[k].n++; srcMap[k].v += resTotal(r);
+  });
+  var bySource = Object.keys(srcMap).map(function(k){ return srcMap[k]; }).sort(function(a,b){ return b.v - a.v || b.n - a.n; });
+  var topRooms = Object.keys(perRoom).map(function(k){ return perRoom[k]; }).filter(function(x){ return x.nights > 0; }).sort(function(a,b){ return b.nights - a.nights || b.revenue - a.revenue; });
+  var events = [];
+  store.reservations.forEach(function(r){
+    var cd = isoDatePart(r.createdAt);
+    if(!r.createdAt || !inPeriod(cd, from, to)) return;
+    var rm = roomById(r.roomId);
+    events.push({ sort: String(r.createdAt), when: fmtCreatedAt(r.createdAt),
+      title: "Réservation créée — " + (r.code || "sans code"),
+      detail: r.clientName + " · via " + (SRC_LABEL[r.source] || r.source || "Réception") + (rm ? " · " + rm.name : "") + " · " + fmtDate(r.checkIn) + " → " + fmtDate(r.checkOut) + " · statut actuel : " + r.status,
+      amount: resTotal(r) });
+  });
+  store.payments.forEach(function(p){
+    if(!inPeriod(p.date, from, to)) return;
+    var r = resById(p.resId);
+    var isRefund = (+p.amount || 0) < 0 || p.type==="remboursement" || p.type==="remboursement_acompte";
+    var whenPay = fmtDate(p.date);
+    var tp = isoTimePart(p.createdAt);
+    if(tp) whenPay += " · " + tp;
+    events.push({ sort: String(p.createdAt || (p.date + "T12:00:00")), when: whenPay,
+      title: (isRefund ? "Remboursement — " : "") + payLabel(p),
+      detail: (r ? r.clientName + " · " : "") + p.method,
+      amount: +p.amount || 0 });
+  });
+  store.commandes.forEach(function(c){
+    if(c.status!=="Payée" && c.status!=="Imputée") return;
+    if(!inPeriod(cmdDate(c), from, to)) return;
+    var res = c.resId ? resById(c.resId) : null;
+    var nbL = lignesOf(c.id).length;
+    events.push({ sort: String(c.createdAt || ""), when: fmtCreatedAt(c.createdAt),
+      title: c.status==="Payée" ? "Commande resto-bar encaissée" : "Commande resto-bar imputée au folio",
+      detail: (c.clientNom || (res ? res.clientName : "Client de passage")) + (res && res.code ? " · folio " + res.code : " · client de passage") + " · " + nbL + " ligne" + (nbL > 1 ? "s" : ""),
+      amount: commandeTotal(c) });
+  });
+  store.clotures.forEach(function(cl){
+    if(!inPeriod(cl.date, from, to)) return;
+    events.push({ sort: String(cl.date) + "T23:59:59", when: fmtDate(cl.date),
+      title: "Clôture de journée",
+      detail: "Total encaissé figé à la clôture",
+      amount: +cl.total || 0 });
+  });
+  events.sort(function(a,b){ return a.sort < b.sort ? 1 : (a.sort > b.sort ? -1 : 0); });
+  var cancelled = store.reservations.filter(function(r){ return r.status==="Annulée"; }).slice().sort(function(a,b){ return String(a.createdAt || "") < String(b.createdAt || "") ? 1 : -1; });
+  return {
+    days: days, activeRooms: activeRooms, avail: avail, sold: sold, stayRev: stayRev,
+    occ: avail ? sold / avail * 100 : 0,
+    adr: sold ? stayRev / sold : 0,
+    revpar: avail ? stayRev / avail : 0,
+    cashNet: cashNet, resto: resto, bar: bar,
+    bySource: bySource, topRooms: topRooms, events: events, cancelled: cancelled
+  };
+}
+function buildOwnerReportHtml(range, st){
+  var hotelName = hotel && hotel.nom ? hotel.nom : "Crescence Hôtel et Appartement";
+  var maxSrc = 0;
+  st.bySource.forEach(function(x){ if(x.v > maxSrc) maxSrc = x.v; });
+  var rep = '<div class="invoice"><div class="inv-head"><div><h3>' + esc(hotelName) + '</h3><div class="small">Bujumbura, Burundi · Rapport propriétaire</div></div>' +
+    '<div style="text-align:right"><div><b>Rapport — ' + esc(range.label) + '</b></div><div class="small">Du ' + esc(fmtDate(range.from)) + ' au ' + esc(fmtDate(range.to)) + ' (' + st.days + ' jour' + (st.days > 1 ? "s" : "") + ')<br/>Émis le ' + esc(fmtDate(todayStr())) + '</div></div></div>';
+  rep += '<table><tr><th>Indicateur</th><th class="r">Valeur</th><th class="r">Définition</th></tr>' +
+    '<tr><td>Taux d\'occupation</td><td class="r"><b><span class="nobr">' + esc(fmtPct(st.occ)) + '</span></b></td><td class="r">' + st.sold + ' nuitée(s) vendue(s) / ' + st.avail + ' disponible(s)</td></tr>' +
+    '<tr><td>Revenu hébergement (vendu)</td><td class="r"><b><span class="nobr">' + esc(fmt$(st.stayRev)) + '</span></b></td><td class="r">Au prorata des nuits dans la période</td></tr>' +
+    '<tr><td>ADR — prix moyen par nuit vendue</td><td class="r"><b><span class="nobr">' + esc(fmt$(st.adr)) + '</span></b></td><td class="r">Revenu hébergement / nuitées vendues</td></tr>' +
+    '<tr><td>RevPAR</td><td class="r"><b><span class="nobr">' + esc(fmt$(st.revpar)) + '</span></b></td><td class="r">Revenu hébergement / nuitées disponibles</td></tr>' +
+    '<tr><td>Encaissé net de la période</td><td class="r"><b><span class="nobr">' + esc(fmt$(st.cashNet)) + '</span></b></td><td class="r">Paiements datés dans la période, remboursements inclus</td></tr></table>';
+  rep += '<table><tr><th>Revenu par département</th><th class="r">Montant</th></tr>' +
+    '<tr><td>Hébergement — encaissements nets</td><td class="r"><span class="nobr">' + esc(fmt$(st.cashNet)) + '</span></td></tr>' +
+    '<tr><td>Restaurant — ventes (encaissées ou imputées)</td><td class="r"><span class="nobr">' + esc(fmt$(st.resto)) + '</span></td></tr>' +
+    '<tr><td>Bar — ventes (encaissées ou imputées)</td><td class="r"><span class="nobr">' + esc(fmt$(st.bar)) + '</span></td></tr></table>' +
+    '<div class="small">Lecture : l\'hébergement est compté en encaissements réellement reçus ; le restaurant et le bar sont comptés en ventes (commandes payées directement ou imputées aux folios).</div>';
+  rep += '<table><tr><th>Revenu par source — réservations créées dans la période</th><th class="r">Nombre</th><th class="r">Total vendu</th></tr>' +
+    (st.bySource.length ? st.bySource.map(function(x){
+      return '<tr><td>' + esc(SRC_LABEL[x.key] || x.key) + '</td><td class="r">' + x.n + '</td><td class="r"><span class="nobr">' + esc(fmt$(x.v)) + '</span></td></tr>';
+    }).join("") : '<tr><td colspan="3">Aucune réservation créée dans cette période.</td></tr>') + '</table>';
+  rep += '<table><tr><th>Top hébergements — nuitées vendues dans la période</th><th class="r">Nuitées</th><th class="r">Revenu</th></tr>' +
+    (st.topRooms.length ? st.topRooms.map(function(x, idx){
+      return '<tr><td>' + (idx+1) + '. ' + esc(x.room.name) + '</td><td class="r">' + x.nights + '</td><td class="r"><span class="nobr">' + esc(fmt$(x.revenue)) + '</span></td></tr>';
+    }).join("") : '<tr><td colspan="3">Aucune nuitée vendue dans cette période.</td></tr>') + '</table>';
+  rep += '<div class="small">Rapport calculé en direct depuis la base partagée Crescence — aucune ressaisie. Les définitions PMS (occupation, ADR, RevPAR) suivent les formules affichées dans l\'onglet Propriétaire.</div></div>';
+  return rep;
+}
 function viewOwner(){
   if(publicMode || !session){
     return '<div class="page-head"><div><h2>Propriétaire</h2></div></div><div class="empty">Connectez-vous avec le compte propriétaire pour voir cette vue.</div>';
   }
   if(session.role!=="proprietaire"){
-    return '<div class="page-head"><div><h2>Propriétaire</h2><div class="sub">Vue réservée au compte propriétaire</div></div></div>' +
-      '<div class="empty">Vous êtes connecté comme <b>' + esc(session.email) + '</b> (rôle : réception).<br/>Les chiffres du propriétaire se calculent depuis la même base, mais seul le compte <b>proprietaire@crescence.app</b> y a accès.<br/><br/><button class="btn btn-teal" data-act="switch-account">Changer de compte</button></div>';
+    var tR = todayStr();
+    var occTodayR = store.rooms.filter(function(r){ return effectiveStatus(r)==="Occupée"; }).length;
+    var occPctR = store.rooms.length ? Math.round(occTodayR / store.rooms.length * 100) : 0;
+    var cashTodayR = 0;
+    store.payments.forEach(function(p){ if(p.date===tR) cashTodayR += +p.amount || 0; });
+    var hR = '<div class="page-head"><div><h2>Propriétaire</h2><div class="sub">Résumé limité pour la réception</div></div></div>';
+    hR += '<div class="stats four">' +
+      '<div class="stat"><div class="n teal">' + occPctR + ' %</div><div class="l">Occupation du jour (' + occTodayR + '/' + store.rooms.length + ')</div><div class="def">Hébergements occupés en ce moment, sur l\'ensemble de l\'inventaire.</div></div>' +
+      '<div class="stat"><div class="n wood">' + esc(fmt$(cashTodayR)) + '</div><div class="l">Encaissé du jour</div><div class="def">Paiements datés d\'aujourd\'hui dans la base partagée, remboursements inclus.</div></div></div>';
+    hR += '<div class="empty"><b>Rapports complets réservés au propriétaire.</b><br/>Les indicateurs de période (occupation au prorata, ADR, RevPAR), les revenus par département et par source, le top hébergements, le journal des opérations et le rapport imprimable ne s\'affichent qu\'avec le compte <b>proprietaire@crescence.app</b>.<br/>Vous êtes connecté comme <b>' + esc(session.email) + '</b> (rôle : réception).<br/><br/><button class="btn btn-teal" data-act="switch-account">Changer de compte</button></div>';
+    return hR;
   }
-  var t = todayStr();
-  var month = t.slice(0,7);
-  var daysInMonth = new Date(+t.slice(0,4), +t.slice(5,7), 0).getDate();
-  var occToday = store.rooms.filter(function(r){ return effectiveStatus(r)==="Occupée"; }).length;
-  var occPct = store.rooms.length ? Math.round(occToday / store.rooms.length * 100) : 0;
-  var monthRes = store.reservations.filter(function(r){ return r.status!=="Annulée" && r.checkIn.slice(0,7)===month; });
-  var nightsSold = 0, stayRevenue = 0;
-  monthRes.forEach(function(r){ nightsSold += nightsOf(r); stayRevenue += resTotal(r); });
-  var adr = nightsSold ? stayRevenue / nightsSold : 0;
-  var revpar = store.rooms.length && daysInMonth ? (stayRevenue / (store.rooms.length * daysInMonth)) : 0;
-  var cashMonth = 0; store.payments.forEach(function(p){ if(p.date.slice(0,7)===month) cashMonth += +p.amount||0; });
+  var range = ownerPeriodRange();
+  var st = computeOwnerPeriod(range.from, range.to);
   var pending = store.reservations.filter(function(r){ return r.status==="En attente"; });
-  var h = '<div class="page-head"><div><h2>Vue propriétaire</h2><div class="sub">Calculée en direct depuis la base partagée — aucune ressaisie</div></div></div>';
-  h += '<div class="stats four">' +
-    '<div class="stat"><div class="n teal">' + occPct + ' %</div><div class="l">Occupation du jour (' + occToday + '/' + store.rooms.length + ')</div></div>' +
-    '<div class="stat"><div class="n wood">' + esc(fmt$(cashMonth)) + '</div><div class="l">Encaissé ce mois-ci</div></div>' +
-    '<div class="stat"><div class="n teal">' + esc(fmt$(adr)) + '</div><div class="l">Prix moyen / nuit (ADR, mois)</div></div>' +
-    '<div class="stat"><div class="n wood">' + esc(fmt$(revpar)) + '</div><div class="l">RevPAR (mois)</div></div></div>';
-  h += '<div class="stats four">' +
-    '<div class="stat"><div class="n teal">' + nightsSold + '</div><div class="l">Nuits vendues (arrivées du mois)</div></div>' +
-    '<div class="stat"><div class="n wood">' + esc(fmt$(stayRevenue)) + '</div><div class="l">Valeur des séjours du mois</div></div>' +
-    '<div class="stat"><div class="n teal">' + pending.length + '</div><div class="l">Demandes en attente</div></div>' +
-    '<div class="stat"><div class="n wood">' + store.reservations.filter(function(r){ return r.status!=="Annulée"; }).length + '</div><div class="l">Réservations au total</div></div></div>';
-  h += '<h3 class="sec-title">Revenu par canal</h3><div class="card">';
-  var bySrc = {};
-  store.reservations.forEach(function(r){ if(r.status==="Annulée") return; var k = r.source||"reception"; if(!bySrc[k]) bySrc[k] = { n:0, v:0 }; bySrc[k].n++; bySrc[k].v += resTotal(r); });
-  var srcKeys = Object.keys(bySrc);
-  h += srcKeys.length ? srcKeys.map(function(k){
-    return '<div class="pay-row"><div><div>' + esc(SRC_LABEL[k]||k) + '</div><div class="who">' + bySrc[k].n + ' réservation(s)</div></div><div class="money">' + esc(fmt$(bySrc[k].v)) + '</div></div>';
-  }).join("") : '<div class="meta">Aucune réservation pour le moment.</div>';
-  h += '</div>';
-  h += '<h3 class="sec-title">Dernières opérations</h3><div class="card">';
-  var lastPays = store.payments.slice(0,8);
-  h += lastPays.length ? lastPays.map(function(p){
-    var r = resById(p.resId);
-    return '<div class="pay-row"><div><div>' + esc(payLabel(p)) + '</div><div class="who">' + (r ? esc(r.clientName) + ' · ' : '') + esc(fmtDate(p.date)) + ' · ' + esc(p.method) + '</div></div><div class="money">' + esc(fmt$(p.amount)) + '</div></div>';
-  }).join("") : '<div class="meta">Aucun paiement enregistré.</div>';
-  h += '</div>';
+  var presets = [["month","Ce mois-ci"],["lastMonth","Mois passé"],["last30","30 derniers jours"],["custom","Personnalisée"]];
+  var h = '<div class="page-head"><div><h2>Vue propriétaire</h2><div class="sub">Rapports PMS calculés en direct depuis la base partagée — aucune ressaisie</div></div>' +
+    '<button class="btn btn-teal" data-act="print-owner-report">Imprimer le rapport</button></div>';
+  h += '<div class="period-bar"><div class="pb-label">Période d\'analyse</div>' +
+    '<div class="chips" style="margin-bottom:6px">' + presets.map(function(pr){
+      return '<button class="chip' + (ui.ownerPreset===pr[0] ? " on" : "") + '" data-ownerpreset="' + pr[0] + '">' + pr[1] + '</button>';
+    }).join("") + '</div>' +
+    '<div class="pb-range">' + esc(range.label) + ' · du ' + esc(fmtDate(range.from)) + ' au ' + esc(fmtDate(range.to)) + ' · ' + st.days + ' jour' + (st.days > 1 ? "s" : "") + '</div>';
+  if(ui.ownerPreset==="custom"){
+    h += '<div class="period-dates"><div class="field"><label>Date de début</label><input type="date" id="ownerFromInput" value="' + esc(ui.ownerFrom || range.from) + '" /></div>' +
+      '<div class="field"><label>Date de fin</label><input type="date" id="ownerToInput" value="' + esc(ui.ownerTo || range.to) + '" /></div>' +
+      '<button class="btn btn-teal" data-act="owner-apply-custom">Appliquer la période</button></div>';
+  }
+  h += '<p class="note" style="margin-top:10px">Tous les indicateurs et rapports ci-dessous se recalculent sur cette période, depuis les vraies données de la base.</p></div>';
+  h += '<div class="stats owner-kpis">' +
+    '<div class="stat"><div class="n teal">' + esc(fmtPct(st.occ)) + '</div><div class="l">Taux d\'occupation</div><div class="def">Nuitées vendues ÷ nuitées disponibles · ' + st.sold + ' vendue(s) / ' + st.avail + ' disponible(s) (' + st.activeRooms + ' hébergement(s) actif(s) × ' + st.days + ' jour(s)). Nuits comptées au prorata des dates qui chevauchent la période, pour les séjours confirmés, en cours et terminés.</div></div>' +
+    '<div class="stat"><div class="n wood">' + esc(fmt$(st.stayRev)) + '</div><div class="l">Revenu hébergement (vendu)</div><div class="def">Totaux des mêmes séjours, au prorata : total de la réservation × nuits dans la période ÷ nuits du séjour.</div></div>' +
+    '<div class="stat"><div class="n teal">' + esc(fmt$(st.adr)) + '</div><div class="l">ADR — prix moyen / nuit vendue</div><div class="def">Revenu hébergement ÷ nuitées vendues.</div></div>' +
+    '<div class="stat"><div class="n wood">' + esc(fmt$(st.revpar)) + '</div><div class="l">RevPAR</div><div class="def">Revenu par nuitée disponible : revenu hébergement ÷ nuitées disponibles.</div></div>' +
+    '<div class="stat"><div class="n teal">' + esc(fmt$(st.cashNet)) + '</div><div class="l">Encaissé net de la période</div><div class="def">Somme des paiements datés dans la période, remboursements en négatif inclus.</div></div></div>';
+  h += '<h3 class="sec-title">Revenu par département</h3><div class="card">' +
+    '<div class="pay-row"><div><div><b>Hébergement</b></div><div class="who">Encaissé net — paiements de la période, remboursements inclus</div></div><div class="money">' + esc(fmt$(st.cashNet)) + '</div></div>' +
+    '<div class="pay-row"><div><div><b>Restaurant</b></div><div class="who">Ventes — commandes payées + imputées de la période, lignes de catégorie restaurant</div></div><div class="money">' + esc(fmt$(st.resto)) + '</div></div>' +
+    '<div class="pay-row"><div><div><b>Bar</b></div><div class="who">Ventes — commandes payées + imputées de la période, lignes de catégorie bar</div></div><div class="money">' + esc(fmt$(st.bar)) + '</div></div>' +
+    '<p class="note" style="margin-top:10px">Lecture honnête des bases de calcul : l\'hébergement est présenté en <b>encaissements</b> (argent réellement reçu sur la période) ; le restaurant et le bar sont présentés en <b>ventes</b> (commandes encaissées directement ou imputées aux folios, donc pas encore forcément encaissées pour la part imputée).</p></div>';
+  var maxSrc = 0;
+  st.bySource.forEach(function(x){ if(x.v > maxSrc) maxSrc = x.v; });
+  var hasSrc = st.bySource.some(function(x){ return x.n > 0; });
+  h += '<h3 class="sec-title">Revenu par source</h3><div class="card">' +
+    '<p class="note" style="margin-bottom:6px">Réservations <b>créées</b> dans la période (hors annulées), réparties par source : nombre et total vendu (total complet de chaque réservation).</p>' +
+    (hasSrc ? st.bySource.filter(function(x){ return x.n > 0; }).map(function(x, idx){
+      var pct = maxSrc > 0 ? Math.max(2, Math.round(x.v / maxSrc * 100)) : 0;
+      return '<div class="src-bar-row"><div class="src-bar-head"><div><b>' + esc(SRC_LABEL[x.key] || x.key) + '</b> <span class="who">· ' + x.n + ' réservation(s) créée(s)</span></div><div class="money">' + esc(fmt$(x.v)) + '</div></div>' +
+        '<div class="bar-track"><div class="bar-fill' + (idx % 2 === 1 ? " wood" : "") + '" style="width:' + pct + '%"></div></div></div>';
+    }).join("") : '<div class="meta">Aucune réservation créée dans cette période.</div>') + '</div>';
+  h += '<h3 class="sec-title">Top hébergements</h3><div class="card">' +
+    '<p class="note" style="margin-bottom:6px">Classement par nuitées vendues dans la période (au prorata), avec le revenu hébergement associé.</p>' +
+    (st.topRooms.length ? st.topRooms.map(function(x, idx){
+      return '<div class="pay-row"><div style="display:flex;gap:11px;align-items:center"><span class="rank-num">' + (idx+1) + '</span><div><div><b>' + esc(x.room.name) + '</b></div><div class="who">' + esc(x.room.type || "") + ' · ' + x.nights + ' nuitée(s) vendue(s)</div></div></div><div class="money">' + esc(fmt$(x.revenue)) + '</div></div>';
+    }).join("") : '<div class="meta">Aucune nuitée vendue dans cette période.</div>') + '</div>';
+  h += '<h3 class="sec-title">Journal des opérations</h3><div class="card">' +
+    '<p class="note" style="margin-bottom:6px"><b>Journal reconstitué depuis les opérations enregistrées dans la base.</b> Seuls les événements datés de façon fiable sont placés dans la chronologie : créations de réservations (date et heure d\'enregistrement), paiements et remboursements (date du paiement), commandes encaissées ou imputées (date et heure de la commande) et clôtures de journée (date). Aucune date ni aucun auteur d\'opération n\'est inventé. Période affichée : du ' + esc(fmtDate(range.from)) + ' au ' + esc(fmtDate(range.to)) + '.</p>' +
+    (st.events.length ? st.events.slice(0, 60).map(function(ev){
+      return '<div class="journal-row"><div class="j-date">' + esc(ev.when) + '</div><div class="j-body"><div><b>' + esc(ev.title) + '</b></div><div class="who">' + esc(ev.detail) + '</div></div>' + (ev.amount != null ? '<div class="j-amt money">' + esc(fmt$(ev.amount)) + '</div>' : '') + '</div>';
+    }).join("") : '<div class="meta">Aucune opération datée dans cette période.</div>') +
+    (st.events.length > 60 ? '<p class="note" style="margin-top:8px">Affichage limité aux 60 opérations les plus récentes de la période (' + st.events.length + ' au total).</p>' : '') +
+    '<div class="folio-sec">État actuel — réservations annulées</div>' +
+    '<p class="note">La base ne stocke pas la date d\'annulation : ces réservations sont donc présentées ici, <b>sans date d\'annulation</b>, et non dans la chronologie ci-dessus.</p>' +
+    (st.cancelled.length ? st.cancelled.map(function(r){
+      var rm2 = roomById(r.roomId);
+      return '<div class="pay-row"><div><div>' + esc(r.clientName) + (r.code ? ' · <b>' + esc(r.code) + '</b>' : '') + '</div><div class="who">' + esc(rm2 ? rm2.name : "—") + ' · séjour prévu du ' + esc(fmtDate(r.checkIn)) + ' au ' + esc(fmtDate(r.checkOut)) + ' · via ' + esc(SRC_LABEL[r.source] || r.source || "Réception") + ' · statut actuel : Annulée</div></div><div class="money">' + esc(fmt$(resTotal(r))) + '</div></div>';
+    }).join("") : '<div class="meta">Aucune réservation annulée dans l\'état actuel de la base.</div>') + '</div>';
   if(pending.length){
-    h += '<h3 class="sec-title">Demandes en attente de confirmation</h3>';
+    h += '<h3 class="sec-title">Demandes en attente de confirmation (' + pending.length + ')</h3>';
     h += pending.map(function(r){ return resCard(r, true); }).join("");
   }
   return h;
@@ -1769,6 +1988,22 @@ function handleAct(act, el){
     if(pr){ $("#printArea").innerHTML = buildInvoiceHtml(pr); setTimeout(function(){ window.print(); }, 60); }
     return;
   }
+  if(act==="print-owner-report"){
+    var rngP = ownerPeriodRange();
+    var stP = computeOwnerPeriod(rngP.from, rngP.to);
+    $("#printArea").innerHTML = buildOwnerReportHtml(rngP, stP);
+    setTimeout(function(){ window.print(); }, 60);
+    return;
+  }
+  if(act==="owner-apply-custom"){
+    var fEl = $("#ownerFromInput"), tEl = $("#ownerToInput");
+    if(fEl && fEl.value) ui.ownerFrom = fEl.value;
+    if(tEl && tEl.value) ui.ownerTo = tEl.value;
+    if(ui.ownerFrom && ui.ownerTo && ui.ownerFrom > ui.ownerTo){ toast("La date de début doit précéder la date de fin.", true); return; }
+    ui.ownerPreset = "custom";
+    render();
+    return;
+  }
   if(act==="switch-account"){ signOut(); return; }
   if(act==="reload"){ loadAll(true); toast("Base rechargée."); return; }
   if(act==="new-res"){ resForm(null); return; }
@@ -1926,6 +2161,12 @@ document.addEventListener("click", function(e){
 function bindView(){
   var psc = $("#planShowCancelled");
   if(psc) psc.addEventListener("change", function(){ ui.showCancelled = this.checked; render(); });
+  document.querySelectorAll("[data-ownerpreset]").forEach(function(el){
+    el.addEventListener("click", function(){
+      ui.ownerPreset = el.getAttribute("data-ownerpreset");
+      render();
+    });
+  });
   document.querySelectorAll("[data-filter]").forEach(function(el){
     el.addEventListener("click", function(){ ui.resFilter = el.getAttribute("data-filter"); render(); });
   });
