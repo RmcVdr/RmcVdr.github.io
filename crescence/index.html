@@ -216,11 +216,9 @@ aside.chat{border-left:1px solid var(--line);background:var(--surface);display:f
 .resa-item .r-actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.6rem;align-items:center}
 .resa-item select{border:1px solid var(--line);border-radius:9px;background:var(--surface);padding:.4rem .55rem;min-height:2.4rem}
 .empty-box{border:1px dashed var(--line);border-radius:14px;padding:1.4rem;text-align:center;color:var(--ink2)}
-/* ---------- S1 : base partagée ---------- */
+/* ---------- Dashboard propriétaire ---------- */
 .dash-gate form.login{display:flex;flex-direction:column;gap:.55rem;text-align:left}
 .dash-gate form.login input{letter-spacing:normal;text-align:left;font-size:1rem}
-.dash-gate .demo-help{background:var(--surface2);border-radius:10px;padding:.6rem .8rem;font-size:.85rem;color:var(--ink2);line-height:1.5;margin-bottom:.9rem}
-.dash-gate .demo-help b{color:var(--ink)}
 .sync-badge{display:inline-flex;align-items:center;gap:.45rem;font-size:.85rem;color:var(--ink2);border:1px solid var(--line);border-radius:999px;padding:.32rem .8rem;background:var(--surface)}
 .sync-badge .dot{width:9px;height:9px;border-radius:50%;background:var(--green2);flex:0 0 auto}
 .sync-badge.off .dot{background:var(--danger)}
@@ -249,7 +247,7 @@ nav.bottombar{display:none}
   .brand .sub{display:none}
   .brand .name{font-size:1rem}
 }
-/* ---------- S6 : page invité QR (chambre / table) ---------- */
+/* ---------- Page invité QR (chambre / table) ---------- */
 #guestPage{display:none}
 body.guest-mode{height:auto;overflow:auto;display:block}
 body.guest-mode header.topbar,body.guest-mode .layout,body.guest-mode nav.bottombar{display:none!important}
@@ -483,10 +481,9 @@ body.guest-mode .g-sticky.on{display:block}
         <div class="dash-gate" id="dashGate">
           <div class="mark" aria-hidden="true">C</div>
           <h2>Espace propriétaire</h2>
-          <p>Connectez-vous avec votre compte propriétaire. Ce dashboard travaille sur la <b>base partagée Crescence</b> : réservations, hébergements, prix et paiements sont les mêmes que ceux de la réception, en temps réel.</p>
-          <div class="demo-help">Compte propriétaire de démonstration :<br /><b>proprietaire@crescence.app</b><br />Le mot de passe n'est pas affiché sur la page publique — il est géré dans Supabase et communiqué directement au propriétaire.</div>
+          <p>Connectez-vous avec votre compte propriétaire pour piloter votre établissement : réservations, hébergements, prix et paiements, en temps réel.</p>
           <form id="gateForm" class="login">
-            <input type="email" id="gateEmail" autocomplete="username" placeholder="E-mail" aria-label="E-mail" value="proprietaire@crescence.app" />
+            <input type="email" id="gateEmail" autocomplete="username" placeholder="E-mail" aria-label="E-mail" />
             <input type="password" id="gatePass" autocomplete="current-password" placeholder="Mot de passe" aria-label="Mot de passe" />
             <button class="btn gold" type="submit" id="gateBtn">Se connecter</button>
           </form>
@@ -496,13 +493,13 @@ body.guest-mode .g-sticky.on{display:block}
         <div id="dashMain" hidden>
           <div class="dash-head">
             <h2>Dashboard propriétaire</h2>
-            <span class="sync-badge" id="syncBadge"><span class="dot"></span><span id="syncText">Base partagée</span></span>
+            <span class="sync-badge" id="syncBadge"><span class="dot"></span><span id="syncText">Synchronisé</span></span>
             <span class="sp"></span>
             <span class="dash-status" id="dashStatus" role="status"></span>
             <button class="btn ghost small" type="button" id="dashRefresh">Actualiser</button>
             <button class="btn ghost small" type="button" id="dashLogout">Déconnexion</button>
           </div>
-          <p style="margin:0;color:var(--ink2)" id="dashWho">Connecté à la base partagée Crescence : chaque modification est immédiatement visible par la réception dans son logiciel, et réciproquement — réservations du site et du chatbot comprises.</p>
+          <p style="margin:0;color:var(--ink2)" id="dashWho">Chaque modification est immédiatement visible par la réception — réservations du site et de l'assistant comprises.</p>
 
           <div class="dash-subtabs" role="group" aria-label="Sections du dashboard">
             <button type="button" data-dash="apercu" class="active">Vue d'ensemble</button>
@@ -516,14 +513,14 @@ body.guest-mode .g-sticky.on{display:block}
           <!-- APERÇU -->
           <div class="dash-sec active" id="dash-apercu">
             <div class="stat-grid">
-              <div class="stat"><div class="num" id="stRooms">–</div><div class="lbl">hébergements actifs (base)</div></div>
+              <div class="stat"><div class="num" id="stRooms">–</div><div class="lbl">hébergements actifs</div></div>
               <div class="stat"><div class="num" id="stAvg">–</div><div class="lbl">prix moyen / nuit</div></div>
               <div class="stat"><div class="num" id="stPending">–</div><div class="lbl">réservations en attente</div></div>
-              <div class="stat"><div class="num" id="stResa">–</div><div class="lbl">réservations au total (base)</div></div>
+              <div class="stat"><div class="num" id="stResa">–</div><div class="lbl">réservations au total</div></div>
               <div class="stat"><div class="num" id="stDay">–</div><div class="lbl">encaissé aujourd'hui</div></div>
               <div class="stat"><div class="num" id="stMonth">–</div><div class="lbl">encaissé ce mois-ci</div></div>
             </div>
-            <div class="dash-note">Toutes ces données viennent de la <b>base partagée</b> : onglet <b>Hébergements</b> pour les prix et l'activation des chambres, <b>Réservations</b> pour confirmer ou annuler les demandes du site, du chatbot et de la réception, <b>Paiements</b> pour l'encaissé, <b>Infos de l'hôtel</b> pour les coordonnées affichées sur le site.</div>
+            <div class="dash-note">Gérez vos hébergements et leurs prix dans l'onglet <b>Hébergements</b>, confirmez ou annulez les demandes dans <b>Réservations</b>, suivez l'encaissé dans <b>Paiements</b> et mettez à jour les coordonnées affichées sur le site dans <b>Infos de l'hôtel</b>.</div>
             <h3 class="serif" style="font-size:1.2rem;margin:.4rem 0 .7rem">Dernières réservations</h3>
             <div id="dashRecent"></div>
           </div>
@@ -533,7 +530,7 @@ body.guest-mode .g-sticky.on{display:block}
             <div class="edit-list" id="roomEditors"></div>
             <div class="add-box">
               <h3>Ajouter un hébergement</h3>
-              <p style="margin:0 0 .8rem;color:var(--ink2);font-size:.92rem">Créé directement dans la base partagée : il apparaît sur le site et à la réception dès l'enregistrement.</p>
+              <p style="margin:0 0 .8rem;color:var(--ink2);font-size:.92rem">Il apparaît sur le site et à la réception dès l'enregistrement.</p>
               <div class="f-grid">
                 <label>Nom<input type="text" id="nr-name" placeholder="Ex. Chambre Jardin" /></label>
                 <label>Type
@@ -543,7 +540,7 @@ body.guest-mode .g-sticky.on{display:block}
                 <label>Capacité (personnes)<input type="number" id="nr-cap" min="1" max="12" step="1" value="2" /></label>
                 <label class="full">Description<input type="text" id="nr-feats" placeholder="Équipements, points forts…" /></label>
               </div>
-              <div class="ec-actions"><button class="btn" type="button" id="nrAdd">Ajouter à la base</button></div>
+              <div class="ec-actions"><button class="btn" type="button" id="nrAdd">Ajouter</button></div>
             </div>
           </div>
 
@@ -560,14 +557,14 @@ body.guest-mode .g-sticky.on{display:block}
             </div>
             <div class="edit-card" style="margin-top:1rem">
               <div class="ec-head"><h3>Derniers paiements</h3></div>
-              <p style="margin:0 0 .6rem;color:var(--ink2);font-size:.92rem">Paiements enregistrés par la réception dans la base partagée ; les remboursements sont déduits des totaux.</p>
+              <p style="margin:0 0 .6rem;color:var(--ink2);font-size:.92rem">Paiements enregistrés par la réception ; les remboursements sont déduits des totaux.</p>
               <div id="payList"></div>
             </div>
           </div>
 
           <!-- CARTE & SERVICES -->
           <div class="dash-sec" id="dash-carte">
-            <div class="dash-note">La carte et les services <b>ne sont pas encore dans la base partagée</b> : vous pouvez toujours les modifier ici, mais ces changements s'appliquent au contenu du site affiché et ne sont pas encore synchronisés avec la réception. Leur passage dans la base est prévu dans un lot ultérieur — les hébergements, réservations, paiements et infos de l'hôtel, eux, sont déjà synchronisés.</div>
+            <div class="dash-note">La carte et les services ci-dessous s'appliquent au contenu du site, avec effet immédiat. Les hébergements, réservations, paiements et infos de l'hôtel sont, eux, synchronisés avec la réception en temps réel.</div>
             <h3 class="serif" style="font-size:1.2rem;margin:.4rem 0 .7rem">Carte du restaurant</h3>
             <div class="edit-list" id="menuEditors"></div>
             <div class="add-box">
@@ -598,8 +595,8 @@ body.guest-mode .g-sticky.on{display:block}
           <div class="dash-sec" id="dash-infos">
             <form id="infoForm">
               <div class="edit-card">
-                <div class="ec-head"><h3>Établissement &amp; contacts — base partagée</h3></div>
-                <p style="margin:0 0 .9rem;color:var(--ink2);line-height:1.55">Ces informations sont enregistrées dans la base et affichées sur le site public : un changement ici met à jour le site et ce que voit la réception.</p>
+                <div class="ec-head"><h3>Établissement &amp; contacts</h3></div>
+                <p style="margin:0 0 .9rem;color:var(--ink2);line-height:1.55">Ces informations sont affichées sur le site public : un changement ici met à jour le site et ce que voit la réception.</p>
                 <div class="f-grid">
                   <label>Nom de l'établissement<input type="text" id="inf-name" /></label>
                   <label>Devise<input type="text" id="inf-devise" /></label>
@@ -610,13 +607,13 @@ body.guest-mode .g-sticky.on{display:block}
                 </div>
               </div>
               <div class="ec-actions" style="margin-top:1rem">
-                <button class="btn gold" type="submit">Enregistrer dans la base</button>
+                <button class="btn gold" type="submit">Enregistrer</button>
               </div>
             </form>
             <form id="siteForm" style="margin-top:1rem">
               <div class="edit-card">
                 <div class="ec-head"><h3>Contenu du site — textes, horaires &amp; options</h3></div>
-                <p style="margin:0 0 .9rem;color:var(--ink2);line-height:1.55">Ces éléments ne sont <b>pas encore dans la base partagée</b> : ils restent modifiables ici et s'appliquent au site affiché, sans synchronisation avec la réception pour l'instant.</p>
+                <p style="margin:0 0 .9rem;color:var(--ink2);line-height:1.55">Ces textes, tarifs d'options et horaires s'appliquent au site affiché.</p>
                 <div class="f-grid">
                   <label class="full">Titre de la page d'accueil<input type="text" id="inf-heroTitle" /></label>
                   <label class="full">Texte de présentation<textarea id="inf-heroSub"></textarea></label>
@@ -642,7 +639,7 @@ body.guest-mode .g-sticky.on{display:block}
 
           <!-- RÉSERVATIONS -->
           <div class="dash-sec" id="dash-reservations">
-            <p style="margin:.1rem 0 1rem;color:var(--ink2)">Toutes les réservations de la base partagée, quelle que soit leur source — site, chatbot ou réception. Confirmez les demandes en attente ou annulez : la réception voit le changement aussitôt.</p>
+            <p style="margin:.1rem 0 1rem;color:var(--ink2)">Toutes vos réservations, quelle que soit leur source — site, assistant ou réception. Confirmez les demandes en attente ou annulez : la réception voit le changement aussitôt.</p>
             <div id="resaList"></div>
           </div>
 
@@ -670,11 +667,11 @@ body.guest-mode .g-sticky.on{display:block}
       <input type="text" id="chatInput" placeholder="Écrivez votre question…" autocomplete="off" aria-label="Votre message" />
       <button type="submit" aria-label="Envoyer">➤</button>
     </form>
-    <div class="chat-note">Assistant de démonstration — la réception confirme chaque réservation.</div>
+    <div class="chat-note">La réception confirme chaque réservation.</div>
   </aside>
 </div>
 
-<!-- S6 : PAGE INVITÉ QR (visible uniquement avec ?chambre=… ou ?table=…) -->
+<!-- PAGE INVITÉ QR (visible uniquement avec ?chambre=… ou ?table=…) -->
 <main id="guestPage" aria-label="Service en chambre">
   <div class="g-wrap">
     <div class="g-state" id="gLoading">
@@ -777,7 +774,7 @@ body.guest-mode .g-sticky.on{display:block}
 </nav>
 <script>
 "use strict";
-/* ============ Données de l'établissement (à mettre à jour avec le client) ============ */
+/* ============ Données de l'établissement ============ */
 var HOTEL = {
   name: "Crescence Hôtel et Appartement",
   address: "12, Avenue de l'Indépendance",
@@ -849,7 +846,7 @@ var SERVICES = [
 ];
 var BOOKINGS = [];
 var DEFAULT_STATE = JSON.stringify({ HOTEL:HOTEL, ROOMS:ROOMS, MENU:MENU, SERVICES:SERVICES });
-/* ============ Base partagée Supabase (Lot S1) ============ */
+/* ============ Connexion Supabase ============ */
 var SB_URL = "https://hzpxfiulxuhkrquelsno.supabase.co";
 var SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh6cHhmaXVseHVoa3JxdWVsc25vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQzMTM1MzAsImV4cCI6MjEwOTg4OTUzMH0.o9m8xr81MfL8hoWsaZ2tjL81hSxr-MSjtu6DupnZlyI";
 var sbHotelId = null;
@@ -941,7 +938,7 @@ function loadPublicData(){
 }
 function isoDate(d){ return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
 function sbInsertReservation(payload){
-  /* return=minimal OBLIGATOIRE : la politique de sécurité refuse la relecture publique */
+  /* return=minimal : l'insertion publique ne relit pas la ligne créée */
   return sbFetch("/rest/v1/reservations", { method: "POST", prefer: "return=minimal", body: payload });
 }
 
@@ -1147,7 +1144,7 @@ function finishBooking(){
   function onFail(){
     typing.remove();
     if (booking) booking.step = "send_failed";
-    botSay("L'envoi à la réception n'a pas abouti (connexion à la base impossible pour le moment) — votre demande n'a donc PAS été enregistrée, et je préfère vous le dire plutôt que vous donner un faux numéro.\n\nVous pouvez dire « réessayer » pour retenter l'envoi, « annuler » pour abandonner, ou appeler directement la réception au " + HOTEL.phone + ".", 300);
+    botSay("L'envoi à la réception n'a pas abouti (connexion impossible pour le moment) — votre demande n'a donc PAS été enregistrée, et je préfère vous le dire plutôt que vous donner un faux numéro.\n\nVous pouvez dire « réessayer » pour retenter l'envoi, « annuler » pour abandonner, ou appeler directement la réception au " + HOTEL.phone + ".", 300);
   }
   if (!payload.hotel_id || !payload.hebergement_id){ onFail(); return; }
   sbInsertReservation(payload).then(function(){
@@ -1339,7 +1336,7 @@ document.getElementById("contactForm").addEventListener("submit", function(e){
     statusEl.textContent = "✅ Demande envoyée à la réception — code " + code + ". L'hôtel confirmera votre réservation au " + phone + ".";
     if (dashUnlocked) loadDashData();
   }).catch(function(){
-    statusEl.textContent = "L'envoi direct n'a pas abouti (base injoignable). Votre message est préparé ci-dessous : copiez-le ou envoyez-le par e-mail à " + HOTEL.email + ".";
+    statusEl.textContent = "L'envoi direct n'a pas abouti (connexion interrompue). Votre message est préparé ci-dessous : copiez-le ou envoyez-le par e-mail à " + HOTEL.email + ".";
   });
 });
 document.getElementById("cfCopy").addEventListener("click", function(){
@@ -1355,7 +1352,7 @@ document.getElementById("cfCopy").addEventListener("click", function(){
   document.getElementById("qb-out").value = iso(outD);
 })();
 
-/* ============ Dashboard propriétaire — base partagée (Lot S1) ============ */
+/* ============ Dashboard propriétaire ============ */
 var dashUnlocked = false;
 function dashStatus(msg){
   var el = document.getElementById("dashStatus");
@@ -1366,7 +1363,7 @@ function dashStatus(msg){
 function setSync(ok, label){
   var b = document.getElementById("syncBadge"); if (!b) return;
   b.classList.toggle("off", !ok);
-  document.getElementById("syncText").textContent = label || (ok ? "Base partagée • synchronisé" : "Base injoignable");
+  document.getElementById("syncText").textContent = label || (ok ? "Synchronisé" : "Connexion interrompue");
 }
 function selOpts(opts, val){
   return opts.map(function(o){ return '<option value="' + escHTML(o[0]) + '"' + (String(o[0]) === String(val) ? " selected" : "") + '>' + escHTML(o[1]) + '</option>'; }).join("");
@@ -1392,13 +1389,13 @@ document.getElementById("gateForm").addEventListener("submit", function(e){
       var p = profils && profils[0];
       if (!p || p.role !== "proprietaire"){
         sbSession = null;
-        throw new Error("Ce compte n'a pas le rôle « proprietaire » — accès au dashboard refusé. Connectez-vous avec le compte propriétaire.");
+        throw new Error("Ce compte n'a pas accès à l'espace propriétaire. Connectez-vous avec le compte propriétaire de l'établissement.");
       }
       sbSession.role = p.role;
       dashUnlocked = true;
       document.getElementById("dashGate").hidden = true;
       document.getElementById("dashMain").hidden = false;
-      document.getElementById("dashWho").textContent = "Connecté : " + email + " — rôle Propriétaire. Base partagée Crescence : chaque modification est immédiatement visible par la réception dans son logiciel, et réciproquement — réservations du site et du chatbot comprises.";
+      document.getElementById("dashWho").textContent = "Connecté : " + email + " (propriétaire). Chaque modification est immédiatement visible par la réception — réservations du site et de l'assistant comprises.";
       btn.disabled = false; btn.textContent = "Se connecter";
       document.getElementById("gatePass").value = "";
       loadDashData();
@@ -1414,7 +1411,7 @@ document.getElementById("dashLogout").addEventListener("click", function(){
   document.getElementById("dashMain").hidden = true;
   document.getElementById("dashGate").hidden = false;
 });
-document.getElementById("dashRefresh").addEventListener("click", function(){ loadDashData(); dashStatus("Données rechargées depuis la base ✓"); });
+document.getElementById("dashRefresh").addEventListener("click", function(){ loadDashData(); dashStatus("Données actualisées ✓"); });
 document.querySelectorAll("[data-dash]").forEach(function(b){
   b.addEventListener("click", function(){
     document.querySelectorAll("[data-dash]").forEach(function(x){ x.classList.remove("active"); });
@@ -1441,10 +1438,10 @@ function loadDashData(){
     if (rs[3] && rs[3][0]) applyDbHotel(rs[3][0]);
     var actifs = ROOMS_DB_ALL.filter(function(r){ return r.actif !== false; });
     if (actifs.length) ROOMS = actifs.map(mapDbRoom);
-    setSync(true, "Base partagée • synchronisé à " + new Date().toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }));
+    setSync(true, "Synchronisé à " + new Date().toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }));
     renderAll();
   }).catch(function(err){
-    setSync(false, "Base injoignable");
+    setSync(false);
     dashStatus(err.message || "Erreur de synchronisation");
   });
 }
@@ -1518,7 +1515,7 @@ function renderDashboard(){
   document.getElementById("stMonth").textContent = moneyFmt(sums.month);
   document.getElementById("dashRecent").innerHTML = RESAS_DB.length
     ? RESAS_DB.slice(0, 3).map(function(bk){ return resaHTMLdb(bk, true); }).join("")
-    : '<div class="empty-box">Aucune réservation dans la base pour le moment. Les demandes du site et du chatbot apparaîtront ici.</div>';
+    : '<div class="empty-box">Aucune réservation pour le moment. Les demandes du site et de l\'assistant apparaîtront ici.</div>';
   /* Hébergements (lignes brutes de la base) */
   document.getElementById("roomEditors").innerHTML = ROOMS_DB_ALL.map(function(r){
     var types = ["Chambre", "Suite", "Appartement"]; if (types.indexOf(r.type) < 0) types.push(r.type);
@@ -1535,13 +1532,13 @@ function renderDashboard(){
       + '<label>Statut manuel<select class="f-statut">' + selOpts(statuts.map(function(t){ return [t, t]; }), r.statut_manu || "libre") + '</select></label>'
       + '<label>Affichage sur le site<select class="f-actif">' + selOpts([["oui", "Actif — visible et réservable"], ["non", "Masqué du site"]], r.actif !== false ? "oui" : "non") + '</select></label>'
       + '<label class="full">Description<textarea class="f-desc">' + escHTML(r.description || "") + '</textarea></label>'
-      + '</div><div class="ec-actions"><button class="btn small" type="button" data-roomdb-save="' + r.id + '">Enregistrer dans la base</button>'
+      + '</div><div class="ec-actions"><button class="btn small" type="button" data-roomdb-save="' + r.id + '">Enregistrer</button>'
       + '<button class="btn danger small" type="button" data-roomdb-del="' + r.id + '">Supprimer</button></div></div>';
-  }).join("") || '<div class="empty-box">Aucun hébergement dans la base.</div>';
+  }).join("") || '<div class="empty-box">Aucun hébergement pour le moment.</div>';
   /* Réservations */
   document.getElementById("resaList").innerHTML = RESAS_DB.length
     ? RESAS_DB.map(function(bk){ return resaHTMLdb(bk, false); }).join("")
-    : '<div class="empty-box">Aucune réservation dans la base pour le moment.</div>';
+    : '<div class="empty-box">Aucune réservation pour le moment.</div>';
   /* Paiements */
   document.getElementById("payDay").textContent = moneyFmt(sums.day);
   document.getElementById("payMonth").textContent = moneyFmt(sums.month);
@@ -1556,7 +1553,7 @@ function renderDashboard(){
         return '<div class="pay-row"><span>' + escHTML(fmtDbDate(p.date)) + '</span><span>' + escHTML(p.type || "Paiement") + (code ? ' · résa ' + escHTML(code) : '') + '</span><span style="color:var(--ink2)">' + escHTML(p.moyen || "") + '</span><span class="amt' + (s < 0 ? ' neg' : '') + '">' + moneyFmt(s) + '</span></div>';
       }).join("")
     : '<p class="menu-empty">Aucun paiement enregistré pour le moment — la réception les saisit dans son logiciel, ils apparaîtront ici.</p>';
-  /* Carte & services (contenu du site — pas encore dans la base partagée) */
+  /* Carte & services (contenu du site) */
   document.getElementById("menuEditors").innerHTML = MENU.map(function(m){
     return '<div class="edit-card" data-menu="' + m.id + '"><div class="ec-head"><h3>' + escHTML(m.name) + '</h3>'
       + '<span class="pill' + (m.avail ? "" : " off") + '">' + escHTML(m.cat) + (m.avail ? "" : " · retiré") + '</span>'
@@ -1601,7 +1598,7 @@ function bindDashButtons(){
       if (!body.nom){ dashStatus("Le nom de l'hébergement ne peut pas être vide."); return; }
       b.disabled = true;
       sbFetch("/rest/v1/hebergements?id=eq." + id, { auth: true, method: "PATCH", prefer: "return=minimal", body: body })
-        .then(function(){ dashStatus("« " + body.nom + " » enregistré dans la base — site et réception à jour ✓"); return loadDashData(); })
+        .then(function(){ dashStatus("« " + body.nom + " » enregistré — site et réception à jour ✓"); return loadDashData(); })
         .catch(function(err){ dashStatus("Échec de l'enregistrement : " + err.message); })
         .then(function(){ b.disabled = false; });
     });
@@ -1611,7 +1608,7 @@ function bindDashButtons(){
       var id = b.getAttribute("data-roomdb-del");
       if (!b.dataset.armed){ b.dataset.armed = "1"; b.textContent = "Confirmer la suppression ?"; setTimeout(function(){ b.dataset.armed = ""; b.textContent = "Supprimer"; }, 3500); return; }
       sbFetch("/rest/v1/hebergements?id=eq." + id, { auth: true, method: "DELETE", prefer: "return=minimal" })
-        .then(function(){ dashStatus("Hébergement supprimé de la base ✓"); return loadDashData(); })
+        .then(function(){ dashStatus("Hébergement supprimé ✓"); return loadDashData(); })
         .catch(function(err){ dashStatus("Suppression refusée : " + err.message); });
     });
   });
@@ -1625,7 +1622,7 @@ function bindDashButtons(){
   document.querySelectorAll("[data-resa-cancel]").forEach(function(b){
     b.addEventListener("click", function(){
       sbFetch("/rest/v1/reservations?id=eq." + b.getAttribute("data-resa-cancel"), { auth: true, method: "PATCH", prefer: "return=minimal", body: { statut: "annulee" } })
-        .then(function(){ dashStatus("Réservation annulée dans la base ✓"); return loadDashData(); })
+        .then(function(){ dashStatus("Réservation annulée ✓"); return loadDashData(); })
         .catch(function(err){ dashStatus("Échec : " + err.message); });
     });
   });
@@ -1637,7 +1634,7 @@ function bindDashButtons(){
       m.price = Math.max(0, parseFloat(card.querySelector(".f-price").value) || 0);
       m.avail = card.querySelector(".f-avail").value === "oui";
       m.desc = card.querySelector(".f-desc").value.trim();
-      renderAll(); dashStatus("Carte du site mise à jour : « " + m.name + " » ✓ (contenu du site, pas encore synchronisé)");
+      renderAll(); dashStatus("Carte mise à jour : « " + m.name + " » ✓");
     });
   });
   document.querySelectorAll("[data-menu-del]").forEach(function(b){
@@ -1654,7 +1651,7 @@ function bindDashButtons(){
       s.ic = card.querySelector(".f-ic").value.trim() || s.ic;
       s.visible = card.querySelector(".f-visible").value === "oui";
       s.desc = card.querySelector(".f-desc").value.trim();
-      renderAll(); dashStatus("Service « " + s.name + " » mis à jour sur le site ✓ (contenu du site, pas encore synchronisé)");
+      renderAll(); dashStatus("Service « " + s.name + " » mis à jour ✓");
     });
   });
   document.querySelectorAll("[data-svc-del]").forEach(function(b){
@@ -1678,7 +1675,7 @@ document.getElementById("nrAdd").addEventListener("click", function(){
     description: document.getElementById("nr-feats").value.trim(), ordre: maxOrdre + 1, actif: true, statut_manu: "libre"
   } }).then(function(){
     document.getElementById("nr-name").value = ""; document.getElementById("nr-price").value = ""; document.getElementById("nr-monthly").value = ""; document.getElementById("nr-feats").value = "";
-    dashStatus("« " + name + " » créé dans la base — visible sur le site et à la réception ✓");
+    dashStatus("« " + name + " » créé — visible sur le site et à la réception ✓");
     return loadDashData();
   }).catch(function(err){ dashStatus("Création refusée : " + err.message); });
 });
@@ -1693,7 +1690,7 @@ function fillInfoForm(){
 }
 document.getElementById("infoForm").addEventListener("submit", function(e){
   e.preventDefault();
-  if (!sbHotelId){ dashStatus("Hôtel introuvable dans la base."); return; }
+  if (!sbHotelId){ dashStatus("Établissement introuvable."); return; }
   var body = {
     nom: document.getElementById("inf-name").value.trim(),
     devise: document.getElementById("inf-devise").value.trim() || "$",
@@ -1753,12 +1750,12 @@ document.getElementById("siteForm").addEventListener("submit", function(e){
   HOTEL.hours.dinner = document.getElementById("inf-hDinner").value.trim();
   HOTEL.hours.bar = document.getElementById("inf-hBar").value.trim();
   HOTEL.hours.room = document.getElementById("inf-hRoom").value.trim();
-  renderAll(); dashStatus("Contenu du site mis à jour ✓ (pas encore dans la base partagée)");
+  renderAll(); dashStatus("Contenu du site mis à jour ✓");
 });
 renderAll();
 loadPublicData();
 
-/* ============ S6 : mode invité QR (chambre / table) ============ */
+/* ============ Mode invité QR (chambre / table) ============ */
 (function(){
   var qs = new URLSearchParams(window.location.search);
   var chambreId = qs.get("chambre"), tableId = qs.get("table");
@@ -1861,7 +1858,7 @@ loadPublicData();
     $("gStickyCount").textContent = n ? (n + " article" + (n > 1 ? "s" : "") + " dans le panier") : "Panier vide";
   }
 
-  /* --- Chargement : hôtel, chambre/table, articles (base partagée) --- */
+  /* --- Chargement : hôtel, chambre/table, articles --- */
   var placeReq = isRoom
     ? sbFetch("/rest/v1/hebergements?id=eq." + encodeURIComponent(placeId) + "&select=*")
     : sbFetch("/rest/v1/tables_resto?id=eq." + encodeURIComponent(placeId) + "&select=*");
