@@ -1,0 +1,761 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Gestion Hôtel Crescence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#F7F3E6; --bg2:#F1EAD3; --surface:#FFFDF4; --surface2:#FBF7EA;
+  --ink:#2E2A24; --ink2:#6B6252; --line:#E3D9BE;
+  --teal:#256D66; --teal-d:#1B524C; --teal-soft:#DCEBE4;
+  --wood:#C07F3E; --wood-d:#9A652C; --wood-soft:#F3E3CC;
+  --red:#B3402E; --red-soft:#F6DCD4;
+  --amber:#A86E14; --amber-soft:#F5E7C3;
+  --green:#2E7D4F; --green-soft:#DDEEDD;
+  --shadow:0 2px 10px rgba(62,48,20,.08),0 10px 30px rgba(62,48,20,.06);
+  --r-lg:18px; --r-md:13px; --r-sm:9px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#211D15; --bg2:#282219; --surface:#2E291D; --surface2:#272217;
+    --ink:#F2ECDC; --ink2:#B9AE94; --line:#453D2B;
+    --teal:#4FB3A6; --teal-d:#7CCFC2; --teal-soft:#23423C;
+    --wood:#D69A58; --wood-d:#E4B57E; --wood-soft:#42331D;
+    --red:#E08A76; --red-soft:#472A22;
+    --amber:#E3B95C; --amber-soft:#453A1E;
+    --green:#7CC48F; --green-soft:#263D2A;
+    --shadow:0 2px 10px rgba(0,0,0,.35),0 10px 30px rgba(0,0,0,.3);
+  }
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:"Manrope",system-ui,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+h1,h2,h3,.serif{font-family:"Lora",Georgia,serif}
+button,[role="button"],select,input,textarea{font-family:inherit}
+button,select,input:not([type="checkbox"]){min-height:44px}
+a{color:var(--teal)}
+.wrap{max-width:1060px;margin:0 auto;padding:0 16px 110px}
+@media(min-width:860px){.wrap{padding-bottom:40px}}
+
+/* ---------- Accès ---------- */
+#lock{min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(120% 90% at 50% 0%,var(--bg2),var(--bg))}
+.lock-card{width:100%;max-width:380px;background:var(--surface);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:30px 26px 26px;text-align:center}
+.lock-mark{width:58px;height:58px;margin:0 auto 14px;border-radius:16px;background:var(--teal);color:#FFF9E8;display:flex;align-items:center;justify-content:center;font-family:"Lora",serif;font-size:30px;font-weight:700}
+.lock-card h1{font-size:23px;margin:0 0 4px}
+.lock-card p{color:var(--ink2);font-size:14px;margin:0 0 20px;line-height:1.5}
+.pin-row{display:flex;gap:10px;justify-content:center;margin-bottom:14px}
+.pin-row input{width:52px;height:58px;text-align:center;font-size:24px;font-weight:800;border:2px solid var(--line);border-radius:14px;background:var(--surface2);color:var(--ink)}
+.pin-row input:focus{outline:none;border-color:var(--teal)}
+.demo-chip{display:inline-block;background:var(--wood-soft);color:var(--wood-d);font-weight:700;font-size:13px;padding:7px 14px;border-radius:999px;margin-bottom:18px}
+.lock-err{color:var(--red);font-size:13.5px;font-weight:700;min-height:20px;margin:6px 0 10px}
+
+/* ---------- Boutons / champs ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;cursor:pointer;border-radius:12px;padding:10px 18px;font-size:15px;font-weight:700;transition:transform .06s ease,background .15s}
+.btn:active{transform:scale(.98)}
+.btn-teal{background:var(--teal);color:#FFF9E8}
+.btn-teal:hover{background:var(--teal-d)}
+.btn-wood{background:var(--wood);color:#FFF9E8}
+.btn-ghost{background:transparent;color:var(--teal);border:1.5px solid var(--teal)}
+.btn-soft{background:var(--surface2);color:var(--ink);border:1.5px solid var(--line)}
+.btn-danger{background:transparent;color:var(--red);border:1.5px solid var(--red)}
+.btn-sm{min-height:38px;padding:6px 13px;font-size:13.5px;border-radius:10px}
+.btn-block{width:100%}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:13px;font-weight:700;color:var(--ink2);margin-bottom:6px;letter-spacing:.02em}
+.field input,.field select,.field textarea{width:100%;border:1.5px solid var(--line);border-radius:11px;background:var(--surface);color:var(--ink);padding:10px 12px;font-size:15.5px}
+.field textarea{min-height:48px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--teal)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+@media(max-width:350px){.grid2{grid-template-columns:1fr}}
+
+/* ---------- App ---------- */
+#app{display:none}
+.topbar{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:1060px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:12px}
+.brand{display:flex;align-items:center;gap:11px;min-width:0}
+.brand-mark{width:40px;height:40px;border-radius:11px;background:var(--teal);color:#FFF9E8;display:flex;align-items:center;justify-content:center;font-family:"Lora",serif;font-size:21px;font-weight:700;flex:none}
+.brand b{font-family:"Lora",serif;font-size:17.5px;display:block;line-height:1.15;white-space:nowrap}
+.brand span{font-size:12px;color:var(--ink2);display:block;white-space:nowrap}
+.top-actions{margin-left:auto;display:flex;gap:8px;align-items:center}
+.date-line{font-size:13px;color:var(--ink2);font-weight:600}
+@media(max-width:560px){.date-line{display:none}}
+.desk-nav{display:none;gap:4px;margin-left:18px}
+@media(min-width:860px){.desk-nav{display:flex}}
+.desk-nav button{background:none;border:none;cursor:pointer;font-size:14.5px;font-weight:700;color:var(--ink2);padding:9px 13px;border-radius:10px;min-height:40px}
+.desk-nav button.on{background:var(--teal);color:#FFF9E8}
+
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--surface);border-top:1px solid var(--line);display:flex;padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
+@media(min-width:860px){.tabbar{display:none}}
+.tabbar button{flex:1;background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 2px;border-radius:11px;color:var(--ink2);font-size:10.5px;font-weight:700;min-height:52px}
+.tabbar button svg{width:21px;height:21px}
+.tabbar button.on{color:var(--teal);background:var(--teal-soft)}
+
+.page-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:22px 0 14px;flex-wrap:wrap}
+.page-head h2{font-size:26px;margin:0}
+.page-head .sub{color:var(--ink2);font-size:14px;margin-top:3px}
+
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:18px}
+@media(min-width:700px){.stats{grid-template-columns:repeat(5,1fr)}}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:15px 16px;box-shadow:var(--shadow)}
+.stat .n{font-family:"Lora",serif;font-size:31px;font-weight:700;line-height:1}
+.stat .n.teal{color:var(--teal)}.stat .n.wood{color:var(--wood)}
+.stat .l{font-size:13px;color:var(--ink2);font-weight:600;margin-top:5px}
+
+/* Cartes */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:16px;box-shadow:var(--shadow);margin-bottom:12px}
+.card h3{margin:0 0 2px;font-size:17.5px}
+.card .meta{color:var(--ink2);font-size:13.5px;line-height:1.55}
+.card-row{display:flex;align-items:flex-start;gap:12px}
+.card-row .grow{flex:1;min-width:0}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+.sec-title{font-size:19px;margin:24px 0 11px}
+.empty{background:var(--surface2);border:1.5px dashed var(--line);border-radius:var(--r-lg);padding:22px;text-align:center;color:var(--ink2);font-size:14.5px;line-height:1.6}
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:800;padding:5px 11px;border-radius:999px;white-space:nowrap}
+.badge::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.b-libre{background:var(--green-soft);color:var(--green)}
+.b-occupee{background:var(--red-soft);color:var(--red)}
+.b-menage{background:var(--amber-soft);color:var(--amber)}
+.b-maintenance{background:var(--wood-soft);color:var(--wood-d)}
+.b-attente{background:var(--amber-soft);color:var(--amber)}
+.b-confirmee{background:var(--teal-soft);color:var(--teal)}
+.b-arrivee{background:var(--red-soft);color:var(--red)}
+.b-terminee{background:var(--surface2);color:var(--ink2);border:1px solid var(--line)}
+.b-annulee{background:var(--surface2);color:var(--ink2);border:1px solid var(--line);text-decoration:line-through}
+.money{font-weight:800}
+.money.due{color:var(--red)}
+.money.ok{color:var(--green)}
+.kv{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px;font-size:13.5px;color:var(--ink2)}
+.kv b{color:var(--ink)}
+
+/* Filtres */
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.chip{border:1.5px solid var(--line);background:var(--surface);color:var(--ink2);border-radius:999px;padding:8px 15px;font-size:13.5px;font-weight:700;cursor:pointer;min-height:38px}
+.chip.on{background:var(--teal);border-color:var(--teal);color:#FFF9E8}
+.searchbar{margin-bottom:14px}
+.searchbar input{width:100%;border:1.5px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);padding:11px 14px;font-size:15.5px}
+.searchbar input:focus{outline:none;border-color:var(--teal)}
+
+/* Caisse */
+.day-nav{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.day-nav .day-label{font-family:"Lora",serif;font-size:18px;font-weight:600;text-transform:capitalize}
+.pay-row{display:flex;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.pay-row:last-child{border-bottom:none}
+.pay-row .who{color:var(--ink2);font-size:13px}
+.method-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+@media(min-width:700px){.method-grid{grid-template-columns:repeat(4,1fr)}}
+.method-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:13px 15px;box-shadow:var(--shadow)}
+.method-card .m{font-size:12.5px;color:var(--ink2);font-weight:700}
+.method-card .v{font-family:"Lora",serif;font-size:21px;font-weight:700;margin-top:3px}
+
+/* Modale */
+.overlay{position:fixed;inset:0;z-index:60;background:rgba(30,24,12,.55);display:none;align-items:flex-end;justify-content:center}
+.overlay.open{display:flex}
+@media(min-width:700px){.overlay{align-items:center;padding:20px}}
+.sheet{background:var(--bg);width:100%;max-width:560px;max-height:92dvh;overflow-y:auto;border-radius:22px 22px 0 0;padding:22px 20px calc(22px + env(safe-area-inset-bottom))}
+@media(min-width:700px){.sheet{border-radius:22px}}
+.sheet h3{font-size:21px;margin:0 0 4px}
+.sheet .sub{color:var(--ink2);font-size:14px;margin-bottom:16px}
+.sticky-actions{position:sticky;bottom:-22px;background:var(--bg);padding:12px 0 2px;margin:16px -4px -8px;border-top:1px solid var(--line);z-index:2}
+.total-box{background:var(--teal-soft);border-radius:var(--r-md);padding:13px 15px;font-size:14.5px;line-height:1.7;margin-bottom:14px}
+.total-box b{font-size:17px}
+
+/* Facture */
+.invoice{background:#fff;color:#22201B;border-radius:14px;padding:26px 24px;font-size:14px;line-height:1.6}
+.invoice h3{font-size:21px;margin:0}
+.invoice .inv-head{display:flex;justify-content:space-between;gap:14px;border-bottom:2.5px solid #256D66;padding-bottom:14px;margin-bottom:14px;flex-wrap:wrap}
+.invoice table{width:100%;border-collapse:collapse;margin:12px 0}
+.invoice td,.invoice th{padding:7px 4px;border-bottom:1px solid #E7E0CC;text-align:left}
+.invoice td.r,.invoice th.r{text-align:right}
+.invoice .inv-total{font-size:17px;font-weight:800;color:#256D66}
+.invoice .small{color:#6B6252;font-size:12.5px}
+
+#toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:12px 20px;border-radius:12px;font-size:14.5px;font-weight:700;opacity:0;pointer-events:none;transition:.25s;z-index:80;max-width:88vw;text-align:center}
+@media(min-width:860px){#toast{bottom:28px}}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.note{font-size:13.5px;color:var(--ink2);line-height:1.6}
+.file-btn{position:relative;overflow:hidden}
+.file-btn input{position:absolute;inset:0;opacity:0;cursor:pointer}
+#printArea{display:none}
+@media print{
+  body>*{display:none !important}
+  #printArea{display:block !important}
+  #printArea .invoice{border-radius:0;padding:8px}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= ACCÈS ================= -->
+<div id="lock">
+  <div class="lock-card">
+    <div class="lock-mark">C</div>
+    <h1>Gestion Hôtel Crescence</h1>
+    <p>Logiciel de réception — hébergements, réservations, caisse et clients. Entrez le code d'accès réception pour continuer.</p>
+    <div class="demo-chip">Code démo : 1234</div>
+    <div class="pin-row" id="pinRow">
+      <input inputmode="numeric" maxlength="1" aria-label="Chiffre 1" />
+      <input inputmode="numeric" maxlength="1" aria-label="Chiffre 2" />
+      <input inputmode="numeric" maxlength="1" aria-label="Chiffre 3" />
+      <input inputmode="numeric" maxlength="1" aria-label="Chiffre 4" />
+    </div>
+    <div class="lock-err" id="lockErr"></div>
+    <button class="btn btn-teal btn-block" id="unlockBtn">Entrer dans le logiciel</button>
+  </div>
+</div>
+
+<!-- ================= APP ================= -->
+<div id="app">
+  <header class="topbar">
+    <div class="topbar-in">
+      <div class="brand">
+        <div class="brand-mark">C</div>
+        <div><b>Crescence — Gestion hôtel</b><span>Réception · Bujumbura</span></div>
+      </div>
+      <nav class="desk-nav" id="deskNav"></nav>
+      <div class="top-actions">
+        <span class="date-line" id="todayLine"></span>
+        <button class="btn btn-soft btn-sm" id="lockBtn">Verrouiller</button>
+      </div>
+    </div>
+  </header>
+  <main class="wrap" id="view"></main>
+  <nav class="tabbar" id="tabbar"></nav>
+</div>
+
+<!-- Modale générique -->
+<div class="overlay" id="overlay"><div class="sheet" id="sheet"></div></div>
+<div id="toast"></div>
+<div id="printArea"></div>
+
+<script>
+"use strict";
+/* =============== Données =============== */
+var LS_KEY = "crescence_hotel_v2";
+var ACCESS_CODE = "1234";
+var METHODS = ["Espèces","Mobile Money","Carte","Virement"];
+var ROOM_STATUS = ["Libre","Occupée","Ménage","Maintenance"];
+var RES_STATUS = ["En attente","Confirmée","Arrivée","Terminée","Annulée"];
+
+var seedRooms = [
+  {id:"r1", name:"Chambre Classique", type:"Chambre", capacity:2, priceNight:45, priceMonth:900, status:"Libre"},
+  {id:"r2", name:"Chambre Deluxe", type:"Chambre", capacity:2, priceNight:75, priceMonth:1500, status:"Libre"},
+  {id:"r3", name:"Suite", type:"Suite", capacity:3, priceNight:130, priceMonth:2600, status:"Libre"},
+  {id:"r4", name:"Appartement 1 chambre", type:"Appartement", capacity:3, priceNight:95, priceMonth:1900, status:"Libre"},
+  {id:"r5", name:"Appartement familial", type:"Appartement", capacity:5, priceNight:150, priceMonth:3000, status:"Libre"}
+];
+
+var memoryFallback = null;
+var store = loadStore();
+
+function loadStore(){
+  try{
+    var raw = localStorage.getItem(LS_KEY);
+    if(raw){ var p = JSON.parse(raw); if(p && p.rooms && p.reservations && p.payments) return p; }
+  }catch(e){ if(memoryFallback) return memoryFallback; }
+  return { rooms: JSON.parse(JSON.stringify(seedRooms)), reservations: [], payments: [] };
+}
+function saveStore(){
+  try{ localStorage.setItem(LS_KEY, JSON.stringify(store)); }
+  catch(e){ memoryFallback = store; }
+}
+
+/* =============== État UI =============== */
+var ui = {
+  tab: "today",
+  resFilter: "all",
+  search: "",
+  caisseDate: todayStr(),
+  clientSearch: ""
+};
+
+/* =============== Helpers =============== */
+function $(s, el){ return (el||document).querySelector(s); }
+function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+function pad(n){ return (n<10?"0":"")+n; }
+function todayStr(){ var d=new Date(); return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate()); }
+function addDays(str, n){ var d = parseD(str); d.setDate(d.getDate()+n); return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate()); }
+function parseD(str){ var p = String(str).split("-"); return new Date(+p[0], (+p[1])-1, +p[2]); }
+function fmtDate(str){ if(!str) return "—"; return parseD(str).toLocaleDateString("fr-FR",{weekday:"short", day:"numeric", month:"short", year:"numeric"}); }
+function fmtDateLong(str){ return parseD(str).toLocaleDateString("fr-FR",{weekday:"long", day:"numeric", month:"long", year:"numeric"}); }
+function fmt$(n){ n = Math.round((+n||0)*100)/100; return (n % 1 === 0 ? n.toLocaleString("fr-FR") : n.toLocaleString("fr-FR",{minimumFractionDigits:2, maximumFractionDigits:2})) + " $"; }
+function uid(p){ return p + Date.now().toString(36) + Math.floor(Math.random()*999).toString(36); }
+function nightsOf(r){ var n = Math.round((parseD(r.checkOut) - parseD(r.checkIn)) / 86400000); return n > 0 ? n : 0; }
+function resTotal(r){ return nightsOf(r) * (+r.priceNight||0); }
+function resPaid(r){ var s=0; store.payments.forEach(function(p){ if(p.resId===r.id) s += +p.amount||0; }); return s; }
+function resDue(r){ return Math.max(0, resTotal(r) - resPaid(r)); }
+function roomById(id){ for(var i=0;i<store.rooms.length;i++) if(store.rooms[i].id===id) return store.rooms[i]; return null; }
+function resById(id){ for(var i=0;i<store.reservations.length;i++) if(store.reservations[i].id===id) return store.reservations[i]; return null; }
+function roomBadge(st){ var m={"Libre":"b-libre","Occupée":"b-occupee","Ménage":"b-menage","Maintenance":"b-maintenance"}; return '<span class="badge '+(m[st]||"b-libre")+'">'+esc(st)+'</span>'; }
+function resBadge(st){ var m={"En attente":"b-attente","Confirmée":"b-confirmee","Arrivée":"b-arrivee","Terminée":"b-terminee","Annulée":"b-annulee"}; return '<span class="badge '+(m[st]||"b-confirmee")+'">'+esc(st)+'</span>'; }
+function toast(msg){ var t=$("#toast"); t.textContent=msg; t.classList.add("show"); setTimeout(function(){ t.classList.remove("show"); }, 2600); }
+function addPayment(resId, amount, method, dateStr, label){
+  store.payments.push({ id: uid("p"), resId: resId, amount: +amount||0, method: method||"Espèces", date: dateStr||todayStr(), label: label||"" });
+}
+
+/* =============== Navigation =============== */
+var TABS = [
+  {id:"today", label:"Aujourd'hui", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>'},
+  {id:"reservations", label:"Réservations", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V4H6.5A2.5 2.5 0 0 0 4 6.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>'},
+  {id:"rooms", label:"Héberg.", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M2 17h20"/></svg>'},
+  {id:"caisse", label:"Caisse", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 12h.01M18 12h.01"/></svg>'},
+  {id:"clients", label:"Clients", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>'},
+  {id:"backup", label:"Sauvegarde", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg>'}
+];
+function buildNav(){
+  var tb = $("#tabbar"), dn = $("#deskNav");
+  tb.innerHTML = ""; dn.innerHTML = "";
+  TABS.forEach(function(t){
+    var b = document.createElement("button");
+    b.innerHTML = t.icon + "<span>" + t.label + "</span>";
+    if(ui.tab===t.id) b.className = "on";
+    b.addEventListener("click", function(){ go(t.id); });
+    tb.appendChild(b);
+    var d = document.createElement("button");
+    d.textContent = t.label === "Héberg." ? "Hébergements" : t.label;
+    if(ui.tab===t.id) d.className = "on";
+    d.addEventListener("click", function(){ go(t.id); });
+    dn.appendChild(d);
+  });
+}
+function go(tab){ ui.tab = tab; buildNav(); render(); window.scrollTo(0,0); }
+
+/* =============== Rendu principal =============== */
+function render(){
+  $("#todayLine").textContent = fmtDateLong(todayStr());
+  var v = $("#view");
+  if(ui.tab==="today") v.innerHTML = viewToday();
+  else if(ui.tab==="reservations") v.innerHTML = viewReservations();
+  else if(ui.tab==="rooms") v.innerHTML = viewRooms();
+  else if(ui.tab==="caisse") v.innerHTML = viewCaisse();
+  else if(ui.tab==="clients") v.innerHTML = viewClients();
+  else if(ui.tab==="backup") v.innerHTML = viewBackup();
+  bindView();
+}
+
+/* ---------- Aujourd'hui ---------- */
+function viewToday(){
+  var t = todayStr();
+  var libres = store.rooms.filter(function(r){ return r.status==="Libre"; }).length;
+  var occupees = store.rooms.filter(function(r){ return r.status==="Occupée"; }).length;
+  var arrivees = store.reservations.filter(function(r){ return r.checkIn===t && (r.status==="Confirmée"||r.status==="En attente"||r.status==="Arrivée"); });
+  var departs = store.reservations.filter(function(r){ return r.checkOut===t && (r.status==="Arrivée"||r.status==="Confirmée"); });
+  var encaisse = 0; store.payments.forEach(function(p){ if(p.date===t) encaisse += +p.amount||0; });
+
+  var h = '<div class="page-head"><div><h2>Bonjour, réception</h2><div class="sub" style="text-transform:capitalize">'+esc(fmtDateLong(t))+'</div></div>' +
+    '<button class="btn btn-teal" data-act="new-res">+ Nouvelle réservation</button></div>';
+  h += '<div class="stats">' +
+    '<div class="stat"><div class="n teal">'+libres+'</div><div class="l">Libres</div></div>' +
+    '<div class="stat"><div class="n wood">'+occupees+'</div><div class="l">Occupées</div></div>' +
+    '<div class="stat"><div class="n teal">'+arrivees.length+'</div><div class="l">Arrivées</div></div>' +
+    '<div class="stat"><div class="n wood">'+departs.length+'</div><div class="l">Départs</div></div>' +
+    '<div class="stat"><div class="n teal">'+esc(fmt$(encaisse))+'</div><div class="l">Encaissé du jour</div></div></div>';
+
+  h += '<h3 class="sec-title">Arrivées du jour</h3>';
+  h += arrivees.length ? arrivees.map(function(r){ return resCard(r, true); }).join("") :
+    '<div class="empty">Aucune arrivée prévue aujourd\'hui.</div>';
+  h += '<h3 class="sec-title">Départs du jour</h3>';
+  h += departs.length ? departs.map(function(r){ return resCard(r, true); }).join("") :
+    '<div class="empty">Aucun départ prévu aujourd\'hui.</div>';
+
+  h += '<h3 class="sec-title">Hébergements</h3>';
+  h += store.rooms.map(roomCard).join("");
+  return h;
+}
+
+/* ---------- Réservations ---------- */
+function resCard(r, compact){
+  var room = roomById(r.roomId);
+  var n = nightsOf(r), total = resTotal(r), paid = resPaid(r), due = resDue(r);
+  var h = '<div class="card"><div class="card-row"><div class="grow">' +
+    '<h3>' + esc(r.clientName) + '</h3>' +
+    '<div class="meta">' + esc(room ? room.name : "—") + (r.phone ? ' · ' + esc(r.phone) : '') + '</div>' +
+    '<div class="meta">' + esc(fmtDate(r.checkIn)) + ' → ' + esc(fmtDate(r.checkOut)) + ' · ' + n + ' nuit' + (n>1?"s":"") + '</div>' +
+    '<div class="kv"><span>Total <b>' + esc(fmt$(total)) + '</b></span><span>Payé <b>' + esc(fmt$(paid)) + '</b></span>' +
+    (r.status!=="Annulée" ? '<span>Reste <b class="' + (due>0?"money due":"money ok") + '">' + esc(fmt$(due)) + '</b></span>' : '') + '</div>' +
+    (r.notes ? '<div class="meta" style="margin-top:6px">' + esc(r.notes) + '</div>' : '') +
+    '</div><div>' + resBadge(r.status) + '</div></div>';
+  h += '<div class="actions">';
+  if(r.status==="En attente" || r.status==="Confirmée"){
+    h += '<button class="btn btn-teal btn-sm" data-act="checkin" data-id="'+r.id+'">Arrivée (check-in)</button>';
+  }
+  if(r.status==="Arrivée"){
+    h += '<button class="btn btn-wood btn-sm" data-act="checkout" data-id="'+r.id+'">Départ (check-out)</button>';
+  }
+  if(r.status!=="Annulée" && r.status!=="Terminée"){
+    h += '<button class="btn btn-soft btn-sm" data-act="pay" data-id="'+r.id+'">+ Paiement</button>';
+    h += '<button class="btn btn-soft btn-sm" data-act="edit-res" data-id="'+r.id+'">Modifier</button>';
+  }
+  h += '<button class="btn btn-soft btn-sm" data-act="invoice" data-id="'+r.id+'">Facture</button>';
+  if(r.status!=="Annulée" && r.status!=="Terminée"){
+    h += '<button class="btn btn-danger btn-sm" data-act="cancel-res" data-id="'+r.id+'">Annuler</button>';
+  }
+  h += '</div></div>';
+  return h;
+}
+function viewReservations(){
+  var list = store.reservations.slice().sort(function(a,b){ return a.checkIn < b.checkIn ? 1 : -1; });
+  if(ui.resFilter!=="all") list = list.filter(function(r){ return r.status===ui.resFilter; });
+  if(ui.search){ var q = ui.search.toLowerCase(); list = list.filter(function(r){ var rm = roomById(r.roomId); return (r.clientName||"").toLowerCase().indexOf(q)>=0 || (r.phone||"").toLowerCase().indexOf(q)>=0 || (rm && rm.name.toLowerCase().indexOf(q)>=0); }); }
+  var h = '<div class="page-head"><div><h2>Réservations</h2><div class="sub">' + store.reservations.length + ' réservation(s) au total</div></div>' +
+    '<button class="btn btn-teal" data-act="new-res">+ Nouvelle réservation</button></div>';
+  h += '<div class="searchbar"><input id="resSearch" type="search" aria-label="Rechercher une réservation" placeholder="Rechercher un client, un téléphone, un hébergement…" value="' + esc(ui.search) + '" /></div>';
+  h += '<div class="chips"><button class="chip' + (ui.resFilter==="all"?" on":"") + '" data-filter="all">Toutes</button>' +
+    RES_STATUS.map(function(s){ return '<button class="chip' + (ui.resFilter===s?" on":"") + '" data-filter="' + s + '">' + s + '</button>'; }).join("") + '</div>';
+  h += list.length ? list.map(function(r){ return resCard(r); }).join("") :
+    '<div class="empty">Aucune réservation ici pour le moment.<br/>Créez la première avec le bouton « Nouvelle réservation ».</div>';
+  return h;
+}
+
+/* ---------- Hébergements ---------- */
+function roomCard(r){
+  var occ = store.reservations.filter(function(x){ return x.roomId===r.id && x.status==="Arrivée"; })[0];
+  return '<div class="card"><div class="card-row"><div class="grow"><h3>' + esc(r.name) + '</h3>' +
+    '<div class="meta">' + esc(r.type) + ' · ' + r.capacity + ' pers. · ' + esc(fmt$(r.priceNight)) + ' / nuit · ' + esc(fmt$(r.priceMonth)) + ' / mois</div>' +
+    (occ ? '<div class="meta">Occupé par <b>' + esc(occ.clientName) + '</b> jusqu\'au ' + esc(fmtDate(occ.checkOut)) + '</div>' : '') +
+    '</div><div>' + roomBadge(r.status) + '</div></div>' +
+    '<div class="actions">' +
+    ROOM_STATUS.filter(function(s){ return s!==r.status; }).map(function(s){ return '<button class="btn btn-soft btn-sm" data-act="room-status" data-id="'+r.id+'" data-status="'+s+'">→ ' + s + '</button>'; }).join("") +
+    '<button class="btn btn-soft btn-sm" data-act="edit-room" data-id="'+r.id+'">Modifier prix / infos</button>' +
+    '</div></div>';
+}
+function viewRooms(){
+  var h = '<div class="page-head"><div><h2>Hébergements</h2><div class="sub">Statut en direct, prix par nuit et par mois</div></div>' +
+    '<button class="btn btn-teal" data-act="new-room">+ Ajouter</button></div>';
+  h += store.rooms.map(roomCard).join("");
+  return h;
+}
+
+/* ---------- Caisse ---------- */
+function viewCaisse(){
+  var d = ui.caisseDate;
+  var pays = store.payments.filter(function(p){ return p.date===d; });
+  var total = 0; pays.forEach(function(p){ total += +p.amount||0; });
+  var byMethod = {}; METHODS.forEach(function(m){ byMethod[m]=0; });
+  pays.forEach(function(p){ byMethod[p.method] = (byMethod[p.method]||0) + (+p.amount||0); });
+  var h = '<div class="page-head"><div><h2>Caisse</h2><div class="sub">Paiements enregistrés, jour par jour</div></div></div>';
+  h += '<div class="day-nav"><button class="btn btn-soft btn-sm" data-act="day-prev">← Jour précédent</button>' +
+    '<span class="day-label">' + esc(fmtDateLong(d)) + '</span>' +
+    '<button class="btn btn-soft btn-sm" data-act="day-next">Jour suivant →</button>' +
+    (d!==todayStr() ? '<button class="btn btn-ghost btn-sm" data-act="day-today">Aujourd\'hui</button>' : '') + '</div>';
+  h += '<div class="stats" style="grid-template-columns:1fr"><div class="stat"><div class="n teal">' + esc(fmt$(total)) + '</div><div class="l">Total encaissé ce jour · ' + pays.length + ' paiement(s)</div></div></div>';
+  h += '<div class="method-grid">' + METHODS.map(function(m){ return '<div class="method-card"><div class="m">' + m + '</div><div class="v">' + esc(fmt$(byMethod[m])) + '</div></div>'; }).join("") + '</div>';
+  h += '<div class="card"><h3>Détail du jour</h3>';
+  if(pays.length){
+    h += pays.slice().reverse().map(function(p){
+      var r = resById(p.resId);
+      return '<div class="pay-row"><div><div>' + esc(p.label || "Paiement") + '</div><div class="who">' + (r ? esc(r.clientName) + ' · ' : '') + esc(p.method) + '</div></div><div class="money">' + esc(fmt$(p.amount)) + '</div></div>';
+    }).join("");
+  } else h += '<div class="meta" style="padding-top:8px">Aucun paiement enregistré ce jour-là.</div>';
+  h += '</div>';
+  return h;
+}
+
+/* ---------- Clients ---------- */
+function viewClients(){
+  var map = {};
+  store.reservations.forEach(function(r){
+    if(r.status==="Annulée") return;
+    var key = (r.clientName||"").trim().toLowerCase() + "|" + (r.phone||"").trim();
+    if(!map[key]) map[key] = { name: r.clientName, phone: r.phone||"", stays: 0, spent: 0, last: r.checkIn };
+    map[key].stays++; map[key].spent += resPaid(r);
+    if(r.checkIn > map[key].last) map[key].last = r.checkIn;
+  });
+  var list = Object.keys(map).map(function(k){ return map[k]; }).sort(function(a,b){ return b.stays - a.stays || (a.name<b.name?-1:1); });
+  if(ui.clientSearch){ var q = ui.clientSearch.toLowerCase(); list = list.filter(function(c){ return c.name.toLowerCase().indexOf(q)>=0 || c.phone.toLowerCase().indexOf(q)>=0; }); }
+  var h = '<div class="page-head"><div><h2>Clients</h2><div class="sub">Liste construite automatiquement à partir des réservations</div></div></div>';
+  h += '<div class="searchbar"><input id="clientSearch" type="search" aria-label="Rechercher un client" placeholder="Rechercher un client…" value="' + esc(ui.clientSearch) + '" /></div>';
+  h += list.length ? list.map(function(c){
+    return '<div class="card"><div class="card-row"><div class="grow"><h3>' + esc(c.name) + '</h3>' +
+      '<div class="meta">' + (c.phone ? esc(c.phone) + ' · ' : '') + 'Dernier séjour : ' + esc(fmtDate(c.last)) + '</div></div>' +
+      '<div style="text-align:right"><div class="money" style="font-size:17px">' + c.stays + ' séjour' + (c.stays>1?"s":"") + '</div>' +
+      '<div class="meta">Payé : ' + esc(fmt$(c.spent)) + '</div></div></div></div>';
+  }).join("") : '<div class="empty">Aucun client pour le moment.<br/>Les clients apparaissent ici dès la première réservation.</div>';
+  return h;
+}
+
+/* ---------- Sauvegarde ---------- */
+function viewBackup(){
+  var counts = store.rooms.length + " hébergements · " + store.reservations.length + " réservations · " + store.payments.length + " paiements";
+  return '<div class="page-head"><div><h2>Sauvegarde</h2><div class="sub">Vos données restent sur cet appareil</div></div></div>' +
+  '<div class="card"><h3>État actuel</h3><div class="meta">' + counts + '</div>' +
+  '<p class="note" style="margin-top:10px">Les données sont enregistrées automatiquement dans le navigateur de cet appareil et survivent à la fermeture de la page. Pensez à exporter une sauvegarde de temps en temps, surtout avant de changer d\'appareil.</p>' +
+  '<div class="actions"><button class="btn btn-teal" data-act="export">Télécharger la sauvegarde (JSON)</button>' +
+  '<label class="btn btn-ghost file-btn">Importer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" /></label></div></div>' +
+  '<div class="card"><h3>Zone de réinitialisation</h3><p class="note">Efface toutes les réservations et tous les paiements, et remet les 5 hébergements de départ, tous Libres. À n\'utiliser qu\'en connaissance de cause.</p>' +
+  '<div class="actions"><button class="btn btn-danger" data-act="reset">Réinitialiser les données</button></div></div>';
+}
+
+/* =============== Modales =============== */
+function openSheet(html){ $("#sheet").innerHTML = html; $("#overlay").classList.add("open"); }
+function closeSheet(){ $("#overlay").classList.remove("open"); $("#sheet").innerHTML = ""; }
+$("#overlay").addEventListener("click", function(e){ if(e.target===this) closeSheet(); });
+
+function methodOptions(sel){ return METHODS.map(function(m){ return '<option' + (m===sel?" selected":"") + '>' + m + '</option>'; }).join(""); }
+
+function resForm(r){
+  var isNew = !r;
+  r = r || { clientName:"", phone:"", roomId: store.rooms[0] ? store.rooms[0].id : "", checkIn: todayStr(), checkOut: addDays(todayStr(),1), priceNight: store.rooms[0] ? store.rooms[0].priceNight : 0, status:"Confirmée", notes:"" };
+  var roomOpts = store.rooms.map(function(rm){ return '<option value="'+rm.id+'" data-price="'+rm.priceNight+'"'+(rm.id===r.roomId?" selected":"")+'>' + esc(rm.name) + ' — ' + esc(fmt$(rm.priceNight)) + ' / nuit</option>'; }).join("");
+  var stOpts = RES_STATUS.map(function(s){ return '<option' + (s===r.status?" selected":"") + '>' + s + '</option>'; }).join("");
+  openSheet(
+    '<h3>' + (isNew ? "Nouvelle réservation" : "Modifier la réservation") + '</h3>' +
+    '<div class="sub">Le total se calcule tout seul : nuits × prix par nuit.</div>' +
+    '<form id="resForm">' +
+    '<div class="field"><label>Nom du client *</label><input name="clientName" aria-label="Nom du client" required value="' + esc(r.clientName) + '" placeholder="Ex. : Aline Ndayisenga" /></div>' +
+    '<div class="field"><label>Téléphone</label><input name="phone" aria-label="Téléphone" value="' + esc(r.phone||"") + '" placeholder="Ex. : +257 79 00 00 00" /></div>' +
+    '<div class="field"><label>Hébergement</label><select name="roomId" id="fRoom" aria-label="Hébergement">' + roomOpts + '</select></div>' +
+    '<div class="grid2"><div class="field"><label>Arrivée *</label><input type="date" name="checkIn" id="fIn" aria-label="Date d\'arrivée" required value="' + r.checkIn + '" /></div>' +
+    '<div class="field"><label>Départ *</label><input type="date" name="checkOut" id="fOut" aria-label="Date de départ" required value="' + r.checkOut + '" /></div></div>' +
+    '<div class="grid2"><div class="field"><label>Prix par nuit ($)</label><input type="number" name="priceNight" id="fPrice" aria-label="Prix par nuit" min="0" step="0.5" value="' + r.priceNight + '" /></div>' +
+    '<div class="field"><label>Statut</label><select name="status" aria-label="Statut">' + stOpts + '</select></div></div>' +
+    (isNew ? '<div class="grid2"><div class="field"><label>Acompte reçu ($)</label><input type="number" name="deposit" aria-label="Acompte reçu" min="0" step="0.5" value="0" /></div>' +
+    '<div class="field"><label>Moyen de l\'acompte</label><select name="depositMethod" aria-label="Moyen de l\'acompte">' + methodOptions("Espèces") + '</select></div></div>' : '') +
+    '<div class="total-box" id="fTotal"></div>' +
+    '<div class="field"><label>Notes</label><textarea name="notes" aria-label="Notes" placeholder="Demande particulière, heure d\'arrivée…">' + esc(r.notes||"") + '</textarea></div>' +
+    '<div class="actions sticky-actions"><button type="submit" class="btn btn-teal">' + (isNew ? "Créer la réservation" : "Enregistrer") + '</button>' +
+    '<button type="button" class="btn btn-soft" data-act="close">Annuler</button></div></form>'
+  );
+  var form = $("#resForm");
+  function updTotal(){
+    var tmp = { checkIn: $("#fIn").value, checkOut: $("#fOut").value, priceNight: parseFloat($("#fPrice").value)||0 };
+    var n = nightsOf(tmp);
+    $("#fTotal").innerHTML = n > 0 ? 'Durée : <b>' + n + ' nuit' + (n>1?"s":"") + '</b> · Total du séjour : <b>' + esc(fmt$(n * tmp.priceNight)) + '</b>'
+      : '<b style="color:var(--red)">La date de départ doit être après la date d\'arrivée.</b>';
+  }
+  ["#fIn","#fOut","#fPrice"].forEach(function(s){ $(s).addEventListener("input", updTotal); $(s).addEventListener("change", updTotal); });
+  $("#fRoom").addEventListener("change", function(){ var o = this.options[this.selectedIndex]; $("#fPrice").value = o.getAttribute("data-price"); updTotal(); });
+  updTotal();
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var fd = new FormData(form);
+    var data = { clientName: String(fd.get("clientName")||"").trim(), phone: String(fd.get("phone")||"").trim(),
+      roomId: String(fd.get("roomId")), checkIn: String(fd.get("checkIn")), checkOut: String(fd.get("checkOut")),
+      priceNight: parseFloat(fd.get("priceNight"))||0, status: String(fd.get("status")), notes: String(fd.get("notes")||"").trim() };
+    if(!data.clientName){ toast("Le nom du client est obligatoire."); return; }
+    if(nightsOf(data) <= 0){ toast("Vérifiez les dates : le départ doit suivre l'arrivée."); return; }
+    if(isNew){
+      data.id = uid("res");
+      var code = "CR-" + String(store.reservations.length + 1).padStart(3,"0") + "-" + Math.floor(100 + Math.random()*900);
+      data.code = code;
+      store.reservations.push(data);
+      var dep = parseFloat(fd.get("deposit"))||0;
+      if(dep > 0) addPayment(data.id, dep, String(fd.get("depositMethod")), todayStr(), "Acompte — " + data.code);
+      toast("Réservation créée : " + code);
+    } else {
+      var old = resById(r.id); if(!old){ closeSheet(); return; }
+      Object.keys(data).forEach(function(k){ old[k] = data[k]; });
+      if(old.status==="Arrivée"){ var rm = roomById(old.roomId); if(rm) rm.status = "Occupée"; }
+      toast("Réservation mise à jour.");
+    }
+    saveStore(); closeSheet(); render();
+  });
+}
+
+function roomForm(r){
+  var isNew = !r;
+  r = r || { name:"", type:"Chambre", capacity:2, priceNight:50, priceMonth:1000, status:"Libre" };
+  var typeOpts = ["Chambre","Suite","Appartement"].map(function(t){ return '<option' + (t===r.type?" selected":"") + '>' + t + '</option>'; }).join("");
+  var stOpts = ROOM_STATUS.map(function(s){ return '<option' + (s===r.status?" selected":"") + '>' + s + '</option>'; }).join("");
+  openSheet('<h3>' + (isNew ? "Nouvel hébergement" : "Modifier l'hébergement") + '</h3><div class="sub">' + esc(r.name||"") + '</div>' +
+    '<form id="roomForm">' +
+    '<div class="field"><label>Nom *</label><input name="name" required value="' + esc(r.name) + '" /></div>' +
+    '<div class="grid2"><div class="field"><label>Type</label><select name="type">' + typeOpts + '</select></div>' +
+    '<div class="field"><label>Capacité (pers.)</label><input type="number" name="capacity" min="1" value="' + r.capacity + '" /></div></div>' +
+    '<div class="grid2"><div class="field"><label>Prix par nuit ($)</label><input type="number" name="priceNight" min="0" step="0.5" value="' + r.priceNight + '" /></div>' +
+    '<div class="field"><label>Prix par mois ($)</label><input type="number" name="priceMonth" min="0" step="1" value="' + r.priceMonth + '" /></div></div>' +
+    '<div class="field"><label>Statut</label><select name="status">' + stOpts + '</select></div>' +
+    '<div class="actions sticky-actions"><button type="submit" class="btn btn-teal">Enregistrer</button><button type="button" class="btn btn-soft" data-act="close">Annuler</button>' +
+    (!isNew ? '<button type="button" class="btn btn-danger" id="delRoom">Supprimer</button>' : '') + '</div></form>');
+  $("#roomForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    var fd = new FormData(this);
+    var data = { name: String(fd.get("name")||"").trim(), type: String(fd.get("type")), capacity: parseInt(fd.get("capacity"))||1,
+      priceNight: parseFloat(fd.get("priceNight"))||0, priceMonth: parseFloat(fd.get("priceMonth"))||0, status: String(fd.get("status")) };
+    if(!data.name){ toast("Le nom est obligatoire."); return; }
+    if(isNew){ data.id = uid("r"); store.rooms.push(data); toast("Hébergement ajouté."); }
+    else { var old = roomById(r.id); Object.keys(data).forEach(function(k){ old[k] = data[k]; }); toast("Hébergement mis à jour."); }
+    saveStore(); closeSheet(); render();
+  });
+  var del = $("#delRoom");
+  if(del) del.addEventListener("click", function(){
+    confirmSheet("Supprimer « " + r.name + " » ?", "Les réservations liées garderont leur historique, mais l'hébergement disparaîtra des listes.", "Supprimer", function(){
+      store.rooms = store.rooms.filter(function(x){ return x.id!==r.id; });
+      saveStore(); closeSheet(); render(); toast("Hébergement supprimé.");
+    });
+  });
+}
+
+function payForm(r){
+  var due = resDue(r);
+  openSheet('<h3>Ajouter un paiement</h3><div class="sub">' + esc(r.clientName) + ' — reste à payer : <b>' + esc(fmt$(due)) + '</b> sur ' + esc(fmt$(resTotal(r))) + '</div>' +
+    '<form id="payForm"><div class="grid2"><div class="field"><label>Montant ($)</label><input type="number" name="amount" aria-label="Montant du paiement" min="0" step="0.5" value="' + due + '" /></div>' +
+    '<div class="field"><label>Moyen</label><select name="method" aria-label="Moyen de paiement">' + methodOptions("Espèces") + '</select></div></div>' +
+    '<div class="actions sticky-actions"><button type="submit" class="btn btn-teal">Enregistrer le paiement</button><button type="button" class="btn btn-soft" data-act="close">Annuler</button></div></form>');
+  $("#payForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    var fd = new FormData(this);
+    var amt = parseFloat(fd.get("amount"))||0;
+    if(amt <= 0){ toast("Montant invalide."); return; }
+    addPayment(r.id, amt, String(fd.get("method")), todayStr(), "Paiement — " + (r.code||""));
+    saveStore(); closeSheet(); render(); toast("Paiement de " + fmt$(amt) + " enregistré.");
+  });
+}
+
+function checkoutForm(r){
+  var due = resDue(r);
+  openSheet('<h3>Départ — ' + esc(r.clientName) + '</h3>' +
+    '<div class="total-box">Total du séjour : <b>' + esc(fmt$(resTotal(r))) + '</b><br/>Déjà payé : <b>' + esc(fmt$(resPaid(r))) + '</b><br/>Reste à régler : <b>' + esc(fmt$(due)) + '</b></div>' +
+    '<form id="coForm">' +
+    (due > 0 ? '<div class="grid2"><div class="field"><label>Paiement final ($)</label><input type="number" name="amount" aria-label="Paiement final" min="0" step="0.5" value="' + due + '" /></div>' +
+    '<div class="field"><label>Moyen</label><select name="method" aria-label="Moyen du paiement final">' + methodOptions("Espèces") + '</select></div></div>' : '<p class="note">Le séjour est déjà soldé : aucun paiement final à enregistrer.</p>') +
+    '<p class="note">Après le départ, l\'hébergement passe en statut « Ménage ».</p>' +
+    '<div class="actions sticky-actions"><button type="submit" class="btn btn-wood">Confirmer le départ</button><button type="button" class="btn btn-soft" data-act="close">Pas encore</button></div></form>');
+  $("#coForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    var fd = new FormData(this);
+    var amt = parseFloat(fd.get("amount"))||0;
+    if(amt > 0) addPayment(r.id, amt, String(fd.get("method")), todayStr(), "Solde au départ — " + (r.code||""));
+    r.status = "Terminée";
+    var rm = roomById(r.roomId); if(rm) rm.status = "Ménage";
+    saveStore(); closeSheet(); render(); toast("Départ enregistré — chambre en Ménage.");
+  });
+}
+
+function invoiceSheet(r){
+  var room = roomById(r.roomId);
+  var n = nightsOf(r), total = resTotal(r), paid = resPaid(r), due = resDue(r);
+  var inv = '<div class="invoice"><div class="inv-head"><div><h3>Crescence Hôtel et Appartement</h3><div class="small">Bujumbura, Burundi · Réception — Gestion hôtel</div></div>' +
+    '<div style="text-align:right"><div><b>Facture ' + esc(r.code || r.id) + '</b></div><div class="small">Émise le ' + esc(fmtDate(todayStr())) + '</div></div></div>' +
+    '<div><b>Client :</b> ' + esc(r.clientName) + (r.phone ? ' · ' + esc(r.phone) : '') + '<br/><b>Hébergement :</b> ' + esc(room ? room.name : "—") + '</div>' +
+    '<table><tr><th>Description</th><th class="r">Détail</th><th class="r">Montant</th></tr>' +
+    '<tr><td>Séjour du ' + esc(fmtDate(r.checkIn)) + ' au ' + esc(fmtDate(r.checkOut)) + '</td><td class="r">' + n + ' nuit(s) × ' + esc(fmt$(r.priceNight)) + '</td><td class="r">' + esc(fmt$(total)) + '</td></tr></table>' +
+    '<table><tr><td>Total du séjour</td><td class="r inv-total">' + esc(fmt$(total)) + '</td></tr>' +
+    '<tr><td>Déjà payé</td><td class="r">' + esc(fmt$(paid)) + '</td></tr>' +
+    '<tr><td><b>Reste à payer</b></td><td class="r"><b>' + esc(fmt$(due)) + '</b></td></tr></table>' +
+    '<div class="small">Merci de votre séjour chez Crescence. Statut de la réservation : ' + esc(r.status) + '.</div></div>';
+  openSheet('<h3>Facture</h3><div class="sub">' + esc(r.clientName) + ' · ' + esc(r.code || "") + '</div>' + inv +
+    '<div class="actions"><button class="btn btn-teal" data-act="print-invoice" data-id="' + r.id + '">Imprimer / enregistrer en PDF</button>' +
+    '<button class="btn btn-soft" data-act="close">Fermer</button></div>');
+  $("#printArea").innerHTML = inv;
+}
+
+function confirmSheet(title, text, okLabel, onOk){
+  openSheet('<h3>' + esc(title) + '</h3><p class="note" style="margin-bottom:18px">' + esc(text) + '</p>' +
+    '<div class="actions"><button class="btn btn-danger" id="cfOk">' + esc(okLabel) + '</button><button class="btn btn-soft" data-act="close">Retour</button></div>');
+  $("#cfOk").addEventListener("click", onOk);
+}
+
+/* =============== Actions =============== */
+function handleAct(act, el){
+  var id = el.getAttribute("data-id");
+  if(act==="close"){ closeSheet(); return; }
+  if(act==="new-res"){ resForm(null); return; }
+  if(act==="new-room"){ roomForm(null); return; }
+  if(act==="day-prev"){ ui.caisseDate = addDays(ui.caisseDate,-1); render(); return; }
+  if(act==="day-next"){ ui.caisseDate = addDays(ui.caisseDate,1); render(); return; }
+  if(act==="day-today"){ ui.caisseDate = todayStr(); render(); return; }
+  if(act==="export"){
+    var blob = new Blob([JSON.stringify(store, null, 2)], {type:"application/json"});
+    var a = document.createElement("a"); a.href = URL.createObjectURL(blob);
+    a.download = "crescence-hotel-sauvegarde-" + todayStr() + ".json"; a.click();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); }, 2000);
+    toast("Sauvegarde téléchargée."); return;
+  }
+  if(act==="reset"){
+    confirmSheet("Réinitialiser toutes les données ?", "Toutes les réservations et tous les paiements seront effacés. Les 5 hébergements de départ seront restaurés, tous Libres.", "Tout effacer", function(){
+      store = { rooms: JSON.parse(JSON.stringify(seedRooms)), reservations: [], payments: [] };
+      saveStore(); closeSheet(); render(); toast("Données réinitialisées.");
+    }); return;
+  }
+  var r = id ? resById(id) : null;
+  var rm = id ? roomById(id) : null;
+  if(act==="edit-res" && r){ resForm(r); return; }
+  if(act==="edit-room" && rm){ roomForm(rm); return; }
+  if(act==="room-status" && rm){ rm.status = el.getAttribute("data-status"); saveStore(); render(); toast(rm.name + " → " + rm.status); return; }
+  if(act==="pay" && r){ payForm(r); return; }
+  if(act==="invoice" && r){ invoiceSheet(r); return; }
+  if(act==="print-invoice"){ window.print(); return; }
+  if(act==="checkin" && r){
+    r.status = "Arrivée"; var room = roomById(r.roomId); if(room) room.status = "Occupée";
+    saveStore(); render(); toast("Arrivée enregistrée — " + (room ? room.name : "") + " occupée."); return;
+  }
+  if(act==="checkout" && r){ checkoutForm(r); return; }
+  if(act==="cancel-res" && r){
+    confirmSheet("Annuler cette réservation ?", r.clientName + " — " + (roomById(r.roomId) ? roomById(r.roomId).name : "") + ", du " + fmtDate(r.checkIn) + " au " + fmtDate(r.checkOut) + ".", "Annuler la réservation", function(){
+      r.status = "Annulée";
+      var room2 = roomById(r.roomId);
+      if(room2 && room2.status==="Occupée" && !store.reservations.some(function(x){ return x.roomId===room2.id && x.status==="Arrivée"; })) room2.status = "Libre";
+      saveStore(); closeSheet(); render(); toast("Réservation annulée.");
+    }); return;
+  }
+}
+function bindView(){
+  document.querySelectorAll("[data-act]").forEach(function(el){
+    el.addEventListener("click", function(){ handleAct(el.getAttribute("data-act"), el); });
+  });
+  document.querySelectorAll("[data-filter]").forEach(function(el){
+    el.addEventListener("click", function(){ ui.resFilter = el.getAttribute("data-filter"); render(); });
+  });
+  var rs = $("#resSearch");
+  if(rs) rs.addEventListener("input", function(){ ui.search = this.value; var pos = this.selectionStart; render(); var n = $("#resSearch"); n.focus(); n.setSelectionRange(pos, pos); });
+  var cs = $("#clientSearch");
+  if(cs) cs.addEventListener("input", function(){ ui.clientSearch = this.value; var pos = this.selectionStart; render(); var n = $("#clientSearch"); n.focus(); n.setSelectionRange(pos, pos); });
+  var imp = $("#importFile");
+  if(imp) imp.addEventListener("change", function(){
+    var f = this.files[0]; if(!f) return;
+    var reader = new FileReader();
+    reader.onload = function(){
+      try{
+        var p = JSON.parse(String(reader.result));
+        if(!p || !p.rooms || !p.reservations || !p.payments) throw new Error("format");
+        store = p; saveStore(); render(); toast("Sauvegarde importée avec succès.");
+      }catch(e){ toast("Fichier invalide : import annulé."); }
+    };
+    reader.readAsText(f);
+  });
+}
+
+/* =============== Accès =============== */
+var pinInputs = Array.prototype.slice.call(document.querySelectorAll("#pinRow input"));
+pinInputs.forEach(function(inp, i){
+  inp.addEventListener("input", function(){
+    this.value = this.value.replace(/\D/g,"").slice(0,1);
+    if(this.value && i < 3) pinInputs[i+1].focus();
+  });
+  inp.addEventListener("keydown", function(e){
+    if(e.key==="Backspace" && !this.value && i > 0) pinInputs[i-1].focus();
+    if(e.key==="Enter") tryUnlock();
+  });
+});
+function tryUnlock(){
+  var code = pinInputs.map(function(i){ return i.value; }).join("");
+  if(code === ACCESS_CODE){
+    $("#lock").style.display = "none";
+    $("#app").style.display = "block";
+    buildNav(); render();
+  } else {
+    $("#lockErr").textContent = "Code incorrect — réessayez (code démo : 1234).";
+    pinInputs.forEach(function(i){ i.value = ""; });
+    pinInputs[0].focus();
+  }
+}
+$("#unlockBtn").addEventListener("click", tryUnlock);
+$("#lockBtn").addEventListener("click", function(){
+  $("#app").style.display = "none";
+  $("#lock").style.display = "flex";
+  pinInputs.forEach(function(i){ i.value = ""; });
+  $("#lockErr").textContent = "";
+  pinInputs[0].focus();
+});
+pinInputs[0].focus();
+</script>
+</body>
+</html>
