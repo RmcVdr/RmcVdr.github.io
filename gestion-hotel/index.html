@@ -81,6 +81,12 @@ a{color:var(--teal)}
 
 /* ---------- App ---------- */
 #app{display:none}
+.version-banner{background:var(--teal);color:#FFF9E8;border-bottom:1px solid var(--teal-d)}
+.version-banner-in{max-width:1360px;margin:0 auto;padding:10px 16px}
+.version-banner-txt{display:flex;flex-direction:column;gap:2px}
+.version-banner-txt strong{font-size:14.5px;letter-spacing:.01em}
+.version-banner-txt span{font-size:13px;line-height:1.5;opacity:.94}
+@media(min-width:860px){.version-banner-txt{flex-direction:row;align-items:baseline;gap:12px}.version-banner-txt strong{white-space:nowrap}}
 .topbar{position:sticky;top:0;z-index:30;box-shadow:0 1px 0 rgba(62,48,20,.04),0 8px 24px rgba(62,48,20,.05);background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .topbar-in{max-width:1360px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:11px;min-width:0;flex:none}
@@ -304,6 +310,29 @@ a{color:var(--teal)}
 .journal-row .j-amt{flex:none}
 @media(max-width:560px){.journal-row{flex-wrap:wrap}.journal-row .j-date{width:100%}}
 
+/* ---------- Personnel S5 : employés, présences, congés, paie ---------- */
+.b-cg-attente{background:var(--amber-soft);color:var(--amber)}
+.b-cg-approuve{background:var(--green-soft);color:var(--green)}
+.b-cg-refuse{background:var(--red-soft);color:var(--red)}
+.b-emp-off{background:var(--surface2);color:var(--ink2);border:1px solid var(--line)}
+.pres-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);box-shadow:var(--shadow)}
+.pres-table{border-collapse:separate;border-spacing:0}
+.pres-table th,.pres-table td{padding:4px;text-align:center;border-bottom:1px solid var(--line);font-size:12px}
+.pres-table thead th{color:var(--ink2);font-weight:800;background:var(--surface2)}
+.pres-table tbody tr:last-child td{border-bottom:none}
+.pres-table .pres-name{position:sticky;left:0;z-index:2;background:var(--surface);text-align:left;min-width:148px;max-width:190px;padding:8px 10px;box-shadow:1.5px 0 0 var(--line);font-size:13px}
+.pres-table thead .pres-name{z-index:3;background:var(--surface2)}
+.pres-table .pres-name span{display:block;font-size:11.5px;color:var(--ink2)}
+.pres-cell{width:31px;height:31px;min-height:31px;border-radius:9px;border:1.5px solid var(--line);background:var(--surface2);color:var(--ink2);font-weight:800;font-size:12px;cursor:pointer;padding:0}
+.pres-cell.pc-present{background:var(--green-soft);border-color:var(--green);color:var(--green)}
+.pres-cell.pc-absent{background:var(--red-soft);border-color:var(--red);color:var(--red)}
+.pres-cell.pc-conge{background:var(--amber-soft);border-color:var(--amber);color:var(--amber)}
+.pres-cell.pc-repos{background:var(--maint-soft);border-color:var(--maint);color:var(--maint)}
+.pres-cell.pc-auto{border-style:dashed}
+.pres-sum{font-weight:800;min-width:40px;font-size:13px}
+.pres-legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:12.5px;color:var(--ink2);font-weight:700}
+.pres-legend i{width:12px;height:12px;border-radius:4px;display:inline-block;margin-right:5px;vertical-align:-1px;border:1.5px solid}
+
 #toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:12px 20px;border-radius:12px;font-size:14.5px;font-weight:700;opacity:0;pointer-events:none;transition:.25s;z-index:80;max-width:88vw;text-align:center}
 @media(min-width:860px){#toast{bottom:28px}}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -347,7 +376,7 @@ a{color:var(--teal)}
     <div class="topbar-in">
       <div class="brand">
         <div class="brand-mark">C</div>
-        <div><b>Crescence — Gestion hôtel</b><span>Réception · Bujumbura</span></div>
+        <div><b>Crescence — Gestion hôtel</b><span id="brandSub">Bujumbura</span></div>
       </div>
       <nav class="desk-nav" id="deskNav"></nav>
       <div class="top-actions">
@@ -359,6 +388,11 @@ a{color:var(--teal)}
       </div>
     </div>
   </header>
+  <div class="version-banner" id="versionBanner" role="status">
+    <div class="version-banner-in">
+      <div class="version-banner-txt"><strong>Nouvelle version — S5.1 · Version S5.1 — accès par rôles stricts</strong><span>Cette version inclut le Personnel complet : employés, présences du mois, congés approuvés par le propriétaire seul et paie simple. Rapports propriétaire et Personnel sont réservés au compte propriétaire ; la réception ne voit plus ces onglets.</span></div>
+    </div>
+  </div>
   <main class="wrap" id="view"></main>
   <nav class="tabbar" id="tabbar"></nav>
 </div>
@@ -397,7 +431,7 @@ var CAT_LABEL = {"restaurant":"Restaurant","bar":"Bar"};
 var session = null;      /* {access, refresh, email, role, nom, userId, hotelId} */
 var publicMode = false;  /* visiteur du site public, sans compte personnel */
 var hotel = null;        /* ligne hotels */
-var store = { rooms: [], reservations: [], payments: [], clotures: [], articles: [], commandes: [], lignes: [] };
+var store = { rooms: [], reservations: [], payments: [], clotures: [], articles: [], commandes: [], lignes: [], employes: [], presences: [], conges: [] };
 var dataReady = false;
 var syncMode = "Hors ligne";
 var lastSync = null;
@@ -414,7 +448,8 @@ var ui = {
   cmdFilter: "today",
   ownerPreset: "month",
   ownerFrom: "",
-  ownerTo: ""
+  ownerTo: "",
+  hrMonth: todayStr().slice(0,7)
 };
 
 /* =============== Helpers =============== */
@@ -557,7 +592,7 @@ function login(email, password){
 function signOut(){
   var tok = session ? session.access : null;
   session = null; publicMode = false; dataReady = false;
-  store = { rooms: [], reservations: [], payments: [], clotures: [], articles: [], commandes: [], lignes: [] };
+  store = { rooms: [], reservations: [], payments: [], clotures: [], articles: [], commandes: [], lignes: [], employes: [], presences: [], conges: [] };
   if(tok) sbFetch("/auth/v1/logout", { method:"POST" }, tok).catch(function(){});
   stopRealtime();
   $("#app").style.display = "none";
@@ -593,6 +628,17 @@ function mapCommande(x){
 function mapLigne(x){
   return { id: x.id, commandeId: x.commande_id, articleNom: x.article_nom||"", prix: +x.prix||0, quantite: +x.quantite||0 };
 }
+/* S5 — Ressources humaines */
+function mapEmploye(x){
+  return { id: x.id, hotelId: x.hotel_id, nom: x.nom||"", poste: x.poste||"", telephone: x.telephone||"",
+    salaire: +x.salaire_mensuel||0, embauche: x.date_embauche||"", actif: x.actif !== false };
+}
+function mapPresence(x){
+  return { id: x.id, employeId: x.employe_id, date: x.date, statut: x.statut||"" };
+}
+function mapConge(x){
+  return { id: x.id, employeId: x.employe_id, debut: x.debut, fin: x.fin, motif: x.motif||"", statut: x.statut||"en_attente" };
+}
 function loadAll(rerender){
   setSync("busy", "Synchronisation…");
   var p;
@@ -600,6 +646,7 @@ function loadAll(rerender){
     p = sb("/rest/v1/hebergements?select=*&order=ordre.asc", {}, SB_ANON).then(function(rooms){
       store.rooms = (rooms||[]).map(mapRoom);
       store.reservations = []; store.payments = []; store.articles = []; store.commandes = []; store.lignes = [];
+      store.employes = []; store.presences = []; store.conges = [];
       if(store.rooms.length && !hotel) return loadHotel(store.rooms[0].hotelId);
     });
   } else {
@@ -610,7 +657,10 @@ function loadAll(rerender){
       sb("/rest/v1/clotures?select=*&order=date.desc").catch(function(){ return []; }),
       sb("/rest/v1/articles?select=*&order=ordre.asc,nom.asc").catch(function(){ return []; }),
       sb("/rest/v1/commandes?select=*&order=created_at.desc").catch(function(){ return []; }),
-      sb("/rest/v1/commande_lignes?select=*").catch(function(){ return []; })
+      sb("/rest/v1/commande_lignes?select=*").catch(function(){ return []; }),
+      sb("/rest/v1/employes?select=*&order=nom.asc").catch(function(){ return []; }),
+      sb("/rest/v1/presences?select=*").catch(function(){ return []; }),
+      sb("/rest/v1/conges?select=*&order=debut.desc").catch(function(){ return []; })
     ]).then(function(res){
       store.rooms = (res[0]||[]).map(mapRoom);
       store.reservations = (res[1]||[]).map(mapRes);
@@ -619,6 +669,14 @@ function loadAll(rerender){
       store.articles = (res[4]||[]).map(mapArticle);
       store.commandes = (res[5]||[]).map(mapCommande);
       store.lignes = (res[6]||[]).map(mapLigne);
+      store.employes = (res[7]||[]).map(mapEmploye);
+      store.presences = (res[8]||[]).map(mapPresence);
+      store.conges = (res[9]||[]).map(mapConge);
+      /* S5.1 — la réception ne conserve en mémoire ni employés, ni présences,
+         ni congés : rien de RH ne peut fuiter dans une vue ou un export. */
+      if(session && session.role!=="proprietaire"){
+        store.employes = []; store.presences = []; store.conges = [];
+      }
       if(store.rooms.length && !hotel) return loadHotel(store.rooms[0].hotelId);
     });
   }
@@ -657,6 +715,9 @@ function startRealtime(){
         .on("postgres_changes", { event: "*", schema: "public", table: "articles" }, scheduleReload)
         .on("postgres_changes", { event: "*", schema: "public", table: "commandes" }, scheduleReload)
         .on("postgres_changes", { event: "*", schema: "public", table: "commande_lignes" }, scheduleReload)
+        .on("postgres_changes", { event: "*", schema: "public", table: "employes" }, scheduleReload)
+        .on("postgres_changes", { event: "*", schema: "public", table: "presences" }, scheduleReload)
+        .on("postgres_changes", { event: "*", schema: "public", table: "conges" }, scheduleReload)
         .subscribe(function(status){ if(status==="SUBSCRIBED"){ syncMode = "Temps réel"; setSync("ok","Base partagée · temps réel"); } });
     }catch(e){ rtClient = null; }
   }
@@ -684,6 +745,8 @@ function dbPatchRes(id, patch){ return sb("/rest/v1/reservations?id=eq." + id, {
 function dbPatchRoom(id, patch){ return sb("/rest/v1/hebergements?id=eq." + id, { method:"PATCH", prefer:"return=minimal", body: patch }); }
 function dbPatchCommande(id, patch){ return sb("/rest/v1/commandes?id=eq." + id, { method:"PATCH", prefer:"return=minimal", body: patch }); }
 function dbPatchArticle(id, patch){ return sb("/rest/v1/articles?id=eq." + id, { method:"PATCH", prefer:"return=minimal", body: patch }); }
+function dbPatchEmploye(id, patch){ return sb("/rest/v1/employes?id=eq." + id, { method:"PATCH", prefer:"return=minimal", body: patch }); }
+function dbPatchConge(id, patch){ return sb("/rest/v1/conges?id=eq." + id, { method:"PATCH", prefer:"return=minimal", body: patch }); }
 
 /* =============== Navigation =============== */
 var TABS = [
@@ -694,15 +757,34 @@ var TABS = [
   {id:"caisse", label:"Caisse", short:"Caisse", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 12h.01M18 12h.01"/></svg>'},
   {id:"restobar", label:"Resto-bar", short:"Resto", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 2v7a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2V2"/><path d="M6 2v20"/><path d="M20 15V2a5 5 0 0 0-4 5v6a2 2 0 0 0 2 2h2zm0 0v7"/></svg>'},
   {id:"clients", label:"Clients", short:"Clients", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>'},
+  {id:"personnel", label:"Personnel", short:"RH", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>'},
   {id:"site", label:"Site & chatbot", short:"Site", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>'},
   {id:"owner", label:"Propriétaire", short:"Proprio.", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 15l4-6 4 3 5-8"/></svg>'},
   {id:"base", label:"Base partagée", short:"Base", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5"/><path d="M3 12c0 1.7 4 3 9 3s9-1.3 9-3"/></svg>'}
 ];
 function visibleTabs(){
   if(publicMode) return TABS.filter(function(t){ return t.id==="site"; });
+  /* S5.1 — accès par rôles stricts : la réception (employé) ne voit JAMAIS
+     les onglets Propriétaire et Personnel — ni visibles, ni grisés, ni verrouillés. */
+  if(session && session.role!=="proprietaire"){
+    return TABS.filter(function(t){ return t.id!=="owner" && t.id!=="personnel"; });
+  }
   return TABS;
 }
+function hotelPlace(){
+  if(hotel && hotel.adresse) return hotel.adresse;
+  return "Bujumbura";
+}
+function updateBrandSub(){
+  var el = $("#brandSub");
+  if(!el) return;
+  if(publicMode){ el.textContent = "Site public · " + hotelPlace(); return; }
+  if(session && session.role==="proprietaire"){ el.textContent = "Espace propriétaire · " + hotelPlace(); return; }
+  if(session){ el.textContent = "Espace réception · " + hotelPlace(); return; }
+  el.textContent = hotelPlace();
+}
 function buildNav(){
+  updateBrandSub();
   var tb = $("#tabbar"), dn = $("#deskNav");
   tb.innerHTML = ""; dn.innerHTML = "";
   visibleTabs().forEach(function(t){
@@ -723,12 +805,28 @@ function buildNav(){
   else rc.textContent = "";
   $("#refreshBtn").style.display = publicMode ? "none" : "";
   $("#lockBtn").textContent = publicMode ? "Accès personnel" : "Verrouiller";
+  var vb = $("#versionBanner");
+  if(vb) vb.style.display = publicMode ? "none" : "";
 }
-function go(tab){ ui.tab = tab; buildNav(); render(); window.scrollTo(0,0); }
+function go(tab){
+  /* S5.1 — garde d'accès : un onglet propriétaire demandé par la réception est refusé. */
+  if(session && session.role!=="proprietaire" && (tab==="owner" || tab==="personnel")){ tab = "today"; }
+  if(publicMode && tab!=="site"){ tab = "site"; }
+  ui.tab = tab; buildNav(); render(); window.scrollTo(0,0);
+}
 
 /* =============== Rendu principal =============== */
 function render(){
   $("#todayLine").textContent = fmtDateLong(todayStr());
+  updateBrandSub();
+  /* S5.1 — garde stricte : même avec un ui.tab forgé ou un onglet resté ouvert
+     avant le changement de compte, la réception ne rend jamais les vues
+     Propriétaire / Personnel et aucun de leurs calculs n'est exécuté. */
+  if(session && session.role!=="proprietaire" && (ui.tab==="owner" || ui.tab==="personnel")){
+    ui.tab = "today";
+    buildNav();
+  }
+  if(publicMode && ui.tab!=="site"){ ui.tab = "site"; buildNav(); }
   if(reloadPending && !$("#overlay").classList.contains("open")) reloadPending = false;
   var v = $("#view");
   if(!dataReady){ v.innerHTML = '<div class="empty" style="margin-top:26px">Chargement depuis la base partagée…</div>'; return; }
@@ -739,6 +837,7 @@ function render(){
   else if(ui.tab==="caisse") v.innerHTML = viewCaisse();
   else if(ui.tab==="restobar") v.innerHTML = viewRestobar();
   else if(ui.tab==="clients") v.innerHTML = viewClients();
+  else if(ui.tab==="personnel") v.innerHTML = viewPersonnel();
   else if(ui.tab==="site") v.innerHTML = viewSite();
   else if(ui.tab==="owner") v.innerHTML = viewOwner();
   else if(ui.tab==="base") v.innerHTML = viewBase();
@@ -1452,18 +1551,11 @@ function viewOwner(){
   if(publicMode || !session){
     return '<div class="page-head"><div><h2>Propriétaire</h2></div></div><div class="empty">Connectez-vous avec le compte propriétaire pour voir cette vue.</div>';
   }
+  /* S5.1 — défense en profondeur : aucun résumé, aucun indicateur, aucun calcul
+     propriétaire n'est produit pour un autre rôle. render() redirige déjà la
+     réception vers Aujourd'hui, donc ce retour n'est qu'un verrou supplémentaire. */
   if(session.role!=="proprietaire"){
-    var tR = todayStr();
-    var occTodayR = store.rooms.filter(function(r){ return effectiveStatus(r)==="Occupée"; }).length;
-    var occPctR = store.rooms.length ? Math.round(occTodayR / store.rooms.length * 100) : 0;
-    var cashTodayR = 0;
-    store.payments.forEach(function(p){ if(p.date===tR) cashTodayR += +p.amount || 0; });
-    var hR = '<div class="page-head"><div><h2>Propriétaire</h2><div class="sub">Résumé limité pour la réception</div></div></div>';
-    hR += '<div class="stats four">' +
-      '<div class="stat"><div class="n teal">' + occPctR + ' %</div><div class="l">Occupation du jour (' + occTodayR + '/' + store.rooms.length + ')</div><div class="def">Hébergements occupés en ce moment, sur l\'ensemble de l\'inventaire.</div></div>' +
-      '<div class="stat"><div class="n wood">' + esc(fmt$(cashTodayR)) + '</div><div class="l">Encaissé du jour</div><div class="def">Paiements datés d\'aujourd\'hui dans la base partagée, remboursements inclus.</div></div></div>';
-    hR += '<div class="empty"><b>Rapports complets réservés au propriétaire.</b><br/>Les indicateurs de période (occupation au prorata, ADR, RevPAR), les revenus par département et par source, le top hébergements, le journal des opérations et le rapport imprimable ne s\'affichent qu\'avec le compte <b>proprietaire@crescence.app</b>.<br/>Vous êtes connecté comme <b>' + esc(session.email) + '</b> (rôle : réception).<br/><br/><button class="btn btn-teal" data-act="switch-account">Changer de compte</button></div>';
-    return hR;
+    return '<div class="page-head"><div><h2>Accès réservé</h2></div></div><div class="empty">Cette vue est réservée au compte propriétaire.</div>';
   }
   var range = ownerPeriodRange();
   var st = computeOwnerPeriod(range.from, range.to);
@@ -1527,10 +1619,269 @@ function viewOwner(){
   return h;
 }
 
+/* ---------- Personnel S5 : employés, présences, congés, paie simple ---------- */
+var PRES_CYCLE = ["", "present", "absent", "conge", "repos"];
+var PRES_LETTER = { present: "P", absent: "A", conge: "C", repos: "R" };
+var PRES_LABEL = { present: "Présent", absent: "Absent", conge: "Congé", repos: "Repos" };
+var CG_LABEL = { en_attente: "En attente", approuve: "Approuvé", refuse: "Refusé" };
+function empById(id){ for(var i=0;i<store.employes.length;i++) if(store.employes[i].id===id) return store.employes[i]; return null; }
+function isOwner(){ return !!session && session.role==="proprietaire"; }
+function cgBadge(st){ var m = { en_attente: "b-cg-attente", approuve: "b-cg-approuve", refuse: "b-cg-refuse" }; return '<span class="badge ' + (m[st]||"b-cg-attente") + '">' + esc(CG_LABEL[st]||st) + '</span>'; }
+function hrMonthInfo(){
+  var parts = ui.hrMonth.split("-");
+  var y = +parts[0], m = +parts[1];
+  var days = new Date(y, m, 0).getDate();
+  var label = lowerFirst(new Date(y, m-1, 1).toLocaleDateString("fr-FR", { month: "long", year: "numeric" }));
+  return { y: y, m: m, days: days, label: label, from: ui.hrMonth + "-01", to: ui.hrMonth + "-" + pad(days) };
+}
+function shiftHrMonth(delta){
+  var parts = ui.hrMonth.split("-");
+  var d = new Date(+parts[0], (+parts[1]) - 1 + delta, 1);
+  ui.hrMonth = d.getFullYear() + "-" + pad(d.getMonth()+1);
+}
+function presRow(empId, date){
+  for(var i=0;i<store.presences.length;i++){ var p = store.presences[i]; if(p.employeId===empId && p.date===date) return p; }
+  return null;
+}
+function approvedCongeDates(empId, from, to){
+  var set = {};
+  store.conges.forEach(function(c){
+    if(c.employeId!==empId || c.statut!=="approuve") return;
+    var d = c.debut > from ? c.debut : from;
+    var end = c.fin < to ? c.fin : to;
+    while(d <= end){ set[d] = true; d = addDays(d, 1); }
+  });
+  return set;
+}
+function monthPresStats(empId, info){
+  var pres = {}, absent = 0, repos = 0, congeSet = approvedCongeDates(empId, info.from, info.to), presSet = {};
+  store.presences.forEach(function(p){
+    if(p.employeId!==empId || p.date < info.from || p.date > info.to) return;
+    if(p.statut==="present"){ presSet[p.date] = true; }
+    else if(p.statut==="absent") absent++;
+    else if(p.statut==="repos") repos++;
+    else if(p.statut==="conge") congeSet[p.date] = true;
+  });
+  Object.keys(presSet).forEach(function(d){ pres[d] = true; });
+  var paidSet = {};
+  Object.keys(presSet).forEach(function(d){ paidSet[d] = true; });
+  Object.keys(approvedCongeDates(empId, info.from, info.to)).forEach(function(d){ paidSet[d] = true; });
+  return {
+    presents: Object.keys(presSet).length, absents: absent, repos: repos,
+    conges: Object.keys(congeSet).length, congeApprouve: Object.keys(approvedCongeDates(empId, info.from, info.to)).length,
+    paidDays: Object.keys(paidSet).length
+  };
+}
+function congeDays(c){ var n = Math.round((parseD(c.fin) - parseD(c.debut)) / 86400000) + 1; return n > 0 ? n : 0; }
+function viewPersonnel(){
+  if(publicMode || !session){
+    return '<div class="page-head"><div><h2>Personnel</h2></div></div><div class="empty">Connectez-vous avec le compte propriétaire pour voir cette vue.</div>';
+  }
+  /* S5.1 — Personnel réservé au propriétaire : pour la réception, aucun employé,
+     aucun salaire, aucune présence, aucun congé et aucune paie ne sont rendus
+     ni calculés. render() redirige déjà ce rôle vers Aujourd'hui. */
+  if(!isOwner()){
+    return '<div class="page-head"><div><h2>Accès réservé</h2></div></div><div class="empty">Cette vue est réservée au compte propriétaire.</div>';
+  }
+  var owner = true;
+  var info = hrMonthInfo();
+  var actifs = store.employes.filter(function(e){ return e.actif; });
+  var h = '<div class="page-head"><div><h2>Personnel</h2><div class="sub">Employés, présences, congés et paie simple — mêmes données partagées, écrites dans la base Crescence</div></div>' +
+    '<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-soft" data-act="new-conge">Nouvelle demande de congé</button>' +
+    '<button class="btn btn-teal" data-act="new-emp">Nouvel employé</button></div></div>';
+
+  /* --- Employés --- */
+  h += '<h3 class="sec-title">Employés (' + store.employes.length + ')</h3>';
+  if(!owner) h += '<p class="note" style="margin-bottom:10px">Salaires réservés au propriétaire : la colonne salaire est masquée pour la réception.</p>';
+  if(!store.employes.length){
+    h += '<div class="empty">Aucun employé enregistré pour le moment.<br/>Ajoutez le premier avec le bouton « Nouvel employé ».</div>';
+  } else {
+    h += store.employes.map(function(e){
+      var card = '<div class="card"><div class="card-row"><div class="grow"><h3>' + esc(e.nom) + '</h3>' +
+        '<div class="meta">' + esc(e.poste || "Poste non renseigné") + (e.telephone ? ' · ' + esc(e.telephone) : '') + (e.embauche ? ' · embauché le ' + esc(fmtDate(e.embauche)) : '') + '</div>' +
+        (owner ? '<div class="kv"><span>Salaire mensuel <b>' + esc(fmt$(e.salaire)) + '</b></span></div>' : '<div class="kv"><span>Salaire <b>réservé au propriétaire</b></span></div>') +
+        '</div><div>' + (e.actif ? '<span class="badge b-libre">Actif</span>' : '<span class="badge b-emp-off">Inactif</span>') + '</div></div>' +
+        '<div class="actions"><button class="btn btn-soft btn-sm" data-act="edit-emp" data-id="' + e.id + '">Modifier</button>' +
+        '<button class="btn ' + (e.actif ? 'btn-danger' : 'btn-teal') + ' btn-sm" data-act="emp-toggle" data-id="' + e.id + '">' + (e.actif ? 'Désactiver' : 'Réactiver') + '</button></div></div>';
+      return card;
+    }).join("");
+  }
+
+  /* --- Présences --- */
+  h += '<h3 class="sec-title">Présences — ' + esc(info.label) + '</h3>';
+  h += '<div class="plan-nav"><button class="btn btn-soft btn-sm" data-act="hr-prev" aria-label="Mois précédent">‹ Mois préc.</button>' +
+    '<span class="range">' + esc(info.label) + '</span>' +
+    '<button class="btn btn-soft btn-sm" data-act="hr-next" aria-label="Mois suivant">Mois suiv. ›</button>' +
+    '<button class="btn btn-soft btn-sm" data-act="hr-today">Mois courant</button></div>';
+  h += '<p class="note">Un appui sur une cellule fait défiler le statut : <b>Présent → Absent → Congé → Repos → vide</b>. Chaque changement est enregistré aussitôt dans la base. Les jours de <b>congé approuvé</b> s\'affichent automatiquement en ambre bordure pointillée — ils ne comptent jamais comme des absences.</p>';
+  if(!actifs.length){
+    h += '<div class="empty">Aucun employé actif : la grille des présences est vide.</div>';
+  } else {
+    var head = '<tr><th class="pres-name">Employé</th>';
+    for(var d1 = 1; d1 <= info.days; d1++){
+      var dt = new Date(info.y, info.m - 1, d1);
+      head += '<th>' + "dim.lun.mar.mer.jeu.ven.sam.".split(".")[dt.getDay()] + '<br/>' + d1 + '</th>';
+    }
+    head += '<th>Prés.</th><th>Abs.</th><th>Congé</th></tr>';
+    var rows = actifs.map(function(e){
+      var st = monthPresStats(e.id, info);
+      var approved = approvedCongeDates(e.id, info.from, info.to);
+      var cells = '';
+      for(var d2 = 1; d2 <= info.days; d2++){
+        var date = ui.hrMonth + "-" + pad(d2);
+        var row = presRow(e.id, date);
+        var eff = row ? row.statut : (approved[date] ? "conge" : "");
+        var auto = !row && approved[date];
+        cells += '<td><button class="pres-cell' + (eff ? " pc-" + eff : "") + (auto ? " pc-auto" : "") + '" data-act="pres-cell" data-emp="' + e.id + '" data-date="' + date + '" title="' + esc(e.nom) + ' — ' + esc(fmtDate(date)) + (eff ? ' · ' + esc(PRES_LABEL[eff]||eff) + (auto ? " (congé approuvé)" : "") : ' · aucun statut') + '">' + (eff ? (PRES_LETTER[eff]||"") : "·") + '</button></td>';
+      }
+      return '<tr><td class="pres-name"><b>' + esc(e.nom) + '</b><span>' + esc(e.poste || "") + '</span></td>' + cells +
+        '<td class="pres-sum" style="color:var(--green)">' + st.presents + '</td><td class="pres-sum" style="color:var(--red)">' + st.absents + '</td><td class="pres-sum" style="color:var(--amber)">' + st.conges + '</td></tr>';
+    }).join("");
+    h += '<div class="pres-scroll"><table class="pres-table"><thead>' + head + '</thead><tbody>' + rows + '</tbody></table></div>';
+    h += '<div class="pres-legend"><span><i style="background:var(--green-soft);border-color:var(--green)"></i>Présent</span><span><i style="background:var(--red-soft);border-color:var(--red)"></i>Absent</span><span><i style="background:var(--amber-soft);border-color:var(--amber)"></i>Congé</span><span><i style="background:var(--maint-soft);border-color:var(--maint)"></i>Repos</span><span>Résumé du mois à droite de chaque ligne : jours présents, absents et en congé.</span></div>';
+  }
+
+  /* --- Congés --- */
+  var congesSorted = store.conges.slice().sort(function(a,b){
+    var pa = a.statut==="en_attente" ? 0 : 1, pb = b.statut==="en_attente" ? 0 : 1;
+    if(pa !== pb) return pa - pb;
+    return a.debut < b.debut ? 1 : -1;
+  });
+  h += '<h3 class="sec-title">Demandes de congé (' + store.conges.length + ')</h3>';
+  if(!owner && store.conges.some(function(c){ return c.statut==="en_attente"; })){
+    h += '<p class="note" style="margin-bottom:10px">La réception peut créer des demandes ; la décision (approuver ou refuser) est réservée au propriétaire.</p>';
+  }
+  if(!congesSorted.length){
+    h += '<div class="empty">Aucune demande de congé enregistrée.</div>';
+  } else {
+    h += congesSorted.map(function(c){
+      var e = empById(c.employeId);
+      var card = '<div class="card"><div class="card-row"><div class="grow"><h3>' + esc(e ? e.nom : "Employé inconnu") + '</h3>' +
+        '<div class="meta">Du ' + esc(fmtDate(c.debut)) + ' au ' + esc(fmtDate(c.fin)) + ' · ' + congeDays(c) + ' jour(s)' + (c.motif ? ' · ' + esc(c.motif) : '') + '</div></div>' +
+        '<div>' + cgBadge(c.statut) + '</div></div>';
+      if(c.statut==="en_attente" && owner){
+        card += '<div class="actions"><button class="btn btn-teal btn-sm" data-act="conge-approve" data-id="' + c.id + '">Approuver</button>' +
+          '<button class="btn btn-danger btn-sm" data-act="conge-refuse" data-id="' + c.id + '">Refuser</button></div>';
+      } else if(c.statut==="en_attente"){
+        card += '<p class="note" style="margin-top:8px">En attente de la décision du propriétaire.</p>';
+      }
+      return card + '</div>';
+    }).join("");
+  }
+
+  /* --- Paie simple --- */
+  h += '<h3 class="sec-title">Paie simple — ' + esc(info.label) + '</h3>';
+  if(!owner){
+    h += '<div class="empty"><b>Paie réservée au propriétaire.</b><br/>Les salaires et les estimations de paie ne s\'affichent qu\'avec le compte <b>proprietaire@crescence.app</b>.<br/>Vous êtes connecté comme <b>' + esc(session.email) + '</b> (rôle : réception).</div>';
+  } else {
+    var pay = computePayroll(info);
+    h += '<div class="stats four"><div class="stat"><div class="n wood">' + esc(fmt$(pay.total)) + '</div><div class="l">Masse salariale estimée — ' + esc(info.label) + '</div><div class="def">Somme des estimations ci-dessous, pour les ' + actifs.length + ' employé(s) actif(s).</div></div></div>';
+    h += '<div class="card"><p class="note" style="margin-bottom:8px"><b>Formule d\'estimation simple</b> (pas un bulletin de paie officiel) : estimation = salaire mensuel × jours payés ÷ ' + info.days + ' jours du mois. <b>Jours payés</b> = jours marqués « présent » dans la grille + jours de congé approuvé du mois, sans double compte. Les absences et les jours de repos ne sont pas payés dans cette estimation.</p>' +
+      (pay.rows.length ? pay.rows.map(function(rw){
+        return '<div class="pay-row"><div><div><b>' + esc(rw.emp.nom) + '</b></div><div class="who">Salaire ' + esc(fmt$(rw.emp.salaire)) + ' · ' + rw.stats.presents + ' présent(s) · ' + rw.stats.congeApprouve + ' jour(s) de congé approuvé · ' + rw.stats.paidDays + ' jour(s) payé(s)</div></div><div class="money">' + esc(fmt$(rw.est)) + '</div></div>';
+      }).join("") : '<div class="meta">Aucun employé actif.</div>') +
+      '<div class="actions"><button class="btn btn-teal" data-act="print-payroll">Imprimer la paie</button></div></div>';
+  }
+  return h;
+}
+function computePayroll(info){
+  var rows = [], total = 0;
+  store.employes.filter(function(e){ return e.actif; }).forEach(function(e){
+    var st = monthPresStats(e.id, info);
+    var est = info.days ? e.salaire * st.paidDays / info.days : 0;
+    total += est;
+    rows.push({ emp: e, stats: st, est: est });
+  });
+  return { rows: rows, total: total };
+}
+function buildPayrollHtml(info){
+  var pay = computePayroll(info);
+  var hotelName = hotel && hotel.nom ? hotel.nom : "Crescence Hôtel et Appartement";
+  var rep = '<div class="invoice"><div class="inv-head"><div><h3>' + esc(hotelName) + '</h3><div class="small">Bujumbura, Burundi · Paie simple — estimation</div></div>' +
+    '<div style="text-align:right"><div><b>Paie — ' + esc(info.label) + '</b></div><div class="small">Émis le ' + esc(fmtDate(todayStr())) + '<br/>' + info.days + ' jours dans le mois</div></div></div>';
+  rep += '<table><tr><th>Employé</th><th class="r">Salaire mensuel</th><th class="r">Jours payés</th><th class="r">Estimation</th></tr>' +
+    (pay.rows.length ? pay.rows.map(function(rw){
+      return '<tr><td>' + esc(rw.emp.nom) + (rw.emp.poste ? ' — ' + esc(rw.emp.poste) : '') + '</td><td class="r"><span class="nobr">' + esc(fmt$(rw.emp.salaire)) + '</span></td><td class="r">' + rw.stats.paidDays + ' (' + rw.stats.presents + ' présent(s) + ' + rw.stats.congeApprouve + ' congé approuvé)</td><td class="r"><b><span class="nobr">' + esc(fmt$(rw.est)) + '</span></b></td></tr>';
+    }).join("") : '<tr><td colspan="4">Aucun employé actif.</td></tr>') +
+    '<tr><td colspan="3" class="inv-total">Masse salariale estimée</td><td class="r inv-total"><span class="nobr">' + esc(fmt$(pay.total)) + '</span></td></tr></table>' +
+    '<div class="small">Estimation simple, pas un bulletin de paie officiel : estimation = salaire mensuel × jours payés ÷ jours du mois. Jours payés = jours présents + jours de congé approuvé, sans double compte. Calculé en direct depuis la base partagée Crescence.</div></div>';
+  return rep;
+}
+function employeForm(e){
+  var isNew = !e;
+  var owner = isOwner();
+  e = e || { nom: "", poste: "", telephone: "", salaire: 0, embauche: "", actif: true };
+  openSheet('<h3>' + (isNew ? "Nouvel employé" : "Modifier l'employé") + '</h3>' +
+    '<div class="sub">Enregistré dans la table des employés de la base partagée. Un employé ne se supprime pas : il se désactive.</div>' +
+    '<form id="empForm">' +
+    '<div class="field"><label>Nom complet *</label><input name="nom" required value="' + esc(e.nom) + '" placeholder="Ex. : Divine Irakoze" /></div>' +
+    '<div class="grid2"><div class="field"><label>Poste</label><input name="poste" value="' + esc(e.poste) + '" placeholder="Ex. : Réceptionniste, Serveur, Femme de chambre…" /></div>' +
+    '<div class="field"><label>Téléphone</label><input name="telephone" value="' + esc(e.telephone) + '" placeholder="Ex. : +257 79 00 00 00" /></div></div>' +
+    '<div class="grid2"><div class="field"><label>Date d\'embauche</label><input type="date" name="embauche" value="' + esc(e.embauche || "") + '" /></div>' +
+    (owner
+      ? '<div class="field"><label>Salaire mensuel ($)</label><input type="number" name="salaire" min="0" step="0.5" value="' + e.salaire + '" /></div>'
+      : '<div class="field"><label>Salaire mensuel</label><input value="Réservé au propriétaire" disabled /></div>') +
+    '</div>' +
+    '<div class="field"><label>Statut</label><select name="actif"><option value="1"' + (e.actif ? " selected" : "") + '>Actif</option><option value="0"' + (!e.actif ? " selected" : "") + '>Inactif</option></select></div>' +
+    (owner ? '' : '<p class="note">Le salaire n\'est ni affiché ni modifiable avec le compte réception.</p>') +
+    '<div class="actions sticky-actions"><button type="submit" class="btn btn-teal">' + (isNew ? "Ajouter l'employé" : "Enregistrer") + '</button>' +
+    '<button type="button" class="btn btn-soft" data-act="close">Annuler</button></div></form>');
+  $("#empForm").addEventListener("submit", function(ev){
+    ev.preventDefault();
+    var fd = new FormData(this);
+    var body = { nom: String(fd.get("nom")||"").trim(), poste: String(fd.get("poste")||"").trim(),
+      telephone: String(fd.get("telephone")||"").trim(), date_embauche: String(fd.get("embauche")||"") || null,
+      actif: String(fd.get("actif"))==="1" };
+    if(!body.nom){ toast("Le nom de l'employé est obligatoire.", true); return; }
+    if(owner) body.salaire_mensuel = parseFloat(fd.get("salaire")) || 0;
+    var op;
+    if(isNew){
+      body.hotel_id = hotel ? hotel.id : session.hotelId;
+      op = sb("/rest/v1/employes", { method: "POST", prefer: "return=minimal", body: body });
+    } else {
+      op = dbPatchEmploye(e.id, body);
+    }
+    op.then(function(){
+      toast(isNew ? "Employé ajouté." : "Employé mis à jour.");
+      closeSheet(); return loadAll(true);
+    }).catch(fail);
+  });
+}
+function congeForm(){
+  var actifs = store.employes.filter(function(e){ return e.actif; });
+  if(!actifs.length){ toast("Ajoutez d'abord un employé actif.", true); return; }
+  var t = todayStr();
+  openSheet('<h3>Nouvelle demande de congé</h3>' +
+    '<div class="sub">La demande part dans la base partagée avec le statut « En attente » ; seul le propriétaire peut l\'approuver ou la refuser.</div>' +
+    '<form id="congeForm">' +
+    '<div class="field"><label>Employé</label><select name="employe">' + actifs.map(function(e){ return '<option value="' + e.id + '">' + esc(e.nom) + (e.poste ? ' — ' + esc(e.poste) : '') + '</option>'; }).join("") + '</select></div>' +
+    '<div class="grid2"><div class="field"><label>Début *</label><input type="date" name="debut" required value="' + t + '" /></div>' +
+    '<div class="field"><label>Fin *</label><input type="date" name="fin" required value="' + t + '" /></div></div>' +
+    '<div class="field"><label>Motif</label><textarea name="motif" placeholder="Ex. : congé annuel, raison familiale…"></textarea></div>' +
+    '<div class="actions sticky-actions"><button type="submit" class="btn btn-teal">Envoyer la demande</button>' +
+    '<button type="button" class="btn btn-soft" data-act="close">Annuler</button></div></form>');
+  $("#congeForm").addEventListener("submit", function(ev){
+    ev.preventDefault();
+    var fd = new FormData(this);
+    var body = { hotel_id: hotel ? hotel.id : session.hotelId, employe_id: String(fd.get("employe")),
+      debut: String(fd.get("debut")||""), fin: String(fd.get("fin")||""),
+      motif: String(fd.get("motif")||"").trim(), statut: "en_attente" };
+    if(!body.debut || !body.fin || body.fin < body.debut){ toast("Vérifiez les dates : la fin doit suivre le début.", true); return; }
+    sb("/rest/v1/conges", { method: "POST", prefer: "return=minimal", body: body }).then(function(){
+      toast("Demande de congé enregistrée — en attente de la décision du propriétaire.");
+      closeSheet(); return loadAll(true);
+    }).catch(fail);
+  });
+}
+
 /* ---------- Base partagée ---------- */
 function viewBase(){
-  var counts = store.rooms.length + " hébergements · " + store.reservations.length + " réservations · " + store.payments.length + " paiements · " + store.clotures.length + " clôtures · " + store.articles.length + " articles · " + store.commandes.length + " commandes resto-bar";
+  var ownerView = isOwner();
+  /* S5.1 — pour la réception, aucun récapitulatif RH (employés, congés) n'apparaît ici. */
+  var counts = store.rooms.length + " hébergements · " + store.reservations.length + " réservations · " + store.payments.length + " paiements · " + store.clotures.length + " clôtures · " + store.articles.length + " articles · " + store.commandes.length + " commandes resto-bar" + (ownerView ? " · " + store.employes.length + " employés · " + store.conges.length + " demandes de congé" : "");
   var h = '<div class="page-head"><div><h2>Base partagée</h2><div class="sub">Le socle S1 : une seule base pour le site, le chatbot, la réception et le propriétaire</div></div></div>';
+  h += '<div class="card" style="border-color:var(--teal)"><h3>Version S5.1 — accès par rôles stricts</h3><div class="meta">Nouvelle version — S5 : Personnel complet (employés, présences, congés, paie simple) et rapports propriétaire S4, sur la même base partagée. Vérifiez ce libellé pour confirmer que vous êtes sur la dernière version publiée : si vous ne le voyez pas, rechargez la page (cache du téléphone).</div>' +
+    '<div class="kv"><span>Accès <b>' + (publicMode ? "Site public" : (ownerView ? "Propriétaire — tous les onglets" : "Réception — onglets Propriétaire et Personnel masqués")) + '</b></span></div></div>';
   h += '<div class="card"><h3>Connexion</h3><div class="meta">Projet Supabase « Crescence » · ' + counts + '</div>' +
     '<div class="kv"><span>Synchronisation <b>' + esc(syncMode) + '</b></span>' + (lastSync ? '<span>Dernière lecture <b>' + pad(lastSync.getHours()) + ':' + pad(lastSync.getMinutes()) + ':' + pad(lastSync.getSeconds()) + '</b></span>' : '') + '</div>' +
     (session ? '<div class="kv"><span>Compte <b>' + esc(session.email) + '</b></span><span>Rôle <b>' + esc(session.role==="proprietaire" ? "Propriétaire" : "Réception") + '</b></span></div>' : '') +
@@ -1538,7 +1889,7 @@ function viewBase(){
     '<div class="actions"><button class="btn btn-teal" data-act="reload">Recharger depuis la base</button>' +
     '<button class="btn btn-soft" data-act="export">Exporter une copie (JSON)</button></div></div>';
   h += '<div class="card"><h3>Règles de la base</h3>' +
-    '<p class="note">Public : lecture des hébergements et création de demandes « En attente » uniquement — un visiteur ne peut ni lire les réservations des autres, ni confirmer la sienne.<br/>Personnel : accès complet à son hôtel avec son compte ; l\'ajout et la suppression d\'hébergements sont réservés au propriétaire.<br/>Les règles métier restent appliquées à l\'écran : acompte ≤ total, zéro double réservation confirmée, remboursement d\'annulation en caisse, chambre en maintenance non réservable, check-in jamais avant le jour d\'arrivée.</p></div>';
+    '<p class="note">Public : lecture des hébergements et création de demandes « En attente » uniquement — un visiteur ne peut ni lire les réservations des autres, ni confirmer la sienne.<br/>Personnel : accès à son hôtel avec son compte ; l\'ajout et la suppression d\'hébergements sont réservés au propriétaire.<br/>Accès par rôles stricts (S5.1) : le compte réception ne voit ni l\'onglet Propriétaire ni l\'onglet Personnel — aucun rapport, aucun salaire, aucune paie, aucune approbation de congé ne lui est affiché.<br/>Les règles métier restent appliquées à l\'écran : acompte ≤ total, zéro double réservation confirmée, remboursement d\'annulation en caisse, chambre en maintenance non réservable, check-in jamais avant le jour d\'arrivée.</p></div>';
   return h;
 }
 
@@ -1989,6 +2340,7 @@ function handleAct(act, el){
     return;
   }
   if(act==="print-owner-report"){
+    if(!isOwner()){ toast("Rapport réservé au propriétaire.", true); return; }
     var rngP = ownerPeriodRange();
     var stP = computeOwnerPeriod(rngP.from, rngP.to);
     $("#printArea").innerHTML = buildOwnerReportHtml(rngP, stP);
@@ -2002,6 +2354,35 @@ function handleAct(act, el){
     if(ui.ownerFrom && ui.ownerTo && ui.ownerFrom > ui.ownerTo){ toast("La date de début doit précéder la date de fin.", true); return; }
     ui.ownerPreset = "custom";
     render();
+    return;
+  }
+  if(act==="print-payroll"){
+    if(!isOwner()){ toast("Paie réservée au propriétaire.", true); return; }
+    $("#printArea").innerHTML = buildPayrollHtml(hrMonthInfo());
+    setTimeout(function(){ window.print(); }, 60);
+    return;
+  }
+  if(act==="hr-prev"){ if(!isOwner()) return; shiftHrMonth(-1); render(); return; }
+  if(act==="hr-next"){ if(!isOwner()) return; shiftHrMonth(1); render(); return; }
+  if(act==="hr-today"){ if(!isOwner()) return; ui.hrMonth = todayStr().slice(0,7); render(); return; }
+  if(act==="new-emp"){ if(!isOwner()){ toast("Personnel réservé au propriétaire.", true); return; } employeForm(null); return; }
+  if(act==="new-conge"){ if(!isOwner()){ toast("Personnel réservé au propriétaire.", true); return; } congeForm(); return; }
+  if(act==="pres-cell"){
+    if(!isOwner()){ toast("Personnel réservé au propriétaire.", true); return; }
+    var pEmp = el.getAttribute("data-emp"), pDate = el.getAttribute("data-date");
+    if(!pEmp || !pDate) return;
+    var curRow = presRow(pEmp, pDate);
+    var approvedSet = approvedCongeDates(pEmp, pDate, pDate);
+    var effSt = curRow ? curRow.statut : (approvedSet[pDate] ? "conge" : "");
+    var nextSt = PRES_CYCLE[(PRES_CYCLE.indexOf(effSt) + 1) % PRES_CYCLE.length];
+    var presOp;
+    if(nextSt===""){
+      presOp = curRow ? sb("/rest/v1/presences?employe_id=eq." + pEmp + "&date=eq." + pDate, { method: "DELETE", prefer: "return=minimal" }) : Promise.resolve();
+    } else {
+      presOp = sb("/rest/v1/presences?on_conflict=employe_id,date", { method: "POST", prefer: "resolution=merge-duplicates,return=minimal",
+        body: { hotel_id: (hotel ? hotel.id : session.hotelId), employe_id: pEmp, date: pDate, statut: nextSt } });
+    }
+    presOp.then(function(){ return loadAll(true); }).catch(fail);
     return;
   }
   if(act==="switch-account"){ signOut(); return; }
@@ -2078,7 +2459,8 @@ function handleAct(act, el){
   if(act==="day-next"){ ui.caisseDate = addDays(ui.caisseDate,1); render(); return; }
   if(act==="day-today"){ ui.caisseDate = todayStr(); render(); return; }
   if(act==="export"){
-    var snapshot = { hotel: hotel, exporte_le: new Date().toISOString(), hebergements: store.rooms, reservations: store.reservations, paiements: store.payments, clotures: store.clotures, articles: store.articles, commandes: store.commandes, commande_lignes: store.lignes };
+    var snapshot = { hotel: hotel, exporte_le: new Date().toISOString(), hebergements: store.rooms, reservations: store.reservations, paiements: store.payments, clotures: store.clotures, articles: store.articles, commandes: store.commandes, commande_lignes: store.lignes,
+      employes: isOwner() ? store.employes : [], presences: isOwner() ? store.presences : [], conges: isOwner() ? store.conges : [] };
     var blob = new Blob([JSON.stringify(snapshot, null, 2)], {type:"application/json"});
     var a = document.createElement("a"); a.href = URL.createObjectURL(blob);
     a.download = "crescence-base-partagee-" + todayStr() + ".json"; a.click();
@@ -2087,6 +2469,25 @@ function handleAct(act, el){
   }
   var r = id ? resById(id) : null;
   var rm = id ? roomById(id) : null;
+  var emp = id ? empById(id) : null;
+  if(act==="edit-emp" && emp){ if(!isOwner()){ toast("Personnel réservé au propriétaire.", true); return; } employeForm(emp); return; }
+  if(act==="emp-toggle" && emp){
+    if(!isOwner()){ toast("Personnel réservé au propriétaire.", true); return; }
+    dbPatchEmploye(emp.id, { actif: !emp.actif }).then(function(){
+      toast(emp.actif ? "« " + emp.nom + " » désactivé — il reste dans l'historique, sans suppression." : "« " + emp.nom + " » réactivé.");
+      return loadAll(true);
+    }).catch(fail); return;
+  }
+  if((act==="conge-approve" || act==="conge-refuse") && id){
+    if(!isOwner()){ toast("Décision réservée au propriétaire.", true); return; }
+    var cg = null;
+    for(var ci=0; ci<store.conges.length; ci++) if(store.conges[ci].id===id) cg = store.conges[ci];
+    if(!cg || cg.statut!=="en_attente") return;
+    dbPatchConge(cg.id, { statut: act==="conge-approve" ? "approuve" : "refuse" }).then(function(){
+      toast(act==="conge-approve" ? "Congé approuvé — ses jours s'affichent en congé dans la grille des présences." : "Congé refusé.");
+      return loadAll(true);
+    }).catch(fail); return;
+  }
   if(act==="edit-res" && r){ resForm(r); return; }
   if(act==="edit-room" && rm){ roomForm(rm); return; }
   if(act==="room-status" && rm){
@@ -2238,7 +2639,7 @@ $("#publicBtn").addEventListener("click", function(){
 });
 $("#lockBtn").addEventListener("click", function(){
   if(publicMode){
-    publicMode = false; dataReady = false; store = { rooms: [], reservations: [], payments: [], clotures: [], articles: [], commandes: [], lignes: [] };
+    publicMode = false; dataReady = false; store = { rooms: [], reservations: [], payments: [], clotures: [], articles: [], commandes: [], lignes: [], employes: [], presences: [], conges: [] };
     $("#app").style.display = "none"; $("#lock").style.display = "flex";
   } else if(session){ signOut(); }
 });
