@@ -409,7 +409,7 @@ a{color:var(--teal)}
   </header>
   <div class="version-banner" id="versionBanner" role="status">
     <div class="version-banner-in">
-      <div class="version-banner-txt"><strong>Nouvelle version — S9.1 · Correctifs stock et encaissements</strong><span>S9.1 : le stock est désormais décrémenté par la base elle-même (déclencheurs) pour toutes les commandes — réception et commandes QR des clients — via l’article_id porté par chaque ligne ; plus aucun décrément ni restauration dans l’application. Encaissements de commandes : la base remplit automatiquement l’hôtel depuis la commande parente. La série S6 à S9 reste en place : QR chambres &amp; tables et demandes clients, Cuisine (reçue → en préparation → prête → terminée) et alertes de rupture, ménage automatique et maintenance, paiements partiels avec référence, paie avec commissions et primes, pointage avec retards, journée à l’heure d’Africa/Bujumbura.</span></div>
+      <div class="version-banner-txt"><strong>Nouvelle version — S9.2 · Correctif tickets de maintenance</strong><span>S9.2 : le formulaire « Signaler un problème » envoie désormais toujours un titre (champ « Titre du problème », pré-rempli depuis le type choisi, sinon début de la description) — la création d’un ticket de maintenance ne bute plus sur la contrainte NOT NULL de la base. Les tickets affichent leur titre et leur description, avec les passages Ouvert → En cours → Résolu. S9.1 reste en place : stock décrémenté par la base elle-même (déclencheurs) pour toutes les commandes, encaissements de commandes avec hôtel rempli automatiquement. La série S6 à S9 reste en place : QR chambres &amp; tables et demandes clients, Cuisine (reçue → en préparation → prête → terminée) et alertes de rupture, ménage automatique et maintenance, paiements partiels avec référence, paie avec commissions et primes, pointage avec retards, journée à l’heure d’Africa/Bujumbura.</span></div>
     </div>
   </div>
   <main class="wrap" id="view"></main>
@@ -878,7 +878,7 @@ function commissionsOf(emp, info){
 var MAINT_FROM_DB = { ouvert:"Ouvert", en_cours:"En cours", resolu:"Résolu" };
 var MAINT_TO_DB = { "Ouvert":"ouvert", "En cours":"en_cours", "Résolu":"resolu" };
 function mapMaintTicket(x){
-  return { id: x.id, roomId: x.hebergement_id, desc: x.description||"", statut: MAINT_FROM_DB[x.statut] || "Ouvert",
+  return { id: x.id, roomId: x.hebergement_id, titre: x.titre||"", desc: x.description||"", statut: MAINT_FROM_DB[x.statut] || "Ouvert",
     date: x.created_at ? String(x.created_at).slice(0,10) : todayStr(), resoluAt: x.resolu_at || null };
 }
 var HK_STATUS_FLOW = ["À nettoyer","Nettoyage","À contrôler"];
@@ -1127,8 +1127,10 @@ function viewRooms(){
   if(store.maintTickets.length){
     h += store.maintTickets.slice().map(function(tk){
       var rm = roomById(tk.roomId);
-      var card = '<div class="card"><div class="card-row"><div class="grow"><h3>' + esc(rm ? rm.name : "Hébergement") + '</h3>' +
-        '<div class="meta" style="font-size:14.5px;color:var(--ink)">' + esc(tk.desc) + '</div>' +
+      var titreAffiche = tk.titre || (tk.desc ? tk.desc.slice(0,60) : "Problème signalé");
+      var card = '<div class="card"><div class="card-row"><div class="grow"><h3>' + esc(titreAffiche) + '</h3>' +
+        '<div class="meta"><b>' + esc(rm ? rm.name : "Hébergement") + '</b></div>' +
+        (tk.desc ? '<div class="meta" style="font-size:14.5px;color:var(--ink)">' + esc(tk.desc) + '</div>' : '') +
         '<div class="meta">Signalé le ' + esc(fmtDate(tk.date)) + (tk.statut==="Résolu" && tk.resoluAt ? ' · résolu le ' + esc(fmtDate(String(tk.resoluAt).slice(0,10))) : '') + '</div></div>' +
         '<div><span class="badge ' + (tk.statut==="Résolu" ? "b-cmd-payee" : (tk.statut==="En cours" ? "b-cmd-imputee" : "b-cmd-ouverte")) + '">' + esc(tk.statut) + '</span></div></div>';
       if(tk.statut==="Ouvert") card += '<div class="actions"><button class="btn btn-teal btn-sm" data-act="maint-next" data-id="' + tk.id + '">Prendre en charge</button></div>';
@@ -1142,21 +1144,40 @@ function viewRooms(){
 }
 function maintForm(){
   if(!store.rooms.length){ toast("Aucun hébergement dans la base.", true); return; }
+  var MAINT_TYPES = ["Fuite / plomberie","Climatisation","Électricité / ampoule","Serrure / porte","Équipement en panne","Autre problème"];
   openSheet('<h3>Signaler un problème</h3>' +
     '<div class="sub">Ticket de maintenance — suivi dans l\'onglet Hébergements jusqu\'à résolution.</div>' +
     '<form id="maintForm">' +
     '<div class="field"><label>Hébergement</label><select name="roomId">' + store.rooms.map(function(r){ return '<option value="' + r.id + '">' + esc(r.name) + '</option>'; }).join("") + '</select></div>' +
+    '<div class="field"><label>Type de problème</label><select name="typeProbleme" id="maintType">' + MAINT_TYPES.map(function(t){ return '<option value="' + esc(t) + '">' + esc(t) + '</option>'; }).join("") + '</select></div>' +
+    '<div class="field"><label>Titre du problème *</label><input type="text" name="titre" id="maintTitre" maxlength="120" value="' + esc(MAINT_TYPES[0]) + '" placeholder="Ex. : Fuite sous le lavabo" /></div>' +
     '<div class="field"><label>Description du problème *</label><textarea name="desc" required placeholder="Ex. : fuite sous le lavabo, climatiseur bruyant…"></textarea></div>' +
     '<div class="field"><label>Bloquer la chambre (passer en Maintenance) ?</label><select name="block"><option value="0">Non — la chambre reste vendable</option><option value="1">Oui — chambre en Maintenance, non réservable</option></select></div>' +
     '<div class="actions sticky-actions"><button type="submit" class="btn btn-teal">Créer le ticket</button>' +
     '<button type="button" class="btn btn-soft" data-act="close">Annuler</button></div></form>');
+  var titreInput = $("#maintTitre");
+  var typeSelect = $("#maintType");
+  var titreAuto = titreInput ? titreInput.value : "";
+  if(typeSelect && titreInput){
+    typeSelect.addEventListener("change", function(){
+      /* Le titre suit le type choisi tant qu'il n'a pas été personnalisé à la main. */
+      if(!titreInput.value.trim() || titreInput.value === titreAuto){
+        titreInput.value = typeSelect.value;
+        titreAuto = typeSelect.value;
+      }
+    });
+    titreInput.addEventListener("input", function(){ if(titreInput.value !== titreAuto) titreAuto = ""; });
+  }
   $("#maintForm").addEventListener("submit", function(e){
     e.preventDefault();
     var fd = new FormData(this);
     var desc = String(fd.get("desc")||"").trim();
     if(!desc){ toast("Décrivez le problème.", true); return; }
+    var titre = String(fd.get("titre")||"").trim();
+    if(!titre) titre = desc.slice(0,60);
+    if(!titre){ toast("Donnez un titre au problème.", true); return; }
     var roomId = String(fd.get("roomId"));
-    var chain = sb("/rest/v1/tickets_maintenance", { method:"POST", prefer:"return=minimal", body:{ hotel_id: (hotel ? hotel.id : session.hotelId), hebergement_id: roomId, description: desc, statut: "ouvert" } });
+    var chain = sb("/rest/v1/tickets_maintenance", { method:"POST", prefer:"return=minimal", body:{ hotel_id: (hotel ? hotel.id : session.hotelId), hebergement_id: roomId, titre: titre, description: desc, statut: "ouvert" } });
     if(String(fd.get("block"))==="1" && !activeStay(roomId)) chain = chain.then(function(){ return dbPatchRoom(roomId, { statut_manu: "maintenance" }); });
     chain.then(function(){ toast("Ticket de maintenance créé" + (String(fd.get("block"))==="1" ? " — chambre passée en Maintenance." : ".")); closeSheet(); return loadAll(true); }).catch(fail);
   });
@@ -2384,7 +2405,7 @@ function viewBase(){
   /* S5.1 — pour la réception, aucun récapitulatif RH (employés, congés) n'apparaît ici. */
   var counts = store.rooms.length + " hébergements · " + store.reservations.length + " réservations · " + store.payments.length + " paiements · " + store.clotures.length + " clôtures · " + store.articles.length + " articles · " + store.commandes.length + " commandes resto-bar · " + store.tablesResto.length + " tables · " + store.demandes.length + " demandes clients" + (ownerView ? " · " + store.employes.length + " employés · " + store.conges.length + " demandes de congé" : "");
   var h = '<div class="page-head"><div><h2>Base partagée</h2><div class="sub">Le socle S1 : une seule base pour le site, le chatbot, la réception et le propriétaire</div></div></div>';
-  h += '<div class="card" style="border-color:var(--teal)"><h3>Version S9.1 — correctifs stock (base) et encaissements</h3><div class="meta">Correctif S9.1 — Stock : la décrémentation ne se fait plus dans l\'application ; la base la fait elle-même par déclencheurs, pour toutes les commandes (réception ET commandes QR des clients), grâce à l\'article_id désormais écrit dans chaque ligne de commande. Plus de décrément à la création ni de restauration à l\'annulation côté logiciel (le double décrément disparaît) ; l\'affichage du stock, les alertes de seuil, les champs stock des articles et le réassort manuel +/− en Cuisine restent en place. Encaissements de commandes : le formulaire d\'encaissement partiel (montant, moyen, référence, employé encaissant) est inchangé — la base remplit automatiquement l\'hôtel depuis la commande parente, ce qui lève le rejet d\'insertion. La série S6–S9 et le socle S1–S5.1 restent en place (QR chambres &amp; tables, demandes clients, cuisine, ménage automatique, maintenance, paiements partiels, paie avec commissions et primes, pointage, accès par rôles stricts). Jour métier calculé à l\'heure d\'Africa/Bujumbura. Vérifiez ce libellé pour confirmer que vous êtes sur la dernière version publiée : si vous ne le voyez pas, rechargez la page (cache du téléphone).</div>' +
+  h += '<div class="card" style="border-color:var(--teal)"><h3>Version S9.2 — correctif tickets de maintenance</h3><div class="meta">Correctif S9.2 — Tickets de maintenance : le formulaire « Signaler un problème » (Hébergements → Maintenance) envoie désormais toujours un titre à la base : champ « Titre du problème » visible, pré-rempli à partir du type de problème choisi ; si le titre est laissé vide, il prend automatiquement les 60 premiers caractères de la description — plus aucun insert sans titre, donc plus d\'erreur « null value in column titre ». L\'insert envoie titre + description + hebergement_id + statut « ouvert ». La liste des tickets affiche le titre, la description en dessous, et les passages de statut Ouvert → En cours → Résolu (resolu_at renseigné à la résolution). Correctif S9.1 conservé — Stock : la décrémentation ne se fait plus dans l\'application ; la base la fait elle-même par déclencheurs, pour toutes les commandes (réception ET commandes QR des clients), grâce à l\'article_id désormais écrit dans chaque ligne de commande. Encaissements de commandes : la base remplit automatiquement l\'hôtel depuis la commande parente. La série S6–S9 et le socle S1–S5.1 restent en place (QR chambres &amp; tables, demandes clients, cuisine, ménage automatique, maintenance, paiements partiels, paie avec commissions et primes, pointage, accès par rôles stricts). Jour métier calculé à l\'heure d\'Africa/Bujumbura. Vérifiez ce libellé pour confirmer que vous êtes sur la dernière version publiée : si vous ne le voyez pas, rechargez la page (cache du téléphone).</div>' +
     '<div class="kv"><span>Accès <b>' + (publicMode ? "Site public" : (ownerView ? "Propriétaire — tous les onglets" : "Réception — onglets Propriétaire et Personnel masqués")) + '</b></span></div></div>';
   h += '<div class="card"><h3>Connexion</h3><div class="meta">Projet Supabase « Crescence » · ' + counts + '</div>' +
     '<div class="kv"><span>Synchronisation <b>' + esc(syncMode) + '</b></span>' + (lastSync ? '<span>Dernière lecture <b>' + pad(lastSync.getHours()) + ':' + pad(lastSync.getMinutes()) + ':' + pad(lastSync.getSeconds()) + '</b></span>' : '') + '</div>' +
