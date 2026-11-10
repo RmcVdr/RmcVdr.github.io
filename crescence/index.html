@@ -30,10 +30,10 @@
 *::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:999px}
 *::-webkit-scrollbar-track{background:transparent}
 html,body{height:100%;max-width:100%;overflow-x:hidden}
-body{margin:0;font-family:"Inter",system-ui,-apple-system,sans-serif;font-feature-settings:"cv11","ss01";background:var(--bg);color:var(--ink);display:flex;flex-direction:column;height:100dvh;overflow:hidden;font-size:15px;line-height:22px;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+body{margin:0;font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-feature-settings:"cv11","ss01";background:var(--bg);color:var(--ink);display:flex;flex-direction:column;height:100dvh;overflow:hidden;font-size:15px;line-height:22px;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
 button,input,select,textarea{font:inherit;color:inherit;font-feature-settings:"cv11","ss01"}
 button,[role="button"],select,summary,input:not([type="checkbox"]){min-height:2.75rem}
-h1,h2,h3,.serif{font-family:"Inter",system-ui,sans-serif;letter-spacing:-.01em}
+h1,h2,h3{font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;letter-spacing:-.01em}
 a{color:var(--brand-700)}
 img{max-width:100%}
 ::selection{background:#b0e5dd;color:#123f3c}
@@ -519,7 +519,7 @@ body.guest-mode .g-sticky.on{display:block}
               <div class="stat"><div class="num" id="stMonth">–</div><div class="lbl">encaissé ce mois-ci</div></div>
             </div>
             <div class="dash-note">Gérez vos hébergements et leurs prix dans l'onglet <b>Hébergements</b>, confirmez ou annulez les demandes dans <b>Réservations</b>, suivez l'encaissé dans <b>Paiements</b> et mettez à jour les coordonnées affichées sur le site dans <b>Infos de l'hôtel</b>.</div>
-            <h3 class="serif" style="font-size:1.2rem;margin:.4rem 0 .7rem">Dernières réservations</h3>
+            <h3 style="font-size:1.2rem;margin:.4rem 0 .7rem">Dernières réservations</h3>
             <div id="dashRecent"></div>
           </div>
 
@@ -563,7 +563,7 @@ body.guest-mode .g-sticky.on{display:block}
           <!-- CARTE & SERVICES -->
           <div class="dash-sec" id="dash-carte">
             <div class="dash-note">La carte et les services ci-dessous s'appliquent au contenu du site, avec effet immédiat. Les hébergements, réservations, paiements et infos de l'hôtel sont, eux, synchronisés avec la réception en temps réel.</div>
-            <h3 class="serif" style="font-size:1.2rem;margin:.4rem 0 .7rem">Carte du restaurant</h3>
+            <h3 style="font-size:1.2rem;margin:.4rem 0 .7rem">Carte du restaurant</h3>
             <div class="edit-list" id="menuEditors"></div>
             <div class="add-box">
               <h3>Ajouter un plat ou une boisson</h3>
@@ -576,7 +576,7 @@ body.guest-mode .g-sticky.on{display:block}
               </div>
               <div class="ec-actions"><button class="btn" type="button" id="nmAdd">Ajouter à la carte</button></div>
             </div>
-            <h3 class="serif" style="font-size:1.2rem;margin:1.4rem 0 .7rem">Services de la maison</h3>
+            <h3 style="font-size:1.2rem;margin:1.4rem 0 .7rem">Services de la maison</h3>
             <div class="edit-list" id="svcEditors"></div>
             <div class="add-box">
               <h3>Ajouter un service</h3>

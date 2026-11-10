@@ -41,8 +41,8 @@
 ::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:99px}
 ::-webkit-scrollbar-track{background:transparent}
 html,body{margin:0;padding:0;background:var(--bg)}
-body{font-family:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;font-feature-settings:"cv11","ss01";background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;font-size:15px;line-height:1.5}
-h1,h2,h3,.serif{font-family:inherit;letter-spacing:-0.01em}
+body{font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-feature-settings:"cv11","ss01";background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;font-size:15px;line-height:1.5}
+h1,h2,h3{font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;letter-spacing:-0.01em}
 button,[role="button"],select,input,textarea{font-family:inherit}
 button,select,input:not([type="checkbox"]){min-height:44px}
 a{color:var(--teal)}
@@ -372,14 +372,20 @@ a{color:var(--teal)}
 #toast.err{background:var(--red);color:#fff}
 .note{font-size:13px;color:var(--ink2);line-height:1.65}
 #printArea{display:none}
+.print-preview{position:fixed;inset:0;z-index:70;background:rgba(15,23,42,.55);display:none;overflow-y:auto;padding:18px 12px 40px}
+.print-preview.open{display:block}
+.print-preview .pp-bar{max-width:760px;margin:0 auto 12px;display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.print-preview .pp-doc{max-width:760px;margin:0 auto}
 @media print{
   @page{margin:14mm}
   html,body{background:#fff !important}
   body>*{display:none !important}
-  #printArea{display:block !important;position:static !important;width:100% !important}
+  #printPreview{display:none !important}
+  #printArea{display:block !important;position:static !important;width:100% !important;background:#fff !important}
   #printArea .invoice{border-radius:0;padding:4px;box-shadow:none;width:100%;border:none}
   #printArea .invoice td,#printArea .invoice th{white-space:normal}
   #printArea .nobr{white-space:nowrap}
+  #printArea button{display:none !important}
 }
 </style>
 </head>
@@ -428,6 +434,7 @@ a{color:var(--teal)}
 <div class="overlay" id="overlay"><div class="sheet" id="sheet"></div></div>
 <div id="toast"></div>
 <div id="printArea"></div>
+<div class="print-preview" id="printPreview"><div class="pp-bar"><button class="btn btn-teal btn-sm" id="ppPrint">Imprimer</button><button class="btn btn-soft btn-sm" id="ppClose">Fermer l'aperçu</button></div><div class="pp-doc" id="ppDoc"></div></div>
 
 <script>
 "use strict";
@@ -1711,6 +1718,24 @@ function renderQrBoxes(root){
     try{ new window.QRCode(el, { text: el.getAttribute("data-qr"), width: 132, height: 132, correctLevel: window.QRCode.CorrectLevel.M }); }catch(e){}
   });
 }
+function showPrintPreview(){
+  var src = $("#printArea"), doc = $("#ppDoc"), pv = $("#printPreview");
+  if(!src || !doc || !pv) return;
+  doc.innerHTML = src.innerHTML;
+  if(window.QRCode){
+    doc.querySelectorAll("[data-qr]").forEach(function(el){
+      if(el.getAttribute("data-done")) return;
+      el.setAttribute("data-done", "1");
+      try{ new window.QRCode(el, { text: el.getAttribute("data-qr"), width: 180, height: 180, correctLevel: window.QRCode.CorrectLevel.M }); }catch(e){}
+    });
+  }
+  pv.classList.add("open");
+}
+document.addEventListener("click", function(e){
+  if(!e.target || !e.target.closest) return;
+  if(e.target.closest("#ppPrint")){ window.print(); return; }
+  if(e.target.closest("#ppClose")){ var pv=$("#printPreview"); if(pv) pv.classList.remove("open"); }
+});
 function printQrSheet(){
   var SITE_QR = "https://rmcvdr.github.io/crescence/";
   var items = [];
@@ -1724,7 +1749,7 @@ function printQrSheet(){
       '<div class="meta">Scannez pour voir le menu, commander et contacter la réception<br/>' + esc(it.url) + '</div></div>';
   }).join("");
   renderQrBoxes($("#printArea"));
-  setTimeout(function(){ window.print(); }, 250);
+  setTimeout(showPrintPreview, 250);
   toast(items.length + " QR code(s) prêt(s) à imprimer — un par carte, à découper.");
 }
 function articleForm(a){
@@ -2708,7 +2733,7 @@ function buildInvoiceHtml(r){
 function invoiceSheet(r){
   var inv = buildInvoiceHtml(r);
   openSheet('<h3>Facture</h3><div class="sub">' + esc(r.clientName) + ' · ' + esc(r.code || "") + '</div>' + inv +
-    '<p class="note" style="margin-top:12px">Le bouton ci-dessous ouvre l\'impression du navigateur : choisissez votre imprimante, ou « Enregistrer au format PDF ». Seule la facture sera imprimée (raccourci possible : Ctrl+P).</p>' +
+    '<p class="note" style="margin-top:12px">Le bouton ci-dessous ouvre un aperçu de la facture : dans l\'aperçu, cliquez sur « Imprimer » pour choisir votre imprimante, ou « Enregistrer au format PDF ». Seule la facture sera imprimée.</p>' +
     '<div class="actions">' +
     '<button class="btn btn-teal" data-act="print-doc">Imprimer / enregistrer en PDF</button>' +
     '<button class="btn btn-soft" data-act="close">Fermer</button></div>');
@@ -2875,10 +2900,10 @@ function closeDaySheet(){
 function handleAct(act, el){
   var id = el.getAttribute("data-id");
   if(act==="close"){ closeSheet(); return; }
-  if(act==="print-doc"){ window.print(); return; }
+  if(act==="print-doc"){ showPrintPreview(); return; }
   if(act==="print-folio"){
     var pr = id ? resById(id) : null;
-    if(pr){ $("#printArea").innerHTML = buildInvoiceHtml(pr); setTimeout(function(){ window.print(); }, 60); }
+    if(pr){ $("#printArea").innerHTML = buildInvoiceHtml(pr); setTimeout(showPrintPreview, 60); }
     return;
   }
   if(act==="print-owner-report"){
@@ -2886,7 +2911,7 @@ function handleAct(act, el){
     var rngP = ownerPeriodRange();
     var stP = computeOwnerPeriod(rngP.from, rngP.to);
     $("#printArea").innerHTML = buildOwnerReportHtml(rngP, stP);
-    setTimeout(function(){ window.print(); }, 60);
+    setTimeout(showPrintPreview, 60);
     return;
   }
   if(act==="owner-apply-custom"){
@@ -2923,7 +2948,7 @@ function handleAct(act, el){
   if(act==="print-payroll"){
     if(!isOwner()){ toast("Paie réservée au propriétaire.", true); return; }
     $("#printArea").innerHTML = buildPayrollHtml(hrMonthInfo());
-    setTimeout(function(){ window.print(); }, 60);
+    setTimeout(showPrintPreview, 60);
     return;
   }
   if(act==="hr-prev"){ if(!isOwner()) return; shiftHrMonth(-1); render(); return; }
