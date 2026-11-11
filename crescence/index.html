@@ -555,7 +555,7 @@ body.guest-mode .g-sticky.on{display:block}
             </div>
             <div class="edit-card" style="margin-top:1rem">
               <div class="ec-head"><h3>Derniers paiements</h3></div>
-              <p style="margin:0 0 .6rem;color:var(--ink2);font-size:.92rem">Paiements enregistrés par la réception ; les remboursements sont déduits des totaux.</p>
+              <p style="margin:0 0 .6rem;color:var(--ink2);font-size:.92rem">Paiements hébergement enregistrés par la réception et encaissements directs du resto-bar ; les remboursements sont déduits des totaux.</p>
               <div id="payList"></div>
             </div>
           </div>
@@ -853,6 +853,9 @@ var sbSession = null; /* {token, refresh, email, role} — en mémoire seulement
 var ROOMS_DB_ALL = [];
 var RESAS_DB = [];
 var PAIS_DB = [];
+var CMDS_DB = [];       /* commandes (pour les consommations imputées au folio) */
+var CMD_LIGNES_DB = []; /* lignes de commandes (montant des commandes imputées) */
+var CMD_PAYS_DB = [];   /* encaissements resto-bar directs (commande_paiements) */
 function sbFetch(path, opts){
   opts = opts || {};
   var headers = { "apikey": SB_KEY, "Authorization": "Bearer " + ((opts.auth && sbSession) ? sbSession.token : SB_KEY) };
@@ -1428,12 +1431,21 @@ function loadDashData(){
     sbFetch("/rest/v1/hebergements?select=*&order=ordre.asc", { auth: true }),
     sbFetch("/rest/v1/reservations?select=*&order=created_at.desc", { auth: true }),
     sbFetch("/rest/v1/paiements?select=*&order=date.desc&limit=300", { auth: true }),
-    sbFetch("/rest/v1/hotels?select=*", { auth: true })
+    sbFetch("/rest/v1/hotels?select=*", { auth: true }),
+    /* D18 : commandes liées aux réservations (consommations imputées au folio).
+       D12 : encaissements resto-bar directs. Chaque lecture supplémentaire est
+       tolérante : si elle échoue, le dashboard continue avec les seules données hébergement. */
+    sbFetch("/rest/v1/commandes?select=*&limit=500", { auth: true }).catch(function(){ return []; }),
+    sbFetch("/rest/v1/commande_lignes?select=*&limit=2000", { auth: true }).catch(function(){ return []; }),
+    sbFetch("/rest/v1/commande_paiements?select=*&limit=500", { auth: true }).catch(function(){ return []; })
   ]).then(function(rs){
     ROOMS_DB_ALL = rs[0] || [];
     RESAS_DB = rs[1] || [];
     PAIS_DB = rs[2] || [];
     if (rs[3] && rs[3][0]) applyDbHotel(rs[3][0]);
+    CMDS_DB = rs[4] || [];
+    CMD_LIGNES_DB = rs[5] || [];
+    CMD_PAYS_DB = rs[6] || [];
     var actifs = ROOMS_DB_ALL.filter(function(r){ return r.actif !== false; });
     if (actifs.length) ROOMS = actifs.map(mapDbRoom);
     setSync(true, "Synchronisé à " + new Date().toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }));
@@ -1450,15 +1462,43 @@ function paySigned(p){
   if ((p.type || "").toLowerCase().indexOf("rembours") > -1) return -Math.abs(m);
   return m;
 }
+function cmdPaySigned(p){
+  var m = +p.montant || 0;
+  if ((p.type || "").toLowerCase().indexOf("rembours") > -1) return -Math.abs(m);
+  return m;
+}
 function paySums(){
   var today = isoDate(new Date()), month = today.slice(0, 7), d = 0, mo = 0, byMoyen = {};
-  PAIS_DB.forEach(function(p){
-    var s = paySigned(p), dt = (p.date || "").slice(0, 10);
+  function add(s, dt, moyen){
     if (dt === today) d += s;
-    if (dt.slice(0, 7) === month){ mo += s; var k = p.moyen || "Autre moyen"; byMoyen[k] = (byMoyen[k] || 0) + s; }
-  });
+    if (dt.slice(0, 7) === month){ mo += s; var k = moyen || "Autre moyen"; byMoyen[k] = (byMoyen[k] || 0) + s; }
+  }
+  PAIS_DB.forEach(function(p){ add(paySigned(p), String(p.date || p.created_at || "").slice(0, 10), p.moyen); });
+  /* D12 : les encaissements resto-bar directs complètent l'encaissé du jour et du mois */
+  CMD_PAYS_DB.forEach(function(p){ add(cmdPaySigned(p), String(p.date || p.created_at || "").slice(0, 10), p.moyen || "Resto-bar"); });
   return { day: d, month: mo, byMoyen: byMoyen };
 }
+
+/* --- Consommations imputées au folio (D18) --- */
+function cmdLignesTotal(cmdId){
+  var s = 0;
+  CMD_LIGNES_DB.forEach(function(l){ if (String(l.commande_id) === String(cmdId)) s += (+l.prix || 0) * (+l.quantite || 0); });
+  return s;
+}
+function cmdMontant(c){
+  if (c.total != null && !isNaN(+c.total) && +c.total > 0) return +c.total;
+  if (c.montant != null && !isNaN(+c.montant) && +c.montant > 0) return +c.montant;
+  return cmdLignesTotal(c.id);
+}
+function folioExtra(resaId){
+  if (!resaId) return 0;
+  var s = 0;
+  CMDS_DB.forEach(function(c){
+    if (String(c.reservation_id || "") === String(resaId) && normName(c.statut || "") === "imputee") s += cmdMontant(c);
+  });
+  return s;
+}
+function resaGrandTotal(bk){ return (+bk.total || 0) + folioExtra(bk.id); }
 
 /* --- Réservations (base) --- */
 var RESA_LABELS = { en_attente: "En attente", confirmee: "Confirmée", confirme: "Confirmée", annulee: "Annulée", annule: "Annulée", en_sejour: "En séjour", en_cours: "En séjour", terminee: "Terminée", termine: "Terminée" };
@@ -1484,12 +1524,14 @@ function resaHTMLdb(bk, compact){
   var dOut = bk.depart ? parseDateText(String(bk.depart).slice(0, 10)) : null;
   var n = (dIn && dOut) ? nightsBetween(dIn, dOut) : null;
   var when = bk.created_at ? new Date(bk.created_at).toLocaleString("fr-FR", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) : "";
+  var extra = folioExtra(bk.id);
+  var grandTotal = (+bk.total || 0) + extra;
   var html = '<div class="resa-item"><div class="r-head"><b>' + escHTML(bk.client_nom || "Client") + '</b>'
     + '<span class="pill' + pillCls + '">' + escHTML(label) + '</span>'
     + '<span class="src-badge">' + escHTML(SRC_LABELS[bk.source] || bk.source || "—") + '</span>'
     + '<span style="color:var(--ink2);font-size:.85rem">' + escHTML(when) + (bk.code ? ' · code ' + escHTML(bk.code) : '') + '</span></div>'
     + '<div class="r-meta">' + escHTML(roomNameByDbId(bk.hebergement_id)) + ' — du ' + escHTML(fmtDbDate(bk.arrivee)) + ' au ' + escHTML(fmtDbDate(bk.depart))
-    + (n ? ' · ' + n + ' nuit(s)' : '') + (bk.voyageurs ? ' · ' + bk.voyageurs + ' voyageur(s)' : '') + (bk.total != null ? ' · total ' + moneyFmt(+bk.total || 0) : '')
+    + (n ? ' · ' + n + ' nuit(s)' : '') + (bk.voyageurs ? ' · ' + bk.voyageurs + ' voyageur(s)' : '') + (bk.total != null ? ' · total ' + moneyFmt(grandTotal) + (extra > 0 ? ' (séjour ' + moneyFmt(+bk.total || 0) + ' + consommations ' + moneyFmt(extra) + ')' : '') : (extra > 0 ? ' · consommations ' + moneyFmt(extra) : ''))
     + '<br />Tél. : ' + escHTML(bk.client_tel || "—") + (bk.notes ? '<br />Note : ' + escHTML(bk.notes) : '') + '</div>';
   if (!compact){
     html += '<div class="r-actions">';
@@ -1540,16 +1582,21 @@ function renderDashboard(){
   /* Paiements */
   document.getElementById("payDay").textContent = moneyFmt(sums.day);
   document.getElementById("payMonth").textContent = moneyFmt(sums.month);
-  document.getElementById("payCount").textContent = PAIS_DB.length;
+  document.getElementById("payCount").textContent = PAIS_DB.length + CMD_PAYS_DB.length;
   var moyens = Object.keys(sums.byMoyen);
   document.getElementById("payByMoyen").innerHTML = moyens.length
     ? moyens.map(function(k){ return '<div class="pay-row"><span>' + escHTML(k) + '</span><span class="amt">' + moneyFmt(sums.byMoyen[k]) + '</span></div>'; }).join("")
     : '<p class="menu-empty">Aucun paiement ce mois-ci.</p>';
-  document.getElementById("payList").innerHTML = PAIS_DB.length
-    ? PAIS_DB.slice(0, 30).map(function(p){
-        var s = paySigned(p); var code = p.reservation_id ? resaCodeById(p.reservation_id) : null;
-        return '<div class="pay-row"><span>' + escHTML(fmtDbDate(p.date)) + '</span><span>' + escHTML(p.type || "Paiement") + (code ? ' · résa ' + escHTML(code) : '') + '</span><span style="color:var(--ink2)">' + escHTML(p.moyen || "") + '</span><span class="amt' + (s < 0 ? ' neg' : '') + '">' + moneyFmt(s) + '</span></div>';
-      }).join("")
+  var allPays = PAIS_DB.map(function(p){
+      var s = paySigned(p); var code = p.reservation_id ? resaCodeById(p.reservation_id) : null;
+      return { d: String(p.date || p.created_at || "").slice(0, 10), html: '<div class="pay-row"><span>' + escHTML(fmtDbDate(p.date || p.created_at)) + '</span><span>' + escHTML(p.type || "Paiement") + (code ? ' · résa ' + escHTML(code) : '') + '</span><span style="color:var(--ink2)">' + escHTML(p.moyen || "") + '</span><span class="amt' + (s < 0 ? ' neg' : '') + '">' + moneyFmt(s) + '</span></div>' };
+    }).concat(CMD_PAYS_DB.map(function(p){
+      var s = cmdPaySigned(p);
+      return { d: String(p.date || p.created_at || "").slice(0, 10), html: '<div class="pay-row"><span>' + escHTML(fmtDbDate(p.date || p.created_at)) + '</span><span>Resto-bar</span><span style="color:var(--ink2)">' + escHTML(p.moyen || "") + '</span><span class="amt' + (s < 0 ? ' neg' : '') + '">' + moneyFmt(s) + '</span></div>' };
+    }));
+  allPays.sort(function(a, b){ return a.d < b.d ? 1 : (a.d > b.d ? -1 : 0); });
+  document.getElementById("payList").innerHTML = allPays.length
+    ? allPays.slice(0, 30).map(function(e){ return e.html; }).join("")
     : '<p class="menu-empty">Aucun paiement enregistré pour le moment — la réception les saisit dans son logiciel, ils apparaîtront ici.</p>';
   /* Carte & services (contenu du site) */
   document.getElementById("menuEditors").innerHTML = MENU.map(function(m){

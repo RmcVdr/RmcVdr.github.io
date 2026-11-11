@@ -311,19 +311,85 @@ a{color:var(--teal)}
 .plan-room{position:sticky;left:0;z-index:2;background:#fff;padding:10px 12px;border-right:1.5px solid var(--line-strong);display:flex;flex-direction:column;justify-content:center;gap:2px}
 .plan-room b{font-size:13.5px;line-height:1.25}
 .plan-room span{font-size:11.5px;color:var(--ink2)}
-.plan-cell{position:relative;border-right:1px solid var(--line);cursor:pointer;min-height:56px}
+.plan-cell{position:relative;border-right:1px solid var(--line);cursor:pointer;min-height:64px}
 .plan-cell:last-child{border-right:none}
 .plan-cell:hover{background:#f8fafc}
 .plan-cell.today{background:rgba(215,242,238,.5)}
-.plan-block{position:absolute;left:2px;top:11px;height:34px;z-index:4;border-radius:9px;padding:6px 9px;font-size:12.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;box-shadow:var(--shadow-sm);display:flex;align-items:center;border:1px solid transparent}
-.plan-block small{font-weight:500;opacity:.8;margin-left:6px;font-size:11px}
-.pb-attente{background:#fdeec9;color:#7c4a03;border-color:#eed9a8}
-.pb-confirmee{background:#d7f2ee;color:#115e59;border-color:#b0e5dd}
-.pb-arrivee{background:#b0e5dd;color:#0a2725;border-color:#7dd3c7}
+.plan-block{position:absolute;left:2px;top:8px;height:46px;z-index:4;border-radius:9px;padding:5px 9px;cursor:pointer;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:1px;border:1px solid transparent;overflow:hidden;line-height:1.25}
+.plan-block .pb-name{font-size:12.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.plan-block .pb-code{font-size:11px;font-weight:600;opacity:.85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;letter-spacing:.01em}
+.field-err{display:none;color:var(--red);font-size:13px;font-weight:600;line-height:1.45;margin-top:5px}
+.field-err.show{display:block}
+.field.has-err input,.field.has-err select{border-color:var(--red)}
+details.inactifs{margin-top:14px}
+details.inactifs>summary{cursor:pointer;font-size:15px;font-weight:600;color:var(--ink2);padding:12px 4px;list-style-position:inside}
+.pb-attente{background:#d97706;color:#fff;border-color:#b45309}
+.pb-confirmee{background:#128377;color:#fff;border-color:#0f766e}
+.pb-arrivee{background:#123f3c;color:#fff;border-color:#0a2725}
 .pb-terminee{background:#efede8;color:#475569;border-color:#e2e8f0}
 .pb-annulee{background:transparent;color:var(--ink2);border:1.5px dashed var(--ink3);box-shadow:none;text-decoration:line-through}
 .plan-legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:12.5px;color:var(--ink2);font-weight:600}
 .plan-legend i{width:12px;height:12px;border-radius:4px;display:inline-block;margin-right:5px;vertical-align:-1px}
+.plan-day.weekend{background:#faf9f6}
+.plan-cell.weekend{background:rgba(247,246,243,.75)}
+.plan-cell.weekend.today,.plan-day.today{background:var(--b50)}
+.plan-day.today{color:var(--b700);font-weight:700}
+.plan-day .today-pill{display:inline-block;margin-top:2px;background:var(--b700);color:#fff;font-size:9.5px;font-weight:700;letter-spacing:.04em;padding:1px 6px;border-radius:999px;line-height:1.4}
+.plan-block{height:54px;top:6px}
+.plan-block .pb-src{display:inline-block;background:rgba(255,255,255,.22);color:inherit;font-size:9.5px;font-weight:700;letter-spacing:.03em;padding:0 5px;border-radius:999px;line-height:1.5;vertical-align:1px;margin-left:5px}
+.pb-attente .pb-src{background:rgba(255,255,255,.35)}
+.plan-summary{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.plan-occ{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-sm);padding:10px 14px;font-size:13.5px;color:var(--ink2)}
+.plan-occ b{color:var(--b700);font-size:16px;font-variant-numeric:tabular-nums}
+.plan-legend.top{margin:0 0 12px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 14px;box-shadow:var(--shadow-sm)}
+/* --- Accueil premium : anneaux, barre segmentée, à traiter --- */
+.ring-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:12px}
+@media(min-width:700px){.ring-grid{grid-template-columns:repeat(4,1fr)}}
+.ring-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-sm);padding:14px 12px 12px;text-align:center}
+.ring-wrap{position:relative;width:76px;height:76px;margin:0 auto}
+.ring-wrap svg{transform:rotate(-90deg);display:block}
+.ring-center{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.ring-label{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink);margin-top:8px}
+.ring-sub{font-size:12px;color:var(--ink2);margin-top:2px;line-height:1.4}
+.seg-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-sm);padding:16px 18px;margin-bottom:12px}
+.seg-card h3{margin:0 0 10px;font-size:15px;font-weight:700}
+.seg-bar{display:flex;height:14px;border-radius:999px;overflow:hidden;background:#f1f5f9;gap:2px}
+.seg-bar span{display:block;height:100%;min-width:0}
+.seg-legend{display:flex;gap:8px 16px;flex-wrap:wrap;margin-top:10px;font-size:12.5px;color:var(--ink2);font-weight:600}
+.seg-legend i{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:5px;vertical-align:-1px}
+.todo-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-sm);padding:8px;margin-bottom:6px}
+.todo-card h3{margin:6px 10px 6px;font-size:15px;font-weight:700}
+.todo-row{display:flex;align-items:center;gap:10px;width:100%;background:none;border:none;border-top:1px solid var(--line);cursor:pointer;padding:11px 10px;text-align:left;color:var(--ink);font:inherit}
+.todo-row:first-of-type{border-top:none}
+.todo-row .cnt{margin-left:auto;background:var(--red);color:#fff;font-size:12px;font-weight:800;min-width:24px;height:24px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;padding:0 7px;flex:none}
+.todo-row .cnt.zero{background:var(--b50);color:var(--b800)}
+.todo-row .chev{color:#94a3b8;display:flex}
+.cash-strip{background:var(--b700);color:#fff;border-radius:var(--r-lg);padding:16px 18px;box-shadow:var(--shadow-sm);margin-bottom:6px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.cash-strip .amt{font-size:24px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.cash-strip .lbl{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.9}
+/* --- Hébergements : tuiles statut --- */
+.room-summary{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.room-pill{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 11px;font-size:12.5px;font-weight:600;color:var(--ink2);box-shadow:var(--shadow-sm)}
+.room-pill i{width:8px;height:8px;border-radius:50%;flex:none}
+.room-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(min-width:700px){.room-grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:1020px){.room-grid{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:380px){.room-grid{grid-template-columns:1fr}}
+.room-tile{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-sm);padding:0;overflow:hidden;cursor:pointer;text-align:left;color:var(--ink);font:inherit;width:100%}
+.room-tile:active{transform:scale(.99)}
+.room-tile .band{height:7px;width:100%}
+.room-tile .body{padding:12px 14px 14px}
+.room-tile .nm{font-size:15.5px;font-weight:700;line-height:1.25;display:block}
+.room-tile .pr{font-size:13px;color:var(--ink2);margin-top:5px;font-variant-numeric:tabular-nums}
+.room-tile .who{font-size:12.5px;color:var(--ink);margin-top:6px;line-height:1.45}
+.room-tile .arr{display:inline-block;margin-top:7px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px}
+.rt-libre .band{background:var(--b500)} .rt-libre .body{background:#f6fdfb}
+.rt-occupee .band{background:#64748b} .rt-occupee .body{background:#f8fafc}
+.rt-menage .band{background:#f43f5e} .rt-menage .body{background:#fff1f2}
+.rt-nettoyage .band{background:#d97706} .rt-nettoyage .body{background:#fffbeb}
+.rt-controle .band{background:#8b5cf6} .rt-controle .body{background:#f5f3ff}
+.rt-maint .band{background:#78716c} .rt-maint .body{background:#fafaf9}
+
 
 /* ---------- Avertissement / clôture / folio ---------- */
 .warn-banner{background:#fdf6e0;border:1px solid #eed9a8;color:var(--ink);border-radius:var(--r-md);padding:12px 15px;font-size:13.5px;line-height:1.6;margin-bottom:14px}
@@ -527,7 +593,7 @@ div.lrow{cursor:default}
 <div class="overlay ov2" id="overlay2"><div class="sheet" id="sheet2"></div></div>
 <div id="toast"></div>
 <div id="printArea"></div>
-<div class="print-preview" id="printPreview"><div class="pp-bar"><button class="btn btn-teal btn-sm" id="ppPrint">Imprimer</button><button class="btn btn-soft btn-sm" id="ppClose">Fermer l'aperçu</button></div><div class="pp-doc" id="ppDoc"></div></div>
+<div class="print-preview" id="printPreview"><div class="pp-bar"><span class="note" style="color:#fff;align-self:center">Seul le document ci-dessous s'imprimera.</span><button class="btn btn-teal" id="ppPrint">Imprimer</button><button class="btn btn-soft btn-sm" id="ppClose">Fermer l'aperçu</button></div><div class="pp-doc" id="ppDoc"></div></div>
 
 <script>
 "use strict";
@@ -608,8 +674,29 @@ function commandeTotal(c){ var s=0; lignesOf(c.id).forEach(function(l){ s += (+l
 function commandesForRes(resId){ return store.commandes.filter(function(c){ return c.resId===resId && (c.status==="Ouverte" || c.status==="Imputée"); }); }
 function resConsoTotal(r){ var s=0; commandesForRes(r.id).forEach(function(c){ s += commandeTotal(c); }); return s; }
 function resGrandTotal(r){ return resTotal(r) + resConsoTotal(r); }
-function resDue(r){ return Math.max(0, resGrandTotal(r) - resPaid(r)); }
-function resOverpaid(r){ return Math.max(0, resPaid(r) - resGrandTotal(r)); }
+/* D7 : une réservation annulée ne doit JAMAIS afficher un reste dû —
+ son payé net (après remboursements) est l'information, le reste vaut 0 partout. */
+function resDue(r){ if(r && r.status==="Annulée") return 0; return Math.max(0, resGrandTotal(r) - resPaid(r)); }
+function resOverpaid(r){ if(r && r.status==="Annulée") return 0; return Math.max(0, resPaid(r) - resGrandTotal(r)); }
+/* D12 : encaissements fusionnés d'un jour — paiements hébergement (table
+ paiements, champ date) + encaissements resto-bar directs (table
+ commande_paiements, date tirée de created_at). Une seule vérité pour la
+ tuile Accueil, la Caisse, la clôture et les rapports Propriétaire. */
+function cmdPayDate(p){ return p && p.createdAt ? String(p.createdAt).slice(0,10) : ""; }
+function dayCash(dateStr){
+  var total = 0, count = 0, byMethod = {};
+  METHODS.forEach(function(m){ byMethod[m] = 0; });
+  store.payments.forEach(function(p){ if(p.date===dateStr){ total += +p.amount||0; count++; byMethod[p.method] = (byMethod[p.method]||0) + (+p.amount||0); } });
+  store.commandePaiements.forEach(function(p){ if(cmdPayDate(p)===dateStr){ total += +p.amount||0; count++; byMethod[p.method] = (byMethod[p.method]||0) + (+p.amount||0); } });
+  return { total: total, count: count, byMethod: byMethod };
+}
+function periodCash(from, to){
+  var total = 0;
+  store.payments.forEach(function(p){ if(p.date >= from && p.date <= to) total += +p.amount||0; });
+  store.commandePaiements.forEach(function(p){ var d = cmdPayDate(p); if(d && d >= from && d <= to) total += +p.amount||0; });
+  return total;
+}
+function cmdPaysOfDay(dateStr){ return store.commandePaiements.filter(function(p){ return cmdPayDate(p)===dateStr; }); }
 function cmdById(id){ for(var i=0;i<store.commandes.length;i++) if(store.commandes[i].id===id) return store.commandes[i]; return null; }
 function articleById(id){ for(var i=0;i<store.articles.length;i++) if(store.articles[i].id===id) return store.articles[i]; return null; }
 function cmdDate(c){ return c.createdAt ? String(c.createdAt).slice(0,10) : ""; }
@@ -621,7 +708,11 @@ function effectiveStatus(room){ return activeStay(room.id) ? "Occupée" : room.s
  Une demande « En attente » qui chevauche = avertissement, jamais un refus. */
 function overlaps(a, b){ return a.checkIn < b.checkOut && b.checkIn < a.checkOut; }
 function findHardConflict(data, excludeId){
-  if(data.status==="Annulée" || data.status==="Terminée") return null;
+  /* D3 : blocage dur UNIQUEMENT si la NOUVELLE réservation est
+ Confirmée/Arrivée. Une nouvelle demande « En attente » n'est jamais
+ bloquée : le chevauchement devient un avertissement (voir
+ findWarnOverlaps), même face à une Confirmée/Arrivée existante. */
+  if(data.status==="En attente" || data.status==="Annulée" || data.status==="Terminée") return null;
   for(var i=0;i<store.reservations.length;i++){
     var x = store.reservations[i];
     if(x.id===excludeId || x.roomId!==data.roomId) continue;
@@ -640,6 +731,33 @@ function findPendingOverlaps(data, excludeId){
     if(overlaps(data, x)) out.push(x);
   }
   return out;
+}
+/* D3 : chevauchements à signaler en AVERTISSEMENT (jamais bloquants).
+ Pour une nouvelle « En attente » : TOUT chevauchement actif compte
+ (Confirmée, Arrivée ou En attente). Pour une nouvelle Confirmée/Arrivée :
+ seuls les chevauchements avec des « En attente » (les Confirmée/Arrivée
+ sont traités en blocage dur par findHardConflict). */
+function findWarnOverlaps(data, excludeId){
+  var out = [];
+  if(data.status==="Annulée" || data.status==="Terminée") return out;
+  for(var i=0;i<store.reservations.length;i++){
+    var x = store.reservations[i];
+    if(x.id===excludeId || x.roomId!==data.roomId) continue;
+    if(x.status==="Annulée" || x.status==="Terminée") continue;
+    if(data.status!=="En attente" && x.status!=="En attente") continue;
+    if(overlaps(data, x)) out.push(x);
+  }
+  return out;
+}
+function warnBannerHtml(list, roomName){
+  if(!list.length) return "";
+  return '<div class="warn-banner"><b>Attention — chevauchement sur ces dates</b> — ' +
+    list.map(function(x){ return "<b>" + esc(x.clientName) + "</b> (" + esc(x.code||"") + ", " + esc(x.status) + ", " + esc(fmtDate(x.checkIn)) + " → " + esc(fmtDate(x.checkOut)) + ")"; }).join(" · ") +
+    " concerne déjà " + esc(roomName||"cet hébergement") + ". <b>Vous pouvez créer quand même</b> : la réception choisira quelle demande confirmer.</div>";
+}
+function warnNote(list){
+  if(!list.length) return "";
+  return " Attention : chevauchement avec " + list.map(function(x){ return x.clientName + " (" + (x.code||"") + ", " + x.status + ")"; }).join(", ") + " — création effectuée quand même, à arbitrer par la réception.";
 }
 function pendingNote(list){
   if(!list.length) return "";
@@ -689,7 +807,7 @@ function sbFetch(path, opts, tokenOverride){
       return resp.text().then(function(txt){
         var data = null; try{ data = txt ? JSON.parse(txt) : null; }catch(e){}
         if(!resp.ok){
-          var err = new Error((data && (data.message || data.error_description || data.error)) || ("Erreur " + resp.status));
+          var err = new Error((data && (data.message || data.msg || data.error_description || data.error)) || ("Erreur " + resp.status));
           err.status = resp.status;
           throw err;
         }
@@ -814,7 +932,9 @@ function mapPresence(x){
 function mapConge(x){
   return { id: x.id, employeId: x.employe_id, debut: x.debut, fin: x.fin, motif: x.motif||"", statut: x.statut||"en_attente" };
 }
+var lastLoadStartedAt = 0;
 function loadAll(rerender){
+  lastLoadStartedAt = Date.now();
   setSync("busy", "Synchronisation…");
   var p;
   if(publicMode || !session){
@@ -872,9 +992,18 @@ function loadAll(rerender){
   return p.then(function(){
     dataReady = true; lastSync = new Date();
     setSync("ok", syncMode === "Temps réel" ? "Base partagée · temps réel" : "Base partagée · à jour " + pad(lastSync.getHours()) + ":" + pad(lastSync.getMinutes()) + ":" + pad(lastSync.getSeconds()));
-    if(rerender !== false && !$("#overlay").classList.contains("open")) render();
-    if(rerender !== false && $("#overlay").classList.contains("open")) reloadPending = true;
-    refreshSheet1IfPending();
+    /* D5+D16 : après TOUT chargement (mutation locale ou événement temps
+ réel), l'écran visible ET tous les compteurs sont re-rendus — même si
+ une feuille est ouverte par-dessus : la page derrière ne montre plus
+ jamais un état périmé (statuts, en-têtes de listes, badges du Menu,
+ tuiles de l'accueil, compteurs de Base partagée). La feuille de détail
+ ouverte est rafraîchie séparément via refreshSheet1IfPending(). */
+    if(rerender !== false){
+      buildNav();
+      render();
+      if($("#overlay").classList.contains("open")) reloadPending = true;
+      refreshSheet1IfPending();
+    }
   }).catch(function(err){
     setSync("off", "Base injoignable");
     toast("Connexion impossible : " + err.message, true);
@@ -1219,40 +1348,77 @@ function resRow(r){
   return '<button class="lrow" data-act="folio" data-id="' + r.id + '"><span class="grow">' +
     '<span class="t">' + esc(r.clientName) + '</span>' +
     '<span class="s">' + esc(room ? room.name : "—") + ' · ' + esc(fmtDate(r.checkIn)) + ' → ' + esc(fmtDate(r.checkOut)) + (r.code ? ' · ' + esc(r.code) : '') + '</span></span>' +
-    '<span class="side">' + resBadge(r.status) + '<span class="amt">' + esc(fmt$(resGrandTotal(r))) + '</span></span>' +
+    '<span class="side">' + resBadge(r.status) + '<span class="amt">' + esc(fmt$(r.status==="Annulée" ? 0 : resGrandTotal(r))) + '</span></span>' +
     '<span class="chev">' + CHEV_SVG + '</span></button>';
+}
+function ringSvg(pct, color){
+  var c = 2*Math.PI*30, off = c * (1 - Math.max(0, Math.min(100, pct))/100);
+  return '<svg width="76" height="76" viewBox="0 0 76 76"><circle cx="38" cy="38" r="30" fill="none" stroke="#eef2f2" stroke-width="8"/><circle cx="38" cy="38" r="30" fill="none" stroke="' + color + '" stroke-width="8" stroke-linecap="round" stroke-dasharray="' + c.toFixed(1) + '" stroke-dashoffset="' + off.toFixed(1) + '"/></svg>';
+}
+function ringCard(label, pct, center, sub, color){
+  return '<div class="ring-card"><div class="ring-wrap">' + ringSvg(pct, color) + '<div class="ring-center">' + center + '</div></div><div class="ring-label">' + label + '</div><div class="ring-sub">' + sub + '</div></div>';
 }
 function viewToday(){
   var t = todayStr();
-  var libres = store.rooms.filter(function(r){ return effectiveStatus(r)==="Libre"; }).length;
-  var occupees = store.rooms.filter(function(r){ return effectiveStatus(r)==="Occupée"; }).length;
-  var arrivees = store.reservations.filter(function(r){ return r.checkIn===t && (r.status==="Confirmée"||r.status==="En attente"||r.status==="Arrivée"); });
-  var departs = store.reservations.filter(function(r){ return r.checkOut===t && (r.status==="Arrivée"||r.status==="Confirmée"); });
-  var encaisse = 0; store.payments.forEach(function(p){ if(p.date===t) encaisse += +p.amount||0; });
+  var totalRooms = store.rooms.length || 0;
+  var byStatus = {"Libre":0,"Occupée":0,"À nettoyer":0,"Nettoyage":0,"À contrôler":0,"Maintenance":0};
+  store.rooms.forEach(function(r){ var s = effectiveStatus(r); if(byStatus[s]!=null) byStatus[s]++; });
+  var libres = byStatus["Libre"], occupees = byStatus["Occupée"];
+  var occPct = totalRooms ? Math.round(occupees/totalRooms*100) : 0;
+  var arrAll = store.reservations.filter(function(r){ return r.checkIn===t && (r.status==="Confirmée"||r.status==="Arrivée"); });
+  var arrDone = arrAll.filter(function(r){ return r.status==="Arrivée"; }).length;
+  var arrRest = arrAll.length - arrDone;
+  var arrPct = arrAll.length ? Math.round(arrDone/arrAll.length*100) : 100;
+  var depAll = store.reservations.filter(function(r){ return r.checkOut===t && (r.status==="Confirmée"||r.status==="Arrivée"||r.status==="Terminée"); });
+  var depDone = depAll.filter(function(r){ return r.status==="Terminée"; }).length;
+  var depRest = depAll.length - depDone;
+  var depPct = depAll.length ? Math.round(depDone/depAll.length*100) : 100;
+  var pretesPct = totalRooms ? Math.round(libres/totalRooms*100) : 0;
+  var arrivees = arrAll, departs = store.reservations.filter(function(r){ return r.checkOut===t && (r.status==="Arrivée"||r.status==="Confirmée"); });
+  var encaisse = dayCash(t).total;
   var greetLabel = (session && session.role==="proprietaire") ? "Bonjour, propriétaire" : "Bonjour, réception";
   var h = '<div class="page-head"><div><h2>' + esc(greetLabel) + '</h2><div class="sub">'+esc(fmtDateLong(t))+'</div></div>' +
     '<button class="btn btn-teal" data-act="new-res">+ Nouvelle réservation</button></div>';
-  h += '<div class="stats">' +
-    '<div class="stat"><div class="n teal">'+libres+'</div><div class="l">Libres</div></div>' +
-    '<div class="stat"><div class="n wood">'+occupees+'</div><div class="l">Occupées</div></div>' +
-    '<div class="stat"><div class="n teal">'+arrivees.length+'</div><div class="l">Arrivées</div></div>' +
-    '<div class="stat"><div class="n wood">'+departs.length+'</div><div class="l">Départs</div></div>' +
-    '<div class="stat wide"><div class="n teal">'+esc(fmt$(encaisse))+'</div><div class="l">Encaissé du jour</div></div></div>';
+  h += '<div class="ring-grid">' +
+    ringCard("Occupation du jour", occPct, occPct + '<span style="font-size:12px">%</span>', occupees + ' occupée(s) · ' + libres + ' libre(s)', "#0f766e") +
+    ringCard("Arrivées", arrPct, String(arrRest), arrDone + ' arrivée(s) faite(s) sur ' + arrAll.length, "#128377") +
+    ringCard("Départs", depPct, String(depRest), depDone + ' départ(s) fait(s) sur ' + depAll.length, "#b45309") +
+    ringCard("Chambres prêtes", pretesPct, String(libres), libres + ' propre(s) sur ' + totalRooms + ' au total', "#45bcad") +
+    '</div>';
+  /* État des chambres — barre segmentée */
+  var seg = [
+    {n:byStatus["Libre"], c:"#22a192", l:"Libres"},
+    {n:byStatus["Occupée"], c:"#64748b", l:"Occupées"},
+    {n:byStatus["À nettoyer"]+byStatus["Nettoyage"], c:"#d97706", l:"Ménage (à faire / en cours)"},
+    {n:byStatus["À contrôler"], c:"#8b5cf6", l:"À contrôler"},
+    {n:byStatus["Maintenance"], c:"#78716c", l:"Maintenance"}
+  ];
+  h += '<div class="seg-card"><h3>État des chambres</h3><div class="seg-bar">' +
+    seg.map(function(s){ var w = totalRooms ? (s.n/totalRooms*100) : 0; return s.n ? '<span style="background:'+s.c+';width:'+w+'%"></span>' : ''; }).join("") +
+    '</div><div class="seg-legend">' + seg.map(function(s){ return '<span><i style="background:'+s.c+'"></i>'+s.l+' · '+s.n+'</span>'; }).join("") + '</div></div>';
+  /* À traiter */
+  var pendingRes = store.reservations.filter(function(r){ return r.status==="En attente"; });
   var newDem = store.demandes.filter(function(d){ return d.statut==="nouvelle"; });
-  if(newDem.length){
-    h += '<div class="closure-banner" style="border-color:var(--red)"><div class="grow"><h3>' + newDem.length + ' demande(s) client(s) nouvelle(s)</h3><div class="meta">Envoyées depuis les QR des chambres et des tables.</div></div><button class="btn btn-teal" data-act="goto-demandes">Voir</button></div>';
-  }
-  var pending = store.reservations.filter(function(r){ return r.status==="En attente"; });
-  if(pending.length){
-    h += '<h3 class="sec-title">Demandes en attente (' + pending.length + ')</h3>';
-    h += '<div class="lstack">' + pending.map(resRow).join("") + '</div>';
+  var openCmd = store.commandes.filter(function(c){ return c.status==="Ouverte"; });
+  var openMaint = store.maintTickets.filter(function(x){ return x.statut!=="Résolu"; });
+  var todo = [
+    {label:"Demandes de réservation en attente", n:pendingRes.length, act:"goto-reservations"},
+    {label:"Demandes clients nouvelles", n:newDem.length, act:"goto-demandes"},
+    {label:"Commandes resto-bar ouvertes", n:openCmd.length, act:"goto-restobar"},
+    {label:"Tickets de maintenance ouverts", n:openMaint.length, act:"goto-rooms"}
+  ];
+  h += '<div class="todo-card"><h3>À traiter</h3>' + todo.map(function(x){
+    return '<button class="todo-row" data-act="'+x.act+'"><span>'+esc(x.label)+'</span><span class="cnt'+(x.n?'':' zero')+'">'+x.n+'</span><span class="chev">'+CHEV_SVG+'</span></button>';
+  }).join("") + '</div>';
+  h += '<div class="cash-strip"><div><div class="lbl">Encaissé du jour — hébergement + resto-bar</div><div class="amt">'+esc(fmt$(encaisse))+'</div></div></div>';
+  if(pendingRes.length){
+    h += '<h3 class="sec-title">Demandes de réservation en attente (' + pendingRes.length + ')</h3>';
+    h += '<div class="lstack">' + pendingRes.map(resRow).join("") + '</div>';
   }
   h += '<h3 class="sec-title">Arrivées du jour</h3>';
-  h += arrivees.length ? '<div class="lstack">' + arrivees.map(resRow).join("") + '</div>' :
-    '<div class="empty">Aucune arrivée prévue aujourd\'hui.</div>';
+  h += arrivees.length ? '<div class="lstack">' + arrivees.map(resRow).join("") + '</div>' : '<div class="empty">Aucune arrivée prévue aujourd\'hui.</div>';
   h += '<h3 class="sec-title">Départs du jour</h3>';
-  h += departs.length ? '<div class="lstack">' + departs.map(resRow).join("") + '</div>' :
-    '<div class="empty">Aucun départ prévu aujourd\'hui.</div>';
+  h += departs.length ? '<div class="lstack">' + departs.map(resRow).join("") + '</div>' : '<div class="empty">Aucun départ prévu aujourd\'hui.</div>';
   return h;
 }
 
@@ -1272,15 +1438,21 @@ function viewReservations(){
 }
 
 /* ---------- Hébergements : lignes compactes, détail + actions en feuille ---------- */
-function roomRow(r){
+function roomTile(r){
   var occ = activeStay(r.id);
   var eff = effectiveStatus(r);
-  return '<button class="lrow" data-act="room-open" data-id="' + r.id + '"><span class="grow">' +
-    '<span class="t">' + esc(r.name) + '</span>' +
-    '<span class="s">' + esc(r.type) + ' · ' + r.capacity + ' pers. · ' + esc(fmt$(r.priceNight)) + ' / nuit' + (occ ? ' · ' + esc(occ.clientName) + ' jusqu\'au ' + esc(fmtDate(occ.checkOut)) : '') + '</span></span>' +
-    '<span class="side">' + roomBadge(eff) + '</span>' +
-    '<span class="chev">' + CHEV_SVG + '</span></button>';
+  var clsMap = {"Libre":"rt-libre","Occupée":"rt-occupee","À nettoyer":"rt-menage","Nettoyage":"rt-nettoyage","À contrôler":"rt-controle","Maintenance":"rt-maint"};
+  var td = todayStr();
+  var arrToday = store.reservations.some(function(x){ return x.roomId===r.id && x.checkIn===td && (x.status==="Confirmée"||x.status==="En attente"); });
+  return '<button class="room-tile ' + (clsMap[eff]||"rt-libre") + '" data-act="room-open" data-id="' + r.id + '"><span class="band"></span><span class="body">' +
+    '<span class="nm">' + esc(r.name) + '</span>' +
+    '<span style="display:block;margin-top:6px">' + roomBadge(eff) + '</span>' +
+    '<span class="pr">' + esc(r.type) + ' · ' + r.capacity + ' pers.<br/>' + esc(fmt$(r.priceNight)) + ' / nuit</span>' +
+    (occ ? '<span class="who"><b>' + esc(occ.clientName) + '</b><br/>Départ : ' + esc(fmtDate(occ.checkOut)) + '</span>' : '') +
+    (arrToday ? '<span class="arr">Arrivée auj.</span>' : '') +
+    '</span></button>';
 }
+function roomRow(r){ return roomTile(r); }
 function maintTicketHtml(tk){
   var titreAffiche = tk.titre || (tk.desc ? tk.desc.slice(0,60) : "Problème signalé");
   var h = '<div class="card" style="margin-bottom:10px"><div class="card-row"><div class="grow"><h3 style="font-size:15px">' + esc(titreAffiche) + '</h3>' +
@@ -1321,10 +1493,14 @@ function roomSheet(r){
 }
 function viewRooms(){
   var isOwner = session && session.role==="proprietaire";
-  var h = '<div class="page-head"><div><h2>Hébergements</h2><div class="sub">Touchez un hébergement pour son détail, ses statuts et sa maintenance</div></div>' +
+  var counts = {"Libre":0,"Occupée":0,"À nettoyer":0,"Nettoyage":0,"À contrôler":0,"Maintenance":0};
+  store.rooms.forEach(function(r){ var s = effectiveStatus(r); if(counts[s]!=null) counts[s]++; });
+  var pillCols = {"Libre":"#22a192","Occupée":"#64748b","À nettoyer":"#f43f5e","Nettoyage":"#d97706","À contrôler":"#8b5cf6","Maintenance":"#78716c"};
+  var h = '<div class="page-head"><div><h2>Hébergements</h2><div class="sub">Panneau des chambres — touchez une tuile pour le détail, les statuts et la maintenance</div></div>' +
     (isOwner ? '<button class="btn btn-teal" data-act="new-room">+ Ajouter</button>' : '') + '</div>';
   if(!isOwner) h += '<p class="note" style="margin-bottom:12px">Ajout et suppression réservés au propriétaire ; la réception modifie prix, infos et statuts.</p>';
-  h += '<div class="lstack">' + store.rooms.map(roomRow).join("") + '</div>';
+  h += '<div class="room-summary">' + Object.keys(counts).map(function(k){ return '<span class="room-pill"><i style="background:'+pillCols[k]+'"></i>'+counts[k]+' '+esc(k)+'</span>'; }).join("") + '</div>';
+  h += store.rooms.length ? '<div class="room-grid">' + store.rooms.map(roomTile).join("") + '</div>' : '<div class="empty">Aucun hébergement enregistré.</div>';
   var openTks = store.maintTickets.filter(function(t){ return t.statut!=="Résolu"; });
   if(openTks.length){
     h += '<h3 class="sec-title">Maintenance — tickets ouverts (' + openTks.length + ')</h3><div class="lstack">' +
@@ -1385,9 +1561,11 @@ function maintForm(prefillRoomId){
 function viewCaisse(){
   var d = ui.caisseDate;
   var pays = store.payments.filter(function(p){ return p.date===d; });
-  var total = 0; pays.forEach(function(p){ total += +p.amount||0; });
-  var byMethod = {}; METHODS.forEach(function(m){ byMethod[m]=0; });
-  pays.forEach(function(p){ byMethod[p.method] = (byMethod[p.method]||0) + (+p.amount||0); });
+  /* D12 : total et ventilation FUSIONNÉS — paiements hébergement +
+ encaissements resto-bar directs du jour (commande_paiements). */
+  var cash = dayCash(d);
+  var total = cash.total, byMethod = cash.byMethod;
+  var cmdPaysDay = cmdPaysOfDay(d);
   var h = '<div class="page-head"><div><h2>Caisse</h2><div class="sub">Paiements de l\'établissement, jour par jour</div></div></div>';
   h += '<div class="day-nav"><button class="btn btn-soft btn-sm" data-act="day-prev">← Jour précédent</button>' +
     '<span class="day-label">' + esc(fmtDateLong(d)) + '</span>' +
@@ -1416,7 +1594,7 @@ function viewCaisse(){
     } else h += '<div class="meta">Aucune clôture enregistrée pour le moment.</div>';
     return h + '</div>';
   }
-  h += '<div class="stats" style="grid-template-columns:1fr"><div class="stat"><div class="n teal">' + esc(fmt$(total)) + '</div><div class="l">Total encaissé ce jour · ' + pays.length + ' paiement(s)</div></div></div>';
+  h += '<div class="stats" style="grid-template-columns:1fr"><div class="stat"><div class="n teal">' + esc(fmt$(total)) + '</div><div class="l">Total encaissé ce jour · ' + cash.count + ' paiement(s) — hébergement + resto-bar</div></div></div>';
   h += '<div class="method-grid">' + METHODS.map(function(m){ return '<div class="method-card"><div class="m">' + m + '</div><div class="v">' + esc(fmt$(byMethod[m])) + '</div></div>'; }).join("") + '</div>';
   var rb = restoDayTotals(d);
   var rbCmds = store.commandes.filter(function(c){ return cmdDate(c)===d && (c.status==="Payée" || c.status==="Imputée"); })
@@ -1438,7 +1616,16 @@ function viewCaisse(){
       var r = resById(p.resId);
       return '<div class="pay-row"><div><div>' + esc(payLabel(p)) + '</div><div class="who">' + (r ? esc(r.clientName) + ' · ' : '') + esc(p.method) + (p.reference ? ' · Réf. ' + esc(p.reference) : '') + '</div></div><div class="money">' + esc(fmt$(p.amount)) + '</div></div>';
     }).join("");
-  } else h += '<div class="meta" style="padding-top:8px">Aucun paiement enregistré ce jour-là.</div>';
+  } else h += '<div class="meta" style="padding-top:8px">Aucun paiement hébergement enregistré ce jour-là.</div>';
+  h += '</div>';
+  h += '<div class="card"><h3>Détail du jour — resto-bar (encaissements directs)</h3>';
+  if(cmdPaysDay.length){
+    h += cmdPaysDay.slice().reverse().map(function(p){
+      var c = cmdById(p.commandeId);
+      var pe = p.employeId ? empById(p.employeId) : null;
+      return '<div class="pay-row"><div><div>Encaissement commande — ' + esc(c ? (c.clientNom || "Client de passage") : "Commande") + '</div><div class="who">' + esc(p.method) + (p.reference ? ' · Réf. ' + esc(p.reference) : '') + (pe ? ' · par ' + esc(pe.nom) : '') + (c ? ' · commande ' + esc(c.status) : '') + '</div></div><div class="money">' + esc(fmt$(p.amount)) + '</div></div>';
+    }).join("");
+  } else h += '<div class="meta" style="padding-top:8px">Aucun encaissement resto-bar direct ce jour-là.</div>';
   h += '</div>';
   return h;
 }
@@ -1572,7 +1759,7 @@ function clientSheet(key){
     return ((r.clientName||"").trim().toLowerCase() + "|" + (r.phone||"").trim()) === key;
   }).slice().sort(function(a,b){ return a.checkIn < b.checkIn ? 1 : -1; });
   var h = '<h3>' + esc(c.name) + '</h3>' +
-    '<div class="kv"><span>Séjours <b>' + c.stays + '</b></span><span>Total payé <b>' + esc(fmt$(c.spent)) + '</b></span>' +
+    '<div class="kv"><span>Séjour(s) hors annulées <b>' + c.stays + '</b></span><span>Total payé <b>' + esc(fmt$(c.spent)) + '</b></span>' +
     (c.phone ? '<span>Téléphone <b>' + esc(c.phone) + '</b></span>' : '') +
     '<span>Dernier séjour <b>' + esc(fmtDate(c.last)) + '</b></span></div>';
   h += '<div class="folio-sec">Ses réservations</div>';
@@ -1589,7 +1776,7 @@ function viewClients(){
     return '<button class="lrow" data-act="client-open" data-key="' + esc(c.key) + '"><span class="grow">' +
       '<span class="t">' + esc(c.name) + '</span>' +
       '<span class="s">' + (c.phone ? esc(c.phone) + ' · ' : '') + 'Dernier séjour : ' + esc(fmtDate(c.last)) + '</span></span>' +
-      '<span class="side"><span class="amt">' + c.stays + ' séjour' + (c.stays>1?"s":"") + '</span><span class="s">Payé : ' + esc(fmt$(c.spent)) + '</span></span>' +
+      '<span class="side"><span class="amt">' + c.stays + ' séjour' + (c.stays>1?"s":"") + ' hors annulées</span><span class="s">Payé : ' + esc(fmt$(c.spent)) + '</span></span>' +
       '<span class="chev">' + CHEV_SVG + '</span></button>';
   }).join("") + '</div>' : '<div class="empty">Aucun client pour le moment.<br/>Les clients apparaissent ici dès la première réservation.</div>';
   return h;
@@ -1608,13 +1795,13 @@ function viewSite(){
       '<span class="side"><span class="amt">' + esc(fmt$(r.priceNight)) + '</span><span class="s">par nuit</span></span></div>';
   }).join("") + '</div>';
   h += '<h3 class="sec-title">Demande de réservation en ligne</h3>';
-  h += '<div class="card"><form id="pubForm">' +
-    '<div class="grid2"><div class="field"><label>Nom complet *</label><input name="clientName" required placeholder="Ex. : Aline Ndayisenga" /></div>' +
-    '<div class="field"><label>Téléphone *</label><input name="phone" required placeholder="Ex. : +257 79 00 00 00" /></div></div>' +
+  h += '<div class="card"><form id="pubForm" novalidate>' +
+    '<div class="grid2"><div class="field"><label>Nom complet *</label><input name="clientName" placeholder="Ex. : Aline Ndayisenga" /></div>' +
+    '<div class="field"><label>Téléphone *</label><input name="phone" placeholder="Ex. : +257 79 00 00 00" /></div></div>' +
     '<div class="field"><label>Hébergement</label><select name="roomId" id="pubRoom">' +
       publicRooms().map(function(r){ return '<option value="'+r.id+'" data-price="'+r.priceNight+'">' + esc(r.name) + ' — ' + esc(fmt$(r.priceNight)) + ' / nuit</option>'; }).join("") + '</select></div>' +
-    '<div class="grid2"><div class="field"><label>Arrivée *</label><input type="date" name="checkIn" id="pubIn" required value="' + todayStr() + '" /></div>' +
-    '<div class="field"><label>Départ *</label><input type="date" name="checkOut" id="pubOut" required value="' + addDays(todayStr(),1) + '" /></div></div>' +
+    '<div class="grid2"><div class="field"><label>Arrivée *</label><input type="date" name="checkIn" id="pubIn" value="' + todayStr() + '" /></div>' +
+    '<div class="field"><label>Départ *</label><input type="date" name="checkOut" id="pubOut" value="' + addDays(todayStr(),1) + '" /></div></div>' +
     '<div class="grid2"><div class="field"><label>Voyageurs</label><input type="number" name="guests" min="1" step="1" value="2" /></div>' +
     '<div class="field"><label>Total estimé</label><div class="total-box" id="pubTotal" style="margin:0"></div></div></div>' +
     '<div class="field" style="margin-top:14px"><label>Message (optionnel)</label><textarea name="notes" placeholder="Heure d\'arrivée, demande particulière…"></textarea></div>' +
@@ -1786,14 +1973,17 @@ function commandeSheet(c){
   openSheet1(h, function(){ var f = cmdById(c.id); if(f) commandeSheet(f); else closeAllSheets(); });
 }
 function articleRow(a){
+  /* D17 : article ACTIF à prix 0 = badge ambre « Prix à définir »
+ (affichage seulement — aucune donnée n'est modifiée). */
+  var prixBadge = (a.actif && (+a.price||0)===0) ? '<span class="badge b-attente">Prix à définir</span>' : '';
   return '<button class="lrow" data-act="article-open" data-id="' + a.id + '"><span class="grow">' +
     '<span class="t">' + esc(a.name) + '</span>' +
     '<span class="s">' + esc(fmt$(a.price)) + (stockOf(a)!=null ? ' · ' + stockOf(a) + ' portion(s)' + (stockLow(a) ? ' — stock faible' : '') : ' · stock non suivi') + (a.actif ? '' : ' · hors carte') + '</span></span>' +
-    '<span class="side">' + catBadge(a.categorie) + (a.actif ? '' : '<span class="badge b-off">Inactif</span>') + '</span>' +
+    '<span class="side">' + catBadge(a.categorie) + prixBadge + (a.actif ? '' : '<span class="badge b-off">Inactif</span>') + '</span>' +
     '<span class="chev">' + CHEV_SVG + '</span></button>';
 }
 function articleSheet(a){
-  var h = '<div class="folio-head">' + catBadge(a.categorie) + (a.actif ? '<span class="badge b-libre">En vente</span>' : '<span class="badge b-off">Inactif</span>') + '</div>';
+  var h = '<div class="folio-head">' + catBadge(a.categorie) + (a.actif ? '<span class="badge b-libre">En vente</span>' : '<span class="badge b-off">Inactif</span>') + ((a.actif && (+a.price||0)===0) ? '<span class="badge b-attente">Prix à définir</span>' : '') + '</div>';
   h += '<h3>' + esc(a.name) + '</h3>' +
     '<div class="kv"><span>Prix <b>' + esc(fmt$(a.price)) + '</b></span>' +
     (stockOf(a)!=null ? '<span>Stock <b' + (stockLow(a) ? ' style="color:var(--red)"' : '') + '>' + stockOf(a) + ' portion(s)</b></span>' + (a.stockAlerte!=null ? '<span>Alerte à <b>' + a.stockAlerte + '</b></span>' : '') : '<span>Stock <b>non suivi</b></span>') + '</div>' +
@@ -1874,6 +2064,16 @@ function viewRestobar(){
     cmds = cmds.slice(0, 40);
     h += cmds.length ? '<div class="lstack">' + cmds.map(commandeRow).join("") + '</div>' :
       '<div class="empty">' + (ui.cmdFilter==="today" ? 'Aucune commande aujourd\'hui pour le moment.' : 'Aucune commande pour le moment.') + '<br/>Créez la première avec le bouton « Nouvelle commande ».</div>';
+    /* D10 : les commandes encore OUVERTES des jours précédents restent
+ actionnables ici, sans passer par l'Historique. */
+    if(ui.cmdFilter==="today"){
+      var stillOpen = store.commandes.filter(function(c){ return c.status==="Ouverte" && cmdDate(c) && cmdDate(c) < t; })
+        .slice().sort(function(a,b){ return String(a.createdAt) < String(b.createdAt) ? -1 : 1; });
+      if(stillOpen.length){
+        h += '<h3 class="sec-title">Encore ouvertes (jours précédents) (' + stillOpen.length + ')</h3>' +
+          '<div class="lstack">' + stillOpen.map(commandeRow).join("") + '</div>';
+      }
+    }
     return h;
   }
   if(tab==="carte"){
@@ -1888,9 +2088,12 @@ function viewRestobar(){
   h += '<div class="actions" style="margin:0 0 14px"><button class="btn btn-soft" data-act="print-qr">Imprimer les QR codes</button></div>';
   h += '<h3 class="sec-title" style="margin-top:4px">Tables (' + store.tablesResto.length + ')</h3>';
   h += store.tablesResto.length ? '<div class="lstack">' + store.tablesResto.map(function(tb){
-    return '<button class="lrow" data-act="table-open" data-id="' + tb.id + '"><span class="grow">' +
+    /* D13 : le lien invité affiché est TOUJOURS le lien à identifiant
+ UUID (tb.id) — identique au détail et au QR — jamais le nom. */
+    var tUrl = SITE_QR + "?table=" + tb.id;
+    return '<button class="lrow" data-act="table-open" data-id="' + tb.id + '" title="' + esc(tUrl) + '"><span class="grow">' +
       '<span class="t">' + esc(tb.nom) + '</span>' +
-      '<span class="s">' + (tb.actif ? 'En service — QR actif' : 'Hors service') + '</span></span>' +
+      '<span class="s">' + (tb.actif ? 'En service — QR actif' : 'Hors service') + ' · ' + esc(tUrl) + '</span></span>' +
       '<span class="side">' + (tb.actif ? '<span class="badge b-libre">Active</span>' : '<span class="badge b-off">Inactive</span>') + '</span>' +
       '<span class="chev">' + CHEV_SVG + '</span></button>';
   }).join("") + '</div>' : '<div class="empty">Aucune table enregistrée.<br/>Créez les tables du restaurant (Table 1, Terrasse…) : chacune reçoit son QR code.</div>';
@@ -2111,8 +2314,11 @@ function orderForm(prefillResId){
       if(!clientNom){ toast("Le nom du client de passage est nécessaire.", true); return; }
     }
     var btn = this; btn.disabled = true;
+    /* D19 : une commande liée à un séjour est IMPUTÉE automatiquement
+ dès sa création (sa consommation figure au folio) ; seule une
+ commande de client de passage naît « Ouverte ». */
     sb("/rest/v1/commandes", { method:"POST", prefer:"return=representation", body:{
-      hotel_id: hotel ? hotel.id : session.hotelId, reservation_id: resId, client_nom: clientNom, statut: "ouverte"
+      hotel_id: hotel ? hotel.id : session.hotelId, reservation_id: resId, client_nom: clientNom, statut: resId ? "imputee" : "ouverte"
     }}).then(function(created){
       var cmd = created && created.length ? created[0] : null;
       if(!cmd || !cmd.id) throw new Error("Création de la commande non confirmée par la base.");
@@ -2122,7 +2328,7 @@ function orderForm(prefillResId){
       var rows = ls.map(function(l){ return { commande_id: cmd.id, article_id: l.article_id || null, article_nom: l.article_nom, prix: l.prix, quantite: l.quantite }; });
       return sb("/rest/v1/commande_lignes", { method:"POST", prefer:"return=minimal", body: rows }).then(function(){ return cmd; });
     }).then(function(){
-      toast("Commande enregistrée — " + (resId ? "elle apparaîtra au folio du séjour." : "client de passage."));
+      toast("Commande enregistrée — " + (resId ? "imputée automatiquement au folio du séjour." : "client de passage."));
       closeSheet(); return loadAll(true);
     }).catch(function(err){ btn.disabled = false; fail(err); });
   });
@@ -2192,8 +2398,9 @@ function computeOwnerPeriod(from, to){
     sold += ov; stayRev += rev;
     if(perRoom[r.roomId]){ perRoom[r.roomId].nights += ov; perRoom[r.roomId].revenue += rev; }
   });
-  var cashNet = 0;
-  store.payments.forEach(function(p){ if(inPeriod(p.date, from, to)) cashNet += +p.amount || 0; });
+  /* D12 : encaissé net fusionné — paiements hébergement + encaissements
+ resto-bar directs (commande_paiements) de la période. */
+  var cashNet = periodCash(from, to);
   var resto = 0, bar = 0;
   store.commandes.forEach(function(c){
     if(c.status!=="Payée" && c.status!=="Imputée") return;
@@ -2247,6 +2454,17 @@ function computeOwnerPeriod(from, to){
       detail: (c.clientNom || (res ? res.clientName : "Client de passage")) + (res && res.code ? " · folio " + res.code : " · client de passage") + " · " + nbL + " ligne" + (nbL > 1 ? "s" : ""),
       amount: commandeTotal(c) });
   });
+  /* D20 : demandes clients reçues — date de création exacte (created_at).
+ Les check-in/check-out et annulations de commandes n'ont pas
+ d'horodatage stocké : ils restent volontairement hors journal. */
+  store.demandes.forEach(function(dm){
+    var dd = isoDatePart(dm.createdAt);
+    if(!dm.createdAt || !inPeriod(dd, from, to)) return;
+    events.push({ sort: String(dm.createdAt), when: fmtCreatedAt(dm.createdAt),
+      title: "Demande client reçue — " + (dm.type || "Demande"),
+      detail: (dm.clientNom ? dm.clientNom + " · " : "") + demOrigin(dm) + (dm.message ? " · « " + (dm.message.length > 80 ? dm.message.slice(0,80) + "…" : dm.message) + " »" : "") + " · statut actuel : " + (dm.statut==="nouvelle" ? "Nouvelle" : (dm.statut==="prise_en_charge" ? "Prise en charge" : "Traitée")),
+      amount: null });
+  });
   store.clotures.forEach(function(cl){
     if(!inPeriod(cl.date, from, to)) return;
     events.push({ sort: String(cl.date) + "T23:59:59", when: fmtDate(cl.date),
@@ -2276,7 +2494,7 @@ function buildOwnerReportHtml(range, st){
     '<tr><td>Revenu hébergement (vendu)</td><td class="r"><b><span class="nobr">' + esc(fmt$(st.stayRev)) + '</span></b></td><td class="r">Au prorata des nuits dans la période</td></tr>' +
     '<tr><td>ADR — prix moyen par nuit vendue</td><td class="r"><b><span class="nobr">' + esc(fmt$(st.adr)) + '</span></b></td><td class="r">Revenu hébergement / nuitées vendues</td></tr>' +
     '<tr><td>RevPAR</td><td class="r"><b><span class="nobr">' + esc(fmt$(st.revpar)) + '</span></b></td><td class="r">Revenu hébergement / nuitées disponibles</td></tr>' +
-    '<tr><td>Encaissé net de la période</td><td class="r"><b><span class="nobr">' + esc(fmt$(st.cashNet)) + '</span></b></td><td class="r">Paiements datés dans la période, remboursements inclus</td></tr></table>';
+    '<tr><td>Encaissé net de la période</td><td class="r"><b><span class="nobr">' + esc(fmt$(st.cashNet)) + '</span></b></td><td class="r">Paiements hébergement + encaissements resto-bar directs datés dans la période, remboursements inclus</td></tr></table>';
   rep += '<table><tr><th>Revenu par département</th><th class="r">Montant</th></tr>' +
     '<tr><td>Hébergement — encaissements nets</td><td class="r"><span class="nobr">' + esc(fmt$(st.cashNet)) + '</span></td></tr>' +
     '<tr><td>Restaurant — ventes (encaissées ou imputées)</td><td class="r"><span class="nobr">' + esc(fmt$(st.resto)) + '</span></td></tr>' +
@@ -2338,7 +2556,7 @@ function viewOwner(){
       '<div class="pay-row"><div><div><b>Revenu hébergement (vendu)</b></div><div class="who">Totaux des mêmes séjours, au prorata : total de la réservation × nuits dans la période ÷ nuits du séjour.</div></div></div>' +
       '<div class="pay-row"><div><div><b>ADR — prix moyen par nuit vendue</b></div><div class="who">Revenu hébergement ÷ nuitées vendues.</div></div></div>' +
       '<div class="pay-row"><div><div><b>RevPAR</b></div><div class="who">Revenu par nuitée disponible : revenu hébergement ÷ nuitées disponibles.</div></div></div>' +
-      '<div class="pay-row"><div><div><b>Encaissé net de la période</b></div><div class="who">Somme des paiements datés dans la période, remboursements en négatif inclus.</div></div></div></div>';
+      '<div class="pay-row"><div><div><b>Encaissé net de la période</b></div><div class="who">Somme des paiements datés dans la période — hébergement et encaissements resto-bar directs fusionnés — remboursements en négatif inclus.</div></div></div></div>';
     if(pending.length){
       h += '<h3 class="sec-title">Demandes en attente de confirmation (' + pending.length + ')</h3>';
       h += '<div class="lstack">' + pending.map(resRow).join("") + '</div>';
@@ -2466,18 +2684,29 @@ function viewPersonnel(){
   return h;
 }
 function hrEmployesHtml(){
-  var h = '<div class="page-head" style="margin-top:4px"><div><h2 style="font-size:19px">Employés (' + store.employes.length + ')</h2></div>' +
+  /* D14 : par défaut seuls les ACTIFS sont listés ; le compteur
+ « Employés (N) » compte les actifs ; les inactifs sont regroupés
+ dans une section repliée, toujours ouvrables. */
+  var actifs = store.employes.filter(function(e){ return e.actif; });
+  var inactifs = store.employes.filter(function(e){ return !e.actif; });
+  var h = '<div class="page-head" style="margin-top:4px"><div><h2 style="font-size:19px">Employés (' + actifs.length + ')</h2></div>' +
     '<button class="btn btn-teal" data-act="new-emp">Nouvel employé</button></div>';
   if(!store.employes.length){
     return h + '<div class="empty">Aucun employé enregistré pour le moment.<br/>Ajoutez le premier avec le bouton « Nouvel employé ».</div>';
   }
-  h += '<div class="lstack">' + store.employes.map(function(e){
+  function empRow(e){
     return '<button class="lrow" data-act="emp-open" data-id="' + e.id + '"><span class="grow">' +
       '<span class="t">' + esc(e.nom) + '</span>' +
       '<span class="s">' + esc(e.poste || "Poste non renseigné") + (e.telephone ? ' · ' + esc(e.telephone) : '') + '</span></span>' +
       '<span class="side">' + (e.actif ? '<span class="badge b-libre">Actif</span>' : '<span class="badge b-emp-off">Inactif</span>') + '<span class="amt">' + esc(fmt$(e.salaire)) + '</span></span>' +
       '<span class="chev">' + CHEV_SVG + '</span></button>';
-  }).join("") + '</div>';
+  }
+  h += actifs.length ? '<div class="lstack">' + actifs.map(empRow).join("") + '</div>'
+    : '<div class="empty">Aucun employé actif pour le moment.</div>';
+  if(inactifs.length){
+    h += '<details class="inactifs"><summary>Inactifs (' + inactifs.length + ')</summary>' +
+      '<div class="lstack">' + inactifs.map(empRow).join("") + '</div></details>';
+  }
   return h;
 }
 function pointageInputsHtml(e, ptDate){
@@ -2790,16 +3019,25 @@ function refreshSheet1IfPending(){
   try{ sheet1Refresh(); }catch(e){}
   var sh = $("#sheet"); if(sh) sh.scrollTop = sc;
 }
+/* D5+D16 : à la fermeture de toute feuille, les données partagées sont
+ rechargées (sauf si un chargement vient juste d'avoir lieu — les
+ mutations enchaînent souvent closeSheet() puis loadAll(true)). */
+function reloadOnSheetClose(){
+  if(!session && !publicMode) return;
+  if(Date.now() - lastLoadStartedAt > 1200) loadAll(true);
+}
 function closeSheet(){
   var o2 = $("#overlay2");
   if(o2 && o2.classList.contains("open")){
     o2.classList.remove("open"); $("#sheet2").innerHTML = "";
     refreshSheet1IfPending();
+    reloadOnSheetClose();
     return;
   }
   $("#overlay").classList.remove("open"); $("#sheet").innerHTML = "";
   sheet1Refresh = null;
   if(reloadPending){ reloadPending = false; render(); }
+  reloadOnSheetClose();
 }
 function closeAllSheets(){
   var o2 = $("#overlay2");
@@ -2807,6 +3045,7 @@ function closeAllSheets(){
   $("#overlay").classList.remove("open"); $("#sheet").innerHTML = "";
   sheet1Refresh = null;
   if(reloadPending){ reloadPending = false; render(); }
+  reloadOnSheetClose();
 }
 $("#overlay").addEventListener("click", function(e){ if(e.target===this) closeSheet(); });
 $("#overlay2").addEventListener("click", function(e){ if(e.target===this) closeSheet(); });
@@ -2838,13 +3077,14 @@ function resForm(r, prefill){
   openSheet(
     '<h3>' + (isNew ? "Nouvelle réservation" : "Modifier la réservation") + '</h3>' +
     '<div class="sub">Le total se calcule automatiquement : nuits × prix par nuit.</div>' +
-    '<form id="resForm">' +
-    '<div class="field"><label>Nom du client *</label><input name="clientName" aria-label="Nom du client" required value="' + esc(r.clientName) + '" placeholder="Ex. : Aline Ndayisenga" /></div>' +
-    '<div class="grid2"><div class="field"><label>Téléphone *</label><input name="phone" aria-label="Téléphone" required value="' + esc(r.phone||"") + '" placeholder="Ex. : +257 79 00 00 00" /></div>' +
+    '<form id="resForm" novalidate>' +
+    '<div class="field" id="fwName"><label>Nom du client *</label><input name="clientName" aria-label="Nom du client" value="' + esc(r.clientName) + '" placeholder="Ex. : Aline Ndayisenga" /><div class="field-err" id="errName"></div></div>' +
+    '<div class="grid2"><div class="field" id="fwPhone"><label>Téléphone *</label><input name="phone" aria-label="Téléphone" value="' + esc(r.phone||"") + '" placeholder="Ex. : +257 79 00 00 00" /><div class="field-err" id="errPhone"></div></div>' +
     '<div class="field"><label>Nombre de voyageurs</label><input type="number" name="guests" aria-label="Nombre de voyageurs" min="1" step="1" value="' + (r.guests ? parseInt(r.guests)||1 : 2) + '" /></div></div>' +
-    '<div class="field"><label>Hébergement</label><select name="roomId" id="fRoom" aria-label="Hébergement">' + roomOpts + '</select></div>' +
-    '<div class="grid2"><div class="field"><label>Arrivée *</label><input type="date" name="checkIn" id="fIn" aria-label="Date d\'arrivée" required value="' + r.checkIn + '" /></div>' +
-    '<div class="field"><label>Départ *</label><input type="date" name="checkOut" id="fOut" aria-label="Date de départ" required value="' + r.checkOut + '" /></div></div>' +
+    '<div class="field" id="fwRoom"><label>Hébergement</label><select name="roomId" id="fRoom" aria-label="Hébergement">' + roomOpts + '</select><div class="field-err" id="errRoom"></div></div>' +
+    '<div class="grid2"><div class="field"><label>Arrivée *</label><input type="date" name="checkIn" id="fIn" aria-label="Date d\'arrivée" value="' + r.checkIn + '" /></div>' +
+    '<div class="field"><label>Départ *</label><input type="date" name="checkOut" id="fOut" aria-label="Date de départ" value="' + r.checkOut + '" /></div></div>' +
+    '<div class="field-err" id="errDates" style="margin:-6px 0 12px"></div>' +
     '<div class="grid2"><div class="field"><label>Prix par nuit ($)</label><input type="number" name="priceNight" id="fPrice" aria-label="Prix par nuit" min="0" step="0.5" value="' + r.priceNight + '" /></div>' +
     '<div class="field"><label>Statut</label><select name="status" aria-label="Statut">' + stOpts + '</select></div></div>' +
     '<div class="grid2"><div class="field"><label>Acompte reçu ($)</label><input type="number" name="deposit" aria-label="Acompte reçu" min="0" step="0.5" value="' + curDep + '" /></div>' +
@@ -2866,9 +3106,13 @@ function resForm(r, prefill){
     var warnEl = $("#fWarn");
     if(warnEl){
       if(n > 0){
-        var pend = findPendingOverlaps(probe, isNew ? null : r.id);
+        /* D3 : nouvelle « En attente » → avertissement ambre créable
+ quand même (même face à une Confirmée) ; nouvelle Confirmée/
+ Arrivée → avertissement pour les « En attente » + blocage dur
+ rouge uniquement face à une Confirmée/Arrivée. */
+        var warn = findWarnOverlaps(probe, isNew ? null : r.id);
         var hard = findHardConflict(probe, isNew ? null : r.id);
-        warnEl.innerHTML = pendingBannerHtml(pend, selRoom ? selRoom.name : "") +
+        warnEl.innerHTML = (probe.status==="En attente" ? warnBannerHtml(warn, selRoom ? selRoom.name : "") : pendingBannerHtml(warn, selRoom ? selRoom.name : "")) +
           (hard ? '<div class="warn-banner" style="border-color:var(--red);background:var(--red-soft)"><b style="color:var(--red)">Dates déjà prises</b> — ' + esc(hard.clientName) + ' (' + esc(hard.code||"") + ', ' + esc(hard.status) + ') occupe déjà ces dates : l\'enregistrement sera refusé.</div>' : '');
       } else warnEl.innerHTML = "";
     }
@@ -2877,6 +3121,21 @@ function resForm(r, prefill){
   $("#fRoom").addEventListener("change", function(){ var o = this.options[this.selectedIndex]; $("#fPrice").value = o.getAttribute("data-price"); updTotal(); });
   form.querySelector('[name="status"]').addEventListener("change", updTotal);
   updTotal();
+  /* D8 : validation métier EN FRANÇAIS, sous chaque champ concerné —
+ le formulaire est en novalidate : aucune bulle native du navigateur. */
+  function fieldErr(errId, wrapId, msg){
+    var eEl = document.getElementById(errId), wEl = wrapId ? document.getElementById(wrapId) : null;
+    if(eEl){ eEl.textContent = msg || ""; eEl.className = "field-err" + (msg ? " show" : ""); }
+    if(wEl) wEl.className = "field" + (msg ? " has-err" : "");
+    return !msg;
+  }
+  ["clientName","phone"].forEach(function(nm){
+    var inp = form.querySelector('[name="' + nm + '"]');
+    if(inp) inp.addEventListener("input", function(){
+      fieldErr(nm==="clientName" ? "errName" : "errPhone", nm==="clientName" ? "fwName" : "fwPhone", "");
+    });
+  });
+  ["fIn","fOut"].forEach(function(fid){ var dEl = document.getElementById(fid); if(dEl) dEl.addEventListener("change", function(){ fieldErr("errDates", null, ""); }); });
   form.addEventListener("submit", function(e){
     e.preventDefault();
     var fd = new FormData(form);
@@ -2884,12 +3143,18 @@ function resForm(r, prefill){
       guests: Math.max(1, parseInt(fd.get("guests"))||1),
       roomId: String(fd.get("roomId")), checkIn: String(fd.get("checkIn")), checkOut: String(fd.get("checkOut")),
       priceNight: parseFloat(fd.get("priceNight"))||0, status: String(fd.get("status")), notes: String(fd.get("notes")||"").trim() };
-    if(!data.clientName){ toast("Le nom du client est obligatoire.", true); return; }
-    if(!data.phone){ toast("Le téléphone du client est obligatoire.", true); return; }
-    if(nightsOf(data) <= 0){ toast("Vérifiez les dates : le départ doit suivre l'arrivée.", true); return; }
+    var okName = fieldErr("errName", "fwName", data.clientName ? "" : "Le nom du client est obligatoire.");
+    var okPhone = fieldErr("errPhone", "fwPhone", data.phone ? "" : "Le téléphone du client est obligatoire — la réception doit pouvoir joindre le client.");
+    var okDates = fieldErr("errDates", null, nightsOf(data) > 0 ? "" : "Vérifiez les dates : la date de départ doit être après la date d'arrivée.");
     var targetRoom = roomById(data.roomId);
-    if(!targetRoom){ toast("Choisissez un hébergement.", true); return; }
+    var okRoom = fieldErr("errRoom", "fwRoom", targetRoom ? "" : "Choisissez un hébergement pour cette réservation.");
+    if(!okName || !okPhone || !okDates || !okRoom){
+      var firstBad = !okName ? form.querySelector('[name="clientName"]') : (!okPhone ? form.querySelector('[name="phone"]') : (!okRoom ? $("#fRoom") : $("#fOut")));
+      if(firstBad && firstBad.focus) firstBad.focus();
+      return;
+    }
     if(targetRoom.status==="Maintenance" && (isNew || data.roomId!==origRoomId)){
+      fieldErr("errRoom", "fwRoom", "« " + targetRoom.name + " » est en maintenance — indisponible à la réservation.");
       toast("« " + targetRoom.name + " » est en maintenance — indisponible à la réservation.", true); return;
     }
     var total = nightsOf(data) * data.priceNight;
@@ -2903,7 +3168,7 @@ function resForm(r, prefill){
         toast("Conflit de dates : " + targetRoom.name + " est déjà réservé par " + conflict.clientName + " (" + (conflict.code||"") + ", " + conflict.status + ") du " + fmtDate(conflict.checkIn) + " au " + fmtDate(conflict.checkOut) + ".", true);
         return;
       }
-      var pendingWarn = pendingNote(findPendingOverlaps(data, isNew ? null : r.id));
+      var pendingWarn = warnNote(findWarnOverlaps(data, isNew ? null : r.id));
       var body = { hotel_id: targetRoom.hotelId, hebergement_id: data.roomId, client_nom: data.clientName, client_tel: data.phone,
         arrivee: data.checkIn, depart: data.checkOut, voyageurs: data.guests, prix_nuit: data.priceNight, total: total,
         statut: RES_TO_DB[data.status] || "confirmee", notes: data.notes || null };
@@ -3038,7 +3303,7 @@ function checkoutForm(r){
     (conso > 0 ? '<br/>Consommations resto-bar au folio : <b>' + esc(fmt$(conso)) + '</b>' : '') +
     '<br/>Total général : <b>' + esc(fmt$(resGrandTotal(r))) + '</b><br/>Déjà payé : <b>' + esc(fmt$(resPaid(r))) + '</b><br/>Reste à régler (séjour + consommations) : <b>' + esc(fmt$(due)) + '</b>' +
     (over > 0 ? '<br/><b style="color:var(--red)">Trop-perçu : ' + esc(fmt$(over)) + ' à rembourser au client.</b>' : '') + '</div>' +
-    (openCmds.length ? '<div class="warn-banner"><b>' + openCmds.length + ' commande(s) resto-bar encore « Ouverte(s) »</b> sur ce séjour : elles comptent déjà dans le reste à régler ci-dessus. Pensez à les passer en « Imputée » depuis l\'onglet Resto-bar pour la traçabilité.</div>' : '') +
+    (openCmds.length ? '<div class="warn-banner"><b>' + openCmds.length + ' commande(s) resto-bar ni imputée(s), ni payée(s), ni annulée(s)</b> sur ce séjour (anciennes commandes encore « Ouverte(s) ») : elles comptent déjà dans le reste à régler ci-dessus. Les commandes créées pour un séjour sont désormais imputées automatiquement ; pensez à imputer celles-ci depuis l\'onglet Resto-bar pour la traçabilité.</div>' : '') +
     '<form id="coForm">' +
     (due > 0 ? '<div class="grid2"><div class="field"><label>Paiement final ($)</label><input type="number" name="amount" aria-label="Paiement final" min="0" step="0.5" value="' + due + '" /></div>' +
     '<div class="field"><label>Moyen</label><select name="method" aria-label="Moyen du paiement final">' + methodOptions("Espèces") + '</select></div></div>' : '<p class="note">Le séjour est déjà soldé : aucun paiement final à enregistrer.</p>') +
@@ -3110,7 +3375,20 @@ function viewPlanning(){
   var start = ui.planStart, days = [], i;
   for(i=0;i<14;i++) days.push(addDays(start,i));
   var end = addDays(start,14), t = todayStr();
-  var h = '<div class="page-head"><div><h2>Planning</h2><div class="sub">Un bloc par séjour, coloré par statut. Cliquez un bloc pour ouvrir son folio ; cliquez une case libre pour créer une réservation pré-remplie.</div></div></div>';
+  /* Occupation de la période : nuitées Confirmée/Arrivée / nuitées totales */
+  var occNights = 0;
+  days.forEach(function(d){
+    store.rooms.forEach(function(room){
+      var occd = store.reservations.some(function(r){ return r.roomId===room.id && (r.status==="Confirmée"||r.status==="Arrivée") && r.checkIn <= d && d < r.checkOut; });
+      if(occd) occNights++;
+    });
+  });
+  var totalNights = store.rooms.length * 14;
+  var occPct = totalNights ? Math.round(occNights/totalNights*100) : 0;
+  var legendHtml = '<div class="plan-legend top"><span><i style="background:#d97706"></i>En attente</span><span><i style="background:#128377"></i>Confirmée</span><span><i style="background:#123f3c"></i>Arrivée (en séjour)</span><span><i style="background:#e2e8f0;border:1px solid #cbd5e1"></i>Terminée</span><span style="margin-left:auto">Source sur chaque bloc : Chatbot · Site · Réception · Téléphone</span></div>';
+  var h = '<div class="page-head"><div><h2>Planning</h2><div class="sub">Le calendrier central — chambres en lignes, 14 jours en colonnes. Touchez un bloc pour le folio, une case libre pour réserver.</div></div></div>';
+  h += legendHtml;
+  h += '<div class="plan-summary"><span class="plan-occ">Occupation 14 jours : <b>' + occPct + ' %</b> · ' + occNights + ' / ' + totalNights + ' nuitées</span></div>';
   h += '<div class="plan-nav"><button class="btn btn-soft btn-sm" data-act="plan-prev" aria-label="Reculer de 7 jours">‹ 7 jours</button>' +
     '<span class="range">' + esc(fmtDate(days[0])) + ' → ' + esc(fmtDate(days[13])) + '</span>' +
     '<button class="btn btn-soft btn-sm" data-act="plan-next" aria-label="Avancer de 7 jours">7 jours ›</button>' +
@@ -3118,8 +3396,8 @@ function viewPlanning(){
     '<label class="plan-check"><input type="checkbox" id="planShowCancelled"' + (ui.showCancelled ? ' checked' : '') + ' /> Afficher les annulées</label></div>';
   h += '<div class="plan-scroll"><div class="plan-inner">';
   h += '<div class="plan-head"><div class="plan-corner">Hébergement</div>' + days.map(function(d){
-    var dt = parseD(d);
-    return '<div class="plan-day' + (d===t ? ' today' : '') + '">' + esc(dt.toLocaleDateString("fr-FR",{weekday:"short"}).replace(".","")) + '<b>' + dt.getDate() + '</b>' + esc(dt.toLocaleDateString("fr-FR",{month:"short"}).replace(".","")) + '</div>';
+    var dt = parseD(d); var dow = dt.getDay(); var we = (dow===0||dow===6);
+    return '<div class="plan-day' + (d===t ? ' today' : '') + (we ? ' weekend' : '') + '">' + esc(dt.toLocaleDateString("fr-FR",{weekday:"short"}).replace(".","")) + '<b>' + dt.getDate() + '</b>' + esc(dt.toLocaleDateString("fr-FR",{month:"short"}).replace(".","")) + (d===t ? '<span class="today-pill">Auj.</span>' : '') + '</div>';
   }).join("") + '</div>';
   var cls = {"En attente":"pb-attente","Confirmée":"pb-confirmee","Arrivée":"pb-arrivee","Terminée":"pb-terminee","Annulée":"pb-annulee"};
   store.rooms.forEach(function(room){
@@ -3141,13 +3419,16 @@ function viewPlanning(){
     });
     var lanes = 1;
     blocks.forEach(function(b){ if(b.lane+1 > lanes) lanes = b.lane+1; });
-    var rowH = 56 + (lanes-1)*38;
-    h += '<div class="plan-row" style="min-height:' + rowH + 'px"><div class="plan-room"><b>' + esc(room.name) + '</b><span>' + esc(fmt$(room.priceNight)) + ' / nuit · ' + esc(effectiveStatus(room)) + '</span></div>';
+    var rowH = 72 + (lanes-1)*58;
+    h += '<div class="plan-row" style="min-height:' + rowH + 'px"><div class="plan-room"><b>' + esc(room.name) + '</b><span>' + esc(room.type||"") + ' · ' + esc(fmt$(room.priceNight)) + ' / nuit</span></div>';
     days.forEach(function(d, di){
-      h += '<div class="plan-cell' + (d===t ? ' today' : '') + '" data-act="plan-new" data-room="' + room.id + '" data-date="' + d + '" title="Réserver ' + esc(room.name) + ' à partir du ' + esc(fmtDate(d)) + '">';
+      var dt2 = parseD(d); var we2 = (dt2.getDay()===0||dt2.getDay()===6);
+      h += '<div class="plan-cell' + (d===t ? ' today' : '') + (we2 ? ' weekend' : '') + '" data-act="plan-new" data-room="' + room.id + '" data-date="' + d + '" title="Réserver ' + esc(room.name) + ' à partir du ' + esc(fmtDate(d)) + '">';
       blocks.forEach(function(b){
         if(b.off===di){
-          h += '<div class="plan-block ' + (cls[b.r.status]||"pb-confirmee") + '" style="width:calc(' + (b.span*100) + '% - 4px);top:' + (11 + b.lane*38) + 'px" data-act="folio" data-id="' + b.r.id + '" title="' + esc(b.r.clientName) + ' · ' + esc(b.r.code||"") + ' · ' + esc(b.r.status) + ' · ' + esc(fmtDate(b.r.checkIn)) + ' → ' + esc(fmtDate(b.r.checkOut)) + '">' + esc(b.r.clientName) + '<small>' + esc(b.r.code||"") + '</small></div>';
+          var srcLbl = SRC_LABEL[b.r.source] || b.r.source || "Réception";
+          var nn = nightsOf(b.r);
+          h += '<div class="plan-block ' + (cls[b.r.status]||"pb-confirmee") + '" style="width:calc(' + (b.span*100) + '% - 4px);top:' + (6 + b.lane*58) + 'px" data-act="folio" data-id="' + b.r.id + '" title="' + esc(b.r.clientName) + ' · ' + esc(b.r.code||"") + ' · ' + esc(b.r.status) + ' · ' + esc(fmtDate(b.r.checkIn)) + ' → ' + esc(fmtDate(b.r.checkOut)) + '"><span class="pb-name">' + esc(b.r.clientName) + '<span class="pb-src">' + esc(srcLbl) + '</span></span><span class="pb-code">' + esc(b.r.code||"") + ' · ' + nn + ' nuit' + (nn>1?"s":"") + ' · ' + esc(fmt$(resGrandTotal(b.r))) + '</span></div>';
         }
       });
       h += '</div>';
@@ -3155,7 +3436,7 @@ function viewPlanning(){
     h += '</div>';
   });
   h += '</div></div>';
-  h += '<div class="plan-legend"><span><i style="background:#fdeec9;border:1px solid #eed9a8"></i>En attente</span><span><i style="background:#d7f2ee;border:1px solid #b0e5dd"></i>Confirmée</span><span><i style="background:#b0e5dd;border:1px solid #7dd3c7"></i>Arrivée (en séjour)</span><span><i style="background:#efede8;border:1px solid #e2e8f0"></i>Terminée</span></div>';
+  h += '<div class="plan-legend"><span><i style="background:#d97706"></i>En attente</span><span><i style="background:#128377"></i>Confirmée</span><span><i style="background:#123f3c"></i>Arrivée (en séjour)</span><span><i style="background:#e2e8f0;border:1px solid #cbd5e1"></i>Terminée</span></div>';
   return h;
 }
 
@@ -3200,8 +3481,17 @@ function folioSheet(r){
       return '<tr><td>' + esc(typeLbl[p.type]||"Paiement") + '</td><td>' + esc(fmtDate(p.date)) + ' · ' + esc(p.method) + (p.reference ? ' · Réf. ' + esc(p.reference) : '') + '</td><td class="r">' + esc(fmt$(p.amount)) + '</td></tr>';
     }).join("") + '</table>';
   } else h += '<p class="note">Aucun paiement enregistré pour ce séjour.</p>';
-  h += '<div class="total-box" style="margin-top:14px">Total séjour : <b>' + esc(fmt$(total)) + '</b><br/>Total consommations : <b>' + esc(fmt$(conso)) + '</b><br/>Total général : <b>' + esc(fmt$(grand)) + '</b><br/>Payé : <b>' + esc(fmt$(paid)) + '</b><br/>' +
-    (over > 0 ? '<b style="color:var(--red)">Trop-perçu : ' + esc(fmt$(over)) + ' à rembourser au client.</b>' : 'Reste à payer : <b>' + esc(fmt$(due)) + '</b>') + '</div>';
+  if(r.status==="Annulée"){
+    /* D7+D21 : folio d'annulée — statut, payé NET et remboursement
+ éventuel ; jamais de reste dû (le reste vaut 0). */
+    var refunded = 0; pays.forEach(function(p){ if((+p.amount||0) < 0) refunded += -(+p.amount||0); });
+    h += '<div class="total-box" style="margin-top:14px">Statut : <b>Annulée</b><br/>Total du séjour annulé : <b>' + esc(fmt$(grand)) + '</b><br/>Payé net : <b>' + esc(fmt$(paid)) + '</b>' +
+      (refunded > 0 ? '<br/>Remboursé au client : <b>' + esc(fmt$(refunded)) + '</b>' : '') +
+      '<br/>Reste à payer : <b>0 $</b></div>';
+  } else {
+    h += '<div class="total-box" style="margin-top:14px">Total séjour : <b>' + esc(fmt$(total)) + '</b><br/>Total consommations : <b>' + esc(fmt$(conso)) + '</b><br/>Total général : <b>' + esc(fmt$(grand)) + '</b><br/>Payé : <b>' + esc(fmt$(paid)) + '</b><br/>' +
+      (over > 0 ? '<b style="color:var(--red)">Trop-perçu : ' + esc(fmt$(over)) + ' à rembourser au client.</b>' : 'Reste à payer : <b>' + esc(fmt$(due)) + '</b>') + '</div>';
+  }
   h += '<div class="actions sticky-actions">';
   if(r.status==="En attente") h += '<button class="btn btn-teal" data-act="confirm-res" data-id="' + r.id + '">Confirmer</button>';
   if(r.status==="En attente" || r.status==="Confirmée") h += '<button class="btn btn-teal" data-act="checkin" data-id="' + r.id + '">Arrivée (check-in)</button>';
@@ -3220,17 +3510,21 @@ function folioSheet(r){
 /* ---------- Clôture de journée — night audit simplifié ---------- */
 var pendingCloture = null;
 function dayRecap(date){
-  var pays = store.payments.filter(function(p){ return p.date===date; });
-  var total = 0, byMethod = {};
-  METHODS.forEach(function(m){ byMethod[m] = 0; });
-  pays.forEach(function(p){ total += +p.amount||0; byMethod[p.method] = (byMethod[p.method]||0) + (+p.amount||0); });
+  /* D12 : total, ventilation et nombre de paiements fusionnés
+ (hébergement + resto-bar direct). D4 : arrivées = Confirmée/Arrivée
+ du jour seulement ; « demandes non traitées » = demandes de SERVICE
+ (table demandes, nouvelle/prise en charge) — les demandes de
+ réservation en attente sont comptées à part. */
+  var cash = dayCash(date);
   var rb = restoDayTotals(date);
+  var demService = store.demandes.filter(function(d){ return d.statut==="nouvelle" || d.statut==="prise_en_charge"; }).length;
+  var resAttente = store.reservations.filter(function(r){ return r.status==="En attente"; }).length;
   return {
-    date: date, total: total, nbPaiements: pays.length, byMethod: byMethod,
-    arrivees: store.reservations.filter(function(r){ return r.checkIn===date && r.status!=="Annulée"; }).length,
+    date: date, total: cash.total, nbPaiements: cash.count, byMethod: cash.byMethod,
+    arrivees: store.reservations.filter(function(r){ return r.checkIn===date && (r.status==="Confirmée" || r.status==="Arrivée"); }).length,
     departs: store.reservations.filter(function(r){ return r.checkOut===date && (r.status==="Arrivée" || r.status==="Terminée" || r.status==="Confirmée"); }).length,
     menage: store.rooms.filter(function(r){ return HK_STATUS_FLOW.indexOf(effectiveStatus(r)) >= 0; }).length,
-    enAttente: store.reservations.filter(function(r){ return r.status==="En attente"; }).length,
+    enAttente: demService, demandesService: demService, resEnAttente: resAttente,
     restoTotal: rb.total, restoPaye: rb.payees, restoImpute: rb.imputees
   };
 }
@@ -3241,14 +3535,16 @@ function closeDaySheet(){
   h += '<div class="total-box">Encaissé total : <b>' + esc(fmt$(rec.total)) + '</b> · ' + rec.nbPaiements + ' paiement(s)</div>';
   h += '<div class="method-grid">' + METHODS.map(function(m){ return '<div class="method-card"><div class="m">' + m + '</div><div class="v">' + esc(fmt$(rec.byMethod[m])) + '</div></div>'; }).join("") + '</div>';
   h += '<table class="folio-lines">' +
-    '<tr><td>Arrivées du jour</td><td class="r"><b>' + rec.arrivees + '</b></td></tr>' +
-    '<tr><td>Départs du jour</td><td class="r"><b>' + rec.departs + '</b></td></tr>' +
+    '<tr><td>Arrivées prévues du jour</td><td class="r"><b>' + rec.arrivees + '</b></td></tr>' +
+    '<tr><td>Départs prévus du jour</td><td class="r"><b>' + rec.departs + '</b></td></tr>' +
     '<tr><td>Hébergements en ménage</td><td class="r"><b>' + rec.menage + '</b></td></tr>' +
-    '<tr><td>Demandes en attente non traitées</td><td class="r"><b>' + rec.enAttente + '</b></td></tr>' +
+    '<tr><td>Demandes de service non traitées</td><td class="r"><b>' + rec.demandesService + '</b></td></tr>' +
+    (rec.resEnAttente > 0 ? '<tr><td>Demandes de réservation en attente</td><td class="r"><b>' + rec.resEnAttente + '</b></td></tr>' : '') +
     '<tr><td>Ventes resto-bar du jour (payées + imputées)</td><td class="r"><b>' + esc(fmt$(rec.restoTotal)) + '</b></td></tr>' +
     '<tr><td>dont encaissées directement</td><td class="r">' + esc(fmt$(rec.restoPaye)) + '</td></tr>' +
     '<tr><td>dont imputées aux folios</td><td class="r">' + esc(fmt$(rec.restoImpute)) + '</td></tr></table>';
-  if(rec.enAttente > 0) h += '<div class="warn-banner"><b>' + rec.enAttente + ' demande(s) en attente</b> restent sans réponse : pensez à les confirmer ou les annuler avant de clôturer.</div>';
+  if(rec.demandesService > 0) h += '<div class="warn-banner"><b>' + rec.demandesService + ' demande(s) de service</b> restent non traitée(s) : pensez à les prendre en charge avant de clôturer.</div>';
+  if(rec.resEnAttente > 0) h += '<div class="warn-banner"><b>' + rec.resEnAttente + ' demande(s) de réservation en attente</b> restent sans réponse : pensez à les confirmer ou les annuler avant de clôturer.</div>';
   h += '<p class="note">La confirmation clôture la journée ; elle apparaîtra ensuite comme « Journée clôturée » dans la Caisse.</p>';
   h += '<div class="actions sticky-actions"><button class="btn btn-teal" data-act="confirm-close-day">Confirmer la clôture</button><button class="btn btn-soft" data-act="close">Pas encore</button></div>';
   openSheet(h);
@@ -3351,6 +3647,9 @@ function handleAct(act, el){
   if(act==="switch-account"){ signOut(); return; }
   if(act==="reload"){ loadAll(true); toast("Base rechargée."); return; }
   if(act==="goto-demandes"){ go("demandes"); return; }
+  if(act==="goto-reservations"){ go("reservations"); return; }
+  if(act==="goto-restobar"){ go("restobar"); return; }
+  if(act==="goto-rooms"){ go("rooms"); return; }
   if(act==="new-res"){ resForm(null); return; }
   if(act==="folio"){ var fr = id ? resById(id) : null; if(fr) folioSheet(fr); return; }
   if(act==="plan-prev"){ ui.planStart = addDays(ui.planStart,-7); render(); return; }
@@ -3365,7 +3664,7 @@ function handleAct(act, el){
   if(act==="confirm-close-day"){
     if(!pendingCloture) return;
     var rec = pendingCloture;
-    var details = { total: rec.total, par_moyen: rec.byMethod, nb_paiements: rec.nbPaiements, arrivees: rec.arrivees, departs: rec.departs, menage: rec.menage, en_attente: rec.enAttente, resto_total: rec.restoTotal, resto_paye: rec.restoPaye, resto_impute: rec.restoImpute };
+    var details = { total: rec.total, par_moyen: rec.byMethod, nb_paiements: rec.nbPaiements, arrivees: rec.arrivees, departs: rec.departs, menage: rec.menage, en_attente: rec.enAttente, demandes_service: rec.demandesService, demandes_reservation_en_attente: rec.resEnAttente, resto_total: rec.restoTotal, resto_paye: rec.restoPaye, resto_impute: rec.restoImpute };
     sb("/rest/v1/clotures", { method:"POST", prefer:"return=minimal", body:{ hotel_id: (hotel ? hotel.id : session.hotelId), date: rec.date, total: rec.total, details: details } })
       .then(function(){
         pendingCloture = null; closeSheet();
@@ -3710,7 +4009,14 @@ function tryLogin(email, password){
     startRealtime();
     toast("Connecté — " + (session.role==="proprietaire" ? "espace propriétaire" : "espace réception") + ".");
   }).catch(function(e){
-    err.textContent = "Connexion refusée : " + (e.message === "Invalid login credentials" ? "e-mail ou mot de passe incorrect." : e.message);
+    /* D15 : jamais de code technique à l'écran (« Erreur 400 »…) —
+ tout échec d'authentification se lit en français clair. Le seul
+ message distinct conservé est le compte sans rôle pour l'hôtel. */
+    if(e && e.message && e.message.indexOf("n'est pas autorisé") >= 0){
+      err.textContent = e.message;
+    } else {
+      err.textContent = "E-mail ou mot de passe incorrect. Vérifiez vos identifiants.";
+    }
   });
 }
 $("#loginBtn").addEventListener("click", function(){ tryLogin($("#loginEmail").value, $("#loginPass").value); });
