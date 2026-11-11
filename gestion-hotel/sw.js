@@ -1,7 +1,7 @@
 /* Service worker Crescence : rend l'application installable et rapide.
    Seules les ressources du site lui-même sont mises en cache ; les appels
    Supabase (données métier) passent toujours par le réseau. */
-const CACHE = 'crescence-app-v2'
+const CACHE = 'crescence-app-v3'
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
