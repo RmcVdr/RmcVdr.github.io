@@ -1207,7 +1207,7 @@ function bookingStep(text){
   if (b.step === "name"){
     if (text.trim().length < 2){ botSay("Quel nom dois-je mettre sur la réservation ?"); return true; }
     b.name = text.trim(); b.step = "phone";
-    botSay("Merci "+b.name.split(" ")[0]+". Votre numéro de téléphone (pour que la réception confirme) ?"); return true;
+    botSay("Merci "+b.name+". Votre numéro de téléphone (pour que la réception confirme) ?"); return true;
   }
   if (b.step === "phone"){
     if (text.replace(/\D/g,"").length < 7){ botSay("Ce numéro semble incomplet. Pouvez-vous le réécrire ?"); return true; }
@@ -1942,7 +1942,7 @@ loadPublicData();
     var btn = $("gOrderBtn"); btn.disabled = true; st.textContent = "Envoi de la commande…";
     var cmdId = newUuid();
     var body = { id: cmdId, hotel_id: G.hotelId, reservation_id: null, client_nom: name,
-      statut: "ouverte", source: isRoom ? "qr_chambre" : "qr_table",
+      statut: "ouverte", statut_cuisine: "recue", source: isRoom ? "qr_chambre" : "qr_table",
       hebergement_id: isRoom ? placeId : null, table_id: isRoom ? null : placeId };
     var lignes = keys.map(function(k){
       var a = artById(k);
