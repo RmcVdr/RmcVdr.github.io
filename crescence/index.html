@@ -1890,12 +1890,15 @@ loadPublicData();
     if (!keys.length){
       $("gCartLines").innerHTML = '<p class="menu-empty" style="margin:.2rem 0">Votre panier est vide — ajoutez des articles du menu avec le bouton +.</p>';
       $("gCartTotalRow").hidden = true;
+      $("gCartTotalRow").style.display = "none";
+      $("gCartTotal").textContent = moneyFmt(0);
     } else {
       $("gCartLines").innerHTML = keys.map(function(k){
         var a = artById(k);
         return '<div class="g-line"><span>' + escHTML(a.nom || "") + ' × ' + G.cart[k] + '</span><span class="amt">' + moneyFmt((+a.prix || 0) * G.cart[k]) + '</span></div>';
       }).join("");
       $("gCartTotalRow").hidden = false;
+      $("gCartTotalRow").style.display = "";
       $("gCartTotal").textContent = moneyFmt(cartTotal());
     }
     $("gStickyTotal").textContent = moneyFmt(cartTotal());
