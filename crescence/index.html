@@ -1854,17 +1854,17 @@ loadPublicData();
       if (!items.length) return;
       any = true;
       html += '<div class="g-cat">' + g[1] + '</div>' + items.map(function(a){
-        var st = artStock(a), out = st === 0, q = G.cart[a.id] || 0;
+        var st = artStock(a), noPrice = !(+a.prix > 0), out = st === 0, q = G.cart[a.id] || 0;
         return '<div class="g-item' + (out ? " out" : "") + '"><div class="gi-body">'
           + '<span class="gi-name">' + escHTML(a.nom || "") + '</span>'
           + (a.description ? '<div class="gi-desc">' + escHTML(a.description) + '</div>' : "")
           + (a.allergenes ? '<div class="gi-allerg">Allergènes : ' + escHTML(a.allergenes) + '</div>' : "")
           + (out ? '<span class="g-out-badge">Indisponible</span>'
                  : (st !== null && st <= 3 ? '<div class="g-stock">Plus que ' + st + ' disponible(s)</div>' : ""))
-          + '</div><span class="gi-price">' + moneyFmt(+a.prix || 0) + '</span>'
-          + '<div class="stepper"><button type="button" data-gdec="' + a.id + '" aria-label="Retirer" ' + (out || q === 0 ? "disabled" : "") + '>−</button>'
+          + '</div><span class="gi-price">' + (noPrice ? "Prix à définir" : moneyFmt(+a.prix || 0)) + '</span>'
+          + '<div class="stepper"><button type="button" data-gdec="' + a.id + '" aria-label="Retirer" ' + (out || noPrice || q === 0 ? "disabled" : "") + '>−</button>'
           + '<span class="qty" id="gq-' + a.id + '">' + q + '</span>'
-          + '<button type="button" data-ginc="' + a.id + '" aria-label="Ajouter" ' + (out || (st !== null && q >= st) ? "disabled" : "") + '>+</button></div></div>';
+          + '<button type="button" data-ginc="' + a.id + '" aria-label="Ajouter" ' + (out || noPrice || (st !== null && q >= st) ? "disabled" : "") + '>+</button></div></div>';
       }).join("");
     });
     $("gMenu").innerHTML = html;
@@ -1873,7 +1873,7 @@ loadPublicData();
       b.addEventListener("click", function(){
         var a = artById(b.getAttribute("data-ginc")); if (!a) return;
         var st = artStock(a), q = G.cart[a.id] || 0;
-        if (st === 0 || (st !== null && q >= st)) return;
+        if (st === 0 || !(+a.prix > 0) || (st !== null && q >= st)) return;
         G.cart[a.id] = q + 1; renderGuestMenu(); renderGuestCart();
       });
     });
