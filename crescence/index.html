@@ -707,8 +707,9 @@ body.guest-mode .g-sticky.on{display:block}
         <div class="g-card">
           <div id="gCartLines"><p class="menu-empty" style="margin:.2rem 0">Votre panier est vide — ajoutez des articles du menu avec le bouton +.</p></div>
           <div class="g-total" id="gCartTotalRow" hidden><span>Total</span><span id="gCartTotal">0 $</span></div>
-          <label for="gOrderName">Votre nom (pour que l'équipe vous retrouve)</label>
+          <label for="gOrderName" id="gOrderNameLabel">Votre nom (pour que l'équipe vous retrouve)</label>
           <input type="text" id="gOrderName" autocomplete="name" placeholder="Ex. Famille Ndayisenga" />
+          <p class="sub" id="gOrderNameHint" hidden style="margin-top:.4rem">La commande sera ajoutée à la note de votre chambre.</p>
           <div class="ec-actions" style="margin-top:.9rem">
             <button class="btn gold" type="button" id="gOrderBtn">Envoyer la commande</button>
           </div>
@@ -1826,6 +1827,14 @@ loadPublicData();
   function cartCount(){ var n = 0; for (var k in G.cart) n += G.cart[k]; return n; }
   function cartTotal(){ var s = 0; for (var k in G.cart){ var a = artById(k); if (a) s += (+a.prix || 0) * G.cart[k]; } return s; }
 
+  /* W1 — Contexte chambre : la commande part pour une chambre rattachée à un
+     client enregistré, le nom devient donc optionnel (libellé + aide). Pour
+     une table, qui n'a pas de client enregistré, il reste obligatoire. */
+  if (isRoom){
+    $("gOrderNameLabel").textContent = "Votre nom (optionnel)";
+    $("gOrderNameHint").hidden = false;
+  }
+
   function guestFail(){
     $("gLoading").hidden = true; $("gContent").hidden = true;
     $("gError").hidden = false;
@@ -1941,7 +1950,7 @@ loadPublicData();
     var name = $("gOrderName").value.trim();
     var keys = Object.keys(G.cart).filter(function(k){ return G.cart[k] > 0 && artById(k); });
     if (!keys.length){ st.textContent = "Ajoutez d'abord un article du menu à votre panier."; st.classList.add("err"); return; }
-    if (name.length < 2){ st.textContent = "Indiquez votre nom pour que l'équipe retrouve votre commande."; st.classList.add("err"); $("gOrderName").focus(); return; }
+    if (!isRoom && name.length < 2){ st.textContent = "Indiquez votre nom pour que l'équipe retrouve votre commande."; st.classList.add("err"); $("gOrderName").focus(); return; }
     var btn = $("gOrderBtn"); btn.disabled = true; st.textContent = "Envoi de la commande…";
     var cmdId = newUuid();
     var body = { id: cmdId, hotel_id: G.hotelId, reservation_id: null, client_nom: name,
@@ -1958,7 +1967,7 @@ loadPublicData();
         G.cart = {};
         renderGuestMenu(); renderGuestCart();
         st.textContent = "";
-        $("gOrderDoneTxt").textContent = "Récapitulatif : " + recap + " — total " + moneyFmt(total) + ", au nom de " + name + ".";
+        $("gOrderDoneTxt").textContent = "Récapitulatif : " + recap + " — total " + moneyFmt(total) + (name ? ", au nom de " + name + "." : ". Elle sera ajoutée à la note de votre chambre.");
         $("gOrderDone").hidden = false;
         $("gOrderDone").scrollIntoView({ block: "nearest" });
         btn.disabled = false;
