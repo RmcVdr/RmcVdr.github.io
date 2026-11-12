@@ -1,0 +1,26 @@
+{
+  "background_color": "#f4f6fa",
+  "description": "Site officiel de Crescence Hôtel et Appartement à Bujumbura : hébergements, services, carte du restaurant et réservation en ligne.",
+  "display": "standalone",
+  "icons": [
+    {
+      "purpose": "any",
+      "sizes": "any",
+      "src": "./favicon.svg",
+      "type": "image/svg+xml"
+    },
+    {
+      "purpose": "maskable",
+      "sizes": "any",
+      "src": "./favicon.svg",
+      "type": "image/svg+xml"
+    }
+  ],
+  "lang": "fr",
+  "name": "Crescence Hôtel et Appartement",
+  "orientation": "portrait",
+  "scope": "./",
+  "short_name": "Crescence",
+  "start_url": "./",
+  "theme_color": "#1e40af"
+}
