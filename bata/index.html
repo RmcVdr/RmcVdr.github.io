@@ -1,1815 +1,325 @@
 <!doctype html>
-<html lang="fr">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="color-scheme" content="light" />
-    <link rel="icon" href="data:," />
-    <title>BATA — Prévisualisation, simulation et test</title>
-    <style>
-      :root{
-        --bg:#eef2f5;
-        --surface:#ffffff;
-        --surface-2:#f7f9fb;
-        --ink:#14273c;
-        --ink-soft:#51637a;
-        --ink-faint:#7c8ea3;
-        --navy:#0e2a47;
-        --navy-2:#12365c;
-        --green:#1d9e61;
-        --green-dark:#14734a;
-        --green-soft:#e5f5ec;
-        --line:#dbe3ec;
-        --amber:#a96f06;
-        --amber-soft:#fdf3dd;
-        --red:#b3372a;
-        --red-soft:#fbeae7;
-        --blue-soft:#e8eff7;
-        --radius:14px;
-        --shadow:0 1px 3px rgba(14,42,71,.08),0 4px 14px rgba(14,42,71,.05);
-      }
-      *{box-sizing:border-box}
-      html,body{margin:0;padding:0}
-      html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
-      body{
-        font-family:"Avenir Next","Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
-        background:var(--bg);color:var(--ink);font-size:15px;line-height:1.5;
-        -webkit-font-smoothing:antialiased;overflow-x:hidden;
-        -webkit-tap-highlight-color:transparent;
-      }
-      button{font:inherit;cursor:pointer;touch-action:manipulation}
-      input,textarea,select{font:inherit}
-      img,svg,video{max-width:100%}
-      a{color:var(--green-dark)}
-
-      /* ---------- Bandeau simulation ---------- */
-      .sim-banner{
-        background:var(--navy);color:#eaf1f8;padding:10px 18px;font-size:13.5px;
-        display:flex;gap:10px;align-items:flex-start;justify-content:center;text-align:center;
-      }
-      .sim-banner strong{color:#8fe3b6;white-space:nowrap}
-      .sim-banner span{max-width:900px}
-
-      /* ---------- Structure ---------- */
-      .app{display:grid;grid-template-columns:248px 1fr;min-height:calc(100vh - 42px)}
-      .sidebar{
-        background:var(--navy);color:#dbe7f3;padding:22px 16px 28px;
-        display:flex;flex-direction:column;gap:4px;position:sticky;top:0;height:100vh;overflow-y:auto;
-      }
-      .brand{padding:2px 10px 18px;border-bottom:1px solid rgba(255,255,255,.12);margin-bottom:16px}
-      .brand .logo{font-size:24px;font-weight:800;letter-spacing:.14em;color:#fff}
-      .brand .logo em{font-style:normal;color:#57d894}
-      .brand .sub{font-size:12px;color:#9db4cc;margin-top:2px}
-      .tenant-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:12px 13px;margin:0 2px 16px}
-      .tenant-card .t-name{font-weight:700;color:#fff;font-size:14.5px}
-      .tenant-card .t-meta{font-size:12px;color:#a9bfd8;margin-top:3px;line-height:1.45}
-      .nav-label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7e97b3;padding:8px 10px 6px}
-      .nav-btn{
-        display:flex;align-items:center;gap:10px;width:100%;text-align:left;
-        background:transparent;border:0;color:#cfdeee;padding:10px 11px;border-radius:10px;font-size:14.5px;
-      }
-      .nav-btn:hover{background:rgba(255,255,255,.08);color:#fff}
-      .nav-btn.active{background:var(--green);color:#fff;font-weight:600}
-      .nav-btn .dot{width:8px;height:8px;border-radius:50%;background:currentColor;opacity:.55;flex:none}
-      .nav-btn .count{margin-left:auto;background:rgba(255,255,255,.18);border-radius:20px;padding:0 8px;font-size:12px;font-weight:700}
-      .nav-btn.active .count{background:rgba(0,0,0,.22)}
-      .sidebar .foot{margin-top:auto;padding:14px 10px 0;border-top:1px solid rgba(255,255,255,.12);font-size:12px;color:#8ba3bf;line-height:1.5}
-      .reset-btn{
-        width:100%;margin-top:12px;background:transparent;border:1px solid rgba(255,255,255,.35);color:#eaf1f8;
-        border-radius:10px;padding:9px 10px;font-size:13.5px;
-      }
-      .reset-btn:hover{background:rgba(255,255,255,.1)}
-
-      /* ---------- Bascule Visiteur / Établissement ---------- */
-      .side-switch{display:grid;gap:8px;margin:0 2px 16px}
-      .side-btn{
-        display:flex;flex-direction:column;align-items:flex-start;gap:1px;text-align:left;
-        background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);color:#dbe7f3;
-        border-radius:12px;padding:11px 13px;min-height:52px;width:100%;
-      }
-      .side-btn .sb-title{font-weight:700;font-size:14.5px;color:#fff}
-      .side-btn .sb-sub{font-size:11.5px;color:#9db4cc;line-height:1.35}
-      .side-btn.active{background:var(--green);border-color:transparent}
-      .side-btn.active .sb-sub{color:#dff5e9}
-      /* La navigation ne montre que les vues du côté actif */
-      .app[data-side="visiteur"] .nav-btn[data-side="etablissement"],
-      .app[data-side="visiteur"] .nav-label[data-side="etablissement"],
-      .app[data-side="etablissement"] .nav-btn[data-side="visiteur"],
-      .app[data-side="etablissement"] .nav-label[data-side="visiteur"]{display:none}
-
-      main{padding:26px 28px 60px;min-width:0}
-      .view{display:none;max-width:1060px;margin:0 auto}
-      .view.active{display:block}
-      .view-head{margin-bottom:20px}
-      .view-head h1{font-size:25px;margin:0 0 4px;color:var(--navy);letter-spacing:-.01em}
-      .view-head p{margin:0;color:var(--ink-soft);max-width:70ch}
-
-      /* ---------- Cartes génériques ---------- */
-      .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px 22px}
-      .card h2{font-size:16.5px;margin:0 0 6px;color:var(--navy)}
-      .card h3{font-size:14.5px;margin:0 0 6px;color:var(--navy)}
-      .card .hint{color:var(--ink-soft);font-size:13.5px;margin:0 0 12px}
-      .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-      .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-      .stack{display:grid;gap:18px}
-
-      .badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:20px;letter-spacing:.02em;vertical-align:middle}
-      .badge-green{background:var(--green-soft);color:var(--green-dark)}
-      .badge-amber{background:var(--amber-soft);color:var(--amber)}
-      .badge-red{background:var(--red-soft);color:var(--red)}
-      .badge-blue{background:var(--blue-soft);color:var(--navy-2)}
-      .badge-grey{background:#edf1f5;color:var(--ink-soft)}
-
-      /* ---------- Vue d'ensemble ---------- */
-      .checklist{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:10px}
-      .checklist li{display:flex;gap:11px;align-items:flex-start;font-size:14.5px}
-      .check-ico{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:800;margin-top:1px}
-      .check-ok{background:var(--green);color:#fff}
-      .check-wait{background:#fff;border:2px solid var(--amber);color:var(--amber)}
-      .checklist .c-sub{display:block;font-size:12.5px;color:var(--ink-soft)}
-      .quota-num{font-size:30px;font-weight:800;color:var(--navy)}
-      .quota-num small{font-size:15px;color:var(--ink-soft);font-weight:600}
-      .quota-bar{position:relative;height:12px;background:#e6ecf2;border-radius:8px;margin:12px 0 6px;overflow:visible}
-      .quota-fill{height:100%;border-radius:8px;background:var(--green);transition:width .4s ease,background .3s}
-      .quota-fill.warn{background:#e0a100}
-      .quota-fill.full{background:var(--red)}
-      .quota-mark{position:absolute;top:-4px;width:2px;height:20px;background:var(--ink-faint)}
-      .quota-mark span{position:absolute;top:14px;left:-14px;font-size:11px;color:var(--ink-faint);white-space:nowrap}
-      .quota-note{font-size:13px;color:var(--ink-soft)}
-      .stat-card{text-align:left}
-      .stat-card .s-num{font-size:32px;font-weight:800;color:var(--navy);line-height:1.1}
-      .stat-card .s-label{font-size:13px;color:var(--ink-soft);margin-top:2px}
-      .stat-card .s-sub{font-size:12px;color:var(--ink-faint);margin-top:6px}
-
-      /* ---------- Simulateur ---------- */
-      .sim-layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px;align-items:start}
-      .phone{
-        background:#e9efe9;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow);
-        display:flex;flex-direction:column;height:640px;
-      }
-      .phone-head{background:var(--navy);color:#fff;padding:13px 16px;display:flex;align-items:center;gap:12px}
-      .avatar{width:38px;height:38px;border-radius:50%;background:var(--green);display:grid;place-items:center;font-weight:800;color:#fff;font-size:15px;flex:none}
-      .phone-head .p-name{font-weight:700;font-size:15px;line-height:1.25}
-      .phone-head .p-status{font-size:12px;color:#a9c6b2}
-      .phone-head .p-status.staff{color:#ffd98a}
-      .handoff-banner{
-        display:none;background:var(--amber-soft);color:#7a5203;border-bottom:1px solid #ecd9a0;
-        padding:9px 16px;font-size:13.5px;font-weight:600;text-align:center;
-      }
-      .handoff-banner.on{display:block}
-      .chat{flex:1;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:9px}
-      .msg{max-width:82%;padding:9px 13px;border-radius:14px;font-size:14.5px;line-height:1.5;white-space:pre-wrap;word-wrap:break-word}
-      .msg .who{display:block;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:3px;opacity:.75}
-      .msg .sources{display:block;margin-top:7px;padding-top:6px;border-top:1px dashed rgba(20,39,60,.18);font-size:12px;color:var(--ink-soft);font-style:italic}
-      .msg.client{align-self:flex-end;background:#d7f2c2;border-bottom-right-radius:4px;color:#17351f}
-      .msg.agent{align-self:flex-start;background:#fff;border:1px solid #dde5da;border-bottom-left-radius:4px;box-shadow:0 1px 2px rgba(0,0,0,.05)}
-      .msg.staff{align-self:flex-start;background:var(--navy);color:#eef4fb;border-bottom-left-radius:4px}
-      .msg.staff .sources{border-top-color:rgba(255,255,255,.25);color:#b9cde4}
-      .msg.notice{align-self:center;background:#fff8e6;border:1px solid #ecd9a0;color:#6d4d04;font-size:13px;text-align:center;max-width:92%;border-radius:10px}
-      .msg.system{align-self:center;background:transparent;color:var(--ink-faint);font-size:12.5px;text-align:center;padding:2px 8px}
-      .typing{align-self:flex-start;background:#fff;border:1px solid #dde5da;border-radius:14px;border-bottom-left-radius:4px;padding:10px 14px;color:var(--ink-faint);font-size:13px;display:none}
-      .typing.on{display:block}
-      .composer{border-top:1px solid var(--line);background:#f4f6f3;padding:10px 12px}
-      .composer-row{display:flex;gap:8px}
-      .composer input[type=text]{
-        flex:1;border:1px solid var(--line);border-radius:24px;padding:11px 16px;background:#fff;min-width:0;
-      }
-      .composer input[type=text]:focus{outline:2px solid var(--green);outline-offset:0;border-color:transparent}
-      .send-btn{background:var(--green);color:#fff;border:0;border-radius:50%;width:44px;height:44px;flex:none;font-size:18px;display:grid;place-items:center}
-      .send-btn:hover{background:var(--green-dark)}
-      .staff-zone{display:none;margin-top:10px;background:var(--blue-soft);border:1px solid #c9d9ec;border-radius:12px;padding:10px 12px}
-      .staff-zone.on{display:block}
-      .staff-zone label{font-size:12.5px;font-weight:700;color:var(--navy);display:block;margin-bottom:6px}
-      .staff-row{display:flex;gap:8px;flex-wrap:wrap}
-      .staff-row input{flex:1;min-width:180px;border:1px solid #b9cde4;border-radius:10px;padding:9px 12px;background:#fff}
-      .btn{border-radius:10px;padding:9px 15px;font-size:14px;font-weight:600;border:1px solid transparent}
-      .btn-green{background:var(--green);color:#fff}
-      .btn-green:hover{background:var(--green-dark)}
-      .btn-navy{background:var(--navy);color:#fff}
-      .btn-navy:hover{background:var(--navy-2)}
-      .btn-ghost{background:#fff;border-color:var(--line);color:var(--navy)}
-      .btn-ghost:hover{border-color:var(--navy)}
-      .btn-small{padding:6px 11px;font-size:13px;border-radius:8px}
-      .btn[disabled]{opacity:.45;cursor:default}
-
-      .scenarios{display:grid;gap:9px}
-      .scenario-btn{
-        text-align:left;background:var(--surface-2);border:1px solid var(--line);border-radius:11px;
-        padding:10px 13px;font-size:14px;color:var(--navy);width:100%;
-      }
-      .scenario-btn:hover{border-color:var(--green);background:var(--green-soft)}
-      .scenario-btn small{display:block;color:var(--ink-soft);font-size:12px;margin-top:1px}
-      .human-btn{
-        width:100%;background:#fff;border:1.5px solid var(--amber);color:#7a5203;border-radius:11px;
-        padding:11px 13px;font-weight:700;font-size:14.5px;
-      }
-      .human-btn:hover{background:var(--amber-soft)}
-      .rules-list{margin:0;padding-left:18px;color:var(--ink-soft);font-size:13.5px;display:grid;gap:5px}
-
-      /* ---------- Connaissances / catalogue ---------- */
-      .doc-card{border:1px solid var(--line);border-radius:12px;padding:16px 18px;background:var(--surface-2)}
-      .doc-card h3{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
-      .doc-card p{margin:6px 0 0;color:var(--ink);font-size:14.5px}
-      .doc-card.learned{border-color:#bfe3cf;background:var(--green-soft)}
-      table{width:100%;border-collapse:collapse;font-size:14.5px}
-      th{text-align:left;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);padding:8px 10px;border-bottom:2px solid var(--line)}
-      td{padding:11px 10px;border-bottom:1px solid var(--line);vertical-align:top}
-      tr:last-child td{border-bottom:0}
-      td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
-      .table-wrap{overflow-x:auto}
-
-      /* ---------- Réservations ---------- */
-      .res-item{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--surface-2);display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start;justify-content:space-between}
-      .res-item .r-main{min-width:230px}
-      .res-item .r-ref{font-weight:800;color:var(--navy);font-size:15.5px}
-      .res-item .r-detail{color:var(--ink-soft);font-size:13.5px;margin-top:2px}
-      .res-item .r-total{font-weight:700;color:var(--navy)}
-      .empty{color:var(--ink-faint);font-size:14px;border:1.5px dashed var(--line);border-radius:12px;padding:20px;text-align:center}
-
-      /* ---------- Canaux ---------- */
-      .channel-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:16px}
-      .channel-card{border:1px solid var(--line);border-radius:12px;padding:16px 18px;background:var(--surface-2)}
-      .channel-card h3{font-size:15.5px;display:flex;align-items:center;gap:9px}
-      .ch-ico{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;color:#fff;font-weight:800;font-size:13px;flex:none}
-      .channel-card p{font-size:13.5px;color:var(--ink-soft);margin:8px 0 0}
-      pre.code{
-        background:var(--navy);color:#cfe6d8;border-radius:12px;padding:16px 18px;overflow-x:auto;
-        font-size:13.5px;line-height:1.6;margin:0;font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
-      }
-      pre.code .attr{color:#8ec9ff}
-      pre.code .str{color:#ffd98a}
-
-      /* ---------- Amélioration / Qualité ---------- */
-      .sugg-card{border:1px solid var(--line);border-left:5px solid var(--amber);border-radius:12px;padding:15px 17px;background:var(--surface-2)}
-      .sugg-card.done{border-left-color:var(--green)}
-      .sugg-card .q{font-weight:700;color:var(--navy)}
-      .sugg-card .staff-answer{background:#fff;border:1px solid var(--line);border-radius:9px;padding:9px 12px;font-size:14px;margin:9px 0}
-      .def-box{background:var(--blue-soft);border:1px solid #c9d9ec;border-radius:12px;padding:15px 18px;font-size:14.5px}
-      .def-box strong{color:var(--navy)}
-      .metric-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px}
-      .toast{
-        position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);opacity:0;pointer-events:none;
-        background:var(--navy);color:#fff;padding:11px 20px;border-radius:24px;font-size:14px;box-shadow:0 8px 24px rgba(0,0,0,.25);
-        transition:all .3s ease;z-index:50;max-width:92vw;text-align:center;
-      }
-      .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
-
-      /* ---------- Éditeurs (Connaissances & Catalogue) ---------- */
-      .def-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:10px}
-      .def-step{background:#fff;border:1px solid #c9d9ec;border-radius:10px;padding:11px 13px;font-size:13.5px}
-      .def-step strong{display:block;color:var(--navy);margin-bottom:2px}
-      .field{display:block;margin-bottom:12px}
-      .field label{display:block;font-size:12.5px;font-weight:700;color:var(--navy);margin-bottom:5px}
-      .field input[type=text],.field input[type=number],.field select,.field textarea,.field input[type=file]{
-        width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:#fff;color:var(--ink);
-      }
-      .field textarea{resize:vertical;min-height:74px;line-height:1.5}
-      .field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--green);outline-offset:0;border-color:transparent}
-      .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
-      .form-grid .full{grid-column:1/-1}
-      .doc-card.draft{border-color:#ecd9a0;background:var(--amber-soft)}
-      .doc-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-      .btn-danger{background:#fff;border-color:#e3b3ac;color:var(--red)}
-      .btn-danger:hover{border-color:var(--red)}
-      .btn-danger.confirming{background:var(--red);color:#fff;border-color:var(--red)}
-      .test-cta{display:none;background:var(--green-soft);border:1px solid #bfe3cf;border-radius:12px;padding:13px 16px;font-size:14px;align-items:center;gap:12px;flex-wrap:wrap}
-      .test-cta.on{display:flex}
-      .test-cta span{flex:1;min-width:200px}
-      .prod-card{border:1px solid var(--line);border-radius:12px;padding:16px 18px;background:var(--surface-2)}
-      .prod-card h3{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
-      .prod-price{font-weight:800;color:var(--navy);font-size:16px}
-
-      /* ================= RESPONSIVE — mobile d'abord =================
-         Principe : sur téléphone, la page devient une vraie application mobile.
-         - En-tête compact en haut (marque + établissement sur une ligne)
-         - Navigation principale fixée EN BAS, à portée du pouce, défilante horizontalement
-         - Tout le contenu passe en une seule colonne, cartes pleine largeur
-         - Zones tactiles d'au moins 44 px, champs en 16 px (pas de zoom forcé sur iPhone)
-         - Aucun défilement horizontal de page
-      */
-      @media (max-width:980px){
-        .sim-layout{grid-template-columns:1fr}
-        .def-steps{grid-template-columns:1fr}
-        .form-grid{grid-template-columns:1fr}
-      }
-      @media (min-width:861px) and (max-width:980px){
-        .grid-3{grid-template-columns:1fr 1fr}
-      }
-
-      @media (max-width:860px){
-        /* --- Structure : une colonne, en-tête compact --- */
-        .app{display:block;min-height:0}
-        main{padding:16px 12px 96px;min-width:0}
-        .view{max-width:100%}
-        .view-head{margin-bottom:14px}
-        .view-head h1{font-size:21px;line-height:1.2}
-        .view-head p{font-size:14px}
-
-        /* --- Bandeau simulation : une ligne courte --- */
-        .sim-banner{padding:8px 12px;font-size:12.5px;line-height:1.45;justify-content:flex-start;text-align:left;gap:6px}
-        .sim-banner span{max-width:none}
-
-        /* --- Barre latérale -> en-tête mobile --- */
-        .sidebar{
-          position:static;height:auto;overflow:visible;
-          padding:12px 12px 2px;box-shadow:none;
-        }
-        /* Le pied de barre latérale se réduit au seul bouton Réinitialiser, en ligne compacte */
-        .sidebar .foot{display:block;font-size:0;line-height:0;padding:0 2px 10px;margin:0;border-top:0}
-        .sidebar .foot strong{font-size:0}
-        .reset-btn{width:auto;margin:0;font-size:12.5px;line-height:1.4;padding:7px 12px;border-radius:999px;min-height:36px}
-        .brand{display:flex;align-items:center;gap:10px;padding:0 2px 8px;margin:0;border-bottom:0}
-        .brand .logo{font-size:20px}
-        .brand .sub{font-size:11.5px;margin:0;line-height:1.3}
-        .tenant-card{margin:0 0 10px;padding:9px 12px;border-radius:10px}
-        .tenant-card .t-name{font-size:13.5px}
-        .tenant-card .t-meta{font-size:11.5px;margin-top:1px}
-        .side-switch{grid-template-columns:1fr 1fr;margin:0 0 10px}
-        .side-btn{min-height:48px;padding:9px 11px;border-radius:10px}
-        .side-btn .sb-title{font-size:13.5px}
-        .side-btn .sb-sub{font-size:11px}
-
-        /* --- Navigation : barre fixée en bas, pouce-friendly --- */
-        .nav-wrap{
-          position:fixed;left:0;right:0;bottom:0;z-index:60;
-          display:flex;flex-direction:row;flex-wrap:nowrap;gap:6px;
-          overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;
-          scrollbar-width:none;padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));
-          background:var(--navy);border-top:1px solid rgba(255,255,255,.16);
-          box-shadow:0 -4px 18px rgba(14,42,71,.28);
-        }
-        .nav-wrap::-webkit-scrollbar{display:none}
-        .nav-label{display:none}
-        .nav-btn{
-          flex:0 0 auto;width:auto;white-space:nowrap;min-height:44px;
-          padding:10px 14px;font-size:13.5px;border-radius:999px;
-          border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);
-        }
-        .nav-btn .dot{display:none}
-        .nav-btn.active{border-color:transparent}
-        .nav-btn .count{margin-left:6px}
-
-        /* --- Cartes & grilles : pleine largeur, padding réduit --- */
-        .card{padding:16px 14px;border-radius:12px}
-        .card h2{font-size:16px}
-        .grid-2{grid-template-columns:1fr;gap:12px}
-        .grid-3{grid-template-columns:1fr;gap:12px}
-        .stack{gap:12px}
-        /* Les 4 compteurs de la vue d'ensemble : 2 par ligne, compacts */
-        #view-overview .grid-3{grid-template-columns:1fr 1fr !important;gap:10px}
-        #view-overview .grid-3 .card{padding:13px 12px}
-        .stat-card .s-num{font-size:25px}
-        .stat-card .s-label{font-size:12.5px}
-        .stat-card .s-sub{font-size:11.5px}
-        .quota-num{font-size:26px}
-        .metric-row{grid-template-columns:1fr 1fr;gap:10px}
-        .channel-grid{grid-template-columns:1fr;gap:10px}
-        .def-box{padding:13px 14px;font-size:14px}
-        .def-step{padding:10px 12px}
-
-        /* --- Simulateur : le téléphone prend toute la largeur --- */
-        .sim-layout{gap:12px}
-        .phone{height:min(68dvh,620px);min-height:460px;border-radius:16px}
-        .phone-head{padding:11px 13px}
-        .chat{padding:12px 10px}
-        .msg{max-width:88%;font-size:14px;padding:8px 11px}
-        .msg.notice{max-width:96%}
-        .composer{padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px))}
-        .composer input[type=text]{font-size:16px;padding:11px 14px;min-height:44px}
-        .send-btn{width:44px;height:44px}
-        .staff-zone{padding:10px}
-        .staff-row{flex-direction:column;flex-wrap:nowrap}
-        .staff-row input{min-width:0;width:100%;font-size:16px;padding:11px 12px;min-height:44px}
-        .staff-row .btn{width:100%}
-        .scenario-btn{padding:12px 13px;min-height:48px;font-size:14px}
-        .human-btn{min-height:48px}
-
-        /* --- Boutons & formulaires : cibles tactiles --- */
-        .btn{min-height:44px;display:inline-flex;align-items:center;justify-content:center;padding:10px 16px}
-        .btn-small{min-height:40px;padding:8px 13px}
-        .field input[type=text],.field input[type=number],.field select,.field textarea,.field input[type=file]{
-          font-size:16px;padding:12px;min-height:44px;
-        }
-        .field textarea{min-height:96px}
-        .doc-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-        .doc-actions .btn{width:100%}
-        .doc-card,.prod-card{padding:14px 13px}
-        .doc-card h3,.prod-card h3{font-size:14.5px}
-        .test-cta{flex-direction:column;align-items:stretch;text-align:left}
-        .test-cta span{min-width:0}
-        .test-cta .btn{width:100%}
-
-        /* --- Réservations : empilées, total lisible --- */
-        .res-item{flex-direction:column;gap:8px;padding:13px 14px}
-        .res-item .r-main{min-width:0;width:100%}
-        .res-item > div:last-child{text-align:left !important;width:100%}
-        .res-item .btn{width:100%}
-
-        /* --- Tableaux éventuels : plus de défilement latéral, lignes en cartes --- */
-        .table-wrap{overflow-x:visible}
-        table,tbody,tr,td{display:block;width:100%}
-        thead{display:none}
-        tr{border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-bottom:10px;background:#fff}
-        td{border-bottom:1px dashed var(--line);padding:8px 4px}
-        td:last-child{border-bottom:0}
-        td.num,th.num{text-align:left}
-
-        /* --- Divers --- */
-        pre.code{font-size:12.5px;padding:13px 14px;white-space:pre-wrap;word-break:break-word}
-        .sugg-card{padding:13px 14px}
-        .toast{left:12px;right:12px;bottom:76px;transform:none;max-width:none;width:auto}
-        .toast.on{transform:none}
-        .checklist li{font-size:14px}
-      }
-
-      /* --- Très petits téléphones --- */
-      @media (max-width:400px){
-        main{padding-left:10px;padding-right:10px}
-        .view-head h1{font-size:19px}
-        #view-overview .grid-3{grid-template-columns:1fr 1fr !important}
-        .metric-row{grid-template-columns:1fr}
-        .phone{min-height:420px}
-        .brand .sub{display:none}
-        .doc-actions{grid-template-columns:1fr}
-        .quota-mark span{display:none}
-      }
-
-      /* --- Tablette portrait : 2 colonnes quand la place le permet --- */
-      @media (min-width:641px) and (max-width:860px){
-        #view-overview .grid-3{grid-template-columns:1fr 1fr !important}
-        .channel-grid{grid-template-columns:1fr 1fr}
-        .doc-actions{display:flex}
-        .doc-actions .btn{width:auto}
-        .staff-row{flex-direction:row;flex-wrap:wrap}
-        .staff-row .btn{width:auto}
-        .res-item{flex-direction:row}
-        .res-item > div:last-child{text-align:right !important;width:auto}
-        .res-item .btn{width:auto}
-      }
-
-      /* --- Grand écran : on garde la mise en page d'origine --- */
-      @media (min-width:861px){
-        .nav-wrap{display:block}
-      }
-
-      @media (prefers-reduced-motion:reduce){
-        .quota-fill,.toast{transition:none}
-      }
-    </style>
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,480;9..144,560;9..144,640&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style id="premium-refonte">
-/* ============ REFONTE PREMIUM (staging, en attente de validation) ============ */
-:root{
-  --bg:#F4EFE6; --surface:#FFFFFF; --surface-2:#FAF6EE;
-  --ink:#14201C; --ink-soft:#4E5C54; --ink-faint:#8A948C;
-  --navy:#12211F; --navy-2:#1B322C;
-  --green:#173F38; --green-dark:#173F38; --green-soft:#E7EFE9;
-  --line:#E2D9C8;
-  --amber:#8F6B23; --amber-soft:#F6ECD4;
-  --red:#A63A2C; --red-soft:#F9E9E5;
-  --blue-soft:#EFE7D8;
-  --radius:10px;
-  --shadow:0 2px 6px rgba(20,32,28,.05),0 10px 26px rgba(20,32,28,.05);
-}
-body{font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg)}
-h1,h2,h3,.brand .logo{font-family:"Fraunces",Georgia,serif}
-.brand .logo{font-weight:600;letter-spacing:.1em}
-.brand .logo em{color:#C9A76A}
-.sim-banner{background:#12211F;border-bottom:2px solid #B08D57}
-.sim-banner strong{color:#C9A76A}
-.sidebar{background:linear-gradient(180deg,#12211F,#16281F)}
-.nav-label{letter-spacing:.2em;color:#93A89C}
-.nav-btn{border-radius:8px}
-.nav-btn.active{background:#B08D57;color:#171207}
-.btn,.btn-navy,.btn-green{border-radius:999px}
-.btn-navy{background:#173F38}
-.btn-green{background:#173F38}
-.card,.prod-card,.doc-card,.channel-card{border-radius:10px;border-color:var(--line)}
-.badge{border-radius:999px;letter-spacing:.04em}
-a{color:#173F38}
-
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light" />
+<meta name="description" content="BATA is a French-speaking AI receptionist for hotels, restaurants, clinics and small businesses. It answers your customers 24/7 on your website and WhatsApp, takes bookings and answers frequently asked questions." />
+<link rel="icon" href="data:," />
+<title>BATA — AI Receptionist for Businesses | MATECH BURUNDI</title>
+<style>
+  :root{
+    --bg:#f6f8fb;
+    --surface:#ffffff;
+    --ink:#16283c;
+    --ink-soft:#4c5f76;
+    --ink-faint:#7c8ea3;
+    --accent:#0e2a47;
+    --accent-2:#17507f;
+    --accent-soft:#e8eff7;
+    --line:#dde5ee;
+    --radius:16px;
+    --shadow:0 1px 3px rgba(14,42,71,.08),0 6px 20px rgba(14,42,71,.06);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+  body{
+    font-family:"Avenir Next","Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
+    background:var(--bg);color:var(--ink);font-size:16px;line-height:1.55;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  a{color:var(--accent-2)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+  header.site{
+    background:var(--surface);border-bottom:1px solid var(--line);
+    position:sticky;top:0;z-index:10;
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+  .brand .mark{
+    width:38px;height:38px;border-radius:10px;background:var(--accent);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:19px;letter-spacing:.5px;
+  }
+  .brand .name{font-weight:800;font-size:20px;letter-spacing:1.5px}
+  .brand .sub{display:block;font-size:11px;color:var(--ink-faint);font-weight:600;letter-spacing:.4px;text-transform:uppercase}
+  .navlinks{display:flex;gap:20px;align-items:center}
+  .navlinks a{text-decoration:none;color:var(--ink-soft);font-weight:600;font-size:15px}
+  .navlinks a:hover{color:var(--accent)}
+  .btn{
+    display:inline-block;background:var(--accent);color:#fff;text-decoration:none;
+    padding:12px 22px;border-radius:12px;font-weight:700;font-size:15px;border:1px solid var(--accent);
+  }
+  .btn:hover{background:var(--accent-2)}
+  .btn.ghost{background:transparent;color:var(--accent)}
+  .btn.ghost:hover{background:var(--accent-soft)}
+  .btn.small{padding:9px 16px;font-size:14px}
+  @media (max-width:640px){ .navlinks a:not(.btn){display:none} }
+  .hero{padding:56px 0 40px;text-align:center}
+  .hero .kicker{
+    display:inline-block;background:var(--accent-soft);color:var(--accent);
+    font-weight:700;font-size:13px;padding:6px 14px;border-radius:999px;margin-bottom:18px;
+  }
+  .hero h1{font-size:40px;line-height:1.15;margin:0 0 16px;letter-spacing:-.5px}
+  .hero p.lead{font-size:19px;color:var(--ink-soft);max-width:680px;margin:0 auto 28px}
+  .hero .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .hero .note{margin-top:16px;font-size:14px;color:var(--ink-faint)}
+  @media (max-width:640px){ .hero{padding:38px 0 30px} .hero h1{font-size:31px} .hero p.lead{font-size:17px} }
+  section{padding:44px 0}
+  section h2{font-size:28px;margin:0 0 10px;letter-spacing:-.3px}
+  section .sub{color:var(--ink-soft);max-width:640px;margin:0 0 28px}
+  .grid{display:grid;gap:16px}
+  .grid.c2{grid-template-columns:repeat(2,1fr)}
+  .grid.c3{grid-template-columns:repeat(3,1fr)}
+  .grid.c4{grid-template-columns:repeat(4,1fr)}
+  @media (max-width:900px){ .grid.c4{grid-template-columns:repeat(2,1fr)} .grid.c3{grid-template-columns:1fr} }
+  @media (max-width:640px){ .grid.c2,.grid.c4{grid-template-columns:1fr} }
+  .card{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px;box-shadow:var(--shadow);
+  }
+  .card h3{margin:0 0 8px;font-size:18px}
+  .card p{margin:0;color:var(--ink-soft);font-size:15px}
+  .card .ico{font-size:26px;margin-bottom:12px}
+  .steps{counter-reset:step}
+  .steps .card{position:relative}
+  .steps .num{
+    width:34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:800;margin-bottom:12px;
+  }
+  .example{
+    background:var(--accent);color:#fff;border-radius:var(--radius);padding:32px;
+    display:flex;gap:24px;align-items:center;flex-wrap:wrap;justify-content:space-between;
+  }
+  .example h3{margin:0 0 8px;font-size:22px;color:#fff}
+  .example p{margin:0;color:#c9d8e8;max-width:560px}
+  .example .btn{background:#fff;color:var(--accent);border-color:#fff}
+  .price-card{display:flex;flex-direction:column}
+  .price-card .plan{font-weight:800;font-size:17px;letter-spacing:.3px}
+  .price-card .price{font-size:38px;font-weight:800;margin:10px 0 2px}
+  .price-card .price span{font-size:15px;font-weight:600;color:var(--ink-faint)}
+  .price-card .per{color:var(--ink-faint);font-size:14px;margin-bottom:16px}
+  .price-card ul{list-style:none;margin:0 0 24px;padding:0}
+  .price-card li{padding:7px 0 7px 26px;position:relative;color:var(--ink-soft);font-size:15px;border-bottom:1px solid var(--line)}
+  .price-card li:last-child{border-bottom:none}
+  .price-card li::before{content:"✓";position:absolute;left:2px;color:var(--accent-2);font-weight:800}
+  .price-card .btn{margin-top:auto;text-align:center}
+  .price-card.featured{border:2px solid var(--accent);position:relative}
+  .badge{
+    position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+    background:var(--accent);color:#fff;font-size:12px;font-weight:800;
+    padding:4px 12px;border-radius:999px;letter-spacing:.4px;text-transform:uppercase;white-space:nowrap;
+  }
+  .pricing-note{text-align:center;color:var(--ink-faint);font-size:14px;margin-top:20px}
+  .faq .card p{margin-top:6px}
+  .contact-card{text-align:center}
+  .contact-card .mail{font-size:20px;font-weight:700}
+  footer.site{
+    background:var(--surface);border-top:1px solid var(--line);padding:36px 0 44px;margin-top:20px;
+    color:var(--ink-soft);font-size:14px;
+  }
+  footer.site .cols{display:flex;gap:32px;flex-wrap:wrap;justify-content:space-between}
+  footer.site h4{margin:0 0 10px;color:var(--ink);font-size:15px}
+  footer.site a{display:block;color:var(--ink-soft);text-decoration:none;padding:3px 0}
+  footer.site a:hover{color:var(--accent)}
+  footer.site .legal{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);color:var(--ink-faint);font-size:13px}
 </style>
 </head>
-  <body>
-    <div class="sim-banner" role="note">
-      <strong>Simulation</strong>
-      <span>— données fictives de démonstration. Le système réel tourne en local ; le lien public définitif arrivera avec l'hébergement BRIM (VPS + domaine).</span>
+<body>
+
+<header class="site">
+  <div class="wrap nav">
+    <a class="brand" href="./">
+      <span class="mark">B</span>
+      <span><span class="name">BATA</span><span class="sub">by MATECH BURUNDI</span></span>
+    </a>
+    <nav class="navlinks">
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#contact">Contact</a>
+      <a class="btn small" href="#pricing">Get started</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="hero">
+    <span class="kicker">French-speaking AI receptionist</span>
+    <h1>Your front desk, answered 24/7.</h1>
+    <p class="lead">BATA is an AI receptionist for hotels, restaurants, clinics and small businesses. It greets your customers on your website and on WhatsApp, answers their questions in French and English, and takes bookings and reservation requests — day and night, even when your team is busy or closed.</p>
+    <div class="cta">
+      <a class="btn" href="#pricing">See plans and pricing</a>
+      <a class="btn ghost" href="https://rmcvdr.github.io/crescence/">See a live customer</a>
     </div>
+    <p class="note">No missed enquiries. No unanswered messages. Set up for you, in a few days.</p>
+  </div>
 
-    <div class="app" id="app" data-side="visiteur">
-      <aside class="sidebar">
-        <div class="brand">
-          <div class="logo">BA<em>T</em>A</div>
-          <div class="sub">Agents IA pour l'expérience client — BRIM</div>
-        </div>
-        <div class="tenant-card">
-          <div class="t-name">Hôtel-Restaurant Pilote</div>
-          <div class="t-meta">Bujumbura · Agent « Concierge Pilote »<br>Plan Pilote — 0 BIF · 500 messages/mois</div>
-        </div>
-        <div class="side-switch" role="group" aria-label="Choisir le côté à afficher">
-          <button class="side-btn active" id="side-btn-visiteur" type="button"><span class="sb-title">Côté visiteur</span><span class="sb-sub">Discuter avec l'agent, comme un client</span></button>
-          <button class="side-btn" id="side-btn-etablissement" type="button"><span class="sb-title">Côté établissement</span><span class="sb-sub">Ajouter les informations que l'agent utilise</span></button>
-        </div>
-        <nav class="nav-wrap" aria-label="Vues du tableau de bord">
-          <div class="nav-label" data-side="visiteur">Côté visiteur</div>
-          <button class="nav-btn active" data-view="simulator" data-side="visiteur"><span class="dot"></span>Simulateur client</button>
-          <div class="nav-label" data-side="etablissement">Entreprise</div>
-          <button class="nav-btn" data-view="overview" data-side="etablissement"><span class="dot"></span>Vue d'ensemble</button>
-          <button class="nav-btn" data-view="knowledge" data-side="etablissement"><span class="dot"></span>Connaissances</button>
-          <button class="nav-btn" data-view="catalog" data-side="etablissement"><span class="dot"></span>Catalogue</button>
-          <button class="nav-btn" data-view="bookings" data-side="etablissement"><span class="dot"></span>Réservations &amp; commandes<span class="count" id="nav-bookings-count" style="display:none">0</span></button>
-          <button class="nav-btn" data-view="channels" data-side="etablissement"><span class="dot"></span>Canaux</button>
-          <div class="nav-label" data-side="etablissement">Supervision</div>
-          <button class="nav-btn" data-view="improvement" data-side="etablissement"><span class="dot"></span>Amélioration<span class="count" id="nav-improv-count" style="display:none">0</span></button>
-          <button class="nav-btn" data-view="quality" data-side="etablissement"><span class="dot"></span>Qualité</button>
-        </nav>
-        <div class="foot">
-          Autonomie de l'agent : <strong style="color:#fff">supervisée</strong><br>
-          Langues : FR · EN · Kirundi<br>
-          Aucune donnée ne quitte ce navigateur.
-          <button class="reset-btn" id="reset-btn">↺ Réinitialiser la simulation</button>
-        </div>
-      </aside>
-
-      <main>
-        <!-- ============ VUE D'ENSEMBLE ============ -->
-        <section class="view" id="view-overview">
-          <div class="view-head">
-            <h1>Vue d'ensemble</h1>
-            <p>État d'installation de l'établissement pilote et activité de la session de simulation. Les compteurs ci-dessous vivent en direct : chaque réponse de l'agent dans le simulateur fait avancer le quota.</p>
-          </div>
-          <div class="stack">
-            <div class="grid-2">
-              <div class="card">
-                <h2>Installation de l'établissement</h2>
-                <p class="hint">Les étapes prévues par le dossier de branchement, dans l'ordre.</p>
-                <ul class="checklist">
-                  <li><span class="check-ico check-ok">✓</span><span>Entreprise créée<span class="c-sub">Hôtel-Restaurant Pilote — Bujumbura</span></span></li>
-                  <li><span class="check-ico check-ok">✓</span><span>Agent créé<span class="c-sub">« Concierge Pilote » — FR / EN / Kirundi, autonomie supervisée</span></span></li>
-                  <li><span class="check-ico check-ok">✓</span><span>Connaissances publiées<span class="c-sub" id="ov-docs-sub">3 documents publiés — gérez-les dans la vue Connaissances</span></span></li>
-                  <li><span class="check-ico check-ok">✓</span><span>Catalogue créé<span class="c-sub" id="ov-cat-sub">5 produits avec prix en BIF — gérez-les dans la vue Catalogue</span></span></li>
-                  <li><span class="check-ico check-wait">!</span><span>Canal WhatsApp<span class="c-sub"><strong>En attente du compte Meta</strong> — Business vérifié, WABA et jeton permanent à fournir par BRIM</span></span></li>
-                </ul>
-              </div>
-              <div class="card">
-                <h2>Quota du plan Pilote</h2>
-                <p class="hint">Messages de l'agent consommés ce mois-ci. Le compteur avance à chaque réponse de l'agent dans le simulateur.</p>
-                <div class="quota-num"><span id="quota-used">37</span> <small>/ 500 messages</small></div>
-                <div class="quota-bar">
-                  <div class="quota-fill" id="quota-fill" style="width:7.4%"></div>
-                  <div class="quota-mark" style="left:80%"><span>80 %</span></div>
-                  <div class="quota-mark" style="left:calc(100% - 2px)"><span>100 %</span></div>
-                </div>
-                <p class="quota-note" id="quota-note">Il reste <strong>463</strong> messages ce mois-ci. À 80 %, un avertissement s'affiche ; à 100 %, l'agent cesse de répondre et le client est orienté vers le personnel.</p>
-              </div>
-            </div>
-            <div class="grid-3" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">
-              <div class="card stat-card"><div class="s-num" id="stat-conv">0</div><div class="s-label">Conversations (cette session)</div><div class="s-sub">Une conversation démarre au premier message du client.</div></div>
-              <div class="card stat-card"><div class="s-num" id="stat-res">0</div><div class="s-label">Réservations demandées</div><div class="s-sub">Toujours au statut « Demandée » tant que le personnel n'a pas confirmé.</div></div>
-              <div class="card stat-card"><div class="s-num" id="stat-cmd">0</div><div class="s-label">Commandes passées</div><div class="s-sub">Totaux calculés depuis le catalogue, jamais estimés.</div></div>
-              <div class="card stat-card"><div class="s-num" id="stat-unans">0</div><div class="s-label">Questions sans réponse</div><div class="s-sub">Journalisées et proposées dans la vue Amélioration.</div></div>
-            </div>
-            <div class="card">
-              <h2>Tester en 2 minutes</h2>
-              <p class="hint" style="margin-bottom:12px">C'est vous qui nourrissez l'agent : ouvrez la vue <strong>Connaissances</strong>, modifiez un document ou ajoutez-en un nouveau (par exemple les horaires de la piscine), publiez-le, puis posez la question dans le <strong>Simulateur client</strong> — l'agent répond aussitôt depuis votre texte, en citant le document. Essayez aussi : le prix d'une chambre, une réservation complète, la question de la piscine avant publication (il dira honnêtement qu'il ne sait pas), puis la suite présidentielle — l'agent refusera d'inventer un prix. Les prix se règlent dans la vue <strong>Catalogue</strong> et sont utilisés immédiatement pour les devis et les commandes.</p>
-              <button class="btn btn-green" data-goto="simulator">Ouvrir le simulateur client →</button>
-            </div>
-          </div>
-        </section>
-
-        <!-- ============ SIMULATEUR ============ -->
-        <section class="view active" id="view-simulator">
-          <div class="view-head">
-            <h1>Simulateur client</h1>
-            <p>Vous jouez le rôle d'un client de l'Hôtel-Restaurant Pilote. L'agent « Concierge Pilote » répond uniquement depuis les connaissances publiées et le catalogue — avec ses sources, comme le système réel.</p>
-          </div>
-          <div class="sim-layout">
-            <div class="phone" aria-label="Conversation simulée">
-              <div class="phone-head">
-                <div class="avatar">HP</div>
-                <div>
-                  <div class="p-name">Hôtel-Restaurant Pilote</div>
-                  <div class="p-status" id="phone-status">Concierge Pilote · en ligne</div>
-                </div>
-              </div>
-              <div class="handoff-banner" id="handoff-banner">Un membre de l'équipe a pris le relais — l'agent IA est silencieux.</div>
-              <div class="chat" id="chat"></div>
-              <div class="typing" id="typing">Concierge Pilote écrit…</div>
-              <div class="composer">
-                <form class="composer-row" id="composer-form">
-                  <input type="text" id="composer-input" placeholder="Écrivez comme un client…" autocomplete="off" aria-label="Votre message de client">
-                  <button class="send-btn" type="submit" aria-label="Envoyer">➤</button>
-                </form>
-                <div class="staff-zone" id="staff-zone">
-                  <label for="staff-input">Répondre en tant que personnel (le client voit ce message)</label>
-                  <div class="staff-row">
-                    <input type="text" id="staff-input" placeholder="Ex. La piscine est ouverte de 8 h à 19 h." autocomplete="off">
-                    <button class="btn btn-navy btn-small" id="staff-send" type="button">Envoyer comme personnel</button>
-                    <button class="btn btn-ghost btn-small" id="staff-release" type="button">Rendre la main à l'agent</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="stack">
-              <div class="card">
-                <h3>Scénarios prédéfinis</h3>
-                <p class="hint">Un clic envoie le message comme si le client l'avait tapé.</p>
-                <div class="scenarios">
-                  <button class="scenario-btn" data-scenario="prix">Prix d'une chambre double ?<small>Réponse fondée sur le catalogue, avec sources</small></button>
-                  <button class="scenario-btn" data-scenario="horaires">Horaires du restaurant ?<small>Document « Horaires d'ouverture »</small></button>
-                  <button class="scenario-btn" data-scenario="reserver">Réserver une chambre<small>Flux guidé : type, dates, nom — jamais confirmée par l'agent</small></button>
-                  <button class="scenario-btn" data-scenario="commander">Commander 2 tilapias<small>Total calculé depuis le catalogue</small></button>
-                  <button class="scenario-btn" data-scenario="piscine">La piscine ouvre à quelle heure ?<small>Information absente : réponse honnête, journalisée</small></button>
-                  <button class="scenario-btn" data-scenario="suite">La suite présidentielle ?<small>Piège : le garde-fou refuse d'inventer un prix</small></button>
-                </div>
-                <div style="margin-top:12px">
-                  <button class="human-btn" id="human-btn">Parler à un humain</button>
-                </div>
-              </div>
-              <div class="card">
-                <h3>Règles appliquées, comme le système réel</h3>
-                <ul class="rules-list">
-                  <li>Aucun prix, aucune disponibilité, aucun paiement inventés.</li>
-                  <li>Disponibilité = unités du catalogue − réservations confirmées.</li>
-                  <li>Une réservation créée par l'agent reste « Demandée » jusqu'à confirmation du personnel.</li>
-                  <li>Deux questions sans réponse de suite → transfert humain, l'agent se tait.</li>
-                  <li>Chaque réponse de l'agent consomme 1 message du quota.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- ============ CONNAISSANCES ============ -->
-        <section class="view" id="view-knowledge">
-          <div class="view-head">
-            <h1>Connaissances — nourrir l'agent</h1>
-            <p>C'est ici, côté entreprise, que vous écrivez ce que l'agent a le droit de dire. Les documents <strong>publiés</strong> sont sa seule source de vérité, avec les produits du catalogue. Un document en <strong>brouillon</strong> ne lui sert jamais : il ne l'utilise qu'une fois publié.</p>
-          </div>
-          <div class="stack">
-            <div class="def-box">
-              <strong>D'où l'agent tire ses réponses</strong>
-              <div class="def-steps">
-                <div class="def-step"><strong>1 · Vous écrivez ici</strong>Horaires, politiques, services, réponses fréquentes : un document par sujet, dans vos mots.</div>
-                <div class="def-step"><strong>2 · L'agent cherche uniquement dans le publié</strong>À chaque question, il compare les mots du client avec vos documents publiés et le catalogue. Rien d'autre ne peut fonder une réponse.</div>
-                <div class="def-step"><strong>3 · Il cite sa source — ou il dit qu'il ne sait pas</strong>S'il ne trouve rien de publié, il le reconnaît, transmet au personnel, et la question part en vue Amélioration.</div>
-              </div>
-            </div>
-            <div class="test-cta" id="docs-test-cta"><span><strong>Connaissances mises à jour.</strong> Vérifiez tout de suite ce que l'agent répond maintenant.</span><button class="btn btn-green btn-small" data-goto="simulator">Tester dans le simulateur →</button></div>
-            <div class="card">
-              <h2>Ajouter un document</h2>
-              <p class="hint">Un sujet par document (ex. « Horaires de la piscine »). Dès la publication, l'agent peut répondre aux questions qui correspondent à son contenu. Dans cette simulation, vos ajouts et modifications sont conservés en mémoire le temps de la session : un rechargement de la page les efface.</p>
-              <form id="doc-add-form">
-                <div class="form-grid">
-                  <div class="field"><label for="doc-new-title">Titre du document</label><input type="text" id="doc-new-title" placeholder="Ex. Horaires de la piscine" required></div>
-                  <div class="field"><label for="doc-new-cat">Catégorie</label>
-                    <select id="doc-new-cat">
-                      <option>Horaires</option><option>Politiques</option><option>Services</option><option>FAQ</option><option>Équipements</option><option>Autre</option>
-                    </select></div>
-                  <div class="field full"><label for="doc-new-text">Contenu — ce que l'agent pourra dire, dans vos mots</label><textarea id="doc-new-text" placeholder="Ex. La piscine est ouverte tous les jours de 8 h à 19 h. Les serviettes sont fournies gratuitement à l'accueil." required></textarea></div>
-                </div>
-                <button class="btn btn-green" type="submit">Publier le document</button>
-              </form>
-            </div>
-            <div class="card">
-              <h2>Importer un document existant</h2>
-              <p class="hint">Menu scanné, tarif en PDF, document texte… L'import crée toujours un <strong>brouillon</strong> : vous le relisez, vous le complétez, puis vous le publiez. L'agent ne voit jamais un brouillon. (Simulation : le contenu des fichiers texte est repris ; pour un PDF ou une photo, le brouillon reprend le nom du fichier, à compléter avant publication — dans le système réel, la photo passe par la lecture automatique de texte, toujours relue par un humain.)</p>
-              <div class="field"><label for="import-file">Fichier à importer (.txt, .csv, .xlsx, .pdf, .jpg, .png)</label><input type="file" id="import-file" accept=".txt,.csv,.xlsx,.pdf,.jpg,.jpeg,.png"></div>
-              <button class="btn btn-navy" id="import-btn" type="button">Importer comme brouillon</button>
-            </div>
-            <div class="stack" id="docs-list" style="gap:14px"></div>
-          </div>
-        </section>
-
-        <!-- ============ CATALOGUE ============ -->
-        <section class="view" id="view-catalog">
-          <div class="view-head">
-            <h1>Catalogue — prix et produits de l'agent</h1>
-            <p>C'est ici que l'agent trouve les prix qu'il a le droit d'annoncer. Modifiez un prix, ajoutez un plat ou une chambre : la modification est utilisée immédiatement dans le simulateur — devis de réservation, totaux de commandes, disponibilités.</p>
-          </div>
-          <div class="stack">
-            <div class="def-box">
-              <strong>D'où l'agent tire ses prix</strong>
-              <div class="def-steps">
-                <div class="def-step"><strong>1 · Vous fixez les prix ici</strong>Chaque produit a un prix en BIF. Les unités des chambres fixent la disponibilité (unités − réservations confirmées).</div>
-                <div class="def-step"><strong>2 · L'agent ne cite que ce catalogue</strong>Un produit absent d'ici n'existe pas pour lui : il refusera toujours d'inventer un prix.</div>
-                <div class="def-step"><strong>3 · Les totaux sont calculés, jamais estimés</strong>Réservations et commandes multiplient quantité × prix du catalogue, au franc près.</div>
-              </div>
-            </div>
-            <div class="test-cta" id="prod-test-cta"><span><strong>Catalogue mis à jour.</strong> Vérifiez tout de suite les prix et les totaux que l'agent annonce maintenant.</span><button class="btn btn-green btn-small" data-goto="simulator">Tester dans le simulateur →</button></div>
-            <div class="card">
-              <h2>Ajouter un produit</h2>
-              <p class="hint">Dès l'enregistrement, l'agent peut annoncer ce produit et son prix, et prendre des commandes dessus. Dans cette simulation, les changements sont conservés en mémoire le temps de la session : un rechargement de la page les efface.</p>
-              <form id="prod-add-form">
-                <div class="form-grid">
-                  <div class="field"><label for="prod-new-name">Nom du produit</label><input type="text" id="prod-new-name" placeholder="Ex. Salade de fruits frais" required></div>
-                  <div class="field"><label for="prod-new-type">Type</label>
-                    <select id="prod-new-type"><option>Chambre</option><option>Plat</option><option>Service</option><option>Autre</option></select></div>
-                  <div class="field full"><label for="prod-new-desc">Description (ce que l'agent peut en dire)</label><input type="text" id="prod-new-desc" placeholder="Ex. Fruits de saison, servie fraîche"></div>
-                  <div class="field"><label for="prod-new-price">Prix (BIF)</label><input type="number" id="prod-new-price" min="0" step="100" placeholder="Ex. 8000" required></div>
-                  <div class="field"><label for="prod-new-units">Unités (chambres uniquement — vide = sans limite suivie)</label><input type="number" id="prod-new-units" min="0" step="1" placeholder="Ex. 2"></div>
-                </div>
-                <button class="btn btn-green" type="submit">Ajouter au catalogue</button>
-              </form>
-            </div>
-            <div class="stack" id="catalog-list" style="gap:14px"></div>
-            <p class="hint" style="margin:0">Disponibilité des chambres dans le simulateur : unités totales moins les réservations déjà confirmées sur la période (4 Classiques et 1 Deluxe confirmées avant votre session) et celles que le personnel confirmera pendant la simulation.</p>
-          </div>
-        </section>
-
-        <!-- ============ RÉSERVATIONS & COMMANDES ============ -->
-        <section class="view" id="view-bookings">
-          <div class="view-head">
-            <h1>Réservations &amp; commandes</h1>
-            <p>Alimenté en direct par le simulateur. L'agent crée des demandes ; seul le personnel confirme — le client est alors notifié dans la conversation.</p>
-          </div>
-          <div class="stack">
-            <div class="card">
-              <h2>Réservations</h2>
-              <div class="stack" id="res-list" style="gap:10px;margin-top:10px"></div>
-            </div>
-            <div class="card">
-              <h2>Commandes</h2>
-              <div class="stack" id="cmd-list" style="gap:10px;margin-top:10px"></div>
-            </div>
-          </div>
-        </section>
-
-        <!-- ============ CANAUX ============ -->
-        <section class="view" id="view-channels">
-          <div class="view-head">
-            <h1>Canaux</h1>
-            <p>Un seul agent, une seule base de connaissances, tous les canaux. Le code des cinq canaux est terminé et testé ; l'ouverture publique attend les comptes et l'hébergement BRIM.</p>
-          </div>
-          <div class="stack">
-            <div class="channel-grid">
-              <div class="channel-card"><h3><span class="ch-ico" style="background:#1d9e61">W</span>WhatsApp</h3><span class="badge badge-amber">Prêt côté code — en attente des comptes BRIM</span><p>Webhook signé, fenêtre de 24 h et modèles de messages. Attend le Business vérifié, le WABA, le numéro et le jeton permanent.</p></div>
-              <div class="channel-card"><h3><span class="ch-ico" style="background:#0e2a47">W</span>Widget web</h3><span class="badge badge-amber">Prêt côté code — en attente des comptes BRIM</span><p>Une ligne de code sur le site de l'établissement. Clé publique par établissement, quotas appliqués par le moteur.</p></div>
-              <div class="channel-card"><h3><span class="ch-ico" style="background:#2b6cb0">M</span>Messenger</h3><span class="badge badge-amber">Prêt côté code — en attente des comptes BRIM</span><p>Webhook Meta partagé, routage par page, réponses du personnel réellement envoyées sur le canal.</p></div>
-              <div class="channel-card"><h3><span class="ch-ico" style="background:#9c4a72">I</span>Instagram</h3><span class="badge badge-amber">Prêt côté code — en attente des comptes BRIM</span><p>Même discipline que Messenger : signature vérifiée, idempotence, routage par compte.</p></div>
-              <div class="channel-card"><h3><span class="ch-ico" style="background:#5b6abf">S</span>SMS</h3><span class="badge badge-amber">Prêt côté code — en attente des comptes BRIM</span><p>Adaptateur générique (URL d'envoi + clé par l'environnement), prêt pour le fournisseur burundais que BRIM choisira.</p></div>
-            </div>
-            <div class="card">
-              <h2>Intégrer le widget web</h2>
-              <p class="hint">L'extrait à coller sur le site de l'établissement, juste avant la balise de fermeture du corps de page. La clé ci-dessous est une clé de démonstration tronquée.</p>
-              <pre class="code">&lt;script <span class="attr">src</span>=<span class="str">"https://bata.brim.bi/widget.js"</span> <span class="attr">data-bata-key</span>=<span class="str">"pk_…"</span>&gt;&lt;/script&gt;</pre>
-              <p class="hint" style="margin:12px 0 0">Le simulateur de cette page reproduit ce que le visiteur vivra dans le widget : mêmes connaissances, mêmes règles, mêmes quotas.</p>
-            </div>
-          </div>
-        </section>
-
-        <!-- ============ AMÉLIORATION ============ -->
-        <section class="view" id="view-improvement">
-          <div class="view-head">
-            <h1>Amélioration</h1>
-            <p>Chaque question restée sans réponse devient une suggestion supervisée. Quand le personnel a répondu pendant un transfert, sa réponse peut être approuvée et publiée : l'agent saura ensuite répondre seul. Règle de la Phase 6 : une lacune écartée ne réapparaît jamais en suggestion.</p>
-          </div>
-          <div class="stack" id="sugg-list"></div>
-        </section>
-
-        <!-- ============ QUALITÉ ============ -->
-        <section class="view" id="view-quality">
-          <div class="view-head">
-            <h1>Qualité</h1>
-            <p>Définitions du §20 du cahier des charges, et indicateurs calculés en direct depuis cette session de simulation.</p>
-          </div>
-          <div class="stack">
-            <div class="def-box">
-              <strong>Résolution IA ≠ réponses automatiques.</strong> Une conversation compte comme <strong>résolue par l'IA</strong> uniquement si le besoin du client a été traité sans transfert humain. Le <strong>taux d'incertitude</strong> mesure la part des questions auxquelles l'agent n'a pas su répondre : c'est lui qui alimente la vue Amélioration, pas un score de satisfaction deviné.
-            </div>
-            <div class="metric-row">
-              <div class="card stat-card"><div class="s-num" id="q-conv">0</div><div class="s-label">Conversations</div></div>
-              <div class="card stat-card"><div class="s-num" id="q-resolved">0</div><div class="s-label">Résolues par l'IA</div><div class="s-sub">Sans aucun transfert humain.</div></div>
-              <div class="card stat-card"><div class="s-num" id="q-transfer">0</div><div class="s-label">Transférées au personnel</div></div>
-              <div class="card stat-card"><div class="s-num" id="q-uncertainty">—</div><div class="s-label">Taux d'incertitude</div><div class="s-sub">Questions sans réponse ÷ questions posées.</div></div>
-            </div>
-            <div class="card">
-              <h2>Lecture de la session</h2>
-              <p class="hint" id="quality-note" style="margin:0">Aucune conversation pour l'instant. Ouvrez le simulateur et posez quelques questions — y compris une à laquelle l'agent ne sait pas répondre — pour voir ces indicateurs bouger.</p>
-            </div>
-          </div>
-        </section>
-      </main>
+  <section id="features">
+    <h2>What BATA does for your business</h2>
+    <p class="sub">Most enquiries arrive outside opening hours — and most customers never call back. BATA answers them on the spot, with your own information: your services, your prices, your availability.</p>
+    <div class="grid c4">
+      <div class="card">
+        <div class="ico">💬</div>
+        <h3>Answers instantly, 24/7</h3>
+        <p>Your customers get an immediate, polite reply on your website chat and on WhatsApp — at 2 p.m. or 2 a.m., in French and English.</p>
+      </div>
+      <div class="card">
+        <div class="ico">📅</div>
+        <h3>Takes bookings</h3>
+        <p>BATA collects reservation and appointment requests with the details you need — name, date, number of guests — and sends them straight to you.</p>
+      </div>
+      <div class="card">
+        <div class="ico">❓</div>
+        <h3>Answers frequent questions</h3>
+        <p>Prices, opening hours, location, services, payment methods: BATA answers from your business information, and only yours — never invented.</p>
+      </div>
+      <div class="card">
+        <div class="ico">🤝</div>
+        <h3>Hands off to your team</h3>
+        <p>Anything BATA cannot handle is passed to you with the full conversation, so a human can take over at any moment.</p>
+      </div>
     </div>
+  </section>
 
-    <div class="toast" id="toast" role="status"></div>
+  <section id="how">
+    <h2>How it works</h2>
+    <p class="sub">You do not install or configure anything. We set BATA up for your business and keep it running.</p>
+    <div class="grid c3 steps">
+      <div class="card">
+        <div class="num">1</div>
+        <h3>Tell us about your business</h3>
+        <p>You share your services, prices, hours and the questions your customers ask most. We build your receptionist's knowledge from that information.</p>
+      </div>
+      <div class="card">
+        <div class="num">2</div>
+        <h3>We connect your channels</h3>
+        <p>We add BATA to your website and connect your WhatsApp Business number, then test every answer with you before going live.</p>
+      </div>
+      <div class="card">
+        <div class="num">3</div>
+        <h3>BATA answers, you get the bookings</h3>
+        <p>From day one, enquiries are answered around the clock and bookings and leads land directly with you. Update your information at any time — just tell us.</p>
+      </div>
+    </div>
+  </section>
 
-    <script>
-    "use strict";
-    /* ================= Données de démonstration (exactes, brief) ================= */
-    var DOCS = [
-      { id:"horaires", title:"Horaires d'ouverture", cat:"Horaires", version:1, status:"published",
-        text:"La réception de l'Hôtel-Restaurant Pilote est ouverte 24 h/24. Le restaurant accueille les clients de 7 h à 22 h, le bar jusqu'à 23 h. Le petit déjeuner est servi de 6 h 30 à 10 h." },
-      { id:"politiques", title:"Check-in, check-out et politiques", cat:"Politiques", version:1, status:"published",
-        text:"Le check-in se fait à partir de 14 h et le check-out avant 11 h. Une pièce d'identité est demandée à l'arrivée. Annulation gratuite jusqu'à 48 h avant l'arrivée ; au-delà, la première nuit est facturée. Les animaux ne sont pas acceptés. Établissement non-fumeur : un espace extérieur est prévu." },
-      { id:"services", title:"Services et tarifs indicatifs", cat:"Services", version:1, status:"published",
-        text:"Wi-Fi gratuit dans tout l'établissement, parking gardé gratuit, navette aéroport sur demande (25 000 BIF par trajet), blanchisserie (5 000 BIF par kilo), salle de conférence de 40 places (150 000 BIF par jour, pause-café incluse)." }
-    ];
-    var PRODUCTS = [
-      { id:"classique", name:"Chambre Classique", type:"Chambre", price:60000, unit:"/nuit", units:6, desc:"Lit double, climatisation, Wi-Fi, eau chaude" },
-      { id:"deluxe", name:"Chambre Deluxe Vue Lac", type:"Chambre", price:120000, unit:"/nuit", units:3, desc:"Grand lit, balcon avec vue sur le lac, minibar" },
-      { id:"brochettes", name:"Brochettes de bœuf", type:"Plat", price:15000, unit:"", units:null, desc:"" },
-      { id:"tilapia", name:"Tilapia grillé du lac", type:"Plat", price:22000, unit:"", units:null, desc:"" },
-      { id:"pilau", name:"Riz pilau au poulet", type:"Plat", price:12000, unit:"", units:null, desc:"" }
-    ];
-    var PRE_CONFIRMED = { classique:4, deluxe:1 }; /* réservations confirmées simulées préexistantes */
-    var QUOTA_MAX = 500, QUOTA_START = 37;
-    /* Copies d'origine : la réinitialisation de la simulation y revient. */
-    var ORIGINAL_DOCS = JSON.parse(JSON.stringify(DOCS));
-    var ORIGINAL_PRODUCTS = JSON.parse(JSON.stringify(PRODUCTS));
-    var uidSeq = 0;
-    function uid(prefix){ uidSeq++; return prefix + "-" + Date.now().toString(36) + "-" + uidSeq; }
+  <section id="example">
+    <div class="example">
+      <div>
+        <h3>In production today: Crescence Hôtel Appartements</h3>
+        <p>A hotel in Bujumbura uses BATA on its public website: guests chat with the receptionist, check rooms and send booking requests at any hour — the hotel team receives every request, ready to confirm.</p>
+      </div>
+      <a class="btn" href="https://rmcvdr.github.io/crescence/">Visit the live website</a>
+    </div>
+  </section>
 
-    /* ================= État de la session ================= */
-    var S;
-    function freshState(){
-      return {
-        quotaUsed: QUOTA_START,
-        conversationStarted:false, conversations:0, transferredConversations:0, currentTransferred:false,
-        questionsAsked:0, questionsUnanswered:0,
-        consecutiveUnanswered:0,
-        handoff:false,
-        flow:null,               /* flux réservation en cours */
-        reservations:[], orders:[],
-        unansweredLog:[],        /* {key, topic, question, occurrences, staffAnswer, published, dismissed} */
-        learnedDocs:[],          /* documents FAQ publiés depuis Amélioration */
-        resSeq:0, cmdSeq:0,
-        pendingTopicKey:null     /* sujet sans réponse en attente d'une réponse du personnel */
-      };
-    }
-    S = freshState();
+  <section id="pricing">
+    <h2>Simple monthly pricing</h2>
+    <p class="sub">One monthly subscription per business. No setup fee, no hardware, no long-term contract — cancel at any time.</p>
+    <div class="grid c3">
+      <div class="card price-card">
+        <div class="plan">Starter</div>
+        <div class="price">$29<span> USD</span></div>
+        <div class="per">per month, per business</div>
+        <ul>
+          <li>AI receptionist on your website</li>
+          <li>Up to 300 conversations / month</li>
+          <li>Answers in French and English</li>
+          <li>Booking and contact requests sent to you</li>
+          <li>Email support</li>
+        </ul>
+        <a class="btn ghost" href="mailto:izererumeca@gmail.com?subject=BATA%20Starter%20plan">Get started</a>
+      </div>
+      <div class="card price-card featured">
+        <span class="badge">Most popular</span>
+        <div class="plan">Standard</div>
+        <div class="price">$49<span> USD</span></div>
+        <div class="per">per month, per business</div>
+        <ul>
+          <li>Everything in Starter</li>
+          <li>WhatsApp Business channel included</li>
+          <li>Up to 1,000 conversations / month</li>
+          <li>Booking requests with instant alerts</li>
+          <li>Priority email support</li>
+        </ul>
+        <a class="btn" href="mailto:izererumeca@gmail.com?subject=BATA%20Standard%20plan">Get started</a>
+      </div>
+      <div class="card price-card">
+        <div class="plan">Premium</div>
+        <div class="price">$99<span> USD</span></div>
+        <div class="per">per month, per business</div>
+        <ul>
+          <li>Everything in Standard</li>
+          <li>Unlimited conversations (fair use)</li>
+          <li>Up to 3 locations or brands</li>
+          <li>Monthly conversation &amp; booking report</li>
+          <li>Priority support, same business day</li>
+        </ul>
+        <a class="btn ghost" href="mailto:izererumeca@gmail.com?subject=BATA%20Premium%20plan">Get started</a>
+      </div>
+    </div>
+    <p class="pricing-note">Prices are in US dollars, billed monthly. Payments are processed securely by Paddle, our merchant of record. You may cancel at any time; your access runs until the end of the period you have paid for. See our <a href="refund.html">Refund Policy</a>.</p>
+  </section>
 
-    /* ================= Utilitaires ================= */
-    function $(id){ return document.getElementById(id); }
-    function fmt(n){ return String(n).replace(/\B(?=(\d{3})+(?!\d))/g," ") + " BIF"; }
-    function norm(s){
-      return (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/['’]/g," ").replace(/\s+/g," ").trim();
-    }
-    function has(text, words){ var t = norm(text); return words.some(function(w){ return t.indexOf(norm(w)) !== -1; }); }
-    function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
-    var toastTimer=null;
-    function toast(msg){
-      var t=$("toast"); t.textContent=msg; t.classList.add("on");
-      clearTimeout(toastTimer); toastTimer=setTimeout(function(){ t.classList.remove("on"); },3400);
-    }
+  <section class="faq">
+    <h2>Questions</h2>
+    <div class="grid c2">
+      <div class="card">
+        <h3>Which languages does BATA speak?</h3>
+        <p>French first — BATA was built for French-speaking businesses and their customers — and English. Your customers are answered in the language they write in.</p>
+      </div>
+      <div class="card">
+        <h3>Do I need a WhatsApp Business account?</h3>
+        <p>For the WhatsApp channel, yes: a WhatsApp Business number for your business. We guide you through the connection, step by step.</p>
+      </div>
+      <div class="card">
+        <h3>What if BATA does not know an answer?</h3>
+        <p>BATA never invents information. If a question is outside your business information, it politely takes the customer's contact details and passes the conversation to your team.</p>
+      </div>
+      <div class="card">
+        <h3>Can I cancel at any time?</h3>
+        <p>Yes. There is no long-term contract. Cancel whenever you like and your receptionist stays active until the end of the month you have paid for.</p>
+      </div>
+    </div>
+  </section>
 
-    /* ================= Navigation ================= */
-    var lastEtabView = "overview";
-    function setSide(side){
-      $("app").dataset.side = side;
-      $("side-btn-visiteur").classList.toggle("active", side==="visiteur");
-      $("side-btn-etablissement").classList.toggle("active", side==="etablissement");
-    }
-    function showView(name){
-      document.querySelectorAll(".view").forEach(function(v){ v.classList.remove("active"); });
-      $("view-"+name).classList.add("active");
-      document.querySelectorAll(".nav-btn").forEach(function(b){ b.classList.toggle("active", b.dataset.view===name); });
-      var side = name==="simulator" ? "visiteur" : "etablissement";
-      if(side==="etablissement") lastEtabView = name;
-      setSide(side);
-      window.scrollTo({top:0});
-    }
-    $("side-btn-visiteur").addEventListener("click", function(){ showView("simulator"); });
-    $("side-btn-etablissement").addEventListener("click", function(){ showView(lastEtabView); });
-    document.querySelectorAll(".nav-btn").forEach(function(b){
-      b.addEventListener("click", function(){ showView(b.dataset.view); });
-    });
-    document.querySelectorAll("[data-goto]").forEach(function(b){
-      b.addEventListener("click", function(){ showView(b.dataset.goto); });
-    });
+  <section id="contact">
+    <div class="card contact-card">
+      <h2>Talk to us</h2>
+      <p class="sub" style="margin-left:auto;margin-right:auto">Tell us about your business and we will show you what BATA would answer to your customers.</p>
+      <p class="mail"><a href="mailto:izererumeca@gmail.com">izererumeca@gmail.com</a></p>
+      <p style="color:var(--ink-faint)">MATECH BURUNDI — Bujumbura, Burundi. We reply within one business day.</p>
+    </div>
+  </section>
 
-    /* ================= Rendu : connaissances & catalogue (éditeurs) ================= */
-    var DOC_CATS = ["Horaires","Politiques","Services","FAQ","Équipements","Import","Autre"];
-    var PROD_TYPES = ["Chambre","Plat","Service","Autre"];
-    function catOptions(sel){
-      return DOC_CATS.map(function(c){ return '<option'+(c===sel?" selected":"")+'>'+esc(c)+"</option>"; }).join("");
-    }
-    function typeOptions(sel){
-      return PROD_TYPES.map(function(c){ return '<option'+(c===sel?" selected":"")+'>'+esc(c)+"</option>"; }).join("");
-    }
-    function markChanged(ctaId, msg){
-      var cta = $(ctaId); if(cta) cta.classList.add("on");
-      toast(msg);
-    }
-    function wireDelete(btn, fn){
-      btn.addEventListener("click", function(){
-        if(btn.dataset.confirming){
-          fn();
-        } else {
-          btn.dataset.confirming = "1";
-          btn.classList.add("confirming");
-          var old = btn.textContent;
-          btn.textContent = "Confirmer la suppression ?";
-          setTimeout(function(){ if(btn.isConnected){ delete btn.dataset.confirming; btn.classList.remove("confirming"); btn.textContent = old; } }, 3500);
-        }
-      });
-    }
-    function allPublishedDocs(){
-      return DOCS.filter(function(d){ return d.status!=="draft"; })
-        .concat(S ? S.learnedDocs : []);
-    }
-    function docCardHtml(d, source, i){
-      var draft = d.status==="draft";
-      var badges = draft
-        ? '<span class="badge badge-amber">Brouillon — invisible pour l\'agent</span>'
-        : '<span class="badge badge-green">Publié v'+d.version+'</span>';
-      if(source==="learned") badges += ' <span class="badge badge-blue">FAQ · publiée depuis Amélioration</span>';
-      else badges += ' <span class="badge badge-blue">'+esc(d.cat)+"</span>";
-      var html = '<div class="doc-card'+(draft?" draft":"")+(source==="learned"?" learned":"")+'">'+
-        "<h3>"+esc(d.title)+" "+badges+"</h3>"+
-        '<div class="field"><label>Titre</label><input type="text" data-doc-field="title" value="'+esc(d.title)+'"></div>'+
-        '<div class="form-grid"><div class="field"><label>Catégorie</label><select data-doc-field="cat">'+catOptions(d.cat)+'</select></div></div>'+
-        '<div class="field"><label>Contenu — ce que l\'agent peut dire sur ce sujet</label><textarea data-doc-field="text">'+esc(d.text)+"</textarea></div>"+
-        '<div class="doc-actions">'+
-          '<button class="btn btn-green btn-small" data-doc-save="'+source+":"+i+'">Enregistrer'+(draft?" le brouillon":" (nouvelle version)")+"</button>"+
-          (draft ? '<button class="btn btn-navy btn-small" data-doc-publish="'+source+":"+i+'">Publier — l\'agent pourra l\'utiliser</button>' : "")+
-          '<button class="btn btn-danger btn-small" data-doc-delete="'+source+":"+i+'">Supprimer</button>'+
-        "</div>"+
-        (draft ? '<p class="hint" style="margin:10px 0 0">Tant que ce document est en brouillon, l\'agent répond « je ne sais pas » aux questions sur ce sujet.</p>' : "")+
-      "</div>";
-      return html;
-    }
-    function getDocRef(ref){
-      var parts = ref.split(":"), i = parseInt(parts[1],10);
-      return parts[0]==="learned" ? S.learnedDocs[i] : DOCS[i];
-    }
-    function readDocCard(btn){
-      var card = btn.closest(".doc-card");
-      return {
-        title: card.querySelector('[data-doc-field="title"]').value.trim(),
-        cat: card.querySelector('[data-doc-field="cat"]').value,
-        text: card.querySelector('[data-doc-field="text"]').value.trim()
-      };
-    }
-    function renderDocs(){
-      var html = DOCS.map(function(d,i){ return docCardHtml(d,"base",i); }).join("");
-      html += S.learnedDocs.map(function(d,i){ return docCardHtml(d,"learned",i); }).join("");
-      if(!html) html = '<div class="empty">Aucun document. Ajoutez-en un ci-dessus : sans connaissances publiées, l\'agent ne peut répondre à presque rien.</div>';
-      var list = $("docs-list");
-      list.innerHTML = html;
-      list.querySelectorAll("[data-doc-save]").forEach(function(b){
-        b.addEventListener("click", function(){
-          var d = getDocRef(b.dataset.docSave); if(!d) return;
-          var vals = readDocCard(b);
-          if(!vals.title || !vals.text){ toast("Le titre et le contenu sont nécessaires."); return; }
-          d.title = vals.title; d.cat = vals.cat; d.text = vals.text;
-          if(d.status!=="draft"){ d.version++; d.edited = true; }
-          renderDocs(); renderStats();
-          markChanged("docs-test-cta", d.status==="draft" ? "Brouillon enregistré — il reste invisible pour l'agent tant qu'il n'est pas publié." : "« "+d.title+" » enregistré en version "+d.version+". Testez dans le simulateur : posez une question sur ce sujet.");
-        });
-      });
-      list.querySelectorAll("[data-doc-publish]").forEach(function(b){
-        b.addEventListener("click", function(){
-          var d = getDocRef(b.dataset.docPublish); if(!d) return;
-          var vals = readDocCard(b);
-          if(!vals.title || !vals.text){ toast("Le titre et le contenu sont nécessaires avant de publier."); return; }
-          d.title = vals.title; d.cat = vals.cat; d.text = vals.text;
-          d.status = "published"; d.version = 1; d.edited = true;
-          renderDocs(); renderStats();
-          markChanged("docs-test-cta", "« "+d.title+" » est publié : l'agent peut maintenant répondre sur ce sujet. Testez dans le simulateur.");
-        });
-      });
-      list.querySelectorAll("[data-doc-delete]").forEach(function(b){
-        wireDelete(b, function(){
-          var parts = b.dataset.docDelete.split(":"), i = parseInt(parts[1],10);
-          var arr = parts[0]==="learned" ? S.learnedDocs : DOCS;
-          var d = arr[i]; if(!d) return;
-          arr.splice(i,1);
-          renderDocs(); renderStats();
-          markChanged("docs-test-cta", "« "+d.title+" » supprimé : l'agent ne peut plus s'appuyer dessus.");
-        });
-      });
-      updateOverviewCounts();
-    }
-    function updateOverviewCounts(){
-      var pub = DOCS.filter(function(d){ return d.status!=="draft"; }).length + S.learnedDocs.length;
-      var drafts = DOCS.filter(function(d){ return d.status==="draft"; }).length;
-      var od = $("ov-docs-sub");
-      if(od) od.textContent = pub+" document"+(pub>1?"s":"")+" publié"+(pub>1?"s":"")+(drafts ? " · "+drafts+" brouillon"+(drafts>1?"s":"") : "")+" — ajoutez et modifiez dans la vue Connaissances";
-      var oc = $("ov-cat-sub");
-      if(oc) oc.textContent = PRODUCTS.length+" produit"+(PRODUCTS.length>1?"s":"")+" avec prix en BIF — gérez-les dans la vue Catalogue";
-    }
-    function renderCatalog(){
-      var list = $("catalog-list");
-      if(!list) return;
-      list.innerHTML = PRODUCTS.length ? PRODUCTS.map(function(p,i){
-        return '<div class="prod-card"><h3>'+esc(p.name)+' <span class="badge badge-blue">'+esc(p.type)+'</span> <span class="prod-price">'+fmt(p.price).replace(" BIF","")+" BIF"+(p.unit?esc(p.unit):"")+"</span></h3>"+
-          '<div class="form-grid">'+
-            '<div class="field"><label>Nom</label><input type="text" data-prod-field="name" value="'+esc(p.name)+'"></div>'+
-            '<div class="field"><label>Type</label><select data-prod-field="type">'+typeOptions(p.type)+'</select></div>'+
-            '<div class="field full"><label>Description</label><input type="text" data-prod-field="desc" value="'+esc(p.desc||"")+'"></div>'+
-            '<div class="field"><label>Prix (BIF)</label><input type="number" min="0" step="100" data-prod-field="price" value="'+p.price+'"></div>'+
-            '<div class="field"><label>Unités (chambres — vide = sans limite suivie)</label><input type="number" min="0" step="1" data-prod-field="units" value="'+(p.units===null?"":p.units)+'"></div>'+
-          "</div>"+
-          '<div class="doc-actions">'+
-            '<button class="btn btn-green btn-small" data-prod-save="'+i+'">Enregistrer</button>'+
-            '<button class="btn btn-danger btn-small" data-prod-delete="'+i+'">Supprimer</button>'+
-          "</div></div>";
-      }).join("") : '<div class="empty">Catalogue vide : l\'agent ne peut annoncer aucun prix. Ajoutez un produit ci-dessus.</div>';
-      list.querySelectorAll("[data-prod-save]").forEach(function(b){
-        b.addEventListener("click", function(){
-          var p = PRODUCTS[parseInt(b.dataset.prodSave,10)]; if(!p) return;
-          var card = b.closest(".prod-card");
-          var name = card.querySelector('[data-prod-field="name"]').value.trim();
-          var price = parseInt(card.querySelector('[data-prod-field="price"]').value,10);
-          var unitsRaw = card.querySelector('[data-prod-field="units"]').value;
-          if(!name){ toast("Le nom du produit est nécessaire."); return; }
-          if(isNaN(price) || price < 0){ toast("Le prix doit être un nombre de BIF (0 ou plus)."); return; }
-          p.name = name;
-          p.type = card.querySelector('[data-prod-field="type"]').value;
-          p.desc = card.querySelector('[data-prod-field="desc"]').value.trim();
-          p.price = price;
-          p.units = unitsRaw==="" ? null : Math.max(0, parseInt(unitsRaw,10)||0);
-          renderCatalog(); renderStats();
-          markChanged("prod-test-cta", "« "+p.name+" » enregistré à "+fmt(p.price)+" : l'agent annonce ce prix dès maintenant. Testez dans le simulateur.");
-        });
-      });
-      list.querySelectorAll("[data-prod-delete]").forEach(function(b){
-        wireDelete(b, function(){
-          var i = parseInt(b.dataset.prodDelete,10);
-          var p = PRODUCTS[i]; if(!p) return;
-          PRODUCTS.splice(i,1);
-          renderCatalog(); renderStats();
-          markChanged("prod-test-cta", "« "+p.name+" » supprimé du catalogue : l'agent ne le propose plus.");
-        });
-      });
-      updateOverviewCounts();
-    }
+</main>
 
-    /* ================= Rendu : compteurs, quota, qualité ================= */
-    function renderStats(){
-      $("quota-used").textContent = S.quotaUsed;
-      var pct = Math.min(100, S.quotaUsed/QUOTA_MAX*100);
-      var fill = $("quota-fill");
-      fill.style.width = pct+"%";
-      fill.className = "quota-fill" + (S.quotaUsed>=QUOTA_MAX ? " full" : (pct>=80 ? " warn" : ""));
-      var left = Math.max(0, QUOTA_MAX - S.quotaUsed);
-      $("quota-note").innerHTML = S.quotaUsed>=QUOTA_MAX
-        ? "<strong>Quota épuisé.</strong> L'agent ne répond plus ; les clients sont orientés vers le personnel jusqu'au mois suivant ou à un changement de plan."
-        : (pct>=80
-          ? "<strong>Attention : 80 % du quota atteint.</strong> Il reste <strong>"+left+"</strong> messages ce mois-ci."
-          : "Il reste <strong>"+left+"</strong> messages ce mois-ci. À 80 %, un avertissement s'affiche ; à 100 %, l'agent cesse de répondre et le client est orienté vers le personnel.");
-      $("stat-conv").textContent = S.conversations;
-      $("stat-res").textContent = S.reservations.length;
-      $("stat-cmd").textContent = S.orders.length;
-      $("stat-unans").textContent = S.unansweredLog.reduce(function(a,u){ return a+u.occurrences; },0);
-      var bc = $("nav-bookings-count"), total = S.reservations.length + S.orders.length;
-      bc.style.display = total ? "" : "none"; bc.textContent = total;
-      var ic = $("nav-improv-count"), open = S.unansweredLog.filter(function(u){ return !u.published && !u.dismissed; }).length;
-      ic.style.display = open ? "" : "none"; ic.textContent = open;
-      /* Qualité */
-      $("q-conv").textContent = S.conversations;
-      $("q-transfer").textContent = S.transferredConversations;
-      $("q-resolved").textContent = Math.max(0, S.conversations - S.transferredConversations);
-      $("q-uncertainty").textContent = S.questionsAsked ? Math.round(S.questionsUnanswered/S.questionsAsked*100)+" %" : "—";
-      if(S.conversations){
-        $("quality-note").textContent = "Session en cours : "+S.conversations+" conversation(s), "+S.questionsAsked+" question(s) posée(s) à l'agent, "+
-          S.questionsUnanswered+" sans réponse, "+S.transferredConversations+" transfert(s) humain(s). Une conversation transférée ne compte jamais comme résolue par l'IA, même si l'agent avait répondu avant le transfert.";
-      }
-    }
+<footer class="site">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h4>MATECH BURUNDI</h4>
+        <p style="margin:0">Rohero, Avenue de l'Amitié, Building ABC<br />Bujumbura, Burundi</p>
+        <p style="margin:10px 0 0"><a href="mailto:izererumeca@gmail.com" style="display:inline">izererumeca@gmail.com</a></p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <a href="#features">Features</a>
+        <a href="#how">How it works</a>
+        <a href="#pricing">Pricing</a>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <a href="terms.html">Terms of Service</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="refund.html">Refund Policy</a>
+      </div>
+    </div>
+    <p class="legal">© 2026 MATECH BURUNDI. All rights reserved. BATA is a software subscription service provided by MATECH BURUNDI.</p>
+  </div>
+</footer>
 
-    /* ================= Rendu : réservations & commandes ================= */
-    function confirmedCount(productId){
-      var n = PRE_CONFIRMED[productId]||0;
-      S.reservations.forEach(function(r){ if(r.productId===productId && r.status==="Confirmée") n++; });
-      return n;
-    }
-    function availability(productId){
-      var p = PRODUCTS.filter(function(x){ return x.id===productId; })[0];
-      if(!p) return 0;
-      if(p.units===null) return Infinity;
-      return p.units - confirmedCount(productId);
-    }
-    function availLabel(productId){
-      var a = availability(productId);
-      return a===Infinity ? "disponible" : a+" disponible"+(a>1?"s":"")+" sur la période";
-    }
-    function rooms(){ return PRODUCTS.filter(function(p){ return p.type==="Chambre"; }); }
-    function plats(){ return PRODUCTS.filter(function(p){ return p.type==="Plat"; }); }
-    function productById(id){ return PRODUCTS.filter(function(p){ return p.id===id; })[0]; }
-    function renderBookings(){
-      var rl = $("res-list"), cl = $("cmd-list");
-      rl.innerHTML = S.reservations.length ? S.reservations.map(function(r,i){
-        return '<div class="res-item"><div class="r-main"><span class="r-ref">'+r.ref+'</span> '+
-          (r.status==="Confirmée" ? '<span class="badge badge-green">Confirmée</span>' : '<span class="badge badge-amber">Demandée — en attente du personnel</span>')+
-          '<div class="r-detail">'+esc(r.productName)+" · "+esc(r.guestName)+" · du "+esc(r.arrivalLabel)+" au "+esc(r.departureLabel)+" ("+r.nights+" nuit"+(r.nights>1?"s":"")+")</div></div>"+
-          '<div style="text-align:right"><div class="r-total">'+fmt(r.total)+'</div>'+
-          (r.status!=="Confirmée" ? '<button class="btn btn-green btn-small" data-confirm="'+i+'" style="margin-top:7px">Confirmer comme le personnel</button>' : '<div class="r-detail">Disponibilité mise à jour</div>')+
-          "</div></div>";
-      }).join("") : '<div class="empty">Aucune réservation pour l\'instant — lancez le scénario « Réserver une chambre » dans le simulateur.</div>';
-      cl.innerHTML = S.orders.length ? S.orders.map(function(o){
-        return '<div class="res-item"><div class="r-main"><span class="r-ref">'+o.ref+'</span> <span class="badge badge-amber">Demandée</span>'+
-          '<div class="r-detail">'+o.qty+" × "+esc(o.productName)+" à "+fmt(o.unitPrice)+"</div></div>"+
-          '<div class="r-total">'+fmt(o.total)+"</div></div>";
-      }).join("") : '<div class="empty">Aucune commande pour l\'instant — essayez « Commander 2 tilapias » dans le simulateur.</div>';
-      rl.querySelectorAll("[data-confirm]").forEach(function(b){
-        b.addEventListener("click", function(){ confirmReservation(parseInt(b.dataset.confirm,10)); });
-      });
-    }
-    function confirmReservation(i){
-      var r = S.reservations[i]; if(!r || r.status==="Confirmée") return;
-      r.status = "Confirmée";
-      renderBookings(); renderStats();
-      addStaffMsg("Bonjour "+r.guestName+", bonne nouvelle : votre réservation "+r.ref+" est confirmée. "+
-        r.productName+", du "+r.arrivalLabel+" au "+r.departureLabel+" ("+r.nights+" nuit"+(r.nights>1?"s":"")+") — total "+fmt(r.total)+", payable à l'arrivée. "+
-        "Le check-in se fait à partir de 14 h ; une pièce d'identité vous sera demandée. À très bientôt !");
-      toast("Réservation "+r.ref+" confirmée — le client a été notifié dans le simulateur.");
-    }
-
-    /* ================= Rendu : amélioration ================= */
-    function renderSuggestions(){
-      var list = $("sugg-list");
-      if(!S.unansweredLog.length){
-        list.innerHTML = '<div class="card"><div class="empty">Aucune question sans réponse pour l\'instant. Posez une question absente des connaissances (par exemple sur la piscine) dans le simulateur : elle apparaîtra ici.</div></div>';
-        return;
-      }
-      list.innerHTML = S.unansweredLog.map(function(u,i){
-        if(u.dismissed) return '<div class="sugg-card done"><span class="q">'+esc(u.topic)+'</span> <span class="badge badge-grey">Écartée par le responsable</span><p class="hint" style="margin:6px 0 0">Règle de la Phase 6 : une lacune écartée ne réapparaît jamais en suggestion. Ses occurrences restent comptées dans la vue Qualité.</p></div>';
-        if(u.published) return '<div class="sugg-card done"><span class="q">'+esc(u.topic)+'</span> <span class="badge badge-green">Publiée dans les connaissances</span><p class="hint" style="margin:6px 0 0">Le document « '+esc(u.docTitle)+' » est publié : reposez la question dans le simulateur, l\'agent répond désormais seul.</p></div>';
-        var body = '<div class="sugg-card"><span class="q">Question sans réponse : '+esc(u.topic)+'</span> <span class="badge badge-amber">'+u.occurrences+' occurrence'+(u.occurrences>1?"s":"")+'</span>'+
-          '<p class="hint" style="margin:6px 0 0">Dernière formulation du client : « '+esc(u.question)+' »</p>';
-        if(u.staffAnswer){
-          body += '<div class="staff-answer"><strong>Réponse du personnel pendant le transfert :</strong><br>'+esc(u.staffAnswer)+'</div>'+
-            '<button class="btn btn-green btn-small" data-publish="'+i+'">Approuver et publier comme connaissance</button> '+
-            '<button class="btn btn-ghost btn-small" data-dismiss="'+i+'">Écarter</button>'+
-            '<p class="hint" style="margin:8px 0 0">La publication crée le document « FAQ — '+esc(u.topic)+' » (brouillon repris de la réponse du personnel) dans la vue Connaissances.</p>';
-        } else {
-          body += '<p class="hint" style="margin:8px 0 0">Aucune réponse du personnel n\'est encore associée. Pendant un transfert humain, répondez au client dans le simulateur : le texte pourra être approuvé ici et publié.</p>'+
-            '<button class="btn btn-ghost btn-small" data-dismiss="'+i+'">Écarter la suggestion</button>';
-        }
-        return body + "</div>";
-      }).join("");
-      list.querySelectorAll("[data-publish]").forEach(function(b){ b.addEventListener("click", function(){ publishSuggestion(parseInt(b.dataset.publish,10)); }); });
-      list.querySelectorAll("[data-dismiss]").forEach(function(b){ b.addEventListener("click", function(){
-        S.unansweredLog[parseInt(b.dataset.dismiss,10)].dismissed = true; renderSuggestions(); renderStats(); toast("Suggestion écartée — elle ne réapparaîtra plus.");
-      }); });
-    }
-    function publishSuggestion(i){
-      var u = S.unansweredLog[i]; if(!u || !u.staffAnswer) return;
-      var cap = u.topic.charAt(0).toUpperCase()+u.topic.slice(1);
-      var doc = { id:"faq-"+u.key, title:"FAQ — "+cap, cat:"FAQ", version:1, status:"published", edited:true, text:u.staffAnswer };
-      S.learnedDocs.push(doc);
-      u.published = true; u.docTitle = doc.title;
-      renderDocs(); renderSuggestions(); renderStats();
-      toast("« "+doc.title+" » publié — l'agent sait maintenant répondre à cette question.");
-    }
-
-    /* ================= Conversation ================= */
-    var chat = $("chat");
-    function scrollChat(){ chat.scrollTop = chat.scrollHeight; }
-    function addBubble(cls, who, text, sources){
-      var d = document.createElement("div");
-      d.className = "msg "+cls;
-      var html = "";
-      if(who) html += '<span class="who">'+esc(who)+"</span>";
-      html += esc(text);
-      if(sources) html += '<span class="sources">Sources : '+esc(sources)+"</span>";
-      d.innerHTML = html;
-      chat.appendChild(d); scrollChat();
-      return d;
-    }
-    function addClientMsg(t){ return addBubble("client","",t); }
-    function addSystemMsg(t){ return addBubble("system","",t); }
-    function addNotice(t){ return addBubble("notice","",t); }
-    function addAgentMsg(text, sources){
-      addBubble("agent","Concierge Pilote",text,sources);
-      S.quotaUsed++;                 /* chaque réponse de l'agent consomme 1 message du quota */
-      S.consecutiveUnanswered = 0;
-      renderStats();
-    }
-    function addStaffMsg(text){
-      addBubble("staff","Personnel de l'hôtel",text);
-      /* associer la réponse au sujet sans réponse en attente */
-      if(S.pendingTopicKey){
-        var u = S.unansweredLog.filter(function(x){ return x.key===S.pendingTopicKey; })[0];
-        if(u && !u.staffAnswer){ u.staffAnswer = text; renderSuggestions(); }
-      }
-    }
-    function startConversationIfNeeded(){
-      if(!S.conversationStarted){
-        S.conversationStarted = true; S.conversations++; renderStats();
-      }
-    }
-
-    /* ---------- sujets appris / inconnus ---------- */
-    function topicOf(text){
-      var t = norm(text);
-      if(t.indexOf("piscine")!==-1) return { key:"piscine", label:"la piscine (horaires)" };
-      if(t.indexOf("spa")!==-1 || t.indexOf("massage")!==-1) return { key:"spa", label:"le spa et les massages" };
-      if(t.indexOf("excursion")!==-1 || t.indexOf("visite guidee")!==-1) return { key:"excursions", label:"les excursions et visites guidées" };
-      if(t.indexOf("salle de sport")!==-1 || t.indexOf("gym")!==-1 || t.indexOf("fitness")!==-1) return { key:"sport", label:"la salle de sport" };
-      if(t.indexOf("garde d enfants")!==-1 || t.indexOf("baby")!==-1) return { key:"enfants", label:"la garde d'enfants" };
-      if(t.indexOf("location de voiture")!==-1 || t.indexOf("louer une voiture")!==-1) return { key:"voiture", label:"la location de voiture" };
-      return { key:"sujet-"+Math.abs(hashCode(t)), label:"« "+text.trim()+" »" };
-    }
-    function hashCode(s){ var h=0; for(var i=0;i<s.length;i++){ h=(h<<5)-h+s.charCodeAt(i); h|=0; } return h; }
-    function learnedDocFor(text){
-      var t = norm(text);
-      for(var i=0;i<S.learnedDocs.length;i++){
-        var key = S.learnedDocs[i].id.replace("faq-","");
-        if(t.indexOf(key)!==-1) return S.learnedDocs[i];
-      }
-      return null;
-    }
-    /* ---------- recherche par mots-clés dans les connaissances publiées ---------- */
-    var STOPWORDS = { le:1, la:1, les:1, des:1, une:1, est:1, sont:1, vous:1, nous:1, pour:1, avec:1, dans:1, quel:1, quelle:1, quels:1, quelles:1, quand:1, comment:1, combien:1, heure:1, heures:1, ouvre:1, ouvert:1, ouverte:1, ouverture:1, avez:1, ont:1, chez:1, votre:1, vos:1, notre:1, nos:1, plus:1, aussi:1, merci:1, bonjour:1, puis:1, faire:1, proposez:1, propose:1, disposez:1, possible:1, souhaite:1, voudrais:1, veux:1, service:1, services:1, tarif:1, tarifs:1, indicatif:1, indicatifs:1, information:1, informations:1, question:1, questions:1 };
-    function stem(w){ return w.length>3 && /[sx]$/.test(w) ? w.slice(0,-1) : w; }
-    function keywords(text){
-      var seen = {}, out = [];
-      norm(text).split(/[^a-z0-9]+/).forEach(function(w){
-        if(w.length<3 || STOPWORDS[w]) return;
-        var s = stem(w);
-        if(!seen[s]){ seen[s]=1; out.push(s); }
-      });
-      return out;
-    }
-    function docScore(doc, qKeys){
-      var titleKeys = {}, bodyKeys = {};
-      keywords(doc.title).forEach(function(k){ titleKeys[k]=1; });
-      keywords(doc.title+" "+doc.cat+" "+doc.text).forEach(function(k){ bodyKeys[k]=1; });
-      var score = 0, titleHit = false;
-      qKeys.forEach(function(k){
-        if(titleKeys[k]){ score += 2; titleHit = true; }
-        else if(bodyKeys[k]){ score += 1; }
-      });
-      return { score:score, titleHit:titleHit };
-    }
-    /* Meilleur document publié pour une question, ou null si le recoupement est trop faible. */
-    function searchPublishedDocs(text, onlyEdited){
-      var qKeys = keywords(text);
-      if(!qKeys.length) return null;
-      var best = null, bestInfo = { score:0, titleHit:false };
-      allPublishedDocs().forEach(function(d){
-        if(onlyEdited && !d.edited) return;
-        var info = docScore(d, qKeys);
-        if(info.score > bestInfo.score){ best = d; bestInfo = info; }
-      });
-      if(!best) return null;
-      if(bestInfo.titleHit && bestInfo.score>=2) return best;
-      if(bestInfo.score>=3) return best;
-      return null;
-    }
-    /* Un sujet « absent » (piscine, spa…) cesse de l'être si un document publié en parle. */
-    function wordIn(hay, w){
-      var esc2 = w.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
-      return new RegExp("(^|[^a-z0-9])"+esc2+"([^a-z0-9]|$)").test(hay);
-    }
-    var ABSENT_TOPICS = [
-      { words:["piscine"], keys:["piscine"] },
-      { words:["spa","massage"], keys:["spa","massage"] },
-      { words:["excursion","visite guidee"], keys:["excursion","visite"] },
-      { words:["salle de sport","gym","fitness"], keys:["sport","gym","fitness","salle de sport"] },
-      { words:["garde d enfants","baby"], keys:["garde d enfants","enfants","baby"] },
-      { words:["location de voiture","louer une voiture"], keys:["location de voiture"] }
-    ];
-    function absentTopicOf(t){
-      for(var i=0;i<ABSENT_TOPICS.length;i++){
-        var at = ABSENT_TOPICS[i];
-        for(var j=0;j<at.words.length;j++) if(wordIn(t, at.words[j])) return at;
-      }
-      return null;
-    }
-    function docCoveringTopic(at){
-      var found = null;
-      allPublishedDocs().forEach(function(d){
-        if(found) return;
-        var hay = norm(d.title+" "+d.text);
-        for(var j=0;j<at.keys.length;j++){ if(wordIn(hay, at.keys[j])){ found = d; return; } }
-      });
-      return found;
-    }
-    function handleUnanswered(text){
-      var topic = topicOf(text);
-      var entry = S.unansweredLog.filter(function(u){ return u.key===topic.key; })[0];
-      if(!entry){
-        entry = { key:topic.key, topic:topic.label, question:text, occurrences:0, staffAnswer:null, published:false, dismissed:false, docTitle:null };
-        S.unansweredLog.push(entry);
-      }
-      entry.occurrences++; entry.question = text;
-      S.questionsUnanswered++; S.consecutiveUnanswered++;
-      S.pendingTopicKey = topic.key;
-      renderSuggestions(); renderStats();
-      if(S.consecutiveUnanswered >= 2){
-        addAgentMsg("Je suis désolé, je n'ai pas cette information dans nos documents et je préfère ne rien vous inventer. Je vous mets en relation avec un membre de notre équipe, qui prend le relais de cette conversation.");
-        beginHandoff("Deux questions sans réponse de suite : transfert automatique au personnel, comme le prévoit le système.");
-      } else {
-        var streak = S.consecutiveUnanswered;
-        addAgentMsg("Je suis désolé, je n'ai pas cette information dans nos documents publiés, et je préfère ne rien vous inventer. Votre question a été transmise à notre équipe. Puis-je vous aider pour autre chose — nos chambres, le restaurant, les horaires ?");
-        S.consecutiveUnanswered = streak; /* la réponse d'excuse ne doit pas effacer la série */
-        renderStats();
-      }
-    }
-
-    /* ---------- transfert humain ---------- */
-    function beginHandoff(reason){
-      if(S.handoff) return;
-      S.handoff = true;
-      if(!S.currentTransferred){ S.currentTransferred = true; S.transferredConversations++; }
-      S.consecutiveUnanswered = 0;
-      $("handoff-banner").classList.add("on");
-      $("staff-zone").classList.add("on");
-      $("phone-status").textContent = "Personnel de l'hôtel · l'agent IA est en pause";
-      $("phone-status").classList.add("staff");
-      $("composer-input").placeholder = "L'agent est en pause — le personnel a le relais (bouton ci-dessous pour lui rendre la main).";
-      addSystemMsg(reason);
-      renderStats();
-    }
-    function endHandoff(){
-      S.handoff = false;
-      $("handoff-banner").classList.remove("on");
-      $("staff-zone").classList.remove("on");
-      $("phone-status").textContent = "Concierge Pilote · en ligne";
-      $("phone-status").classList.remove("staff");
-      $("composer-input").placeholder = "Écrivez comme un client…";
-      addNotice("L'agent « Concierge Pilote » a repris la conversation. Le personnel reste joignable à tout moment via « Parler à un humain ».");
-    }
-
-    /* ---------- dates (flux réservation) ---------- */
-    var MONTHS = { janvier:1, fevrier:2, mars:3, avril:4, mai:5, juin:6, juillet:7, aout:8, septembre:9, octobre:10, novembre:11, decembre:12 };
-    var MONTH_NAMES = ["","janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
-    function parseDates(text){
-      var t = norm(text);
-      var iso = t.match(/(20\d\d)-(\d{1,2})-(\d{1,2})\D+(20\d\d)-(\d{1,2})-(\d{1,2})/);
-      if(iso){
-        var a = new Date(+iso[1], +iso[2]-1, +iso[3]), b = new Date(+iso[4], +iso[5]-1, +iso[6]);
-        if(b>a) return mkDates(a,b);
-        return null;
-      }
-      var days = t.match(/\d{1,2}/g);
-      var monthNum = null;
-      Object.keys(MONTHS).forEach(function(m){ if(t.indexOf(m)!==-1) monthNum = MONTHS[m]; });
-      if(days && days.length>=2 && monthNum){
-        var year = 2026;
-        var ym = t.match(/20\d\d/); if(ym) year = +ym[0];
-        var d1 = Math.min(+days[0],28+3), d2 = +days[1];
-        var a2 = new Date(year, monthNum-1, +days[0]);
-        var b2 = new Date(year, monthNum-1, d2);
-        if(d2 <= +days[0]) b2 = new Date(year, monthNum, d2); /* départ le mois suivant */
-        if(b2>a2) return mkDates(a2,b2);
-      }
-      if(days && days.length===2 && !monthNum){
-        /* « du 12 au 15 » sans mois : mois courant de la démo (novembre 2026) */
-        var a3 = new Date(2026,10,+days[0]), b3 = new Date(2026,10,+days[1]);
-        if(+days[1] <= +days[0]) b3 = new Date(2026,11,+days[1]);
-        if(b3>a3) return mkDates(a3,b3);
-      }
-      return null;
-    }
-    function mkDates(a,b){
-      var nights = Math.round((b-a)/86400000);
-      function lbl(d){ return d.getDate()+" "+MONTH_NAMES[d.getMonth()+1]+" "+d.getFullYear(); }
-      return { nights:nights, arrivalLabel:lbl(a), departureLabel:lbl(b) };
-    }
-
-    /* ---------- commandes ---------- */
-    var DISH_ALIASES = [
-      { id:"tilapia", words:["tilapia"] },
-      { id:"brochettes", words:["brochette"] },
-      { id:"pilau", words:["pilau","riz pilau"] }
-    ];
-    var NUM_WORDS = { un:1, une:1, deux:2, trois:3, quatre:4, cinq:5, six:6, sept:7, huit:8, neuf:9, dix:10 };
-    function parseQty(t){
-      var digits = t.match(/(\d+)/);
-      if(digits) return Math.max(1, Math.min(50, +digits[1]));
-      var qty = 1;
-      Object.keys(NUM_WORDS).forEach(function(w){ if(new RegExp("\\b"+w+"\\b").test(t)) qty = NUM_WORDS[w]; });
-      return qty;
-    }
-    function parseOrder(text){
-      var t = norm(text);
-      for(var i=0;i<DISH_ALIASES.length;i++){
-        var a = DISH_ALIASES[i];
-        for(var j=0;j<a.words.length;j++){
-          if(t.indexOf(a.words[j])!==-1){
-            var p = productById(a.id);
-            if(p) return { product:p, qty:parseQty(t) };
-          }
-        }
-      }
-      /* Produits ajoutés au catalogue : reconnus par les mots de leur nom. */
-      var qKeys = {};
-      t.split(/[^a-z0-9]+/).forEach(function(w){ if(w) qKeys[stem(w)] = 1; });
-      for(var k=0;k<PRODUCTS.length;k++){
-        var prod = PRODUCTS[k];
-        if(prod.type==="Chambre") continue;
-        var nameKeys = keywords(prod.name).filter(function(w){ return w.length>=4; });
-        for(var m=0;m<nameKeys.length;m++){
-          if(qKeys[nameKeys[m]]) return { product:prod, qty:parseQty(t) };
-        }
-      }
-      return null;
-    }
-    function createOrder(order){
-      S.cmdSeq++;
-      var ref = "CMD-" + String(1000 + S.cmdSeq);
-      var rec = { ref:ref, productId:order.product.id, productName:order.product.name, qty:order.qty, unitPrice:order.product.price, total:order.qty*order.product.price };
-      S.orders.push(rec);
-      renderBookings(); renderStats();
-      return rec;
-    }
-
-    /* ---------- flux réservation ---------- */
-    function startReservation(){
-      var rs = rooms();
-      if(!rs.length){
-        addAgentMsg("Je suis désolé : notre catalogue ne contient actuellement aucune chambre, je ne peux donc pas enregistrer de demande de réservation. Souhaitez-vous que je vous mette en relation avec le personnel ?");
-        return;
-      }
-      S.flow = { step:"type" };
-      var lines = rs.map(function(p){
-        return "• "+p.name+" — "+fmt(p.price)+" la nuit ("+availLabel(p.id)+")"+(p.desc ? ". "+p.desc : "");
-      });
-      addAgentMsg("Avec plaisir, je prépare votre demande de réservation. Quelle chambre souhaitez-vous ?\n\n"+lines.join("\n")+"\n\nRépondez par le nom de la chambre.",
-        rs.map(function(p){ return p.name; }).join(", ")+" (Catalogue)");
-    }
-    function flowAnswer(text){
-      var f = S.flow, t = norm(text);
-      if(t==="annuler" || t==="stop"){
-        S.flow = null;
-        addAgentMsg("Très bien, j'annule cette demande de réservation — rien n'a été enregistré. Puis-je vous aider pour autre chose ?");
-        return;
-      }
-      if(f.step==="type"){
-        var pid = null;
-        var rs = rooms();
-        for(var ri=0; ri<rs.length && !pid; ri++){
-          var nameKeys = keywords(rs[ri].name);
-          for(var nk=0; nk<nameKeys.length; nk++){
-            if(nameKeys[nk].length>=4 && t.indexOf(nameKeys[nk])!==-1){ pid = rs[ri].id; break; }
-          }
-        }
-        if(rs.length===1 && !pid && (t.indexOf("oui")!==-1 || t.indexOf("chambre")!==-1)) pid = rs[0].id;
-        if(!pid){ addAgentMsg("Je n'ai pas bien saisi le type de chambre. Souhaitez-vous : "+rs.map(function(p){ return p.name+" ("+fmt(p.price)+" la nuit)"; }).join(" ou ")+" ?"); return; }
-        var chosen = productById(pid);
-        if(availability(pid) <= 0){
-          S.flow = null;
-          addAgentMsg("Je suis désolé : sur la période demandée, toutes nos « "+chosen.name+" » sont déjà confirmées ("+
-            chosen.units+" unités, toutes réservées). Je ne peux pas vous proposer une disponibilité que nous n'avons pas. Souhaitez-vous l'autre type de chambre, ou que je vous mette en relation avec le personnel ?");
-          return;
-        }
-        f.productId = pid;
-        f.step = "dates";
-        addAgentMsg("Parfait, une "+chosen.name+". Quelles sont vos dates d'arrivée et de départ ? Par exemple : « du 14 au 17 novembre ».");
-        return;
-      }
-      if(f.step==="dates"){
-        var d = parseDates(text);
-        if(!d){ addAgentMsg("Je n'ai pas réussi à lire ces dates. Pouvez-vous les écrire ainsi : « du 14 au 17 novembre » (ou au format 2026-11-14 → 2026-11-17) ?"); return; }
-        f.dates = d; f.step = "name";
-        addAgentMsg("Noté : arrivée le "+d.arrivalLabel+", départ le "+d.departureLabel+", soit "+d.nights+" nuit"+(d.nights>1?"s":"")+". Au nom de qui dois-je enregistrer la demande ?");
-        return;
-      }
-      if(f.step==="name"){
-        var name = text.trim();
-        if(name.length < 2){ addAgentMsg("Quel nom dois-je inscrire sur la demande de réservation ?"); return; }
-        var p = PRODUCTS.filter(function(x){ return x.id===f.productId; })[0];
-        if(!p){ S.flow = null; addAgentMsg("Je suis désolé : cette chambre n'est plus au catalogue, je ne peux pas terminer la demande. Souhaitez-vous que je vous mette en relation avec le personnel ?"); return; }
-        S.resSeq++;
-        var ref = "RES-" + String(1000 + S.resSeq);
-        var rec = { ref:ref, productId:p.id, productName:p.name, guestName:name,
-          arrivalLabel:f.dates.arrivalLabel, departureLabel:f.dates.departureLabel,
-          nights:f.dates.nights, total:f.dates.nights * p.price, status:"Demandée" };
-        S.reservations.push(rec);
-        S.flow = null;
-        renderBookings(); renderStats();
-        addAgentMsg("Votre demande de réservation est enregistrée, "+name+" — référence "+ref+".\n\n"+
-          p.name+" · du "+rec.arrivalLabel+" au "+rec.departureLabel+" ("+rec.nights+" nuit"+(rec.nights>1?"s":"")+")\n"+
-          "Total : "+fmt(rec.total)+" ("+rec.nights+" × "+fmt(p.price)+"), payable à l'arrivée.\n\n"+
-          "Statut : Demandée — en attente de confirmation du personnel. Je ne peux pas la confirmer moi-même : un membre de l'équipe la validera et vous serez notifié ici même.",
-          p.name+" (Catalogue)");
-        addSystemMsg("La demande "+ref+" apparaît dans la vue « Réservations & commandes » — confirmez-la comme le personnel pour voir la notification partir au client.");
-        return;
-      }
-    }
-
-    /* ---------- moteur de réponses ---------- */
-    function agentReply(text){
-      var t = norm(text);
-      /* question déjà apprise (boucle fermée) */
-      var learned = learnedDocFor(text);
-      if(learned){
-        addAgentMsg(learned.text, learned.title+" (Connaissances — Publié v"+learned.version+")");
-        return;
-      }
-      /* document créé ou modifié par l'entreprise : son contenu fait foi dès qu'il recoupe la question */
-      var editedDoc = searchPublishedDocs(text, true);
-      if(editedDoc){
-        addAgentMsg(editedDoc.text, editedDoc.title+" (Connaissances — Publié v"+editedDoc.version+")");
-        return;
-      }
-      /* sujets absents des connaissances — sauf si un document publié les couvre désormais */
-      var absent = absentTopicOf(t);
-      if(absent){
-        var covering = docCoveringTopic(absent);
-        if(covering){
-          addAgentMsg(covering.text, covering.title+" (Connaissances — Publié v"+covering.version+")");
-          return;
-        }
-        handleUnanswered(text);
-        return;
-      }
-      /* garde-fou : produit absent du catalogue (sauf si l'entreprise l'a ajouté au catalogue) */
-      if(has(t,["suite presidentielle","suite","penthouse","villa","jacuzzi prive"])){
-        var suiteProd = null;
-        PRODUCTS.forEach(function(p){ if(!suiteProd && norm(p.name).indexOf("suite")!==-1) suiteProd = p; });
-        if(suiteProd){
-          addAgentMsg("Notre « "+suiteProd.name+" » est proposée à "+fmt(suiteProd.price)+" la nuit"+(suiteProd.desc ? " ("+suiteProd.desc+")" : "")+". Souhaitez-vous que je lance une demande de réservation ?",
-            suiteProd.name+" (Catalogue)");
-          return;
-        }
-        var rsNow = rooms();
-        var altLines = rsNow.map(function(p){ return "• "+p.name+" — "+fmt(p.price)+" la nuit."+(p.desc ? " "+p.desc+"." : ""); }).join("\n") || "• Notre catalogue ne contient actuellement aucune chambre.";
-        addAgentMsg("Je préfère être transparent : nous n'avons pas de suite présidentielle au catalogue, je ne peux donc pas vous annoncer un prix pour un produit qui n'existe pas chez nous. Voici ce que nous proposons réellement :\n\n"+altLines+"\n\nSouhaitez-vous que je lance une demande de réservation pour l'une d'elles ?",
-          rsNow.map(function(p){ return p.name; }).join(", ")+" (Catalogue)");
-        return;
-      }
-      /* commande d'un plat */
-      if(has(t,["command","je veux","j aimerais","donnez moi","apportez"])){
-        var order = parseOrder(text);
-        if(order){
-          var rec = createOrder(order);
-          addAgentMsg("Votre commande est enregistrée — référence "+rec.ref+".\n\n"+rec.qty+" × "+rec.productName+" à "+fmt(rec.unitPrice)+" = "+fmt(rec.total)+".\n\nStatut : Demandée. La cuisine la prépare dès confirmation par le personnel ; le paiement se fait sur place.",
-            rec.productName+" (Catalogue)");
-          return;
-        }
-      }
-      /* réservation */
-      if(has(t,["reserver","reservation","je veux une chambre","louer une chambre"])){ startReservation(); return; }
-      /* prix d'un produit précis du catalogue (reconnu par son nom) */
-      if(has(t,["prix","tarif","coute","combien"])){
-        var named = null;
-        var tKeys = {};
-        t.split(/[^a-z0-9]+/).forEach(function(w){ if(w) tKeys[stem(w)] = 1; });
-        PRODUCTS.forEach(function(p){
-          if(named) return;
-          var nk = keywords(p.name).filter(function(w){ return w.length>=4 && w!=="chambre"; });
-          for(var q=0;q<nk.length;q++){ if(tKeys[nk[q]]){ named = p; break; } }
-        });
-        if(named && !has(t,["chambre","nuit"]) || named && named.type!=="Chambre"){
-          addAgentMsg("« "+named.name+" » est proposé à "+fmt(named.price)+(named.type==="Chambre" ? " la nuit" : "")+(named.desc ? " — "+named.desc : "")+". Souhaitez-vous que je l'enregistre pour vous ?",
-            named.name+" (Catalogue)");
-          return;
-        }
-        if(named && named.type==="Chambre"){
-          addAgentMsg("La « "+named.name+" » est à "+fmt(named.price)+" la nuit ("+availLabel(named.id)+")"+(named.desc ? " — "+named.desc : "")+". Souhaitez-vous que je lance une demande de réservation ?",
-            named.name+" (Catalogue)");
-          return;
-        }
-      }
-      /* prix des chambres */
-      if(has(t,["prix","tarif","coute","combien"]) && has(t,["chambre","nuit","double","sejour","logement"])){
-        var rsPrice = rooms();
-        if(!rsPrice.length){
-          addAgentMsg("Notre catalogue ne contient actuellement aucune chambre, je ne peux donc annoncer aucun prix. Souhaitez-vous que je vous mette en relation avec le personnel ?");
-          return;
-        }
-        var roomLines = rsPrice.map(function(p){
-          return "• "+p.name+" — "+fmt(p.price)+" la nuit."+(p.desc ? " "+p.desc+"." : "")+" ("+availLabel(p.id)+")";
-        });
-        addAgentMsg("Voici nos chambres et leurs prix, tels qu'ils figurent au catalogue :\n\n"+roomLines.join("\n")+"\n\nSouhaitez-vous que je lance une demande de réservation ?",
-          rsPrice.map(function(p){ return p.name; }).join(", ")+" (Catalogue)");
-        return;
-      }
-      /* menu / plats */
-      if(has(t,["menu","plat","manger","carte du restaurant","cuisine","dejeuner","diner","tilapia","brochette","pilau"])){
-        var ps = plats();
-        PRODUCTS.forEach(function(p){
-          if(p.type==="Plat" || ps.indexOf(p)!==-1) return;
-          var nk2 = keywords(p.name);
-          for(var q2=0;q2<nk2.length;q2++){ if(nk2[q2].length>=4 && t.indexOf(nk2[q2])!==-1){ ps = ps.concat([p]); break; } }
-        });
-        if(!ps.length){
-          addAgentMsg("Notre catalogue ne contient actuellement aucun plat, je ne peux donc pas vous présenter de menu. Souhaitez-vous que je vous mette en relation avec le personnel ?");
-          return;
-        }
-        var dishLines = ps.map(function(p){ return "• "+p.name+" — "+fmt(p.price)+(p.desc ? " ("+p.desc+")" : ""); });
-        addAgentMsg("Voici les plats au catalogue du restaurant :\n\n"+dishLines.join("\n")+"\n\nDites-moi ce que vous souhaitez commander : je calculerai le total exact depuis le catalogue.",
-          ps.map(function(p){ return p.name; }).join(", ")+" (Catalogue)");
-        return;
-      }
-      /* services */
-      if(has(t,["navette","aeroport"])){
-        addAgentMsg("La navette aéroport est disponible sur demande, à "+fmt(25000)+" par trajet. Dites-moi votre heure d'arrivée et je transmettrai la demande au personnel.", "Services et tarifs indicatifs (Connaissances)");
-        return;
-      }
-      if(has(t,["blanchisserie","linge","laver"])){
-        addAgentMsg("Notre service de blanchisserie est facturé "+fmt(5000)+" par kilo.", "Services et tarifs indicatifs (Connaissances)");
-        return;
-      }
-      if(has(t,["conference","salle de reunion","reunion","seminaire"])){
-        addAgentMsg("Nous disposons d'une salle de conférence de 40 places, à "+fmt(150000)+" par jour, pause-café incluse.", "Services et tarifs indicatifs (Connaissances)");
-        return;
-      }
-      if(has(t,["wifi","wi fi","internet"])){
-        addAgentMsg("Le Wi-Fi est gratuit dans tout l'établissement.", "Services et tarifs indicatifs (Connaissances)");
-        return;
-      }
-      if(has(t,["parking","garer","voiture"])){
-        addAgentMsg("Le parking gardé est gratuit pour nos clients.", "Services et tarifs indicatifs (Connaissances)");
-        return;
-      }
-      /* politiques */
-      if(has(t,["check in","checkin","heure d arrivee","a quelle heure arriver","enregistrement"])){
-        addAgentMsg("Le check-in se fait à partir de 14 h. Une pièce d'identité vous sera demandée à l'arrivée.", "Check-in, check-out et politiques (Connaissances)");
-        return;
-      }
-      if(has(t,["check out","checkout","depart de la chambre","liberer"])){
-        addAgentMsg("Le check-out se fait avant 11 h le jour du départ.", "Check-in, check-out et politiques (Connaissances)");
-        return;
-      }
-      if(has(t,["annul"])){
-        addAgentMsg("L'annulation est gratuite jusqu'à 48 h avant l'arrivée. Au-delà, la première nuit est facturée.", "Check-in, check-out et politiques (Connaissances)");
-        return;
-      }
-      if(has(t,["animal","animaux","chien","chat"])){
-        addAgentMsg("Les animaux ne sont malheureusement pas acceptés dans l'établissement.", "Check-in, check-out et politiques (Connaissances)");
-        return;
-      }
-      if(has(t,["fumeur","fumer","cigarette"])){
-        addAgentMsg("L'établissement est non-fumeur ; un espace extérieur est prévu pour les fumeurs.", "Check-in, check-out et politiques (Connaissances)");
-        return;
-      }
-      if(has(t,["identite","passeport","documents"])){
-        addAgentMsg("Une pièce d'identité est demandée à l'arrivée, lors du check-in (à partir de 14 h).", "Check-in, check-out et politiques (Connaissances)");
-        return;
-      }
-      /* horaires */
-      if(has(t,["petit dejeuner","petit-dejeuner","dejeuner le matin","breakfast"])){
-        addAgentMsg("Le petit déjeuner est servi de 6 h 30 à 10 h.", "Horaires d'ouverture (Connaissances)");
-        return;
-      }
-      if(has(t,["horaire","heure","ouvert","ferme","reception"])){
-        addAgentMsg("La réception est ouverte 24 h/24. Le restaurant accueille les clients de 7 h à 22 h, et le bar jusqu'à 23 h. Le petit déjeuner est servi de 6 h 30 à 10 h.", "Horaires d'ouverture (Connaissances)");
-        return;
-      }
-      /* salutations / remerciements */
-      if(has(t,["bonjour","bonsoir","salut","amahoro","bwakeye"])){
-        addAgentMsg("Bonjour, et bienvenue à l'Hôtel-Restaurant Pilote ! Je suis le Concierge Pilote. Je peux vous renseigner sur nos chambres et leurs prix, le restaurant, les horaires, ou enregistrer une réservation ou une commande. Que puis-je faire pour vous ?");
-        return;
-      }
-      if(has(t,["merci","murakoze"])){
-        addAgentMsg("Avec plaisir ! N'hésitez pas si vous avez une autre question — chambres, restaurant, services ou réservation.");
-        return;
-      }
-      /* recherche générale dans toutes les connaissances publiées */
-      var found = searchPublishedDocs(text, false);
-      if(found){
-        addAgentMsg(found.text, found.title+" (Connaissances — Publié v"+found.version+")");
-        return;
-      }
-      /* inconnu : réponse honnête + journalisation */
-      handleUnanswered(text);
-    }
-
-    /* ---------- envoi d'un message client ---------- */
-    function clientSends(text){
-      text = (text||"").trim();
-      if(!text) return;
-      startConversationIfNeeded();
-      addClientMsg(text);
-      if(S.handoff){
-        addSystemMsg("Message reçu pendant le transfert : l'agent IA reste silencieux, le personnel a la main.");
-        return;
-      }
-      if(S.quotaUsed >= QUOTA_MAX){
-        addNotice("Quota mensuel du plan Pilote atteint : l'agent automatique est en pause. Un membre du personnel prendra votre message en charge.");
-        return;
-      }
-      var typing = $("typing");
-      typing.classList.add("on"); scrollChat();
-      var delay = 450 + Math.min(600, text.length*6);
-      setTimeout(function(){
-        typing.classList.remove("on");
-        var t = norm(text);
-        if(S.flow){ flowAnswer(text); return; }
-        if(has(t,["humain","quelqu un de reel","une vraie personne","personnel","responsable"])){
-          beginHandoff("Le client a demandé à parler à un humain : transfert immédiat.");
-          return;
-        }
-        S.questionsAsked++;
-        agentReply(text);
-        renderStats();
-      }, delay);
-    }
-
-    /* ================= Événements ================= */
-    $("composer-form").addEventListener("submit", function(e){
-      e.preventDefault();
-      var inp = $("composer-input");
-      clientSends(inp.value);
-      inp.value = "";
-      inp.focus();
-    });
-    var SCENARIOS = {
-      prix:"Quel est le prix d'une chambre double ?",
-      horaires:"Quels sont les horaires du restaurant ?",
-      reserver:"Je voudrais réserver une chambre",
-      commander:"Je veux commander 2 tilapias grillés",
-      piscine:"La piscine ouvre à quelle heure ?",
-      suite:"La suite présidentielle coûte combien ?"
-    };
-    document.querySelectorAll("[data-scenario]").forEach(function(b){
-      b.addEventListener("click", function(){
-        showView("simulator");
-        clientSends(SCENARIOS[b.dataset.scenario]);
-      });
-    });
-    $("human-btn").addEventListener("click", function(){
-      showView("simulator");
-      startConversationIfNeeded();
-      addClientMsg("Je veux parler à un humain");
-      if(S.handoff){ toast("Le personnel a déjà le relais de cette conversation."); return; }
-      beginHandoff("Le client a demandé à parler à un humain : transfert immédiat.");
-      toast("Transfert effectué — répondez au client en tant que personnel dans le simulateur.");
-    });
-    $("staff-send").addEventListener("click", function(){
-      var inp = $("staff-input");
-      var v = inp.value.trim();
-      if(!v) return;
-      addStaffMsg(v);
-      inp.value = "";
-      toast("Message envoyé au client en tant que personnel.");
-    });
-    $("staff-input").addEventListener("keydown", function(e){ if(e.key==="Enter"){ e.preventDefault(); $("staff-send").click(); } });
-    $("staff-release").addEventListener("click", function(){
-      endHandoff();
-      toast("L'agent a repris la conversation.");
-    });
-
-    /* ================= Éditeurs : formulaires d'ajout & import ================= */
-    $("doc-add-form").addEventListener("submit", function(e){
-      e.preventDefault();
-      var title = $("doc-new-title").value.trim();
-      var text = $("doc-new-text").value.trim();
-      if(!title || !text){ toast("Le titre et le contenu sont nécessaires pour publier."); return; }
-      DOCS.push({ id:uid("doc"), title:title, cat:$("doc-new-cat").value, version:1, status:"published", edited:true, text:text });
-      e.target.reset();
-      renderDocs(); renderStats();
-      markChanged("docs-test-cta", "« "+title+" » est publié : l'agent répond désormais aux questions sur ce sujet. Testez dans le simulateur.");
-    });
-    $("import-btn").addEventListener("click", function(){
-      var input = $("import-file");
-      var f = input.files && input.files[0];
-      if(!f){ toast("Choisissez d'abord un fichier à importer."); return; }
-      var base = f.name.replace(/\.[^.]+$/,"").replace(/[-_]+/g," ").trim();
-      var title = base ? base.charAt(0).toUpperCase()+base.slice(1) : "Document importé";
-      function pushDraft(text){
-        DOCS.push({ id:uid("import"), title:title, cat:"Import", version:1, status:"draft", edited:true, text:text });
-        input.value = "";
-        renderDocs(); renderStats();
-        markChanged("docs-test-cta", "« "+title+" » importé en brouillon : relisez-le dans la liste ci-dessous, complétez-le, puis publiez-le — l'agent ne l'utilise qu'après publication.");
-      }
-      if(/\.(txt|csv)$/i.test(f.name)){
-        var reader = new FileReader();
-        reader.onload = function(){
-          var content = String(reader.result||"").trim();
-          pushDraft(content ? content.slice(0,4000) : "Fichier « "+f.name+" » importé, mais il semble vide. Écrivez ici le contenu que l'agent pourra utiliser, puis publiez.");
-        };
-        reader.onerror = function(){ pushDraft("Document importé depuis le fichier « "+f.name+" ». Écrivez ici le contenu que l'agent pourra utiliser, puis publiez."); };
-        reader.readAsText(f);
-      } else {
-        pushDraft("Document importé depuis le fichier « "+f.name+" » (PDF ou image : contenu à saisir après relecture). Écrivez ici, dans vos mots, les informations que l'agent pourra utiliser, puis publiez.");
-      }
-    });
-    $("prod-add-form").addEventListener("submit", function(e){
-      e.preventDefault();
-      var name = $("prod-new-name").value.trim();
-      var price = parseInt($("prod-new-price").value,10);
-      var unitsRaw = $("prod-new-units").value;
-      if(!name){ toast("Le nom du produit est nécessaire."); return; }
-      if(isNaN(price) || price < 0){ toast("Le prix doit être un nombre de BIF (0 ou plus)."); return; }
-      var type = $("prod-new-type").value;
-      PRODUCTS.push({ id:uid("prod"), name:name, type:type, price:price, unit:type==="Chambre"?"/nuit":"", units:unitsRaw===""?null:Math.max(0,parseInt(unitsRaw,10)||0), desc:$("prod-new-desc").value.trim() });
-      e.target.reset();
-      renderCatalog(); renderStats();
-      markChanged("prod-test-cta", "« "+name+" » ajouté à "+fmt(price)+" : l'agent peut l'annoncer et le vendre dès maintenant. Testez dans le simulateur.");
-    });
-    $("reset-btn").addEventListener("click", function(){
-      S = freshState();
-      DOCS = JSON.parse(JSON.stringify(ORIGINAL_DOCS));
-      PRODUCTS = JSON.parse(JSON.stringify(ORIGINAL_PRODUCTS));
-      $("docs-test-cta").classList.remove("on");
-      $("prod-test-cta").classList.remove("on");
-      chat.innerHTML = "";
-      if(S.handoff) endHandoff();
-      $("handoff-banner").classList.remove("on");
-      $("staff-zone").classList.remove("on");
-      $("phone-status").textContent = "Concierge Pilote · en ligne";
-      $("phone-status").classList.remove("staff");
-      welcome();
-      renderDocs(); renderCatalog(); renderBookings(); renderSuggestions(); renderStats();
-      toast("Simulation réinitialisée : compteurs remis à zéro, quota revenu à "+QUOTA_START+" messages.");
-    });
-
-    /* ================= Accueil ================= */
-    function welcome(){
-      addAgentMsg("Bonjour, et bienvenue à l'Hôtel-Restaurant Pilote, à Bujumbura ! Je suis le Concierge Pilote, l'assistant de l'établissement. Je réponds uniquement à partir de nos informations officielles — chambres, restaurant, horaires, services — et je peux enregistrer une réservation ou une commande, que le personnel confirmera. Comment puis-je vous aider ?");
-      S.quotaUsed = QUOTA_START; /* le message d'accueil fait partie des 37 messages déjà comptés */
-      renderStats();
-    }
-
-    renderDocs(); renderCatalog(); renderBookings(); renderSuggestions(); renderStats();
-    welcome();
-    </script>
-  </body>
+</body>
 </html>
