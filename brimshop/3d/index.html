@@ -291,13 +291,16 @@ window.addEventListener("scroll", function(){
   function construire(){
     var imgs = document.querySelectorAll("[data-carte]");
     var cles = ["pb", "sol", "tws"];
-    var cote = new THREE.MeshStandardMaterial({color:0x182238, metalness:.45, roughness:.35});
-    var derriere = new THREE.MeshStandardMaterial({color:0x0E1526, metalness:.3, roughness:.5});
+    var cote = new THREE.MeshBasicMaterial({color:0x27334F});
+    var derriere = new THREE.MeshBasicMaterial({color:0x111B31});
     cles.forEach(function(k, i){
       var img = imgs[i]; if(!img) return;
-      var tex = new THREE.Texture(img);
-      tex.needsUpdate = true; tex.encoding = THREE.sRGBEncoding;
-      var devant = new THREE.MeshStandardMaterial({map:tex, metalness:.05, roughness:.55});
+      var cvT = document.createElement("canvas");
+      cvT.width = img.naturalWidth || 720; cvT.height = img.naturalHeight || 720;
+      cvT.getContext("2d").drawImage(img, 0, 0, cvT.width, cvT.height);
+      var tex = new THREE.CanvasTexture(cvT);
+      tex.encoding = THREE.sRGBEncoding;
+      var devant = new THREE.MeshBasicMaterial({map:tex});
       var panneau = new THREE.Mesh(new THREE.BoxGeometry(3.05, 3.05, .16),
         [cote, cote, cote, cote, devant, derriere]);
       var g = new THREE.Group(); g.add(panneau);
