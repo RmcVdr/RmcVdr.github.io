@@ -53,6 +53,13 @@ h2.st:first-child{margin-top:2px}
 .detail dd{font-weight:600;word-break:break-word}
 .detail a{color:var(--teal-dark);font-weight:600;text-decoration:none}
 .detail a:hover{text-decoration:underline}
+.fiche-h{font-weight:700;color:var(--teal-dark);font-size:13px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+.fiche-h .comp{float:right;background:var(--teal-bg,#e6f4f1);border-radius:999px;padding:1px 9px;font-size:12px;text-transform:none;letter-spacing:0}
+.objet{font-size:14px;line-height:1.45;margin:0 0 10px;font-weight:500}
+.conds{margin-top:9px}
+.conds b{color:var(--teal-dark)}
+.conds ul{margin:4px 0 0 17px;padding:0}
+.conds li{margin:3px 0;line-height:1.4}
 .chev{color:var(--muted);font-size:13px;white-space:nowrap;padding-top:2px}
 .tender{cursor:pointer}
 input[type=search]{width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:12px;font:inherit;background:#fff;margin-bottom:10px}
@@ -146,6 +153,43 @@ function dlBadge(t){
   if(n <= 7) return `<span class="deadline soon">⏰ ${fmtDate(t.deadline)} · J-${n}</span>`;
   return `<span class="deadline">${fmtDate(t.deadline)}</span>`;
 }
+function ficheHtml(t, id, srcLinks){
+  const r = t.resume || {};
+  const V = v => (v==null||v==='' ? NL : esc(v));
+  const conds = (r.conditions||[]).length
+    ? `<div class="conds"><b>Conditions clés</b><ul>${r.conditions.map(c=>`<li>${esc(c)}</li>`).join('')}</ul></div>` : '';
+  const docs = (r.documents||[]).length
+    ? `<div class="conds"><b>Documents administratifs à fournir</b><ul>${r.documents.map(d=>`<li>${esc(d)}</li>`).join('')}</ul></div>` : '';
+  const dl = t.deadline ? fmtDate(t.deadline) + (r.heure?` à ${esc(r.heure)}`:'')
+    + (t.deadline_source?` <span style="color:var(--muted);font-weight:500">(source : ${esc(t.deadline_source)})</span>`:'') : NL;
+  return `<div class="detail" id="${id}">
+    <div class="fiche-h">📋 Fiche résumé${r.completude?`<span class="comp">complétude ${esc(r.completude)}</span>`:''}</div>
+    <p class="objet">${V(r.objet)}</p>
+    <dl>
+      <dt>Mode de passation</dt><dd>${V(r.mode)}</dd>
+      <dt>Date limite</dt><dd>${dl}</dd>
+      <dt>Référence</dt><dd>${esc(t.reference)||NL}</dd>
+      <dt>Lieu d'exécution / livraison</dt><dd>${V(r.lieu)}</dd>
+      <dt>Délai d'exécution / livraison</dt><dd>${V(r.delai)}</dd>
+      <dt>Durée du marché</dt><dd>${V(r.duree)}</dd>
+      <dt>Montant estimé</dt><dd>${V(r.montant_estime)}</dd>
+      <dt>Prix du dossier</dt><dd>${t.dossier_cost!=null?esc(t.dossier_cost):NL}</dd>
+      <dt>Garantie de soumission</dt><dd>${t.guarantee!=null?esc(t.guarantee):NL}</dd>
+      <dt>Nombre de lots</dt><dd>${t.lots!=null?esc(t.lots):NL}</dd>
+      <dt>Critères d'attribution</dt><dd>${V(r.criteres)}</dd>
+      <dt>Retrait du dossier</dt><dd>${V(r.retrait)}</dd>
+      <dt>Contact pour le dossier</dt><dd>${V(r.contact)}</dd>
+      <dt>Dépôt des offres</dt><dd>${V(r.depot)}</dd>
+      <dt>Ouverture des plis</dt><dd>${V(r.ouverture)}</dd>
+      <dt>Validité de l'offre</dt><dd>${V(r.validite)}</dd>
+      <dt>Langue et monnaie</dt><dd>${V(r.langue_monnaie)}</dd>
+      <dt>Première vue</dt><dd>${fmtDate(t.first_seen)}</dd>
+      ${t.pdf_enriched?'<dt>Détails</dt><dd>📄 détails lus dans le PDF analysé</dd>':''}
+      ${t.pdf_url?`<dt>Document</dt><dd><a href="${esc(t.pdf_url)}" target="_blank" rel="noopener">Ouvrir le PDF de l\u2019avis</a></dd>`:''}
+      <dt>Sources</dt><dd>${srcLinks||NL}</dd>
+    </dl>${conds}${docs}
+  </div>`;
+}
 function tenderCard(t, expandable=true){
   const id = 'd' + Math.random().toString(36).slice(2,9);
   const srcLinks = (t.sources||[]).map(s => s.url ? `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name||'Source')}</a>` : esc(s.name||'')).filter(Boolean).join(' · ');
@@ -154,17 +198,7 @@ function tenderCard(t, expandable=true){
       <div class="tt">${esc(t.title||'(sans titre)')}</div>
       <div class="meta">${esc(t.buyer||'Acheteur '+NL)} · ${esc(t.sector||'')} ${t.is_new?'<span class="badge b-new">Nouveau</span>':''} ${t.pdf_enriched?'<span class="badge b-pdf">📄 PDF analysé</span>':''}</div>
     </div><div style="text-align:right">${dlBadge(t)}<div class="chev">${expandable?'détail ▾':''}</div></div></div>
-    ${expandable?`<div class="detail" id="${id}"><dl>
-      <dt>Référence</dt><dd>${esc(t.reference)||NL}</dd>
-      <dt>Date limite</dt><dd>${t.deadline?fmtDate(t.deadline)+(t.deadline_source?` <span style="color:var(--muted);font-weight:500">(source : ${esc(t.deadline_source)})</span>`:''):NL}</dd>
-      <dt>Prix du dossier</dt><dd>${t.dossier_cost!=null?esc(t.dossier_cost):NL}</dd>
-      <dt>Garantie de soumission</dt><dd>${t.guarantee!=null?esc(t.guarantee):NL}</dd>
-      <dt>Nombre de lots</dt><dd>${t.lots!=null?esc(t.lots):NL}</dd>
-      <dt>Première vue</dt><dd>${fmtDate(t.first_seen)}</dd>
-      ${t.pdf_enriched?'<dt>Détails</dt><dd>📄 détails lus dans le PDF analysé</dd>':''}
-      ${t.pdf_url?`<dt>Document</dt><dd><a href="${esc(t.pdf_url)}" target="_blank" rel="noopener">Ouvrir le PDF de l\u2019avis</a></dd>`:''}
-      <dt>Sources</dt><dd>${srcLinks||NL}</dd>
-    </dl></div>`:''}
+    ${expandable?ficheHtml(t, id, srcLinks):''}
   </div>`;
 }
 

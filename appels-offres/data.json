@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-15T14:12:16+00:00",
+ "generated_at": "2026-11-15T14:39:16+00:00",
  "run": {
   "date": "2026-11-15",
   "sources": [
@@ -113,7 +113,7 @@
    "sector": "Services/conseil",
    "deadline": "2021-08-20",
    "deadline_source": null,
-   "reference": null,
+   "reference": "DNCMP/93/F/2023-2024",
    "dossier_cost": null,
    "guarantee": null,
    "lots": null,
@@ -126,6 +126,27 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": null,
+   "resume": {
+    "objet": "CNIDH : Clôture de la séance de renforcement des capacités à l’endroit des avocats de l’Etat",
+    "heure": null,
+    "mode": "Appel d'offres national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Leader de la presse écrite au Burundi compte tenu de son ancienneté et de son expérience depuis 1978, ses publications aussi bien fiables qu’officielles touchent tous les domaines de la vie nationale sans oublier l’actualité régio…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "5/21"
+   },
    "is_new": false
   },
   {
@@ -136,7 +157,7 @@
    "deadline_source": null,
    "reference": null,
    "dossier_cost": null,
-   "guarantee": null,
+   "guarantee": "2022",
    "lots": null,
    "sources": [
     {
@@ -147,6 +168,28 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": null,
+   "resume": {
+    "objet": "Primature: Appel d’offre pour la fourniture d’une Photocopieuse canon IR 2645",
+    "heure": "10h00",
+    "mode": "Appel d'offres ouvert",
+    "lieu": null,
+    "delai": "Délai de livraison : à proposer dans l’offre avec un maximum de 30 jours",
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "III. conditions administratives : Financement : budget général de l’Etat 2022-2023, rubrique «achat matériel et fourniture de bureau » ; Conditions de participation : ne pas être frappé par les cas d’inéligibilités prévus par le C…",
+     "Leader de la presse écrite au Burundi compte tenu de son ancienneté et de son expérience depuis 1978, ses publications aussi bien fiables qu’officielles touchent tous les domaines de la vie nationale sans oublier l’actualité régio…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": "Les soumissions doivent parvenir au plus tard lundi le 29 mai 2023 à 10 heures au bureau n°238 ; L’heure de l’ouverture des offres : 10h00 du même jour (lundi le 29 mai 2023 à 10heures dans la salle de réunion bureau 215) ; Tout soumissionnaire qui le souhaite…",
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "8/21"
+   },
    "is_new": false
   },
   {
@@ -155,7 +198,7 @@
    "sector": "Énergie",
    "deadline": "2023-09-19",
    "deadline_source": null,
-   "reference": null,
+   "reference": "DNCMP/93/F/2023-2024",
    "dossier_cost": null,
    "guarantee": null,
    "lots": null,
@@ -168,6 +211,27 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": null,
+   "resume": {
+    "objet": "DOSSIER D’APPEL D’OFFRES OUVERT NATIONAL N° DNCMP/93/F/2023-2024 PORTANT SUR LA FOURNITURE DES MATERIELSELECTRIQUES POUR LE RACCORDEMENT DES USINES A BRIQUETTES DE LA FORCE DE DEFENSE NATIONALE DU BURUNDI",
+    "heure": "09h00",
+    "mode": "Appel d'offres ouvert national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Leader de la presse écrite au Burundi compte tenu de son ancienneté et de son expérience depuis 1978, ses publications aussi bien fiables qu’officielles touchent tous les domaines de la vie nationale sans oublier l’actualité régio…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "22246518",
+    "depot": null,
+    "ouverture": "La date limite de dépôt des offres est fixée au 19/09/2023à 09h00et l’ouverture des offres aura lieu le même jour à 09H30 au Mess des Officiers Garnison Bujumbura.",
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "8/21"
+   },
    "is_new": false
   },
   {
@@ -176,8 +240,8 @@
    "sector": "Santé",
    "deadline": "2023-09-25",
    "deadline_source": null,
-   "reference": null,
-   "dossier_cost": null,
+   "reference": "DNCMP/59/T/2023-2024",
+   "dossier_cost": "100 000",
    "guarantee": null,
    "lots": null,
    "sources": [
@@ -189,6 +253,27 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": null,
+   "resume": {
+    "objet": "Avis de relance de l’Appel d’Offre Ouvert National N° DNCMP/59/T/2023-2024 pour les travaux de construction du centre de santé SHOMBO",
+    "heure": "09h30",
+    "mode": "Appel d'offres ouvert national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Leader de la presse écrite au Burundi compte tenu de son ancienneté et de son expérience depuis 1978, ses publications aussi bien fiables qu’officielles touchent tous les domaines de la vie nationale sans oublier l’actualité régio…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": "Le Dossier d’Appel d’Offres peut être obtenu auprès de la commune SHOMBO, sur présentation des bordeaux de versement d’un montant non remboursable de cent mille francs burundais ( 100 000 Fbu) dont cinquante mille francs burundais ( 50 000 Fbu) versés au sous-compte de transit des recettes non fisca…",
+    "contact": null,
+    "depot": "Date limite de dépôt des offres Toutes les offres doivent être déposées à l’adresse ci-haut cité, au plus tard le 25/09/2023 à 9h30minutes.",
+    "ouverture": "Jean Etienne Ndayizigiye 29 août 2023 2 minutes lues Date de publication : 06/09/ 2023 Date d ’ouverture des offres : 25/09/ 2023 La commune de SHOMBO invite, par le présent Avis d’Appel d’Offres, les soumissionnaires admis à concourir, à présenter leurs offre…",
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "10/21"
+   },
    "is_new": false
   },
   {
@@ -197,8 +282,8 @@
    "sector": "Santé",
    "deadline": "2025-12-24",
    "deadline_source": null,
-   "reference": null,
-   "dossier_cost": null,
+   "reference": "DNCMP/349/F/2025-2026",
+   "dossier_cost": "50 000 BIF",
    "guarantee": null,
    "lots": null,
    "sources": [
@@ -210,6 +295,28 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": null,
+   "resume": {
+    "objet": "La fourniture des réactifs, consommables et équipement de laboratoire de biotechnologie végétale de Gisozi",
+    "heure": null,
+    "mode": "Appel d'offres ouvert national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Conditions de participation Ne peut participer à l’appel d’offres tout soumissionnaire concerné par l’une des règlesd’inéligibilité énumérées à l’article 161 du Code des Marchés Publics.",
+     "Leader de la presse écrite au Burundi compte tenu de son ancienneté et de son expérience depuis 1978, ses publications aussi bien fiables qu’officielles touchent tous les domaines de la vie nationale sans oublier l’actualité régio…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": "Consultation et acquisition du Dossier d’Appel d’Offres Le Dossier d’Appel d’Offres peut être consulté tous les jours ouvrables, de 8 heure à 15 heure de Lundi à Jeudi et de 8 heure à 11 heure 30 minutes le vendredi, heure locale à l’adresse ci-après : Direction Générale de l’ISABU (Service Approvis…",
+    "contact": "22 22 33 90",
+    "depot": null,
+    "ouverture": "Date d’ouverture des offres : 24/12/2025 Le Ministère de l’Environnement, de l’Agriculture et de l’Elevage, Direction Générale de l’Institut des Sciences Agronomiques",
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "9/21"
+   },
    "is_new": false
   },
   {
@@ -218,10 +325,10 @@
    "sector": "Travaux/BTP",
    "deadline": "2026-04-14",
    "deadline_source": null,
-   "reference": null,
+   "reference": "DNCMP/59/T/2025-2026",
    "dossier_cost": null,
    "guarantee": null,
-   "lots": null,
+   "lots": 2,
    "sources": [
     {
      "name": "REGIDESO",
@@ -231,6 +338,25 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": null,
+   "resume": {
+    "objet": "— Les travaux de construction d’une unité de traitement de l’eau des forages de NGAGARA Quartier Industriel, Q",
+    "heure": "09h30",
+    "mode": "Appel d'offres ouvert international",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "22.22.11.69",
+    "depot": null,
+    "ouverture": "Date d’ouverture des offres est fixée le 14/04/2026 à 9h30’minutes dans la salle de réunion de la Direction Générale de la REGIDESO située à l’ Avenue de la Révolutio",
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "8/21"
+   },
    "is_new": false
   },
   {
@@ -252,6 +378,25 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": null,
+   "resume": {
+    "objet": "— LES TRAVAUX DE CONSTRUCTION D’UNE CHAMBRE DE VANNE EN BETON ARME SUR LA ROUTE NATIONALE NUMERO 9 ; DAO N o DEAU/02/T/2025-2026",
+    "heure": "09h30",
+    "mode": "Appel d'offres ouvert national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "22.22.11.69",
+    "depot": null,
+    "ouverture": "Date d’ouverture des offres est fixée le 23/04/2026 à 9h30’minutes dans la salle de réunion de la Direction Générale de la REGIDESO située à l’ Avenue de la Révolutio",
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "6/21"
+   },
    "is_new": false
   },
   {
@@ -260,7 +405,7 @@
    "sector": "Services/conseil",
    "deadline": "2026-06-17",
    "deadline_source": null,
-   "reference": null,
+   "reference": "DNCMP/141/S/2025-2026",
    "dossier_cost": null,
    "guarantee": null,
    "lots": null,
@@ -273,6 +418,25 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": null,
+   "resume": {
+    "objet": null,
+    "heure": "09h30",
+    "mode": "Appel d'offres ouvert international",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "22.22.11.69",
+    "depot": null,
+    "ouverture": "Date d’ouverture des offres est fixée le 17/06/2026 à 9h30’minutes dans la salle de réunion de la Direction Générale de la REGIDESO située à l’ Avenue de la Révolutio",
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "6/21"
+   },
    "is_new": false
   },
   {
@@ -281,9 +445,9 @@
    "sector": "Fournitures/agro",
    "deadline": "2026-11-11",
    "deadline_source": null,
-   "reference": null,
+   "reference": "DNCMP/30/F/2026-2027",
    "dossier_cost": null,
-   "guarantee": null,
+   "guarantee": "10 000 000 BIF",
    "lots": null,
    "sources": [
     {
@@ -294,6 +458,27 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": null,
+   "resume": {
+    "objet": null,
+    "heure": "10h00",
+    "mode": "Appel d'offres restreint national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Leader de la presse écrite au Burundi compte tenu de son ancienneté et de son expérience depuis 1978, ses publications aussi bien fiables qu’officielles touchent tous les domaines de la vie nationale sans oublier l’actualité régio…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": "Consultation et acquisition du dossier d’appel d’offres Le dossier d’appel d’offres peut être obtenu tous les jours ouvrables de 8 h à 15h00 et à l’adresse suivante : Université du Burundi, Campus Mutanga, Bâtiment du Rectorat bureau n°25 Il peut être consulté sur le Site : www.",
+    "contact": "22213468",
+    "depot": "Date limite de dépôt des offres Toutes les offres doivent être déposées à l’adresse indiquée ci-dessus au plus tard le 11/11/2026 à 10 heures précises.",
+    "ouverture": "Date d’ouverture des offres : 11/11/2026 0",
+    "validite": "Validité des offres Les offres sont valables pendant une période de 90 jours calendaires",
+    "langue_monnaie": null,
+    "completude": "11/21"
+   },
    "is_new": false
   },
   {
@@ -302,7 +487,7 @@
    "sector": "Autre",
    "deadline": "2026-11-15",
    "deadline_source": "page web",
-   "reference": null,
+   "reference": "centr",
    "dossier_cost": null,
    "guarantee": null,
    "lots": null,
@@ -315,6 +500,25 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La fourniture et la livraison de chèvres reproductrices locales et de boucs reproducteurs améliorés ZOA Un Consultant individuel en production et communication audiovisuelles BRIDEP Bujumbura Un Bureau chargé d’élaborer un modèle institutionnel de gestion d’infrastructures publiques pour durabilité : marchés et ports dans les sites d’intervention du PFCIGL PFCIGL Chef de… — Quantités énoncées : 60 centres",
+    "heure": null,
+    "mode": "Appel d'offres international",
+    "lieu": "Buhumuza, Bujumbura et Burunga",
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "5/21"
+   },
    "is_new": true
   },
   {
@@ -340,6 +544,25 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "Acquisition, au transport et à l' installation d'une unité de décorticage de riz",
+    "heure": "06h00",
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "christella.biraronderwa@undp.org",
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "5/21"
+   },
    "is_new": true
   },
   {
@@ -365,6 +588,25 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "Equipements pour la formation en système d’alimentation automatisé",
+    "heure": "06h00",
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "christella.biraronderwa@undp.org",
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "5/21"
+   },
    "is_new": true
   },
   {
@@ -373,7 +615,7 @@
    "sector": "Fournitures/agro",
    "deadline": "2026-11-16",
    "deadline_source": "page web",
-   "reference": null,
+   "reference": "centr",
    "dossier_cost": null,
    "guarantee": null,
    "lots": null,
@@ -386,6 +628,28 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La fourniture des produits phytosanitaires pour 60 centres de rayonnement communautaires — Quantités énoncées : 130 tetes, 20 kg, 9 tetes — Livraison : Province Commune Zone Colline Chèvres femelles locales Boucs améliorés Total animaux Buhumuza",
+    "heure": "17h00",
+    "mode": "Appel d'offres",
+    "lieu": "Buhumuza, Bujumbura et Burunga",
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Les références ou expériences antérieures dans la fourniture d’animaux d’élevage, si disponibles.",
+     "Expérience du fournisseur dans la fourniture d’animaux d’élevage."
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "7/21"
+   },
    "is_new": true
   },
   {
@@ -394,7 +658,7 @@
    "sector": "Santé",
    "deadline": "2026-11-16",
    "deadline_source": "page web",
-   "reference": null,
+   "reference": "justifiant",
    "dossier_cost": null,
    "guarantee": null,
    "lots": null,
@@ -407,6 +671,33 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": null,
+    "heure": "17h00",
+    "mode": "Avis à manifestation d'intérêt (AMI)",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Les Consultants intéressées doivent fournir les informations démontrant qu’ils possèdent les qualifications requises et une expérience pertinente pour l’exécution des Services à savoir : Une lettre de motivation ; Un curriculum vi…",
+     "Pour le Chargé des Travaux à Haute Intensité de Main d’Œuvre (CTHIMO) Avoir au moins un Diplôme de niveau universitaire (Bac+5) dans les domaines des travaux publics, de l’aménagement, du génie civil ou rural ou équivalent ; Avoir…",
+     "Les qualifications et aptitudes suivantes sont un atout : Avoir une expérience des projets financés par les bailleurs internationaux, de préférence la Banque mondiale ; Avoir une connaissance des méthodes d’entretien routier, de p…",
+     "Leader de la presse écrite au Burundi compte tenu de son ancienneté et de son expérience depuis 1978, ses publications aussi bien fiables qu’officielles touchent tous les domaines de la vie nationale sans oublier l’actualité régio…"
+    ],
+    "documents": [
+     "CV",
+     "Diplômes"
+    ],
+    "criteres": null,
+    "retrait": null,
+    "contact": "info@merankabandi2.bi · +257 22 28 71 03",
+    "depot": "Les manifestations d’intérêt écrites doivent être déposées à l’adresse ci-dessous en personne, par courrier physique ou électronique au plus tard le 16/11/2026 à 17 heure locale : PROJET D’APPUI AUX FILETS SOCIAUX PRODUCTIFS ET EMPLOIS « MERANKABANDI II» A l’attention de Monsieur Michel NYABENDA, Co…",
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "8/21"
+   },
    "is_new": true
   },
   {
@@ -428,6 +719,29 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La fourniture des diplômes sécurisés DATE DE PUBLICATION : 28/ 10/ 2026 OBJET",
+    "heure": "09h00",
+    "mode": "Appel d'offres ouvert",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Leader de la presse écrite au Burundi compte tenu de son ancienneté et de son expérience depuis 1978, ses publications aussi bien fiables qu’officielles touchent tous les domaines de la vie nationale sans oublier l’actualité régio…"
+    ],
+    "documents": [
+     "Diplômes"
+    ],
+    "criteres": null,
+    "retrait": "Article 1 : Par les présents Avis d’Appels d’Offres (AAO), l’Ecole Normale Supérieure (E.N.S.) invite les soumissionnaires admis à concourir à présenter leurs offres sous plis fermés pour la FOURNITURE DES DIPLOMES SECURISES Article 2 : Chaque dossier d’appel d’offre peut être retiré et consulté au…",
+    "contact": "22 25 89 45",
+    "depot": null,
+    "ouverture": "DATED’OUVERTURE DES OFFRES Article 4 : Les offres seront ouvertes en présence des soumissionnaires qui le souhaitent ou de leurs représentants au jour et date du 16/11/2026 à 9 heures 30 minutes.",
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "9/21"
+   },
    "is_new": true
   },
   {
@@ -449,6 +763,25 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "NATIONAL-ACHAT DE KITS POUR LES RELAIS COMMUNAUTAIRES",
+    "heure": "07h00",
+    "mode": "Appel d'offres national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "aline.niyizonkiza@undp.org",
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "6/21"
+   },
    "is_new": true
   },
   {
@@ -470,6 +803,30 @@
    "pdf_enriched": true,
    "pdf_url": "https://www.esoko.bi/media/vacancy_attachments/2026/11/02/ADB-1.pdf",
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La fourniture des uniformes du personnel de I'ADB, DAO N°ADB/",
+    "heure": "10h00",
+    "mode": "Appel d'offres ouvert national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Les livraisons se feront au siege de I'ADB situe a ITmmeuble Asharif, Boulevard Mwezi GISABO, 5.Conditions de participation La participationa la concurrence est ouvertea égalitedeconditions,a toutepersonne morale ou physique rempl…",
+     "Délai, lieu et modalité de livraison Le délai de livraison est fixé à soixante (60) jours calendaires à compter de la date de notification définitive du marché, mais le titulaire du marché peut proposer un délai plus court, Les li…",
+     "Il est dénombré plus de 5 000 sociétés créées dont 436 qui ont demandé des avantages liés au Code des Investissements. 68% de ces dernières ont obtenu le certificat d’éligibilité à ces avantages.",
+     "Les 32% des sociétés qui avaient formulé la demande n’ont pas été éligibles aux avantages."
+    ],
+    "documents": [],
+    "criteres": "Attribution du marché Le marché sera attribué au soumissionnaire administrativement et techniquement conformes, et financièrement moins disant.",
+    "retrait": null,
+    "contact": "contact@investburundi.bi · 22275996",
+    "depot": null,
+    "ouverture": "Date d'ouverture des offres",
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "9/21"
+   },
    "is_new": true
   },
   {
@@ -491,6 +848,27 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "Demande de Quotation pour une Imprimante",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from United Nations Global Marketplace and is eligible for suppliers interested in Printers and plotters, Printing and graphics equipment, Office automation equipment, Printer servers ."
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "3/21"
+   },
    "is_new": true
   },
   {
@@ -499,7 +877,7 @@
    "sector": "Énergie",
    "deadline": "2026-11-18",
    "deadline_source": "page web",
-   "reference": null,
+   "reference": "centr",
    "dossier_cost": null,
    "guarantee": null,
    "lots": null,
@@ -512,6 +890,29 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La fourniture et la livraison de chèvres reproductrices locales et de boucs reproducteurs améliorés ZOA Avis de recrutement pour 4 postes SPARK Un Consultant individuel en production et communication audiovisuelles BRIDEP Bujumbura Un Bureau chargé d’élaborer un modèle institutionnel de gestion d’infrastructures publiques pour durabilité : marchés et ports dans les sites… — Quantités énoncées : 60 centres",
+    "heure": "10h00",
+    "mode": "Demande de cotation",
+    "lieu": "Buhumuza, Bujumbura et Burunga",
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Attestation de régularité fiscale encours de validité délivrée par l’OBR Copie de l’agrément et autorisation d’exercer Présentation générale du cabinet Référence de 2 marchés similaires réalisés Attestation de bonne exécution ou d…"
+    ],
+    "documents": [
+     "Attestation fiscale"
+    ],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "8/21"
+   },
    "is_new": true
   },
   {
@@ -520,9 +921,9 @@
    "sector": "Travaux/BTP",
    "deadline": "2026-11-18",
    "deadline_source": "page web",
-   "reference": null,
+   "reference": "DNCMP/45/T/2026-2027",
    "dossier_cost": null,
-   "guarantee": null,
+   "guarantee": "2 000 000",
    "lots": null,
    "sources": [
     {
@@ -537,6 +938,29 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "Les travaux de réhabilitation du batiment abritant le Tribunal de Grande Instance de MUGERE et son Parquet",
+    "heure": "10h00",
+    "mode": "Appel d'offres ouvert national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Conditions de participation La participation au marché est ouverte, à égalité de conditions, à toutes les personnes physiques ou morales [qu’elles participent à titre individuel ou dans le cadre d’un groupement (consortium) de sou…",
+     "Ne peut participer à l’appel d’offres tout soumissionnaire concerné par l’une des règles d’inéligibilité énumérées à l’article 161 du Code des Marchés Publics du BURUNDI.",
+     "Leader de la presse écrite au Burundi compte tenu de son ancienneté et de son expérience depuis 1978, ses publications aussi bien fiables qu’officielles touchent tous les domaines de la vie nationale sans oublier l’actualité régio…"
+    ],
+    "documents": [],
+    "criteres": "Critères d’évaluation des offres L’évaluation des offres se fera sur base des critères techniques, financiers et économiques mentionnés dans les données particulières de l’appel d’offres, afin de déterminer l’offre conforme la moins disante.",
+    "retrait": "Consultation et acquisition du Dossier d’Appel d’Offres Le Dossier d’Appel d’Offres peut être consulté tous les jours ouvrables de 7 heures 30 minutes à 15 heures 30 minutes heure locale, au secrétariat du Cabinet du Ministre de la Justice , des Droits de la Personne Humaine et du Genre ; Immeuble s…",
+    "contact": "22 25 33 79",
+    "depot": null,
+    "ouverture": "Date d’ouverture des offres : 18/11/2026 Objet",
+    "validite": "validité des offres Les soumissionnaires restent engagés par leurs offres pendant un délai de 90 jours calendaires",
+    "langue_monnaie": null,
+    "completude": "12/21"
+   },
    "is_new": true
   },
   {
@@ -546,8 +970,8 @@
    "deadline": "2026-11-18",
    "deadline_source": "page web",
    "reference": null,
-   "dossier_cost": null,
-   "guarantee": null,
+   "dossier_cost": "50 000 BIF",
+   "guarantee": "825 000",
    "lots": null,
    "sources": [
     {
@@ -558,6 +982,28 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "L’ Installation et mise en service d’un serveur SIG",
+    "heure": null,
+    "mode": "Appel d'offres ouvert national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Conditions de participation Ne peut participer à l’appel d’offres, tout soumissionnaire concerné par l’une des règles d’inéligibilité énumérées à l’article 161 du Code des Marchés Publics. 3.",
+     "Leader de la presse écrite au Burundi compte tenu de son ancienneté et de son expérience depuis 1978, ses publications aussi bien fiables qu’officielles touchent tous les domaines de la vie nationale sans oublier l’actualité régio…"
+    ],
+    "documents": [],
+    "criteres": "Critères d’évaluation des offres L’évaluation des offres se fera sur base des critères techniques, financiers et économiques mentionnés dans les données particulières de l’appel d’offres, afin de déterminer l’offre conforme la moins disante jugée non sous-estimée.",
+    "retrait": "Consultation et acquisition du Dossier d’Appel d’Offres Le Dossier d’Appel d’Offres peut être consulté tous les jours ouvrables, de 8 heure à 15 heure de Lundi à Jeudi et de 8 heure à 11 heure 30 minutes le vendredi, heure locale à l’adresse ci-après : Direction Générale de l’ISABU (Service Approvis…",
+    "contact": "22 22 27 39",
+    "depot": null,
+    "ouverture": "Date d’ouverture des offres : 18/11/2026 Le Ministère de l’Environnement, de l’Agriculture et de l’Elevage, Direction Générale de l’Institut des Sciences Agronomiques",
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "10/21"
+   },
    "is_new": true
   },
   {
@@ -567,8 +1013,8 @@
    "deadline": "2026-11-18",
    "deadline_source": "page web",
    "reference": "DNCMP/264/F/2026-2027",
-   "dossier_cost": null,
-   "guarantee": null,
+   "dossier_cost": "100.000 BIF",
+   "guarantee": "18.000.000 BIF",
    "lots": null,
    "sources": [
     {
@@ -579,6 +1025,25 @@
    "pdf_enriched": true,
    "pdf_url": "https://www.esoko.bi/media/vacancy_attachments/2026/10/30/ABER.pdf",
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "Fourniture du matériel électrique",
+    "heure": "10h00",
+    "mode": "Appel d'offres ouvert national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": "Le Dossier d'Appel d'Offres peut etre consulte tous les jours ouvrables de 8 heures a 15 heures 30 minutes (heures locales) au Secretariat de l'Agence Burundaise de 1'Electrification Rurale (ABER) a Bujumbura Route nationale N°1, parcelle N°22, en bas du poste de Dispatching de la REGISESO a KIG0BE…",
+    "contact": "22 22 19 32",
+    "depot": null,
+    "ouverture": "Date d'ouverture des offres : l f-8",
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "10/21"
+   },
    "is_new": true
   },
   {
@@ -604,6 +1069,25 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "Achat Motos pour la Régie Nationale des Postes",
+    "heure": "05h11",
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "alec.fedor.kadobeye@undp.org",
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "5/21"
+   },
    "is_new": true
   },
   {
@@ -629,6 +1113,25 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "Recrutement d'un cabinet national en evaluation de la vulnerabilité socio",
+    "heure": "10h00",
+    "mode": "Appel d'offres national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "laurent.denis@undp.org",
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "6/21"
+   },
    "is_new": true
   },
   {
@@ -637,7 +1140,7 @@
    "sector": "Énergie",
    "deadline": "2026-11-19",
    "deadline_source": "page web",
-   "reference": null,
+   "reference": "centr",
    "dossier_cost": null,
    "guarantee": null,
    "lots": null,
@@ -650,6 +1153,27 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "LA FOURNITURE DES TRANSFORMATEURS CONVERTISSEURS DE TENSION ELECTRIQUE A WORLD VISION INTERNATIONAL BURUNDI REF : WVIB/ND/SCM/FY27/10/CONVERTISSEUR World vision International Burundi est une organisation humanitaire chrétienne d’assistance Humanitaire, de développement et plaidoyer dont l’objectif est de créer un changement durable dans la vie des enfants, des familles et… — Quantités énoncées : 60 centres",
+    "heure": "10h00",
+    "mode": "Appel d'offres international",
+    "lieu": "Buhumuza, Bujumbura et Burunga",
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Dans le cadre de bonne exécution de ses activités, World Vision international Burundi cherche des fournisseurs justifiant des capacités techniques, financières et une expérience requise pour la fourniture des transformateurs conve…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "7/21"
+   },
    "is_new": true
   },
   {
@@ -660,8 +1184,8 @@
    "deadline_source": "page web",
    "reference": "DNCMP/223/F/2024-2025",
    "dossier_cost": null,
-   "guarantee": null,
-   "lots": null,
+   "guarantee": "4 800 000 BIF",
+   "lots": 2,
    "sources": [
     {
      "name": "Le Renouveau",
@@ -675,6 +1199,33 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": null,
+    "heure": "10h00",
+    "mode": "Appel d'offres restreint national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Pièces attestant la capacité technique. 11. 2.",
+     "Leader de la presse écrite au Burundi compte tenu de son ancienneté et de son expérience depuis 1978, ses publications aussi bien fiables qu’officielles touchent tous les domaines de la vie nationale sans oublier l’actualité régio…"
+    ],
+    "documents": [
+     "Registre de commerce (RC)",
+     "Statuts de la société",
+     "Bordereau des prix",
+     "Acte d'engagement"
+    ],
+    "criteres": null,
+    "retrait": "Consultation et acquisition du dossier d’appel d’offres Le dossier d’appel d’offres peut être obtenu tous les jours ouvrables de 8 h à 15h00 et à l’adresse suivante : Université du Burundi, Campus Mutanga, Bâtiment du Rectorat bureau n°25 Il peut être consulté sur le Site : www.",
+    "contact": "22213468",
+    "depot": "Date limite de dépôt des offres Toutes les offres doivent être déposées à l’adresse indiquée ci-dessus au plus tard le 19/11/2026 à 10 heures précises.",
+    "ouverture": "Date d’ouverture des offres : 19/11/2026 Objet Le Ministère de l’Education Nationale et de la Recherche Scientifique, représentée par Université du Burundi invite, pa",
+    "validite": "Validité des offres Les offres sont valables pendant une période de 90 jours calendaires",
+    "langue_monnaie": null,
+    "completude": "13/21"
+   },
    "is_new": true
   },
   {
@@ -683,7 +1234,7 @@
    "sector": "Services/conseil",
    "deadline": "2026-11-20",
    "deadline_source": "page web",
-   "reference": null,
+   "reference": "centr",
    "dossier_cost": null,
    "guarantee": null,
    "lots": null,
@@ -696,6 +1247,25 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La fourniture et la livraison de chèvres reproductrices locales et de boucs reproducteurs améliorés ZOA Avis de recrutement pour 4 postes SPARK Un Consultant individuel en production et communication audiovisuelles BRIDEP Bujumbura Un Bureau chargé d’élaborer un modèle institutionnel de gestion d’infrastructures publiques pour durabilité : marchés et ports dans les sites… — Quantités énoncées : 60 centres",
+    "heure": null,
+    "mode": "Appel d'offres ouvert international",
+    "lieu": "Buhumuza, Bujumbura et Burunga",
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "5/21"
+   },
    "is_new": true
   },
   {
@@ -704,10 +1274,10 @@
    "sector": "Véhicules/transport",
    "deadline": "2026-11-20",
    "deadline_source": "page web",
-   "reference": null,
+   "reference": "APPEL",
    "dossier_cost": null,
    "guarantee": null,
-   "lots": null,
+   "lots": 2,
    "sources": [
     {
      "name": "BurundiJobs",
@@ -717,6 +1287,27 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La fourniture et la livraison de chèvres reproductrices locales et de boucs reproducteurs améliorés ZOA Avis de recrutement pour 4 postes SPARK Un Consultant individuel en production et communication audiovisuelles BRIDEP Bujumbura Un Bureau chargé d’élaborer un modèle institutionnel de gestion d’infrastructures publiques pour durabilité : marchés et ports dans les sites… — Quantités énoncées : 3.5 tonnes, 7 tonnes, 10 tonnes",
+    "heure": "16h00",
+    "mode": "Avis à manifestation d'intérêt (AMI)",
+    "lieu": "Buhumuza, Bujumbura et Burunga",
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Objet du présent appel à manifestation d’intérêt : Dans le cadre du renforcement, de l’optimisation et de la rationalisation de ses achats récurrents, Tdh lance le présent appel d’offre en vue de sélectionner des prestataires qual…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": "Les prestataires intéressés peuvent obtenir les documents d’appel d’offres par courrier à l’adresse email : [email protected] Demandes limite de retrait du dossier : au plus tard le 16/11/2026 à 16h00 (heure de Bujumbura) Demandes de clarification au plus tard le 17/11/2026 à 16h00 (heure de Bujumbu…",
+    "contact": null,
+    "depot": "Les prestataires intéressés peuvent obtenir les documents d’appel d’offres par courrier à l’adresse email : [email protected] Demandes limite de retrait du dossier : au plus tard le 16/11/2026 à 16h00 (heure de Bujumbura) Demandes de clarification au plus tard le 17/11/2026 à 16h00 (heure de Bujumbu…",
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "10/21"
+   },
    "is_new": true
   },
   {
@@ -725,7 +1316,7 @@
    "sector": "Travaux/BTP",
    "deadline": "2026-11-20",
    "deadline_source": "page web",
-   "reference": null,
+   "reference": "BI-BI-MOF-562950-CS-QCBS",
    "dossier_cost": null,
    "guarantee": null,
    "lots": null,
@@ -738,6 +1329,30 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La fourniture et la livraison de chèvres reproductrices locales et de boucs reproducteurs améliorés ZOA Avis de recrutement pour 4 postes SPARK Un Consultant individuel en production et communication audiovisuelles BRIDEP Bujumbura Chef de Projet Terre des Hommes (Tdh) Ruyigi Un bureau d’études chargé de la réalisation des études technico-économiques et de l’étude d’impact… — Quantités énoncées : 60 centres",
+    "heure": "17h30",
+    "mode": "Appel d'offres",
+    "lieu": "Buhumuza, Bujumbura et Burunga",
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Les consultants intéressés doivent fournir des informations démontrant qu’ils possèdent les qualifications requises et l’expérience pertinente pour exécuter les services.",
+     "Les Termes de Référence (TDR) détaillés pour la mission peuvent être obtenus à l’adresse indiquée ci-dessous : Projet de Facilitation du Commerce et Intégration dans la région des Grands Lacs Jonction Boulevard de l’Indépendance e…",
+     "Les critères pour l’établissement de la liste restreinte sont : Expérience générale du cabinet : Justifier d’une expérience globale d’au moins dix (10) ans en appui-conseil ou en conception de systèmes de gestion de biens publics…",
+     "Note : Les qualifications et l’expérience des experts clés ne seront pas évaluées au stade de la présélection."
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "22 24 9595",
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "8/21"
+   },
    "is_new": true
   },
   {
@@ -759,6 +1374,31 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": null,
+    "heure": "16h00",
+    "mode": "Appel d'offres",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Les candidats intéressés doivent fournir des informations démontrant qu’ils possèdent les qualifications requises et l’expérience pertinente pour exécuter les services.",
+     "L’Unité de gestion du PRETE invite les candidats éligibles (« consultants individuels ») à manifester leur intérêt pour fournir les services.",
+     "Le consultant devra répondre aux critères suivants : (i) être titulaire d’un diplôme universitaire de niveau master au minimum en finance et/ou en banque ; (ii) avoir au moins dix (10) années d’expérience confirmée dans le secteur…"
+    ],
+    "documents": [
+     "Diplômes"
+    ],
+    "criteres": null,
+    "retrait": null,
+    "contact": "bnzeyimana@prete.bi · +257 22 21 16 68",
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "6/21"
+   },
    "is_new": true
   },
   {
@@ -780,6 +1420,27 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "MFBEN - DSI - AT CABINET- Recrutement d'un consultant pour la formation et la certification des techniciens de la DSI, SETIC et de l'OBR sur l'Audit Système d'information",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from World Bank website and is eligible for suppliers interested in Computer audit consultancy and hardware consultancy services, Systems and technical consultancy services, Computer audit services, software…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "72150000",
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "4/21"
+   },
    "is_new": true
   },
   {
@@ -790,7 +1451,7 @@
    "deadline_source": "page web",
    "reference": null,
    "dossier_cost": null,
-   "guarantee": null,
+   "guarantee": "1 000 000",
    "lots": null,
    "sources": [
     {
@@ -801,6 +1462,29 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "Les travaux de réhabilitation du Tribunal de Résidence de MURAMVYA",
+    "heure": "10h00",
+    "mode": "Appel d'offres ouvert national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Conditions de participation La participation au marché est ouverte, à égalité de conditions, à toutes les personnes physiques et morales [qu’elles participent à titre individuel ou dans le cadre d’un groupement (consortium) de sou…",
+     "Ne peut participer à l’appel d’offres tout soumissionnaire concerné par l’une des règles d’inéligibilité énumérées à l’article 161 du Code des Marchés Publics du BURUNDI.",
+     "Leader de la presse écrite au Burundi compte tenu de son ancienneté et de son expérience depuis 1978, ses publications aussi bien fiables qu’officielles touchent tous les domaines de la vie nationale sans oublier l’actualité régio…"
+    ],
+    "documents": [],
+    "criteres": "Critères d’évaluation des offres L’évaluation des offres se fera sur base des critères techniques, financiers et économiques mentionnés dans les données particulières de l’appel d’offres, afin de déterminer l’offre conforme la moins disante.",
+    "retrait": "Consultation et acquisition du Dossier d’Appel d’Offres Le Dossier d’Appel d’Offres peut être consulté tous les jours ouvrables de 7 heures 30 minutes à 15 heures 30 minutes heure locale, au secrétariat du Cabinet du Ministre de la Justice Immeuble sis au Boulevard de l’UPRONA N o 1221A, Tel : 22 25…",
+    "contact": "22 25 33 79",
+    "depot": null,
+    "ouverture": "Date d’ouverture des offres : 21/11/2026 Objet",
+    "validite": "validité des offres Les soumissionnaires restent engagés par leurs offres pendant un délai de 90 jours calendaires",
+    "langue_monnaie": null,
+    "completude": "11/21"
+   },
    "is_new": true
   },
   {
@@ -830,6 +1514,25 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "Fourniture et livraison de mobiliers divers",
+    "heure": "06h00",
+    "mode": "Appel d'offres",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "christella.biraronderwa@undp.org",
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "6/21"
+   },
    "is_new": true
   },
   {
@@ -851,6 +1554,27 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "Fourniture des Equipements pour les Petites et Moyennes Entreprises (PMEs)",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from United Nations Global Marketplace and is eligible for suppliers interested in Office equipment except furniture, Small office equipment, Office automation equipment ."
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "3/21"
+   },
    "is_new": true
   },
   {
@@ -861,7 +1585,7 @@
    "deadline_source": "page web",
    "reference": null,
    "dossier_cost": null,
-   "guarantee": null,
+   "guarantee": "1 600 000 BIF",
    "lots": null,
    "sources": [
     {
@@ -872,6 +1596,30 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "Le s travaux de réhabilitation et d’extension des bureaux au centre d’innovation de l’ISABU à Buhoro, DAO MEAE/ISABU/01/T/2026-2027, à n’ouvrir qu’en séance publique du 23 /11/2026 à 10 heures 30 minutes",
+    "heure": "10h00",
+    "mode": "Appel d'offres ouvert national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Ne peut participer à l’appel d’offres tout soumissionnaire concerné par l’un cas inéligibilité énuméré e à l’article 161 du Code des Marchés publics.",
+     "Critères de qualifications Le présent Appel d’Offres s’adresse à tous les soumissionnaires remplissant les conditions d’admissibilité aux marchés publics, conformément à l’Article 151 de la loi n°1/04 du 29 janvier 2018 portant Co…",
+     "Aucune marge de préférence ne sera octroyée aux soumissionnaires éligibles. 12.",
+     "Leader de la presse écrite au Burundi compte tenu de son ancienneté et de son expérience depuis 1978, ses publications aussi bien fiables qu’officielles touchent tous les domaines de la vie nationale sans oublier l’actualité régio…"
+    ],
+    "documents": [],
+    "criteres": "Critères d’évaluation des offres L’évaluation des offres se fera sur base des critères techniques, financiers et économiques mentionnés dans les données particulières de l’appel d’offres, afin de déterminer l’offre conforme la moins disante.",
+    "retrait": "Consultation et acquisition du dossier d’appel d’offres Le Dossier d’Appel d’Offres peut être consulté tous les jours ouvrables de 8 heures à 15 heures, heure locale à l’adresse ci-après : Direction Générale de l’ISABU (service Approvisionnements) située à l’Avenue de la Cathédrale, Tél.",
+    "contact": "22 22 33 90",
+    "depot": "Toutes les offres doivent être déposées à l’adresse indiquée ci-dessus au plus tard le 23/11/2026 à 10 heures.",
+    "ouverture": "Date d’ouverture des offres : 23 /11/2026 Objet « Le Maître de l’Ouvrage » invite, par le présent Appel d’Offres, les candidats admis à concourir à soumettre leurs of",
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "11/21"
+   },
    "is_new": true
   },
   {
@@ -881,8 +1629,8 @@
    "deadline": "2026-11-23",
    "deadline_source": "page web",
    "reference": null,
-   "dossier_cost": null,
-   "guarantee": null,
+   "dossier_cost": "50 000 BIF",
+   "guarantee": "750 000 BIF",
    "lots": null,
    "sources": [
     {
@@ -893,6 +1641,30 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "L’acquisition de matériels agricoles pour les cultures industrielles (relance) — Livraison : Le délai de livraison des fournitures est fixé à trente (30) jours calendaires à compter de la",
+    "heure": "10h00",
+    "mode": "Appel d'offres ouvert national",
+    "lieu": "Le délai de livraison des fournitures est fixé à trente",
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Conditions de participation La participation au présent appel d’offres est ouverte, à égalité de conditions, aux personnes physiques ou morales remplissant les conditions juridiques, administratives, techniques et financières requ…",
+     "Les candidats doivent satisfaire aux conditions d’éligibilité prévues par la législation burundaise en matière de marchés publics.",
+     "Ne peut participer au présent appel d’offres tout candidat se trouvant dans l’un des cas d’exclusion ou d’inéligibilité prévus par la réglementation applicable, notamment ceux visés à l’article 161 du Code des marchés publics, sou…",
+     "APPEL D’OFFRES OUVERT NATIONAL N° MEAE/ISABU/ 10 /F/2026-2027 RELATIF A L’ACQUISITION DE MATERIELS AGRICOLES POUR LES CULTURES INDUSTRIELLES (RELANCE) Date de publication : 03/11/2026 Date d’ouverture des offres : 23/11/2026 à 10…"
+    ],
+    "documents": [],
+    "criteres": "Pour chaque lot, le marché sera attribué au soumissionnaire dont l’offre sera reconnue conforme et évaluée la moins-disante, sous réserve que le soumissionnaire satisfasse aux critères de qualification requis et que son offre soit jugée acceptable conformément au Dossier d’Appel…",
+    "retrait": "Le Dossier d’Appel d’Offres peut être obtenu physiquement à l’adresse susmentionnée, sur présentation d’un bordereau de versement attestant le paiement d’un montant non remboursable de cinquante mille francs burundais (50 000 BIF).",
+    "contact": "22 22 73 50",
+    "depot": null,
+    "ouverture": "Date d’ouverture des offres : 23/11/2026 à 10 h 30 La Direction Générale de l’Institut des Sciences Agronomiques du Burundi (ISABU) invite, par le présent Avis d’Appe",
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "12/21"
+   },
    "is_new": true
   },
   {
@@ -902,8 +1674,8 @@
    "deadline": "2026-11-23",
    "deadline_source": "page web",
    "reference": null,
-   "dossier_cost": null,
-   "guarantee": null,
+   "dossier_cost": "50 000 BIF",
+   "guarantee": "700 000 BIF",
    "lots": null,
    "sources": [
     {
@@ -914,6 +1686,30 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La fourniture des ruches et matériel de récolte du miel pour l’intégration de l’apiculture dans les boisements de l’ISABU (relance) — Livraison : Le délai de livraison des fournitures est fixé à soixante (60) jours calendaires à compter de",
+    "heure": "10h00",
+    "mode": "Appel d'offres ouvert national",
+    "lieu": "Le délai de livraison des fournitures est fixé à soixante",
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Conditions de participation La participation au présent appel d’offres est ouverte, à égalité de conditions, aux personnes physiques ou morales remplissant les conditions juridiques, administratives, techniques et financières requ…",
+     "Les candidats doivent satisfaire aux conditions d’éligibilité prévues par la législation burundaise en matière de marchés publics.",
+     "Ne peut participer au présent appel d’offres tout candidat se trouvant dans l’un des cas d’exclusion ou d’inéligibilité prévus par la réglementation applicable, notamment ceux visés à l’article 161 du Code des marchés publics, sou…",
+     "APPEL D’OFFRES OUVERT NATIONAL N° MEAE/ISABU/12/F/2026-2027 RELATIF A LA FOURNITURE DES RUCHES ET MATERIEL DE RECOLTE DU MIEL POUR L’INTEGRATION DE L’APICULTURE DANS LES BOISEMENTS DE L’ISABU (RELANCE Date de publication : 03/11/2…"
+    ],
+    "documents": [],
+    "criteres": "Pour chaque lot, le marché sera attribué au soumissionnaire dont l’offre sera reconnue conforme et évaluée la moins-disante, sous réserve que le soumissionnaire satisfasse aux critères de qualification requis et que son offre soit jugée acceptable conformément au Dossier d’Appel…",
+    "retrait": "Le Dossier d’Appel d’Offres peut être obtenu physiquement à l’adresse susmentionnée, sur présentation d’un bordereau de versement attestant le paiement d’un montant non remboursable de cinquante mille francs burundais (50 000 BIF).",
+    "contact": "22 22 73 50",
+    "depot": null,
+    "ouverture": "Date d’ouverture des offres : 25/11/2026 à 10 h 30 La Direction Générale de l’Institut des Sciences Agronomiques du Burundi (ISABU) invite, par le présent Avis d’Appe",
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "12/21"
+   },
    "is_new": true
   },
   {
@@ -935,6 +1731,27 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "Recrutement d’une agence de communication",
+    "heure": "17h00",
+    "mode": "Appel d'offres ouvert",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Critères d’éligibilité Les agences intéressées doivent justifier : – D’une expérience de 5 ans avérée en communication institutionnelle et commerciale ; – Des références techniques solides dans le secteur bancaire ou financier ; –…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "info@bgf.bi · 22221352",
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "6/21"
+   },
    "is_new": true
   },
   {
@@ -956,6 +1773,27 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "MFBEN - DSI - AT CABINET- Recrutement d'un consultant pour la formation et la certification des techniciens de la DSI, SETIC et de l'OBR sur le HACKING FORENSIC INVESTIGATION",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from World Bank website and is eligible for suppliers interested in Software programming and consultancy services, Systems and technical consultancy services, Investigation and security services, Investigati…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "72200000",
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "4/21"
+   },
    "is_new": true
   },
   {
@@ -977,6 +1815,27 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "Achat des équipements de communication et accessoires",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from United Nations Global Marketplace and is eligible for suppliers interested in Telecommunications equipment and supplies, Telephone equipment, Communications equipment, Telecommunications equipment, Data…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "3/21"
+   },
    "is_new": true
   },
   {
@@ -985,7 +1844,7 @@
    "sector": "Fournitures/agro",
    "deadline": "2026-11-24",
    "deadline_source": "page web",
-   "reference": null,
+   "reference": "centr",
    "dossier_cost": null,
    "guarantee": null,
    "lots": null,
@@ -998,6 +1857,33 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "LA FOURNITURE DE MACHINE POUR LE BROYAGE DES INGREDIENTS UTILISÉES DANS LE MÉLANGE DES ALIMENTS POUR VOLAILLES CONTEXTE ET JUSTIFICATION Dans le cadre du projet “Promotion de l’élevage commercial de volailles”, ZOA Burundi accompagne 45 bénéficiaires de la colline Nyarumanga, commune Gisuru, dans la pratique d’un élevage rentable et durable des poules de race améliorée — Quantités énoncées : 120 kg, 60 centres",
+    "heure": "16h00",
+    "mode": "Appel d'offres",
+    "lieu": "Buhumuza, Bujumbura et Burunga",
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Expérience antérieure dans des marchés similaires et références fournies.",
+     "Conditions d’éligibilité Être une personne physique ou morale légalement autorisée à exercer les activités de fourniture et/ou de commercialisation des matières premières concernées.",
+     "Disposer d’une expérience avérée dans la fourniture de machines et équipements agropastorales et d’équipements à énergie solaire.",
+     "Avoir la capacité technique, logistique et financière nécessaire pour livrer la commande dans les délais convenus et sur le site indiqué."
+    ],
+    "documents": [
+     "Registre de commerce (RC)",
+     "NIF"
+    ],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "8/21"
+   },
    "is_new": true
   },
   {
@@ -1023,6 +1909,27 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": null,
+    "heure": "10h00",
+    "mode": "Appel d'offres ouvert national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Leader de la presse écrite au Burundi compte tenu de son ancienneté et de son expérience depuis 1978, ses publications aussi bien fiables qu’officielles touchent tous les domaines de la vie nationale sans oublier l’actualité régio…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "5/21"
+   },
    "is_new": true
   },
   {
@@ -1033,8 +1940,8 @@
    "deadline_source": "page web",
    "reference": null,
    "dossier_cost": null,
-   "guarantee": null,
-   "lots": null,
+   "guarantee": "5 000 000 BIF",
+   "lots": 4,
    "sources": [
     {
      "name": "Le Renouveau",
@@ -1044,6 +1951,27 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La fourniture des matériels pour la maintenance des infrastructures académiques et sociales relatif au marché N° D — Quantités énoncées : 2 litre, 20 litres, 20 litres",
+    "heure": "10h00",
+    "mode": "Appel d'offres ouvert national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Leader de la presse écrite au Burundi compte tenu de son ancienneté et de son expérience depuis 1978, ses publications aussi bien fiables qu’officielles touchent tous les domaines de la vie nationale sans oublier l’actualité régio…"
+    ],
+    "documents": [],
+    "criteres": "Critères d’évaluation des offres L’évaluation des offres se fera sur base des critères techniques, financiers et économiques mentionnés dans les données particulières de l’appel d’offres, afin de déterminer l’offre conforme la moins disante.",
+    "retrait": "Consultation et acquisition du dossier d’appel d’offres Le dossier d’appel d’offres peut être obtenu auprès des Services Généraux de l’Université du Burundi, bureau n°25 tous les jours ouvrables de 8 h à 15 h et sur le site web de l’Autorité de Régulation des Marchés Publics: www.",
+    "contact": null,
+    "depot": "Toutes les offres doivent être déposées à l’adresse indiquée ci-dessus au plus tard le 24/11/2026 à 10 heures précises.",
+    "ouverture": "Date d’ouverture des offres : 24 /11/2026 1",
+    "validite": "Validité des offres Les offres sont valables pendant une période de 90 jours calendaires",
+    "langue_monnaie": null,
+    "completude": "12/21"
+   },
    "is_new": true
   },
   {
@@ -1054,7 +1982,7 @@
    "deadline_source": "page web",
    "reference": null,
    "dossier_cost": null,
-   "guarantee": null,
+   "guarantee": "300 000",
    "lots": null,
    "sources": [
     {
@@ -1065,6 +1993,28 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La fourniture des chèvres d’appui des microprojets des femmes dans la commune MATONGO — Livraison : L’ensemble des fournitures sont à livrer au chef-lieu de la zone BANGA en commune MATONGO. Qu",
+    "heure": "10h00",
+    "mode": "Appel d'offres ouvert national",
+    "lieu": "L’ensemble des fournitures sont à livrer au chef-lieu de la zone BANGA en commune MATONGO",
+    "delai": "Délai de livraison L’ensemble des fournitures sont à livrer dans un délai de 20 jours calendaires",
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Conditions de participation Ne peut participer à l’appel d’offres tout soumissionnaire concerné par l’une des règles d’inéligibilité énumérées à l’article 161 du Code des Marchés Publics du BURUNDI.",
+     "Leader de la presse écrite au Burundi compte tenu de son ancienneté et de son expérience depuis 1978, ses publications aussi bien fiables qu’officielles touchent tous les domaines de la vie nationale sans oublier l’actualité régio…"
+    ],
+    "documents": [],
+    "criteres": "Critères d’évaluation des offres L’évaluation des offres se fera sur base des critères techniques, financiers et économiques mentionnés dans les données particulières de l’appel d’offres, afin de déterminer l’offre conforme la moins disante.",
+    "retrait": "Consultation et acquisition du Dossier d’Appel d’Offres Le Dossier d’Appel d’Offres peut être consulté tous les jours ouvrables de 7 heures 30 minutes à 15 heures 30 minutes, heure locale à l’adresse ci-après : Ministère de la Justice, des Droits de la Personne Humaine et Du Genre, Immeuble sis au B…",
+    "contact": "22 25 33 79",
+    "depot": null,
+    "ouverture": "Date d’ouverture des offres : 24/11/2026 Objet",
+    "validite": "validité des offres . Les soumissionnaires restent engagés par leurs offres pendant un délai de 90 jours calendaires",
+    "langue_monnaie": null,
+    "completude": "13/21"
+   },
    "is_new": true
   },
   {
@@ -1073,10 +2023,10 @@
    "sector": "Santé",
    "deadline": "2026-11-24",
    "deadline_source": "page web",
-   "reference": null,
-   "dossier_cost": null,
-   "guarantee": null,
-   "lots": null,
+   "reference": "DNCMP/271/F/2026",
+   "dossier_cost": "50.000",
+   "guarantee": "3 000 000",
+   "lots": 3,
    "sources": [
     {
      "name": "Le Renouveau",
@@ -1086,6 +2036,33 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La fourniture de Bureau, d’hygiène et consommables informatiques pour les CPVVs Financement",
+    "heure": "09h00",
+    "mode": "Appel d'offres ouvert national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Conditions de participation Ne peut participer à l’appel d’offres tout soumissionnaire concerné par l’une des règles d’inéligibilité énumérées aux articles 153 et 161 du Code des Marchés Publics.",
+     "Leader de la presse écrite au Burundi compte tenu de son ancienneté et de son expérience depuis 1978, ses publications aussi bien fiables qu’officielles touchent tous les domaines de la vie nationale sans oublier l’actualité régio…"
+    ],
+    "documents": [
+     "Registre de commerce (RC)",
+     "Attestation de non-faillite",
+     "Procuration",
+     "Acte d'engagement"
+    ],
+    "criteres": null,
+    "retrait": "Consultation et acquisition du Dossier d’Appel d’Offres Le dossier d’appel d’offres peut être obtenu auprès du Ministère de la Santé Publique, située à l’Avenue Pierre NGENDANDUMWE, BP 1820 Bujumbura, tél : 22 25 43 57/22 27 63 04, au Secrétariat du Responsable d’Action Ressources Humaines, Matériel…",
+    "contact": "22 25 43 57",
+    "depot": null,
+    "ouverture": "Date d’ouverture des offres : 24/11/2026 Objet",
+    "validite": "validité des offres . Les soumissionnaires restent engagés par leurs offres pendant un délai de 90 jours calendaire",
+    "langue_monnaie": null,
+    "completude": "14/21"
+   },
    "is_new": true
   },
   {
@@ -1094,7 +2071,7 @@
    "sector": "Services/conseil",
    "deadline": "2026-11-25",
    "deadline_source": "page web",
-   "reference": null,
+   "reference": "centr",
    "dossier_cost": null,
    "guarantee": null,
    "lots": null,
@@ -1107,6 +2084,25 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La fourniture et la livraison de chèvres reproductrices locales et de boucs reproducteurs améliorés ZOA Avis de recrutement pour 4 postes SPARK Un Consultant individuel en production et communication audiovisuelles BRIDEP Bujumbura Un Bureau chargé d’élaborer un modèle institutionnel de gestion d’infrastructures publiques pour durabilité : marchés et ports dans les sites… — Quantités énoncées : 60 centres",
+    "heure": null,
+    "mode": "Appel d'offres ouvert",
+    "lieu": "Buhumuza, Bujumbura et Burunga",
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "5/21"
+   },
    "is_new": true
   },
   {
@@ -1116,8 +2112,8 @@
    "deadline": "2026-11-25",
    "deadline_source": "page web",
    "reference": "DNCMP/102/F/2026-2027",
-   "dossier_cost": null,
-   "guarantee": null,
+   "dossier_cost": "50 000 BIF",
+   "guarantee": "750 000 BIF",
    "lots": null,
    "sources": [
     {
@@ -1132,6 +2128,30 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La fourniture du matériel agricole pour developper/selectionner de nouvelles variétés de cultures industrielles (relance) — Livraison : Le délai de livraison des fournitures est fixé à trente (30) jours calendaires à compter de la",
+    "heure": "10h00",
+    "mode": "Appel d'offres ouvert national",
+    "lieu": "Le délai de livraison des fournitures est fixé à trente",
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Conditions de participation La participation au présent appel d’offres est ouverte, à égalité de conditions, aux personnes physiques ou morales remplissant les conditions juridiques, administratives, techniques et financières requ…",
+     "Les candidats doivent satisfaire aux conditions d’éligibilité prévues par la législation burundaise en matière de marchés publics.",
+     "Ne peut participer au présent appel d’offres tout candidat se trouvant dans l’un des cas d’exclusion ou d’inéligibilité prévus par la réglementation applicable, notamment ceux visés à l’article 161 du Code des marchés publics, sou…",
+     "Leader de la presse écrite au Burundi compte tenu de son ancienneté et de son expérience depuis 1978, ses publications aussi bien fiables qu’officielles touchent tous les domaines de la vie nationale sans oublier l’actualité régio…"
+    ],
+    "documents": [],
+    "criteres": "Pour chaque lot, le marché sera attribué au soumissionnaire dont l’offre sera reconnue conforme et évaluée la moins-disante, sous réserve que le soumissionnaire satisfasse aux critères de qualification requis et que son offre soit jugée acceptable conformément au Dossier d’Appel…",
+    "retrait": "Le Dossier d’Appel d’Offres peut être obtenu physiquement à l’adresse susmentionnée, sur présentation d’un bordereau de versement attestant le paiement d’un montant non remboursable de cinquante mille francs burundais (50 000 BIF).",
+    "contact": "22 22 73 50",
+    "depot": null,
+    "ouverture": "Date d’ouverture des offres : 25/11/2026 à 10 h 30 La Direction Générale de l’Institut des Sciences Agronomiques du Burundi (ISABU) invite, par le présent Avis d’Appe",
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "13/21"
+   },
    "is_new": true
   },
   {
@@ -1140,9 +2160,9 @@
    "sector": "Véhicules/transport",
    "deadline": "2026-11-26",
    "deadline_source": "page web",
-   "reference": null,
+   "reference": "ci-dessus",
    "dossier_cost": null,
-   "guarantee": null,
+   "guarantee": "250.000 BIF",
    "lots": null,
    "sources": [
     {
@@ -1153,6 +2173,29 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La fourniture de véhicules camionnettes double-cabine 4x4 hybrides",
+    "heure": "10h00",
+    "mode": "Appel d'offres ouvert national",
+    "lieu": null,
+    "delai": "délai de livraison des véhicules susmentionnés est de 120 jours",
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Le Projet PAGFPI sollicite, ainsi, des offres sous pli fermé de la part du soumissionnaire éligible et répondant aux qualifications requises pour fournir les véhicules camionnettes double-cabine 4×4 hybrides pour l’UGP du PAGFPI e…",
+     "La procédure sera conduite par mise en concurrence nationale en recourant à un Appel d’offres (AON) ouvert telle que définie dans le Cadre de Passation des Marchés de la Banque Africaine de Développement, édition d’octobre 2015, q…",
+     "Les Soumissionnaires intéressés et éligibles peuvent obtenir des informations auprès de l’UGP du PAGFPI, sis Bujumbura –BURUNDI, Quartier ROHERO I, Avenue du Japon, n° 1, Building du Ministère des Finances, du Budget et de l’Econo…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": "Le dossier d’appel d’offres peut être retiré à l’adresse ci-dessus.",
+    "contact": null,
+    "depot": "Les offres doivent être remises à l’adresse susmentionnée au plus tard le 26/11/2026 à 10 heures , heure de Bujumbura (GMT+2).",
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "10/21"
+   },
    "is_new": true
   },
   {
@@ -1161,7 +2204,7 @@
    "sector": "Services/conseil",
    "deadline": "2026-11-26",
    "deadline_source": "page web",
-   "reference": null,
+   "reference": "centr",
    "dossier_cost": null,
    "guarantee": null,
    "lots": null,
@@ -1174,6 +2217,33 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "LE RECRUTEMENT D’ UNE AGENCE DE RELATIONS PUBLIQUES ET DE COMMUNICATION (2026 – 2027) Objet de l’e-mail : APPEL D’OFFRES POUR LE RECRUTEMENT D’ UNE AGENCE DE RELATIONS PUBLIQUES ET DE COMMUNICATION (2026 – 2027) [Nom de l’agence] Toute enveloppe ou tout e-mail ne portant pas clairement cette mention sera rejeté et ne sera pas considéré comme conforme aux exigences de la… — Quantités énoncées : 60 centres",
+    "heure": "10h00",
+    "mode": "Appel d'offres ouvert international",
+    "lieu": "Buhumuza, Bujumbura et Burunga",
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Critères d’éligibilité La participation est ouverte à toute agence disposant des capacités techniques, financières et administratives nécessaires pour fournir les services conformément au cahier des charges (Partie 2).",
+     "Pour être éligible, l’agence doit remplir toutes les conditions ci-dessous et joindre les pièces demandées.",
+     "N° Condition Pièces à fournir E1 Existence légale et conformité fiscale Certificat d’enregistrement.",
+     "Déclaration des équipements audiovisuels disponibles E3 Capacité financière Comptes annuels certifiés, couvrant au moins un exercice."
+    ],
+    "documents": [
+     "Registre de commerce (RC)",
+     "Attestation fiscale"
+    ],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "8/21"
+   },
    "is_new": true
   },
   {
@@ -1182,7 +2252,7 @@
    "sector": "Services/conseil",
    "deadline": "2026-11-26",
    "deadline_source": "page web",
-   "reference": null,
+   "reference": "centr",
    "dossier_cost": null,
    "guarantee": null,
    "lots": null,
@@ -1195,6 +2265,30 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "Services d’avocat - conseil et d’assistance juridique — Quantités énoncées : 60 centres",
+    "heure": null,
+    "mode": "Appel d'offres international",
+    "lieu": "Buhumuza, Bujumbura et Burunga",
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "PROFIL ET QUALIFICATIONS REQUISES Les cabinets candidats devront remplir les critères minimaux suivants : Être un Cabinet d’Avocats régulièrement constitué et inscrit au Barreau de Bujumbura ou au Barreau de Gitega Être en règle a…",
+     "Références et attestations 10 Au moins cinq références vérifiables, deux attestations de bonne exécution, expérience avec des ONG internationales, agences de coopération.",
+     "Justifier d’une expérience minimale de cinq (5) ans en tant que cabinet d’avocats constitué, avec une expertise solide dans l’accompagnement juridique d’organisations non gouvernementales, ONGE, projets et entreprises; idéalement…",
+     "Une expérience préalable réussie avec des organisations internationales ou des entreprises d’origine américaine, ainsi qu’une bonne compréhension de leurs exigences de conformité et réglementations, constitueront un avantage consi…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "6/21"
+   },
    "is_new": true
   },
   {
@@ -1203,7 +2297,7 @@
    "sector": "Travaux/BTP",
    "deadline": "2026-11-26",
    "deadline_source": "page web",
-   "reference": null,
+   "reference": "centr",
    "dossier_cost": null,
    "guarantee": null,
    "lots": null,
@@ -1216,6 +2310,25 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La fourniture et la livraison de chèvres reproductrices locales et de boucs reproducteurs améliorés ZOA Avis de recrutement pour 4 postes SPARK Un Consultant individuel en production et communication audiovisuelles BRIDEP Bujumbura Un Bureau chargé d’élaborer un modèle institutionnel de gestion d’infrastructures publiques pour durabilité : marchés et ports dans les sites… — Quantités énoncées : 60 centres",
+    "heure": null,
+    "mode": "Appel d'offres ouvert international",
+    "lieu": "Buhumuza, Bujumbura et Burunga",
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "5/21"
+   },
    "is_new": true
   },
   {
@@ -1224,10 +2337,10 @@
    "sector": "Santé",
    "deadline": "2026-11-26",
    "deadline_source": "page web",
-   "reference": null,
-   "dossier_cost": null,
-   "guarantee": null,
-   "lots": null,
+   "reference": "DNCMP/289/F/2026-2027",
+   "dossier_cost": "50 000 BIF",
+   "guarantee": "5 000 000 BIF",
+   "lots": 4,
    "sources": [
     {
      "name": "Le Renouveau",
@@ -1237,6 +2350,30 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La fourniture des réactifs et équipements nécessaires à l’extension et au maintien de l’accréditation des laboratoires de l’ISABU (LASPA, Microbiologie, Phytopathologie et Biotechnologie du Café) — Livraison : Le délai de livraison des fournitures est fixé à quatre-vingt-dix (90) jours calendaires, conf",
+    "heure": "10h00",
+    "mode": "Appel d'offres ouvert national",
+    "lieu": "Le délai de livraison des fournitures est fixé à quatre-vingt-dix",
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Conditions de participation La participation au présent appel d’offres est ouverte, à égalité de conditions, aux personnes physiques ou morales remplissant les conditions juridiques, administratives, techniques et financières requ…",
+     "Les candidats doivent satisfaire aux conditions d’éligibilité prévues par la législation burundaise en matière de marchés publics.",
+     "Ne peut participer au présent appel d’offres tout candidat se trouvant dans l’un des cas d’exclusion ou d’inéligibilité prévus par la réglementation applicable, notamment ceux visés à l’article 161 du Code des marchés publics, sou…",
+     "APPEL D’OFFRES OUVERT NATIONAL N° DNCMP/289/F/2026-2027 RELATIF A LA FOURNITURE DES RÉACTIFS ET EQUIPEMENTS POUR ÉTENDRE ET MAINTENIR L’ACCRÉDITATION DES LABORATOIRES DE L’ISABU (LASPA, MICROBIOLOGIE, PHYTOPATHOLOGIE ET BIOTECHNOL…"
+    ],
+    "documents": [],
+    "criteres": "Pour chaque lot, le marché sera attribué au soumissionnaire dont l’offre sera reconnue conforme et évaluée la moins-disante, sous réserve que le soumissionnaire satisfasse aux critères de qualification requis et que son offre soit jugée acceptable conformément au Dossier d’Appel…",
+    "retrait": "Le Dossier d’Appel d’Offres peut être obtenu physiquement à l’adresse susmentionnée, sur présentation d’un bordereau de versement attestant le paiement d’un montant non remboursable de cinquante mille francs burundais (50 000 BIF).",
+    "contact": "22 22 73 50",
+    "depot": null,
+    "ouverture": "Date d’ouverture des offres : 26/11/2026 à 10 h 30 La Direction Générale de l’Institut des Sciences Agronomiques du Burundi (ISABU) invite, par le présent Avis d’Appe",
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "14/21"
+   },
    "is_new": true
   },
   {
@@ -1245,9 +2382,9 @@
    "sector": "Santé",
    "deadline": "2026-11-26",
    "deadline_source": "page web",
-   "reference": null,
-   "dossier_cost": null,
-   "guarantee": null,
+   "reference": "DNCMP/288/F/2026-2027",
+   "dossier_cost": "50 000 BIF",
+   "guarantee": "3 516 000 BIF",
    "lots": null,
    "sources": [
     {
@@ -1258,6 +2395,30 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La fourniture des réactifs et équipements de laboratoire pour produire les mini tubercules dans le laboratoire — Livraison : Le délai de livraison des fournitures est fixé à quatre-vingt-dix (90) jours calendaires à com",
+    "heure": "10h00",
+    "mode": "Appel d'offres ouvert national",
+    "lieu": "Le délai de livraison des fournitures est fixé à quatre-vingt-dix",
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Conditions de participation La participation au présent appel d’offres est ouverte, à égalité de conditions, aux personnes physiques ou morales remplissant les conditions juridiques, administratives, techniques et financières requ…",
+     "Les candidats doivent satisfaire aux conditions d’éligibilité prévues par la législation burundaise en matière de marchés publics.",
+     "Ne peut participer au présent appel d’offres tout candidat se trouvant dans l’un des cas d’exclusion ou d’inéligibilité prévus par la réglementation applicable, notamment ceux visés à l’article 161 du Code des marchés publics, sou…",
+     "APPEL D’OFFRES OUVERT NATIONAL N° DNCMP/288/F/2026-2027 RELATIF A LA FOURNITURE DES REACTIFS ET EQUIPEMENTS DE LABORATOIRE POUR PRODUIRE LES MINI TUBERCULES DANS LE LABORATOIRE Date de publication : 06/11/2026 Date d’ouverture des…"
+    ],
+    "documents": [],
+    "criteres": "Pour chaque lot, le marché sera attribué au soumissionnaire dont l’offre sera reconnue conforme et évaluée la moins-disante, sous réserve que le soumissionnaire satisfasse aux critères de qualification requis et que son offre soit jugée acceptable conformément au Dossier d’Appel…",
+    "retrait": "Le Dossier d’Appel d’Offres peut être obtenu physiquement à l’adresse susmentionnée, sur présentation d’un bordereau de versement attestant le paiement d’un montant non remboursable de cinquante mille francs burundais (50 000 BIF).",
+    "contact": "22 22 73 50",
+    "depot": null,
+    "ouverture": "Date d’ouverture des offres : 26/11/2026 à 10 h 30 La Direction Générale de l’Institut des Sciences Agronomiques du Burundi (ISABU) invite, par le présent Avis d’Appe",
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "13/21"
+   },
    "is_new": true
   },
   {
@@ -1279,6 +2440,27 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La fourniture, l'installation et la mise en service d'une infrastructure digitale répartie sur deux sites : le site principal (PR) et le site de reprise d'activité (DR)",
+    "heure": "10h00",
+    "mode": "Appel d'offres ouvert",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "La participation au présent appel d’offres est ouverte aux soumissionnaires nationaux et internationaux disposant d’une expérience avérée dans la réalisation de marchés similaires."
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": "Le dossier d’appel d’offres y relatif est disponible au Département Logistique de la BANCOBU, Tél : +257 22 26 65 00 et peut être obtenu physiquement ou électroniquement moyennant paiement d’un montant forfaitaire non remboursable de Un Million Quatre cent Septante Mille Francs Burundais (BIF 1.470.…",
+    "contact": "projetdigdr@bancobu.com · +257 22 26 65 00",
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "7/21"
+   },
    "is_new": true
   },
   {
@@ -1287,9 +2469,9 @@
    "sector": "Travaux/BTP",
    "deadline": "2026-11-26",
    "deadline_source": "page web",
-   "reference": null,
+   "reference": "DNCMP/49/T/2026-2027",
    "dossier_cost": null,
-   "guarantee": null,
+   "guarantee": "4 000 000",
    "lots": 5,
    "sources": [
     {
@@ -1300,6 +2482,25 @@
    "pdf_enriched": true,
    "pdf_url": "https://www.esoko.bi/media/vacancy_attachments/2026/11/07/49t2026-2027.pdf",
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "Travaux de forage",
+    "heure": "10h00",
+    "mode": "Appel d'offres ouvert national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": "L'évaluation des offres se fera sur base des: critères administratifs, techniques, financiers et économiques mentionnés dans les données particulières d'appel d'offres, afin de déterminer l'offre techniquement conforme la moins disante 13.",
+    "retrait": "5.Consultation etacquisition duDossier d'Appel d'offres Le Dossier d'Appel d'Offres peut étre consulte tous les jours ouvrables de 7 heures 30 minutes a 15heure .30 minutes,heure locale a l'adresse ci-apres: Ministere de l'Education Nationale et de la Recherche Scientifique Building de I'Education,…",
+    "contact": "22224909",
+    "depot": null,
+    "ouverture": "Date d'ouverture des offres : 26/11",
+    "validite": "validité des offres Les soumissionnaires restent engagés par leurs offres pour une période de 90 jours calendaires",
+    "langue_monnaie": null,
+    "completude": "12/21"
+   },
    "is_new": true
   },
   {
@@ -1325,6 +2526,25 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "Achat Equipement de Sécurité",
+    "heure": "03h52",
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "anselme.hicuburundi@undp.org",
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "5/21"
+   },
    "is_new": true
   },
   {
@@ -1346,6 +2566,27 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "Fourniture du service d’accès à internet dans les Départements Communaux de l’Education du Ministère de l’Education Nationale de la Recherche Scientifique du Burundi",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from United Nations Global Marketplace and is eligible for suppliers interested in Internet network, Telecommunications services, Internet services, Internet service providers ISP, Internet domain names ."
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "72400000",
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "4/21"
+   },
    "is_new": true
   },
   {
@@ -1354,10 +2595,10 @@
    "sector": "Fournitures/agro",
    "deadline": "2026-11-27",
    "deadline_source": "page web",
-   "reference": null,
+   "reference": "REJA/AO/",
    "dossier_cost": null,
    "guarantee": null,
-   "lots": null,
+   "lots": 2,
    "sources": [
     {
      "name": "BurundiJobs",
@@ -1367,6 +2608,32 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La fourniture, la livraison, l’installation et la mise en service d’équipements destinés à la transformation, au conditionnement et à l’étiquetage des produits agricoles, ainsi que pour la formation des utilisateurs — Quantités énoncées : 300 kg, 20 litres, 100 kg — Livraison : Karusi, l’installation, la mise en service et la formation des utilisateurs ; La",
+    "heure": "17h00",
+    "mode": "Appel d'offres ouvert national",
+    "lieu": "Karusi, l’installation, la mise en service et la formation des utilisateurs",
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Conditions de participation Les soumissionnaires devront présenter les documents et informations suivants ; 9.1.",
+     "Documents et informations techniques Une offre technique détaillée ; Le délai de livraison proposé ; Trois références ou bons de commande relatifs à des fournitures similaires déjà réalisées ; Une ou plusieurs attestations de bonn…",
+     "Critères d’évaluation des offres Les offres seront évaluées sur la base des critères suivants : La conformité des équipements aux spécifications techniques minimales exigées ; La capacité de production et les performances réelles…"
+    ],
+    "documents": [
+     "Registre de commerce (RC)",
+     "NIF"
+    ],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": "Offre en français",
+    "completude": "10/21"
+   },
    "is_new": true
   },
   {
@@ -1375,7 +2642,7 @@
    "sector": "Autre",
    "deadline": "2026-11-27",
    "deadline_source": "page web",
-   "reference": null,
+   "reference": "centr",
    "dossier_cost": null,
    "guarantee": null,
    "lots": null,
@@ -1388,6 +2655,25 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La fourniture et la livraison de chèvres reproductrices locales et de boucs reproducteurs améliorés ZOA Avis de recrutement pour 4 postes SPARK Un Consultant individuel en production et communication audiovisuelles BRIDEP Bujumbura Un Bureau chargé d’élaborer un modèle institutionnel de gestion d’infrastructures publiques pour durabilité : marchés et ports dans les sites… — Quantités énoncées : 60 centres",
+    "heure": "00h00",
+    "mode": "Appel d'offres",
+    "lieu": "Buhumuza, Bujumbura et Burunga",
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "6/21"
+   },
    "is_new": true
   },
   {
@@ -1409,6 +2695,27 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "Recrutement d’un Expert en Marketing International et Communication de Marque Nationale pour l’appui technique à l’ADB",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from World Bank website and is eligible for suppliers interested in Market research services, Advertising and marketing services, Marketing services, Marketing management consultancy services, consultancy se…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "3/21"
+   },
    "is_new": true
   },
   {
@@ -1430,6 +2737,27 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "Recrutement d’un Expert en Coopération Internationale et Mobilisation des Financements pour l’Appui technique de l’ADB",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from World Bank website and is eligible for suppliers interested in Feasibility study, advisory service, analysis, Technical assistance services, Technical analysis or consultancy services, Development consu…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "3/21"
+   },
    "is_new": true
   },
   {
@@ -1438,10 +2766,10 @@
    "sector": "Fournitures/agro",
    "deadline": "2026-11-30",
    "deadline_source": "page web",
-   "reference": null,
-   "dossier_cost": null,
-   "guarantee": null,
-   "lots": null,
+   "reference": "centr",
+   "dossier_cost": "200.000 BIF",
+   "guarantee": "1 500 000 BIF",
+   "lots": 2,
    "sources": [
     {
      "name": "BurundiJobs",
@@ -1451,6 +2779,28 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La fourniture la fourniture de 5 000 poussins parentaux au siège du PRODER, sis à BUJUMBURA, 30è avenue du large — Quantités énoncées : 60 centres",
+    "heure": "10h00",
+    "mode": "Appel d'offres ouvert international",
+    "lieu": "Buhumuza, Bujumbura et Burunga",
+    "delai": "délai d’exécution du marché est 150 jours",
+    "duree": "pour une durée de 120 jours",
+    "montant_estime": null,
+    "conditions": [
+     "Le PRODER (acheteur) invite à présent les entités remplissant les conditions requises (« soumissionnaires ») à communiquer leurs offres sous pli cacheté pour la fourniture la fourniture de 5 000 poussins parentaux au siège du PROD…",
+     "L’appel d’offres est ouvert à quiconque souhaite y répondre, pourvu qu’il remplisse les conditions requises."
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": "Toutes les offres devront être accompagnées d’une garantie de soumission d’un montant d’ un montant d’un million cinq cent mille francs burundais (BIF 1 500 000) ou cinq cent dollars américains (500 USD) ; Le Dossier d’Appel d’Offres peut être consulté au secrétariat du Programme de Développement de…",
+    "contact": "+257 22 21 12 00",
+    "depot": "Le PRODER (acheteur) invite à présent les entités remplissant les conditions requises (« soumissionnaires ») à communiquer leurs offres sous pli cacheté pour la fourniture la fourniture de 5 000 poussins parentaux au siège du PRODER, sis à BUJUMBURA, 30è avenue du large.",
+    "ouverture": "Date d’ouverture des offres : 30/11/2026 Le Gouvernement du Burundi a obtenu un financement du Fonds International de Développement Agricole (FIDA) destiné à couvrir",
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "16/21"
+   },
    "is_new": true
   },
   {
@@ -1472,6 +2822,27 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "Recrutement d'un Expert Spécialiste en suivi évaluation au PRU",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from World Bank website and is eligible for suppliers interested in Forest monitoring or evaluation services, Evaluation consultancy services ."
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "3/21"
+   },
    "is_new": true
   },
   {
@@ -1493,6 +2864,27 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "Mise en place d’un systeme d’energie solaire de relais au bureau central de l'éducation (BPSE/MENRS) et cinq directions provinciales de l'éducation : bujumbura – butanyerer",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from United Nations Global Marketplace and is eligible for suppliers interested in Solar energy, Solar installation, Electrical installation work ."
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "3/21"
+   },
    "is_new": true
   },
   {
@@ -1501,7 +2893,7 @@
    "sector": "Autre",
    "deadline": "2026-12-07",
    "deadline_source": "page web",
-   "reference": null,
+   "reference": "centr",
    "dossier_cost": null,
    "guarantee": null,
    "lots": null,
@@ -1514,6 +2906,25 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La fourniture et la livraison de chèvres reproductrices locales et de boucs reproducteurs améliorés ZOA Avis de recrutement pour 4 postes SPARK Un Consultant individuel en production et communication audiovisuelles BRIDEP Bujumbura Un Bureau chargé d’élaborer un modèle institutionnel de gestion d’infrastructures publiques pour durabilité : marchés et ports dans les sites… — Quantités énoncées : 60 centres",
+    "heure": null,
+    "mode": "Appel d'offres ouvert",
+    "lieu": "Buhumuza, Bujumbura et Burunga",
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "5/21"
+   },
    "is_new": true
   },
   {
@@ -1535,6 +2946,27 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "VERIFICATION FOR THE IMPLEMENTATION OF THE PERFORMANCE-BASED FINANCE APPROACH IN THE PROVINCE OF BUJUMBURA, MUNICIPAL DEPARTMENTS OF NTAHANGWA, MUGERE AND MUKAZA",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from TED Europa and is eligible for suppliers interested in Financial information systems, Financial consultancy, financial transaction processing and clearing-house services, Feasibility study, advisory ser…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "3/21"
+   },
    "is_new": true
   },
   {
@@ -1543,9 +2975,9 @@
    "sector": "Fournitures/agro",
    "deadline": "2026-12-11",
    "deadline_source": "page web",
-   "reference": null,
-   "dossier_cost": null,
-   "guarantee": null,
+   "reference": "centr",
+   "dossier_cost": "200.000 BIF",
+   "guarantee": "4 000 000 BIF",
    "lots": null,
    "sources": [
     {
@@ -1556,6 +2988,28 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La fourniture des produits phytosanitaires pour 60 centres de rayonnement communautaires",
+    "heure": "10h00",
+    "mode": "Appel d'offres ouvert national",
+    "lieu": "Buhumuza, Bujumbura et Burunga",
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "L’acheteur invite à présent les entités remplissant les conditions requises (soumissionnaires) à communiquer leurs offres sous pli cacheté pour la fourniture des produits phytosanitaires pour 60 centres de rayonnement communautair…",
+     "L’appel d’offres est ouvert à quiconque souhaite y répondre, pourvu qu’il remplisse les conditions requises."
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": "Le Dossier d’Appel d’Offres peut être consulté au secrétariat du Programme de Développement de l’Entrepreneuriat Rural « PRODER », sise Avenue du Large n° 30, Zone KININDO ; Commune MUGERE ; Province de Bujumbura/Burundi ; Immeuble des Projets/Programmes financés par le FIDA au Burundi ; 1 èr étage,…",
+    "contact": "+257 22 21 12 00",
+    "depot": "L’acheteur invite à présent les entités remplissant les conditions requises (soumissionnaires) à communiquer leurs offres sous pli cacheté pour la fourniture des produits phytosanitaires pour 60 centres de rayonnement communautaires.",
+    "ouverture": "Date d’ouverture des offres : Le 11/12/2026 à 10heures 30minutes Le gouvernement du Burundi a obtenu un financement du Fonds international de développement agricole (",
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "13/21"
+   },
    "is_new": true
   },
   {
@@ -1577,6 +3031,27 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "Acquisition des équipements pour le renforcement de l'infrastructure d'hébergement du SETIC",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from World Bank website and is eligible for suppliers interested in Network equipment, Network infrastructure, Data equipment, Communications infrastructure, Maintenance of information technology equipment ."
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "3/21"
+   },
    "is_new": true
   },
   {
@@ -1585,9 +3060,9 @@
    "sector": "Fournitures/agro",
    "deadline": "2026-12-14",
    "deadline_source": "page web",
-   "reference": null,
-   "dossier_cost": null,
-   "guarantee": null,
+   "reference": "DNCMP/309/F/2026-2027",
+   "dossier_cost": "200.000 BIF",
+   "guarantee": "4 900 000 BIF",
    "lots": null,
    "sources": [
     {
@@ -1598,6 +3073,29 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La fourniture d es aliments pour les porcins",
+    "heure": "10h00",
+    "mode": "Appel d'offres ouvert national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Le PRODER invite à présent les entités remplissant les conditions requises (« soumissionnaires ») à soumettre des propositions en vue de la fourniture des biens énumérés ci-après : fourniture d es aliments pour les porcins .",
+     "L’acheteur invite à présent les entités remplissant les conditions requises (« soumissionnaires ») à communiquer leurs offres sous pli cacheté pour la fourniture d es aliments pour les porcins .",
+     "L’appel d’offres est ouvert à quiconque souhaite y répondre, pourvu qu’il remplisse les conditions requises."
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": "Il a été décidé, pour le présent marché, de passer un appel d’offres national, offres qui seront évaluées selon la procédure décrite dans le dossier, conformément au Guide pratique de passation des marchés du FIDA consultable sur le site du FIDA [ https://www.ifad.org/fr/-/document/ifad-procurement-…",
+    "contact": "+257 22 21 12 00",
+    "depot": "L’acheteur invite à présent les entités remplissant les conditions requises (« soumissionnaires ») à communiquer leurs offres sous pli cacheté pour la fourniture d es aliments pour les porcins .",
+    "ouverture": "Date d’ouverture des offres : 14/12/2026 Le Gouvernement du Burundi a obtenu un financement du Fonds International de Développement Agricole (FIDA) destiné à couvrir",
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "12/21"
+   },
    "is_new": true
   },
   {
@@ -1619,6 +3117,27 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "ARCT: Acquisition des équipements, applications, matériel et logiciels pour le CERT national afin de permettre des capacités de renseignement sur les menaces, de prévention, d'",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from World Bank website and is eligible for suppliers interested in Instrumentation and control equipment, Network equipment, Communications equipment, Data-acquisition system, Development of software for mi…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "3/21"
+   },
    "is_new": true
   },
   {
@@ -1627,10 +3146,10 @@
    "sector": "Fournitures/agro",
    "deadline": "2026-12-28",
    "deadline_source": "page web",
-   "reference": null,
-   "dossier_cost": null,
-   "guarantee": null,
-   "lots": null,
+   "reference": "DNCMP/310/F/2026-2027",
+   "dossier_cost": "200.000 BIF",
+   "guarantee": "Lot 1 : 9 900 000 BIF ; Lot 2 : 3 600 000 BIF",
+   "lots": 2,
    "sources": [
     {
      "name": "BurundiJobs",
@@ -1640,6 +3159,28 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La fourniture des engrais chimiques et la dolomie pour les centres de rayonnement",
+    "heure": "10h00",
+    "mode": "Appel d'offres ouvert international",
+    "lieu": "Buhumuza, Bujumbura et Burunga",
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Le PRODER (acheteur) invite à présent les entités remplissant les conditions requises (« soumissionnaires ») à communiquer leurs offres sous pli cacheté pour la fourniture des engrais chimiques et la dolomie pour les centres de ra…",
+     "L’appel d’offres est ouvert à quiconque souhaite y répondre, pourvu qu’il remplisse les conditions requises."
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": "Le Dossier d’Appel d’Offres peut être consulté au secrétariat du Programme de Développement de l’Entrepreneuriat Rural « PRODER », sise Avenue du Large n° 30, Zone KININDO ; Commune MUGERE ; Province de Bujumbura/Burundi ; Immeuble des Projets/Programmes financés par le FIDA au Burundi ; 1 èr étage,…",
+    "contact": "+257 22 21 12 00",
+    "depot": "Le PRODER (acheteur) invite à présent les entités remplissant les conditions requises (« soumissionnaires ») à communiquer leurs offres sous pli cacheté pour la fourniture des engrais chimiques et la dolomie pour les centres de rayonnement .",
+    "ouverture": "Date d’ouverture des offres : 28/12/2026 Le Gouvernement du Burundi a obtenu un financement du Fonds International de Développement Agricole (FIDA) destiné à couvrir",
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "14/21"
+   },
    "is_new": true
   },
   {
@@ -1661,6 +3202,25 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "National Technical Expert",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "2/21"
+   },
    "is_new": true
   },
   {
@@ -1682,6 +3242,30 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": null,
+    "heure": null,
+    "mode": "Appel d'offres",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Le/la Responsable des THIMO sera retenu(e), après avis de non-objection de la Banque Mondiale, en fonction de ses qualifications et expériences pertinentes, et sa capacité à réaliser pleinement la mission.",
+     "Cette étape sera constituée d’une présélection sur base de dossiers où seront retenus les candidats ayant les qualifications et l’expérience requises pour le poste conformément aux TdR ci-dessus.",
+     "La répartition des notes pour cette phase sera faite dans l’esprit de ne retenir que les candidats ayant le meilleur profil en privilégiant l’expérience pertinente des candidats pour le poste qui sera notée à pas moins de 75% par…",
+     "Modèle de Curriculum vitae (CV) Poste : Nom du candidat : Profession : Date de naissance : Nationalité : Nombre d’années d’expérience : Attributions spécifiques actuelles du candidat ou dernières fonctions exercées : Principales q…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "3/21"
+   },
    "is_new": true
   },
   {
@@ -1690,7 +3274,7 @@
    "sector": "Santé",
    "deadline": null,
    "deadline_source": null,
-   "reference": null,
+   "reference": "centr",
    "dossier_cost": null,
    "guarantee": null,
    "lots": null,
@@ -1703,6 +3287,31 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La fourniture et la livraison de chèvres reproductrices locales et de boucs reproducteurs améliorés ZOA Avis de recrutement pour 4 postes SPARK Un Consultant individuel en production et communication audiovisuelles BRIDEP Bujumbura Un Bureau chargé d’élaborer un modèle institutionnel de gestion d’infrastructures publiques pour durabilité : marchés et ports dans les sites… — Quantités énoncées : 60 centres",
+    "heure": null,
+    "mode": "Appel d'offres",
+    "lieu": "Buhumuza, Bujumbura et Burunga",
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "DOCUMENTS À FOURNIR POUR LE BACCALAURÉAT Copie certifiée conforme à l’original du diplôme des humanités générales, du diplôme technique A2 ou du certificat de post-fondamental Copie conforme à l’original du diplôme d’État ou attes…",
+     "DOCUMENTS À FOURNIR POUR LE MASTER Lettre de demande d’inscription précisant le Master choisi Diplômes certifiés conformes aux originaux Copies certifiées conformes aux originaux des diplômes requis, notamment les diplômes de doct…"
+    ],
+    "documents": [
+     "CV",
+     "Diplômes"
+    ],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "6/21"
+   },
    "is_new": true
   },
   {
@@ -1711,7 +3320,7 @@
    "sector": "Fournitures/agro",
    "deadline": null,
    "deadline_source": null,
-   "reference": null,
+   "reference": "DNCMP/75/F/2023-2024",
    "dossier_cost": null,
    "guarantee": null,
    "lots": null,
@@ -1724,6 +3333,27 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "ASSEMBLEE NATIONALE : AVIS D’APPEL D’OFFRES N° DNCMP/ 75/F/2023-2024 RELATIF A LA FOURNITURE DU MATERIEL D’ENTRETIEN",
+    "heure": null,
+    "mode": "Appel d'offres ouvert national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Leader de la presse écrite au Burundi compte tenu de son ancienneté et de son expérience depuis 1978, ses publications aussi bien fiables qu’officielles touchent tous les domaines de la vie nationale sans oublier l’actualité régio…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "4/21"
+   },
    "is_new": true
   },
   {
@@ -1732,7 +3362,7 @@
    "sector": "Véhicules/transport",
    "deadline": null,
    "deadline_source": null,
-   "reference": null,
+   "reference": "DNCMP/326/F/2022-2023",
    "dossier_cost": null,
    "guarantee": null,
    "lots": null,
@@ -1745,6 +3375,27 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "SOCABU :AVIS DE MISE EN VENTE",
+    "heure": null,
+    "mode": "Appel d'offres ouvert international",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Leader de la presse écrite au Burundi compte tenu de son ancienneté et de son expérience depuis 1978, ses publications aussi bien fiables qu’officielles touchent tous les domaines de la vie nationale sans oublier l’actualité régio…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "4/21"
+   },
    "is_new": true
   },
   {
@@ -1766,6 +3417,27 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La fourniture de véhicules au « PROJET SOLEIL-NYAKIRIZA » Le Ministère de l’Hydraulique de l’Energie et des Mines, Projet Energie Solaire dans les Communautés Rurales « PROJET SOLEIL-NYAKIRIZA » porte à la connaissance des acquéreurs du dossier d’appel d’offres susmentionné, que les spécifications techniques de la Jeep Station Wagon, points 5 et 6 sont modifiées comme suit :…",
+    "heure": null,
+    "mode": "Appel d'offres ouvert international",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Leader de la presse écrite au Burundi compte tenu de son ancienneté et de son expérience depuis 1978, ses publications aussi bien fiables qu’officielles touchent tous les domaines de la vie nationale sans oublier l’actualité régio…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "3/21"
+   },
    "is_new": true
   },
   {
@@ -1776,7 +3448,7 @@
    "deadline_source": null,
    "reference": null,
    "dossier_cost": null,
-   "guarantee": null,
+   "guarantee": "500 000",
    "lots": null,
    "sources": [
     {
@@ -1787,6 +3459,27 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "ASBL TWITEZIMBERE : Avis de mise en vente",
+    "heure": null,
+    "mode": "Appel d'offres ouvert",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Leader de la presse écrite au Burundi compte tenu de son ancienneté et de son expérience depuis 1978, ses publications aussi bien fiables qu’officielles touchent tous les domaines de la vie nationale sans oublier l’actualité régio…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "4/21"
+   },
    "is_new": true
   },
   {
@@ -1795,9 +3488,9 @@
    "sector": "Véhicules/transport",
    "deadline": null,
    "deadline_source": null,
-   "reference": null,
+   "reference": "DNCMP/277/F/2022-2023",
    "dossier_cost": null,
-   "guarantee": null,
+   "guarantee": "800 000",
    "lots": null,
    "sources": [
     {
@@ -1808,6 +3501,28 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "F A LA FOURNITURE DES PNEUS DES VEHICULES DU MINISTERE DES FINANCES, DU BUDGET ET DE LA PLANIFICATION ECONOMIQUE",
+    "heure": "09h30",
+    "mode": "Appel d'offres ouvert national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Conditions de participation La participation au marché est ouverte, à égalité de conditions, à toutes les personnes physiques ou morales possédant les conditions juridiques, techniques, et les capacités financières nécessaires à l…",
+     "Leader de la presse écrite au Burundi compte tenu de son ancienneté et de son expérience depuis 1978, ses publications aussi bien fiables qu’officielles touchent tous les domaines de la vie nationale sans oublier l’actualité régio…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "finances@finances.gov.bi · 22 22 38 16",
+    "depot": "Date limite de dépôt des offres Toutes les offres doivent être déposées à l’adresse ci-dessus indiquée au plus tard le 21 /12/2022 à 9h30 au bureau n° 522 au Ministère des Finances, du Budget et de la Planification Economique.",
+    "ouverture": "Date d’ouverture : le 21/12 / 2022 Le Ministère des Finances, du Budget et de la Planification Economique invite, par le présent Appel d’Offres, les soumissionnaires",
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "9/21"
+   },
    "is_new": true
   },
   {
@@ -1816,7 +3531,7 @@
    "sector": "Autre",
    "deadline": null,
    "deadline_source": null,
-   "reference": null,
+   "reference": "DNCMP/93/F/2023-2024",
    "dossier_cost": null,
    "guarantee": null,
    "lots": null,
@@ -1829,6 +3544,27 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "Cours officiels des changes au comptant appliques par la B.R.B en date du 15 novembre 2022",
+    "heure": null,
+    "mode": "Appel d'offres ouvert international",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Leader de la presse écrite au Burundi compte tenu de son ancienneté et de son expérience depuis 1978, ses publications aussi bien fiables qu’officielles touchent tous les domaines de la vie nationale sans oublier l’actualité régio…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "brb@brb.bi · 22225142",
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "5/21"
+   },
    "is_new": true
   },
   {
@@ -1837,7 +3573,7 @@
    "sector": "Services/conseil",
    "deadline": null,
    "deadline_source": null,
-   "reference": null,
+   "reference": "DNCMP/93/F/2023-2024",
    "dossier_cost": null,
    "guarantee": null,
    "lots": null,
@@ -1850,6 +3586,27 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "Les avocats de l’Etat ont appris les contentieux pouvant naître à chaque étape du marché public",
+    "heure": null,
+    "mode": "Appel d'offres ouvert national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Leader de la presse écrite au Burundi compte tenu de son ancienneté et de son expérience depuis 1978, ses publications aussi bien fiables qu’officielles touchent tous les domaines de la vie nationale sans oublier l’actualité régio…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "4/21"
+   },
    "is_new": true
   },
   {
@@ -1871,6 +3628,27 @@
    "pdf_enriched": true,
    "pdf_url": "https://armp.gov.bi/wp-content/uploads/2026/03/AMI-A-PUBLIE-AUDIT-EXERNE-1.pdf",
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "AVIS DE MANIFESTATION D’INTERET POUR LE RECRUTEMENT INTERNATIONAL D’UN CABINET D’AUDIT CHARGE DE REALISER L’AUDIT EXTERNE DU PROJET D’APPUI A L’INCLUSION FINANCIERE AGRICOLE ET RURALE DU BURUNDI (PAIFAR-B)",
+    "heure": null,
+    "mode": "Avis à manifestation d'intérêt (AMI)",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "LesCabinets/bureauxinteresses sont tenusde donner les informations attestantqu'ilspossedent lesqualificationsrequiseset l'experiencenecessaire en la matiere pour produire ces services sans toutefois donnerlesrenseignementspersonne…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": "N.B.:L'avis dappel a manifestation d’interet complet peut etre consulte sur les sites suivants: www.programmefidaburundi.org,www.arpm.bi，www.burundijob.bi，www.intercontactservices.comet https://lerenouveau.bi Fait aBujumbura,le.0.3..0.3../2026 Callixte MASABO Coordonnateur du PAIFAR-B B unungnpapeny…",
+    "contact": "+257 22275900",
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "6/21"
+   },
    "is_new": true
   },
   {
@@ -1892,6 +3670,29 @@
    "pdf_enriched": true,
    "pdf_url": "https://armp.gov.bi/wp-content/uploads/2025/11/Pacabu04.pdf",
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La Passation de Marchés de Fournitures de I'AgenceFrancaise deDeveloppement",
+    "heure": "10h00",
+    "mode": "Appel d'offres ouvert national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Les exigences en matiere de qualifications sont : les criteres d'eligibilite, les antecedents en matiere denon-execution de marche,la capacite technique et financiere,lexperience dans le domaine du marche.Voir lesDocuments d'Appel…",
+     "Le Ministere de I'Education Nationale et de la Recherche Scientifique (MENRS) sollicite des Offres sous pliferme de la part de Soumissionnaires eligibles pour la fourniture et I'installation du mobilier pour les lycees pedagogique…",
+     "Les Soumissionnaires éligibles et interesses peuvent obtenir des informations aupres du Ministere de Education Nationale et de la Recherche Scientifique (MENRS), et prendre connaissance des Documents d'Appel d'Offres a I'adresse c…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "22224909",
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "6/21"
+   },
    "is_new": true
   },
   {
@@ -1902,7 +3703,7 @@
    "deadline_source": null,
    "reference": "DNCMP/59/S/2024-2025",
    "dossier_cost": null,
-   "guarantee": null,
+   "guarantee": "200 000",
    "lots": null,
    "sources": [
     {
@@ -1913,6 +3714,25 @@
    "pdf_enriched": true,
    "pdf_url": "https://armp.gov.bi/wp-content/uploads/2024/11/59s2024-2025.pdf",
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La location des vehicules pour I'organisation du concours et testsnationaux,edition2025",
+    "heure": null,
+    "mode": "Appel d'offres ouvert national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": "5.Consultation et acquisition du Dossier d'Appel d'Offres Le Dossier d'Appel d'Offres peut etre consulte tous les jours ouvrables de 7 heures 30 minutes a 15heure 30 minutes,heurelocaleal'adresseci-apres: Ministere de I'Education Nationale et de la Recherche Scientifique Building deI'Education, 4eme…",
+    "contact": "22224909",
+    "depot": null,
+    "ouverture": "Date d'ouverture des Offres :",
+    "validite": "validite des Offres. Les soumissionnaires restent engages par leurs Offres pendant un delai de 90 jours calendaires",
+    "langue_monnaie": null,
+    "completude": "8/21"
+   },
    "is_new": true
   },
   {
@@ -1923,7 +3743,7 @@
    "deadline_source": null,
    "reference": "DNCMP/212/F/2024-2025",
    "dossier_cost": null,
-   "guarantee": null,
+   "guarantee": "13000000 BIF",
    "lots": null,
    "sources": [
     {
@@ -1934,6 +3754,25 @@
    "pdf_enriched": true,
    "pdf_url": "https://armp.gov.bi/wp-content/uploads/2024/10/212f2024-20250001.pdf",
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La fourniture des produits pharmaceutiques du marche n",
+    "heure": null,
+    "mode": "Appel d'offres ouvert national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": "N.B:L'autoritecontractante considerera le soumissionnaire lemoins disant,item paritem 6.Conditions departicipation La participation au marche est ouverte, a égalite de conditions, a toutes les personnes physiques oumorales possedant les capacites juridiques,techniques et financie…",
+    "retrait": "7.Consultation etacquisitionduDossierd'Appel d'Offres Le Dossier d'Appel d'Offres peut étre consulté tous lesjours ouvrables de 8ho0'a 15ho0',heure localea 1'adresseci-apres:CliniquePrinceLouisRWAGASOREsise communeMUKAZA, ZONEROHERO,quartierROHEROI,avenuePierreNGENDANDUMWEN°7,ausecretariat deladirec…",
+    "contact": "22.22.38.82",
+    "depot": null,
+    "ouverture": "9.Lieu,date et heure limite de depotet d'ouverture des offres.",
+    "validite": "restent engagés par leurs offres pendant un delai de 90 jours calendaires",
+    "langue_monnaie": null,
+    "completude": "9/21"
+   },
    "is_new": true
   },
   {
@@ -1944,7 +3783,7 @@
    "deadline_source": null,
    "reference": "DNCMP/215/F/2024-2025",
    "dossier_cost": null,
-   "guarantee": null,
+   "guarantee": "500 000 BIF",
    "lots": null,
    "sources": [
     {
@@ -1955,6 +3794,27 @@
    "pdf_enriched": true,
    "pdf_url": "https://armp.gov.bi/wp-content/uploads/2024/11/215F2024-2025.pdf",
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "LA FOURNITURES DES ORDINATEURS PORTABLES",
+    "heure": null,
+    "mode": "Appel d'offres ouvert national",
+    "lieu": "Le delai d'exécution est de 6 mois répartis en deux trimestres, et chaque commande sera li",
+    "delai": "delai d'exécution est de 6 mois",
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [
+     "Registre de commerce (RC)"
+    ],
+    "criteres": null,
+    "retrait": "Consultation et acquisition du Dossier d'Appel d'offre Le Dossier d'Appel d'Offres pourra etre gratuitement consulte sur le site de la CVR ; info@ cvr.bi ou peut étre obtenu et consulté tous les jours ouvrables de 7h30' a 15h00', Heure locale (GMT+2) au Bureau de la Commission Vérité et Réconciliati…",
+    "contact": "22 27 59 14",
+    "depot": "Les offres doivent etre deposées a la CVR au plus tard le .2A.: /.,ALo./ 2024 a 10 heures 00'.",
+    "ouverture": "Date d'ouverture des offres :",
+    "validite": "validité des offres Le delai de validité des offres est fixe a 90 jours calendaires",
+    "langue_monnaie": null,
+    "completude": "12/21"
+   },
    "is_new": true
   },
   {
@@ -1976,6 +3836,25 @@
    "pdf_enriched": true,
    "pdf_url": "https://armp.gov.bi/wp-content/uploads/2024/10/66s2024-2025.pdf",
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "Direction Générale de l’Eau Potable et de l’Assainissement de Base (DGEPA) : Avis d’appel d’offres ouvert national N° DNCMP/66/S/2024-2025, relatif aux services de consultance pour la réalisation des études détaillées des projets de construction, réhabilitation et/ou extension des réseaux d’AEP et de construction de deux blocs de latrines de douze à deux trous vidangeables…",
+    "heure": null,
+    "mode": "Appel d'offres ouvert national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": "Pour chaque lot, le marche sera attribue au soumissionnaire qui aura obtenu la note la plus élevee de la combinaison des propositions technique et financiere.",
+    "retrait": "Consultation et acquisition du Dossier d'Appel d'Offres Le Dossier d'Appel d'Offres peut etre obtenu aupres de la Direction Generale de l'Eau Potable et de l'Assainissement de Base (DGEPA) sur presentation d'un bordereau de versement d'un montant de Cinquante Mille Francs Burundais (50.000 FBU) au c…",
+    "contact": "22 22 22 03",
+    "depot": "Depot des offres Les offres doivent étre remises au Secretariat de la Direction Generale de l'Eau Potable et de 1'Assainissement de Base (DGEPA) et y parvenir au plus tard le ......./2024 a 9h30min.",
+    "ouverture": "Date d'ouverture des offres: 8",
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "8/21"
+   },
    "is_new": true
   },
   {
@@ -1985,7 +3864,7 @@
    "deadline": null,
    "deadline_source": null,
    "reference": null,
-   "dossier_cost": null,
+   "dossier_cost": "1101",
    "guarantee": null,
    "lots": null,
    "sources": [
@@ -1997,6 +3876,25 @@
    "pdf_enriched": true,
    "pdf_url": "https://armp.gov.bi/wp-content/uploads/2024/11/GBE01F2024-20250001.pdf",
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La fourniture des équipements et matériels informatiques pour le bureau de la Zone Baziro – ARMP Skip to content (+257) 22 27 59 14 armpbu@armp",
+    "heure": null,
+    "mode": "Appel d'offres ouvert national",
+    "lieu": null,
+    "delai": "delai de livraison de toutes les fournitures est de 3 mois",
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": "5.Consultation et acquisition du dossier d'appel d'offres Le dossier d'appel d'offrespeut etre obtenu aupresdu secretariat de la Commune GITOBEmoyennant lepaiement decentmille(100 0o0BIF)francs burundais:50 oo0fbuverséssurle compte General du trésor N°1101/001-04ouvert a laBanque delaRepublique duBu…",
+    "contact": "22 27 59 14",
+    "depot": "7.Presentation deIoffre Les offres doivent comprendre une garantie de soumission sous forme de garantie bancaire d’'une somme d’unmillionquatrecentmilledefrancsBurundi(14oo0ooBIF 8.Date limite de depot des offres 8.1 Toutes les offres doivent etre deposees au secretariat de la Commune GITOBE au plus…",
+    "ouverture": "Date d'ouverture des offres X&",
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "8/21"
+   },
    "is_new": true
   },
   {
@@ -2018,6 +3916,25 @@
    "pdf_enriched": true,
    "pdf_url": "https://armp.gov.bi/wp-content/uploads/2024/11/207f2024-20250001.pdf",
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La fourniture des tissus – ARMP Skip to content (+257) 22 27 59 14 armpbu@armp",
+    "heure": null,
+    "mode": "Appel d'offres ouvert national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "+257 22232844",
+    "depot": null,
+    "ouverture": "Date d'ouverture des offres :",
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "5/21"
+   },
    "is_new": true
   },
   {
@@ -2039,6 +3956,27 @@
    "pdf_enriched": true,
    "pdf_url": "https://armp.gov.bi/wp-content/uploads/2024/11/64s2024-20250001.pdf",
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La formation en reseaux avances des policiers de la Police Nationale duBurundi objet du DAON°DNCMP/",
+    "heure": null,
+    "mode": "Appel d'offres ouvert national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Les personnes frappees d'ineligibilités au sens de 1'article 55 de la loi precitee ne sont pas admises a concourir au présent Appel d'Offres. 5.ConsultationetobtentionduDossierd'Appel d'Offres 1.Le Dossier d'appel d'offres pourra…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "22 27 59 14",
+    "depot": null,
+    "ouverture": "Date d'ouverture /----/2024 1",
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "6/21"
+   },
    "is_new": true
   },
   {
@@ -2060,6 +3998,30 @@
    "pdf_enriched": true,
    "pdf_url": "https://armp.gov.bi/wp-content/uploads/2024/11/132t2024-2025.pdf",
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "Les travaux les d'extension du Centre de Sante de Muvumu dans la province de Ruyigi relatif au marche n° DNCMPl",
+    "heure": null,
+    "mode": "Appel d'offres ouvert international",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Experience specifique avoir réalisé au moins 2 marchés analogues de rehabilitation/construction neuve des batiments au cours de trois (3) dernieres annees (2020-2023)."
+    ],
+    "documents": [
+     "Procuration",
+     "Diplômes"
+    ],
+    "criteres": null,
+    "retrait": "5.Consultation et acquisition du dossier d'appel d'offres Le Dossier d'Appel d'Offres peut etre consulte tous les jours ouvrables de 7heure 30min a15heure 30min,heure locale a l'adresse ci-apres : Ministere de la SantePublique et dela Lutte contre le Sida; Secretariat de la Direction Generale des Re…",
+    "contact": "22254357",
+    "depot": null,
+    "ouverture": "Date d'ouverture des ofres :",
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "10/21"
+   },
    "is_new": true
   },
   {
@@ -2081,6 +4043,28 @@
    "pdf_enriched": true,
    "pdf_url": "https://armp.gov.bi/wp-content/uploads/2024/11/138t2024-20250001.pdf",
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "Les travaux les d'extension Hopitaux communaux de Makamba a Kibago (lot 1), I Les heures limites de depot et d'ouverture doivent etre separees d’au moins 30 minutes et d’au plus une heure (art 131 al 8)",
+    "heure": null,
+    "mode": "Appel d'offres ouvert international",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [
+     "Procuration",
+     "Diplômes"
+    ],
+    "criteres": null,
+    "retrait": "tD 4 5.Consultation et acquisition du dossier d'appel d'offres Le Dossier d'Appel d'Offres peut etre consulte tous les jours ouvrables de 7heure 30 minutes a15heure 30 minutes,heure locale a 1'adresse ci-apres: MinisteredelaSantePubliqueetdelaLuttecontreleSida; Secretariat de la Direction Generale d…",
+    "contact": "22254357",
+    "depot": "Toutes les offres doivent etre deposees a l'adresse indiquee ci-dessus² au plus tard le 0..,A../2024 a 9 Heures 30 minutes, heures locales Toute offre recue apres la date limite sera rejetee a I'ouverture des offres.",
+    "ouverture": "Date d'ouverture des offres :",
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "10/21"
+   },
    "is_new": true
   },
   {
@@ -2102,6 +4086,28 @@
    "pdf_enriched": true,
    "pdf_url": "https://armp.gov.bi/wp-content/uploads/2024/11/139t2024-20250001.pdf",
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "Les travaux [indiquer I'objet du marche] relatif au marche les travaux de rehabilitation et extension des Hopitaux de District Nord,Centre et Sud de Bujumbura Mairie a Kamenge, Bwiza et a Ruziba, a n'ouvrir qu'en seance publique du",
+    "heure": null,
+    "mode": "Appel d'offres ouvert international",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [
+     "Procuration",
+     "Diplômes"
+    ],
+    "criteres": null,
+    "retrait": "5.Consultation et acquisition du dossier d'appel d'offres Le Dossier d'Appel d'Offres peut etre consulte tous les jours.",
+    "contact": "22254357",
+    "depot": "Toutes les offres doivent etre deposees a I'adresse indiquee ci-dessus au plus tard le ..../...",
+    "ouverture": "Date d'ouverture des offres :",
+    "validite": "restent engages par leurs offres pendant un delai 90 jours calendaires",
+    "langue_monnaie": null,
+    "completude": "11/21"
+   },
    "is_new": true
   },
   {
@@ -2111,8 +4117,8 @@
    "deadline": null,
    "deadline_source": null,
    "reference": "DNCMP/2010/F/2024-2025",
-   "dossier_cost": null,
-   "guarantee": null,
+   "dossier_cost": "50000 BIF",
+   "guarantee": "2010",
    "lots": null,
    "sources": [
     {
@@ -2123,6 +4129,25 @@
    "pdf_enriched": true,
    "pdf_url": "https://armp.gov.bi/wp-content/uploads/2024/11/210F2024-20250001.pdf",
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La fourniture des équipements de l’imprimerie – ARMP Skip to content (+257) 22 27 59 14 armpbu@armp",
+    "heure": null,
+    "mode": "Appel d'offres restreint national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "22 27 59 14",
+    "depot": null,
+    "ouverture": "Date d'ouverture des offres :",
+    "validite": "validité des offres est fixée a 90 jours calendaires",
+    "langue_monnaie": null,
+    "completude": "8/21"
+   },
    "is_new": true
   },
   {
@@ -2144,6 +4169,25 @@
    "pdf_enriched": true,
    "pdf_url": "https://armp.gov.bi/wp-content/uploads/2024/11/134t2024-20250001.pdf",
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "Ministère de l’Environnement, de l’Agriculture et de l’Elevage : Avis d’appel d’offres ouvert national N° DNCMP/133/T/2024-2025, relatif à l’exécution des travaux de construction des ouvrages d’irrigation collinaire du site de Gasivya en Commune Gitaramuka de la Province Karusi (17 ha)",
+    "heure": "10h00",
+    "mode": "Appel d'offres ouvert national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": "CONSULTATIONETACQUISITIONDUDOSSIERD'APPELD'OFFRES 12.Le dossier d'appel d'offres peut etre consulté au Ministere de 1'Environnement,del'Agriculture et del'Elevagea Gitega Quartier Musinzira, Avenue.duTriomphe;TEL+(257)22405099/22404998E-mail: info.mineagrie@gmail.com.ll peut etre obtenu au secretari…",
+    "contact": "22405099",
+    "depot": null,
+    "ouverture": "Date d'ouverture des offres : /2024 OBJETDUMARCHE 1",
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "7/21"
+   },
    "is_new": true
   },
   {
@@ -2155,7 +4199,7 @@
    "reference": "DNCMP/131/T/2024-2025",
    "dossier_cost": null,
    "guarantee": null,
-   "lots": null,
+   "lots": 2,
    "sources": [
     {
      "name": "ARMP",
@@ -2165,6 +4209,25 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "Commune Urbaine de Ntahangwa : Avis d’appel d’offres ouvert national N° DNCMP/131/T/2024-2025, relatif aux travaux de réhabilitation et d’extension des bureaux de Zone Buterere (lot 1) et Zone Gihosha (lot 2)",
+    "heure": null,
+    "mode": "Appel d'offres ouvert national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "22 27 59 14",
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "5/21"
+   },
    "is_new": true
   },
   {
@@ -2176,7 +4239,7 @@
    "reference": "DNCMP/71/T/2024-2025",
    "dossier_cost": null,
    "guarantee": null,
-   "lots": null,
+   "lots": 2,
    "sources": [
     {
      "name": "ARMP",
@@ -2186,6 +4249,25 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "Commune KIBAGO : Avis de relance d’appel d’offres ouvert national N° DNCMP/71/T/2024-2025, relatif aux travaux de construction des bureaux de Zone Kiyange (lot 1) et Zone Bukeye (lot 2)",
+    "heure": null,
+    "mode": "Appel d'offres ouvert national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "22 27 59 14",
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "5/21"
+   },
    "is_new": true
   },
   {
@@ -2207,6 +4289,25 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "Office Burundais des Recettes (OBR) : Addendum au DAO n° DNCMP/39/S/2024-2025, relatif à l’assurance des véhicules et motos",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "22 27 59 14",
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "3/21"
+   },
    "is_new": true
   },
   {
@@ -2228,6 +4329,25 @@
    "pdf_enriched": true,
    "pdf_url": "https://armp.gov.bi/wp-content/uploads/2024/11/51s2024-20250001.pdf",
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "Ministère du Commerce, du Transport et de l’Industrie : Appel d’offres ouvert national DNCMP/50/S/2024-2025, relatif au recrutement d’un consultant (bureau/cabinet) national pour mener une étude sur la transformation et la commercialisation des produits dérivés du porc et du lapins",
+    "heure": "10h00",
+    "mode": "Appel d'offres ouvert national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "info@minicommerce.gov.bi · 22 27 59 14",
+    "depot": null,
+    "ouverture": "Date d'ouverture des Offres A2024 OBJET:Le Ministere du Commerce,du Transport,de Iindustrie etdu Tourisme lanceunAvisd'Appeld'Offrespourlerecrutementd'unConsultant (B",
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "6/21"
+   },
    "is_new": true
   },
   {
@@ -2237,8 +4357,8 @@
    "deadline": null,
    "deadline_source": null,
    "reference": null,
-   "dossier_cost": null,
-   "guarantee": null,
+   "dossier_cost": "1600",
+   "guarantee": "3.300.000",
    "lots": null,
    "sources": [
     {
@@ -2249,6 +4369,30 @@
    "pdf_enriched": true,
    "pdf_url": "https://armp.gov.bi/wp-content/uploads/2024/11/52s2024-2025.pdf",
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "Institut National de Sécurité Sociale (INSS) : Avis d’appel d’offres ouvert portant réparation et entretien des véhicules",
+    "heure": null,
+    "mode": "Appel d'offres ouvert national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Aussi, le soumissionnaire pourrait donner les prix pour tout autre service juge necessaire, mais non indique dans le present dossier, NB : L'absence de I'un de ces documents entrainera le rejet. 12.Criteres d'evaluation. 12.1Les c…"
+    ],
+    "documents": [
+     "Registre de commerce (RC)",
+     "Attestation INSS / sécurité sociale"
+    ],
+    "criteres": "12.2Le marche sera attribue au soumissionnaire administrativement et techniquement conformeet qui a presente I'offre financiere la moins disante.",
+    "retrait": "6.1 Le Dossier d'Appel d'Offres peut étre obtenu aupres de 1.1.N.S.S, B.P.",
+    "contact": "22 26 95 54",
+    "depot": null,
+    "ouverture": null,
+    "validite": "Validite des offres. Les offres sont valables pendant une periode de 90 jours calendaire",
+    "langue_monnaie": null,
+    "completude": "10/21"
+   },
    "is_new": true
   },
   {
@@ -2270,6 +4414,25 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "— LA FOURNITURE DES POTEAUX EN BOIS MT TRAITES AVEC LES CHAPEAUX EN ACIER GALVANISE ET CLOUS DE FIXATION SUR LE POTEAU POUR NYANGE-BUSHAZA, MURAMA ET BWOGA, OBJET DU DAO",
+    "heure": null,
+    "mode": "Appel d'offres ouvert",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "22.22.11.69",
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "4/21"
+   },
    "is_new": true
   },
   {
@@ -2291,6 +4454,25 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "— TRAVAUX DE CONSTRUCTION DES CHAMBRES DE VANNES EN BETON ARME A NGAGARA, MUTAKURA ET KINAMA, OBJET DU DAO N° DEAU/03/T/2025-2026",
+    "heure": null,
+    "mode": "Appel d'offres ouvert",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "22.22.11.69",
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "3/21"
+   },
    "is_new": true
   },
   {
@@ -2312,6 +4494,25 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "La fourniture des réactifs et équipements des laboratoires pour produire les mini tubercules",
+    "heure": null,
+    "mode": "Appel d'offres ouvert national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "info@isabu.bi · +257 22 22 73 49",
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "4/21"
+   },
    "is_new": true
   },
   {
@@ -2320,7 +4521,7 @@
    "sector": "Travaux/BTP",
    "deadline": null,
    "deadline_source": null,
-   "reference": null,
+   "reference": "DNCMP/05/T/2026-2027",
    "dossier_cost": null,
    "guarantee": null,
    "lots": null,
@@ -2333,6 +4534,25 @@
    "pdf_enriched": false,
    "pdf_url": null,
    "first_seen": "2026-11-15",
+   "resume": {
+    "objet": "LA REHABILITATION D’UN BLOC APPRO_PATRIMOINE ET DU BLOC MAGASIN",
+    "heure": null,
+    "mode": "Appel d'offres ouvert national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "info@isabu.bi · +257 22 22 73 49",
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "4/21"
+   },
    "is_new": true
   }
  ],
