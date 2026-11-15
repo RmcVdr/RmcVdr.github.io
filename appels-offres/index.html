@@ -12,6 +12,7 @@
   --paper:#f7f5f0; --card:#ffffff; --ink:#1c2420; --muted:#6b7670;
   --line:#e8e4da; --amber:#b45309; --amber-bg:#fef3c7;
   --red:#b91c1c; --red-bg:#fee2e2; --green:#15803d; --green-bg:#dcfce7;
+  --bluegrey:#475569; --bluegrey-bg:#e2e8f0;
   --radius:14px; --shadow:0 1px 3px rgba(28,36,32,.08),0 4px 14px rgba(28,36,32,.05);
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -41,11 +42,14 @@ h2.st:first-child{margin-top:2px}
 .b-warn{background:var(--amber-bg);color:var(--amber)}
 .b-grey{background:#f1efe9;color:var(--muted)}
 .b-ex{background:#e5e7eb;color:#4b5563}
+.b-comp{background:var(--teal-soft);color:var(--teal-dark)}
+.b-rel{background:#e0e7ff;color:#3730a3}
 .deadline{font-weight:700;color:var(--teal-dark);white-space:nowrap}
 .deadline.soon{color:var(--red)}
 .deadline.past{color:var(--muted);text-decoration:line-through}
 .tt{font-weight:600;font-size:14.5px;line-height:1.35}
 .meta{font-size:12.5px;color:var(--muted);margin-top:3px}
+.badges{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}
 .detail{display:none;margin-top:10px;border-top:1px solid var(--line);padding-top:10px;font-size:13.5px}
 .detail.open{display:block}
 .detail dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px}
@@ -53,21 +57,44 @@ h2.st:first-child{margin-top:2px}
 .detail dd{font-weight:600;word-break:break-word}
 .detail a{color:var(--teal-dark);font-weight:600;text-decoration:none}
 .detail a:hover{text-decoration:underline}
-.fiche-h{font-weight:700;color:var(--teal-dark);font-size:13px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
-.fiche-h .comp{float:right;background:var(--teal-bg,#e6f4f1);border-radius:999px;padding:1px 9px;font-size:12px;text-transform:none;letter-spacing:0}
+.fiche-h{font-weight:700;color:var(--teal-dark);font-size:13px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+.fiche-sum{font-size:12.5px;color:var(--muted);margin-bottom:8px}
+.ffield{padding:8px 0;border-bottom:1px solid #f3f0e8}
+.ffield:last-child{border-bottom:none}
+.fname{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+.stchip{font-size:10.5px;font-weight:700;padding:1px 7px;border-radius:999px;white-space:nowrap;text-transform:none;letter-spacing:0}
+.st-lu{background:var(--green-bg);color:var(--green)}
+.st-nonlu{background:#f1efe9;color:var(--muted)}
+.st-verif{background:var(--amber-bg);color:var(--amber)}
+.st-na{background:var(--bluegrey-bg);color:var(--bluegrey)}
+.fval{font-size:13.5px;font-weight:500;margin-top:3px;word-break:break-word}
+.fval .nonlu{color:var(--muted);font-weight:400;font-style:italic}
+.fval ul{margin:2px 0 0 17px;padding:0}
+.fval li{margin:2px 0;line-height:1.4}
+.trace{font-size:11.5px;color:var(--muted);margin-top:4px;word-break:break-word}
+.trace .passage{display:block;font-style:italic;margin-top:2px}
+.bloc-h{font-weight:700;color:var(--teal-dark);font-size:13px;text-transform:uppercase;letter-spacing:.04em;margin:12px 0 6px}
+.conf-block{background:#fffbeb;border:1px solid var(--amber-bg);border-radius:10px;padding:9px 11px;margin-top:10px;font-size:13px}
+.conf-block .bloc-h{color:var(--amber);margin-top:0}
+.doc-row,.hist-row{font-size:13px;padding:5px 0;border-bottom:1px solid #f3f0e8}
+.doc-row:last-child,.hist-row:last-child{border-bottom:none}
 .objet{font-size:14px;line-height:1.45;margin:0 0 10px;font-weight:500}
-.conds{margin-top:9px}
-.conds b{color:var(--teal-dark)}
-.conds ul{margin:4px 0 0 17px;padding:0}
-.conds li{margin:3px 0;line-height:1.4}
 .chev{color:var(--muted);font-size:13px;white-space:nowrap;padding-top:2px}
 .tender{cursor:pointer}
 input[type=search]{width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:12px;font:inherit;background:#fff;margin-bottom:10px}
-.chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+.flabel{font-size:11.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:10px 2px 6px}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:4px}
 .chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600;cursor:pointer;color:var(--ink)}
 .chip.on{background:var(--teal);border-color:var(--teal);color:#fff}
-.toggle{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:500;margin:2px 2px 12px;cursor:pointer}
+.toggle{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:500;margin:10px 2px 12px;cursor:pointer}
 .toggle input{width:17px;height:17px;accent-color:var(--teal)}
+details.adv{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:12px 14px;margin-bottom:12px}
+details.adv summary{font-weight:700;font-size:14px;color:var(--teal-dark);cursor:pointer}
+.adv-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:12px}
+@media(min-width:640px){.adv-grid{grid-template-columns:1fr 1fr}}
+.adv-grid label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:4px}
+.adv-grid select{width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;font:inherit;font-size:14px;background:#fff;color:var(--ink)}
+.reset-btn{margin-top:12px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer;color:var(--ink)}
 .empty{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px 16px;text-align:center;color:var(--muted);font-size:14px}
 .note{font-size:12.5px;color:var(--muted);margin:8px 2px}
 .err{font-size:12px;color:var(--red);word-break:break-word;margin-top:4px}
@@ -79,6 +106,8 @@ nav button.on{color:var(--teal-dark)}
 .kv{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px solid #f3f0e8;font-size:13.5px}
 .kv:last-child{border-bottom:none}
 .kv b{font-weight:600;text-align:right}
+.match-raisons{margin:4px 0 0 17px;font-size:13px}
+.match-raisons li{margin:2px 0}
 .foot{text-align:center;color:var(--muted);font-size:12px;padding:14px 8px 4px}
 </style>
 </head>
@@ -93,6 +122,7 @@ nav button.on{color:var(--teal-dark)}
   <!-- VUE D'ENSEMBLE -->
   <section class="screen active" id="s-home">
     <div class="grid" id="stats"></div>
+    <div id="home-matches"></div>
     <h2 class="st">⏰ Fermetures proches (7 jours)</h2>
     <div id="closing"></div>
     <h2 class="st">Derniers avis ajoutés</h2>
@@ -101,8 +131,36 @@ nav button.on{color:var(--teal-dark)}
 
   <!-- APPELS D'OFFRES -->
   <section class="screen" id="s-tenders">
-    <input type="search" id="q" placeholder="Rechercher un avis, un acheteur, une référence…">
+    <input type="search" id="q" placeholder="Rechercher un avis, un acheteur, une référence, un objet…">
+    <div class="flabel">Statut</div>
+    <div class="chips" id="fchips"></div>
+    <div class="flabel">Secteur</div>
     <div class="chips" id="chips"></div>
+    <details class="adv" id="adv">
+      <summary>Filtres avancés</summary>
+      <div class="adv-grid">
+        <div><label for="f-buyer">Acheteur</label><select id="f-buyer"></select></div>
+        <div><label for="f-province">Province</label><select id="f-province"></select></div>
+        <div><label for="f-montant">Montants</label><select id="f-montant">
+          <option value="">Tous les montants</option>
+          <option value="g1">Garantie ≥ 1 000 000 BIF</option>
+          <option value="g10">Garantie ≥ 10 000 000 BIF</option>
+          <option value="dossier">Prix du dossier lu</option>
+        </select></div>
+        <div><label for="f-comp">Complétude de la fiche</label><select id="f-comp">
+          <option value="">Toutes</option>
+          <option value="ge10">≥ 10/14</option>
+          <option value="7-9">7 à 9/14</option>
+          <option value="lt7">&lt; 7/14</option>
+        </select></div>
+        <div><label for="f-statut">Statut de la fiche</label><select id="f-statut">
+          <option value="">Tous</option>
+          <option value="averif">Avec champ À VÉRIFIER</option>
+          <option value="sans">Sans champ À VÉRIFIER</option>
+        </select></div>
+      </div>
+      <button class="reset-btn" id="f-reset" type="button">Réinitialiser les filtres</button>
+    </details>
     <label class="toggle"><input type="checkbox" id="show-expired"> Afficher aussi les avis expirés</label>
     <div id="tender-list"></div>
     <p class="note" id="tender-count"></p>
@@ -111,7 +169,7 @@ nav button.on{color:var(--teal-dark)}
   <!-- ABONNÉS -->
   <section class="screen" id="s-subs">
     <div id="sub-list"></div>
-    <p class="note">Registre en lecture seule. La gestion complète des abonnements (inscription, activation, envois) arrive en phase 2.</p>
+    <p class="note">Registre des abonnés, en lecture seule.</p>
   </section>
 
   <!-- ENVOIS -->
@@ -143,8 +201,36 @@ let D = null;
 const $ = s => document.querySelector(s);
 const esc = s => (s==null||s==='' ? '' : String(s)).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const today = () => { const d=new Date(); return d.toISOString().slice(0,10); };
-const fmtDate = iso => { if(!iso) return NL; const [y,m,dd]=iso.split('-'); const mois=['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.']; return `${+dd} ${mois[+m-1]} ${y}`; };
+const fmtDate = iso => { if(!iso) return NL; const p=String(iso).split('-'); if(p.length!==3) return esc(iso); const [y,m,dd]=p; const mois=['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.']; return `${+dd} ${mois[+m-1]} ${y}`; };
 const daysLeft = iso => iso ? Math.round((new Date(iso+'T12:00:00') - new Date(today()+'T12:00:00'))/86400000) : null;
+
+/* ---------- Fiche v2 : aides ---------- */
+const CRIT_FIELDS = ['date_limite','prix_dossier','garantie','acheteur','quantites_lots','retrait_depot'];
+const FICHE_FIELDS = [
+  ['objet','Objet détaillé'],
+  ['quantites_lots','Quantités et lots'],
+  ['acheteur','Acheteur'],
+  ['date_limite','Date limite de dépôt'],
+  ['ouverture_plis','Ouverture des plis'],
+  ['prix_dossier','Prix du dossier'],
+  ['garantie','Garantie de soumission'],
+  ['montant_estime','Montant estimé'],
+  ['lieu_execution',"Lieu d'exécution"],
+  ['delai_duree','Délai et durée'],
+  ['retrait_depot','Retrait et dépôt'],
+  ['conditions','Conditions'],
+  ['documents_requis','Documents requis'],
+  ['criteres_mode','Critères et mode de passation'],
+];
+const compLus = t => (t.completude_v2 && typeof t.completude_v2.lus==='number') ? t.completude_v2.lus : 0;
+const compLabel = t => (t.completude_v2 && t.completude_v2.label) ? t.completude_v2.label : (compLus(t)+'/14');
+const hasCritVerif = t => !!(t.fiche && CRIT_FIELDS.some(f => t.fiche[f] && t.fiche[f].statut==='À VÉRIFIER'));
+const hasAnyVerif = t => !!(t.fiche && Object.values(t.fiche).some(c => c && c.statut==='À VÉRIFIER'));
+const isAnnule = t => t.statut_avis==='annule';
+const isExpired = t => !!(t.deadline && t.deadline < today());
+const hasRelation = t => !!((t.relation && t.relation.type && t.relation.type!=='principale') || (t.historique && t.historique.length));
+const REL_LABELS = {addendum:'Addendum', rectificatif:'Rectificatif', prolongation:'Prolongation', annulation:'Annulation', secondaire:'Document lié'};
+const DOC_LABELS = {avis:'Avis', secondaire:'Document secondaire', addendum:'Addendum', rectificatif:'Rectificatif', prolongation:'Prolongation', annulation:'Annulation'};
 
 function dlBadge(t){
   if(!t.deadline) return '<span class="badge b-grey">date limite '+NL+'</span>';
@@ -153,41 +239,137 @@ function dlBadge(t){
   if(n <= 7) return `<span class="deadline soon">⏰ ${fmtDate(t.deadline)} · J-${n}</span>`;
   return `<span class="deadline">${fmtDate(t.deadline)}</span>`;
 }
+function cardBadges(t){
+  const b = [];
+  b.push(`<span class="badge b-comp">📋 ${esc(compLabel(t))}</span>`);
+  if(t.fiabilite && t.fiabilite.niveau){
+    const cls = t.fiabilite.niveau==='bonne' ? 'b-ok' : (t.fiabilite.niveau==='moyenne' ? 'b-warn' : 'b-ko');
+    const sc = (t.fiabilite.score!=null) ? ` (${esc(t.fiabilite.score)})` : '';
+    b.push(`<span class="badge ${cls}">Fiabilité ${esc(t.fiabilite.niveau)}${sc}</span>`);
+  }
+  if(hasCritVerif(t)) b.push('<span class="badge b-warn">⚠️ À vérifier</span>');
+  if(isAnnule(t)) b.push('<span class="badge b-ko">ANNULÉ</span>');
+  if(t.relation && t.relation.type && t.relation.type!=='principale')
+    b.push(`<span class="badge b-rel">${esc(REL_LABELS[t.relation.type]||t.relation.type)}</span>`);
+  if(t.is_new) b.push('<span class="badge b-new">Nouveau</span>');
+  if(t.pdf_enriched) b.push('<span class="badge b-pdf">📄 PDF analysé</span>');
+  return `<div class="badges">${b.join('')}</div>`;
+}
+function fmtAny(v){
+  if(v==null||v==='') return NL;
+  if(Array.isArray(v)) return v.map(x => fmtAny(x)).join(' ; ');
+  if(typeof v==='object') return Object.entries(v).filter(([,x]) => x!=null && x!=='').map(([k,x]) => `${k} : ${fmtAny(x)}`).join(' · ') || NL;
+  return String(v);
+}
+function renderVal(field, valeur){
+  if(valeur==null || valeur==='') return `<span class="nonlu">${NL}</span>`;
+  if(Array.isArray(valeur)){
+    if(!valeur.length) return `<span class="nonlu">${NL}</span>`;
+    return `<ul>${valeur.map(x => `<li>${esc(fmtAny(x))}</li>`).join('')}</ul>`;
+  }
+  if(typeof valeur==='object'){
+    const g = k => valeur[k];
+    const parts = [];
+    if(field==='quantites_lots'){
+      if(g('nb_lots')!=null) parts.push(`${esc(g('nb_lots'))} lot(s)`);
+      if(g('description')) parts.push(esc(g('description')));
+    } else if(field==='date_limite'){
+      if(g('date')) parts.push(fmtDate(g('date')));
+      if(g('heure')) parts.push('à '+esc(g('heure')));
+      return parts.length ? parts.join(' ') : `<span class="nonlu">${NL}</span>`;
+    } else if(field==='ouverture_plis'){
+      if(g('date')) parts.push(fmtDate(g('date')));
+      if(g('heure')) parts.push('à '+esc(g('heure')));
+      if(g('lieu')) parts.push('— '+esc(g('lieu')));
+      return parts.length ? parts.join(' ') : `<span class="nonlu">${NL}</span>`;
+    } else if(field==='delai_duree'){
+      if(g('delai')) parts.push('Délai : '+esc(g('delai')));
+      if(g('duree')) parts.push('Durée : '+esc(g('duree')));
+    } else if(field==='retrait_depot'){
+      if(g('retrait')) parts.push('Retrait : '+esc(g('retrait')));
+      if(g('depot')) parts.push('Dépôt : '+esc(g('depot')));
+    } else if(field==='criteres_mode'){
+      if(g('criteres')) parts.push('Critères : '+esc(g('criteres')));
+      if(g('mode')) parts.push('Mode : '+esc(g('mode')));
+    } else {
+      Object.entries(valeur).forEach(([k,x]) => { if(x!=null && x!=='') parts.push(`${esc(k)} : ${esc(fmtAny(x))}`); });
+    }
+    return parts.length ? parts.join('<br>') : `<span class="nonlu">${NL}</span>`;
+  }
+  return esc(valeur);
+}
+function statutChip(statut){
+  const map = {'LU':'st-lu','NON LU':'st-nonlu','À VÉRIFIER':'st-verif','NON APPLICABLE':'st-na'};
+  return `<span class="stchip ${map[statut]||'st-nonlu'}">${esc(statut||'NON LU')}</span>`;
+}
+function traceHtml(champ){
+  if(!champ || (champ.statut!=='LU' && champ.statut!=='À VÉRIFIER')) return '';
+  if(!champ.source_doc && !champ.passage) return '';
+  let src = '';
+  if(champ.source_doc){
+    const s = String(champ.source_doc);
+    const label = s.length>64 ? s.slice(0,64)+'…' : s;
+    src = /^https?:\/\//i.test(s)
+      ? `Source : <a href="${esc(s)}" target="_blank" rel="noopener">${esc(label)}</a>`
+      : `Source : ${esc(s)}`;
+    if(champ.page!=null) src += ` · p.${esc(champ.page)}`;
+  }
+  const meta = [];
+  if(champ.confiance) meta.push('confiance '+esc(champ.confiance));
+  if(champ.verifie_le) meta.push('vérifié le '+fmtDate(champ.verifie_le));
+  return `<div class="trace">${src}${meta.length ? (src?' · ':'')+meta.join(' · ') : ''}${champ.passage?`<span class="passage">« ${esc(champ.passage)} »</span>`:''}</div>`;
+}
 function ficheHtml(t, id, srcLinks){
+  const f = t.fiche || {};
+  const champs = FICHE_FIELDS.map(([key,label]) => {
+    const champ = f[key] || {valeur:null, statut:'NON LU'};
+    return `<div class="ffield">
+      <div class="fname"><span>${esc(label)}${CRIT_FIELDS.includes(key)?' ★':''}</span>${statutChip(champ.statut)}</div>
+      <div class="fval">${renderVal(key, champ.valeur)}</div>
+      ${traceHtml(champ)}
+    </div>`;
+  }).join('');
+  let sum = `Complétude ${esc(compLabel(t))}`;
+  if(t.completude_v2 && t.completude_v2.a_verifier) sum += ` · ${t.completude_v2.a_verifier} champ(s) à vérifier`;
+  if(t.completude_v2 && t.completude_v2.non_applicables) sum += ` · ${t.completude_v2.non_applicables} non applicable(s)`;
+  if(t.fiabilite && t.fiabilite.niveau){
+    sum += ` · Fiabilité ${esc(t.fiabilite.niveau)}${t.fiabilite.score!=null?' ('+esc(t.fiabilite.score)+'/100)':''}`;
+    const fac = t.fiabilite.facteurs || {};
+    const fl = [['preuve_textuelle','Preuve textuelle'],['qualite_document','Qualité du document'],['critiques_verifies','Critiques vérifiés'],['coherence','Cohérence']]
+      .filter(([k]) => fac[k]!=null).map(([k,l]) => `${l} ${esc(fac[k])}`).join(' · ');
+    if(fl) sum += `<br>${fl}`;
+  }
+  if(t.province) sum += ` · Province : ${esc(t.province)}`;
+  if(t.rattache_a) sum += ` · Rattaché à : ${esc(fmtAny(t.rattache_a))}`;
+  let docs = '';
+  if(t.documents && t.documents.length){
+    docs = `<div class="bloc-h">📎 Documents</div>` + t.documents.map(d =>
+      `<div class="doc-row">${esc(DOC_LABELS[d.role]||d.role||'Document')}${d.type?` · ${esc(d.type)}`:''} — ${d.url?`<a href="${esc(d.url)}" target="_blank" rel="noopener">Ouvrir</a>`:'lien '+NL}${d.collecte_le?` <span style="color:var(--muted)">(collecté le ${fmtDate(d.collecte_le)})</span>`:''}</div>`).join('');
+  }
+  let hist = '';
+  if(t.historique && t.historique.length){
+    hist = `<div class="bloc-h">🕘 Historique des changements</div>` + t.historique.map(h =>
+      `<div class="hist-row"><b>${fmtDate(h.date)}</b> · ${esc(h.champ||'')} : ${esc(fmtAny(h.avant))} → ${esc(fmtAny(h.apres))}${h.source?` <span style="color:var(--muted)">(${esc(h.source)})</span>`:''}</div>`).join('');
+  }
+  let conf = '';
+  if(t.conflits && t.conflits.length){
+    conf = `<div class="conf-block"><div class="bloc-h">⚠️ Conflits à vérifier</div>` + t.conflits.map(c =>
+      `<div><b>${esc(c.champ||'')}</b>${(c.valeurs&&c.valeurs.length)?` : ${c.valeurs.map(v=>esc(fmtAny(v))).join(' / ')}`:''}${c.detail?`<br><span style="color:var(--muted)">${esc(c.detail)}</span>`:''}</div>`).join('') + `</div>`;
+  }
   const r = t.resume || {};
-  const V = v => (v==null||v==='' ? NL : esc(v));
-  const conds = (r.conditions||[]).length
-    ? `<div class="conds"><b>Conditions clés</b><ul>${r.conditions.map(c=>`<li>${esc(c)}</li>`).join('')}</ul></div>` : '';
-  const docs = (r.documents||[]).length
-    ? `<div class="conds"><b>Documents administratifs à fournir</b><ul>${r.documents.map(d=>`<li>${esc(d)}</li>`).join('')}</ul></div>` : '';
-  const dl = t.deadline ? fmtDate(t.deadline) + (r.heure?` à ${esc(r.heure)}`:'')
-    + (t.deadline_source?` <span style="color:var(--muted);font-weight:500">(source : ${esc(t.deadline_source)})</span>`:'') : NL;
+  const annexeRows = [
+    ['Référence', t.reference], ['Première vue', t.first_seen ? fmtDate(t.first_seen) : null],
+    ['Mode de passation (résumé)', r.mode], ['Validité de l\u2019offre', r.validite],
+    ['Langue et monnaie', r.langue_monnaie], ['Contact pour le dossier', r.contact],
+  ].filter(([,v]) => v!=null && v!=='');
+  const annexe = annexeRows.length || srcLinks ? `<div class="bloc-h">Annexe</div><dl>
+    ${annexeRows.map(([k,v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('')}
+    ${t.pdf_url?`<dt>Document</dt><dd><a href="${esc(t.pdf_url)}" target="_blank" rel="noopener">Ouvrir le PDF de l\u2019avis</a></dd>`:''}
+    <dt>Sources</dt><dd>${srcLinks||NL}</dd></dl>` : '';
   return `<div class="detail" id="${id}">
-    <div class="fiche-h">📋 Fiche résumé${r.completude?`<span class="comp">complétude ${esc(r.completude)}</span>`:''}</div>
-    <p class="objet">${V(r.objet)}</p>
-    <dl>
-      <dt>Mode de passation</dt><dd>${V(r.mode)}</dd>
-      <dt>Date limite</dt><dd>${dl}</dd>
-      <dt>Référence</dt><dd>${esc(t.reference)||NL}</dd>
-      <dt>Lieu d'exécution / livraison</dt><dd>${V(r.lieu)}</dd>
-      <dt>Délai d'exécution / livraison</dt><dd>${V(r.delai)}</dd>
-      <dt>Durée du marché</dt><dd>${V(r.duree)}</dd>
-      <dt>Montant estimé</dt><dd>${V(r.montant_estime)}</dd>
-      <dt>Prix du dossier</dt><dd>${t.dossier_cost!=null?esc(t.dossier_cost):NL}</dd>
-      <dt>Garantie de soumission</dt><dd>${t.guarantee!=null?esc(t.guarantee):NL}</dd>
-      <dt>Nombre de lots</dt><dd>${t.lots!=null?esc(t.lots):NL}</dd>
-      <dt>Critères d'attribution</dt><dd>${V(r.criteres)}</dd>
-      <dt>Retrait du dossier</dt><dd>${V(r.retrait)}</dd>
-      <dt>Contact pour le dossier</dt><dd>${V(r.contact)}</dd>
-      <dt>Dépôt des offres</dt><dd>${V(r.depot)}</dd>
-      <dt>Ouverture des plis</dt><dd>${V(r.ouverture)}</dd>
-      <dt>Validité de l'offre</dt><dd>${V(r.validite)}</dd>
-      <dt>Langue et monnaie</dt><dd>${V(r.langue_monnaie)}</dd>
-      <dt>Première vue</dt><dd>${fmtDate(t.first_seen)}</dd>
-      ${t.pdf_enriched?'<dt>Détails</dt><dd>📄 détails lus dans le PDF analysé</dd>':''}
-      ${t.pdf_url?`<dt>Document</dt><dd><a href="${esc(t.pdf_url)}" target="_blank" rel="noopener">Ouvrir le PDF de l\u2019avis</a></dd>`:''}
-      <dt>Sources</dt><dd>${srcLinks||NL}</dd>
-    </dl>${conds}${docs}
+    <div class="fiche-h">📋 Fiche complète</div>
+    <div class="fiche-sum">${sum}</div>
+    ${champs}${docs}${hist}${conf}${annexe}
   </div>`;
 }
 function tenderCard(t, expandable=true){
@@ -196,19 +378,24 @@ function tenderCard(t, expandable=true){
   return `<div class="card tender" data-id="${id}">
     <div class="row"><div>
       <div class="tt">${esc(t.title||'(sans titre)')}</div>
-      <div class="meta">${esc(t.buyer||'Acheteur '+NL)} · ${esc(t.sector||'')} ${t.is_new?'<span class="badge b-new">Nouveau</span>':''} ${t.pdf_enriched?'<span class="badge b-pdf">📄 PDF analysé</span>':''}</div>
+      <div class="meta">${esc(t.buyer||'Acheteur '+NL)} · ${esc(t.sector||'')}</div>
+      ${cardBadges(t)}
     </div><div style="text-align:right">${dlBadge(t)}<div class="chev">${expandable?'détail ▾':''}</div></div></div>
     ${expandable?ficheHtml(t, id, srcLinks):''}
   </div>`;
 }
 
+/* ---------- Rendu général ---------- */
 function render(){
   const t0 = today();
   const tenders = D.tenders;
-  const actifs = tenders.filter(t => t.deadline && t.deadline >= t0);
+  const actifs = tenders.filter(t => !isAnnule(t) && t.deadline && t.deadline >= t0);
   const closing7 = actifs.filter(t => daysLeft(t.deadline) <= 7);
   const news = tenders.filter(t => t.is_new);
   const subsActifs = D.subscribers.filter(s => s.actif && !s.is_example).length;
+  const aVerifier = tenders.filter(hasCritVerif).length;
+  const annules = tenders.filter(isAnnule).length;
+  const moy = tenders.length ? (tenders.reduce((s,t) => s+compLus(t),0)/tenders.length) : 0;
 
   $('#hdr-sub').textContent = `Dernier passage du scanner : ${fmtDate(D.run.date)} · ${tenders.length} avis suivis`;
   $('#foot').textContent = `Données générées le ${new Date(D.generated_at).toLocaleString('fr-FR')} · Magic Logistic Company`;
@@ -217,6 +404,9 @@ function render(){
     [news.length, 'Nouveaux avis au dernier passage'],
     [actifs.length, 'Avis actifs (date limite à venir)'],
     [closing7.length, 'Fermetures sous 7 jours'],
+    [aVerifier, 'Avis avec champ critique à vérifier'],
+    [annules, 'Avis annulés'],
+    [(Math.round(moy*10)/10).toString().replace('.',',')+'/14', 'Complétude moyenne des fiches'],
     [subsActifs, 'Abonnés actifs'],
     [`${D.run.sources_ok}/${D.run.sources_total}`, 'Sources opérationnelles'],
     [tenders.filter(t=>t.pdf_enriched).length, 'Avis enrichis par analyse PDF'],
@@ -229,29 +419,78 @@ function render(){
   const latest = [...news].sort((a,b) => (b.first_seen||'').localeCompare(a.first_seen||'')).slice(0,6);
   $('#latest').innerHTML = latest.length ? latest.map(t => tenderCard(t)).join('') : '<div class="empty">Aucun nouvel avis au dernier passage.</div>';
 
-  renderChips(); renderTenders(); renderSubs(); renderSends(); renderSources();
+  renderFilterChips(); renderSectorChips(); renderAdvSelects(); renderTenders();
+  renderSubs(); renderSends(); renderSources(); renderMatches();
   bindCards();
 }
 
+/* ---------- Filtres ---------- */
+let curFilter = 'tous';
 let curSector = 'Tous';
-function renderChips(){
+const FILTERS = [
+  ['tous','Tous'], ['ouverts','Ouverts'], ['expires','Expirés'], ['urgents','Urgents (≤ 7 jours)'],
+  ['incomplets','Incomplets'], ['averifier','À vérifier'], ['rectifs','Rectificatifs & prolongations'], ['annules','Annulés'],
+];
+function renderFilterChips(){
+  $('#fchips').innerHTML = FILTERS.map(([k,l]) => `<button class="chip ${k===curFilter?'on':''}" data-f="${k}">${l}</button>`).join('');
+  document.querySelectorAll('#fchips .chip').forEach(c => c.onclick = () => { curFilter = c.dataset.f; renderFilterChips(); renderTenders(); bindCards(); });
+}
+function renderSectorChips(){
   const sectors = ['Tous', ...new Set(D.tenders.map(t => t.sector).filter(Boolean).sort())];
+  if(!sectors.includes(curSector)) curSector = 'Tous';
   $('#chips').innerHTML = sectors.map(s => `<button class="chip ${s===curSector?'on':''}" data-sec="${esc(s)}">${esc(s)}</button>`).join('');
-  document.querySelectorAll('.chip').forEach(c => c.onclick = () => { curSector = c.dataset.sec; renderChips(); renderTenders(); bindCards(); });
+  document.querySelectorAll('#chips .chip').forEach(c => c.onclick = () => { curSector = c.dataset.sec; renderSectorChips(); renderTenders(); bindCards(); });
+}
+function fillSelect(sel, values, allLabel){
+  const cur = sel.value;
+  sel.innerHTML = `<option value="">${allLabel}</option>` + values.map(v => `<option value="${esc(v)}">${esc(v)}</option>`).join('');
+  if(values.includes(cur)) sel.value = cur;
+}
+function renderAdvSelects(){
+  fillSelect($('#f-buyer'), [...new Set(D.tenders.map(t => t.buyer).filter(Boolean).sort())], 'Tous les acheteurs');
+  fillSelect($('#f-province'), [...new Set(D.tenders.map(t => t.province).filter(Boolean).sort())], 'Toutes les provinces');
+}
+function objetText(t){
+  const fv = t.fiche && t.fiche.objet ? t.fiche.objet.valeur : null;
+  if(typeof fv==='string') return fv;
+  return (t.resume && t.resume.objet) || '';
 }
 function renderTenders(){
   const q = ($('#q').value||'').toLowerCase();
   const showExp = $('#show-expired').checked;
-  const t0 = today();
+  const buyer = $('#f-buyer').value, prov = $('#f-province').value;
+  const montant = $('#f-montant').value, comp = $('#f-comp').value, statutF = $('#f-statut').value;
   const list = D.tenders.filter(t => {
+    const exp = isExpired(t);
+    switch(curFilter){
+      case 'ouverts': if(isAnnule(t) || exp) return false; break;
+      case 'expires': if(!exp) return false; break;
+      case 'urgents': { const n = daysLeft(t.deadline); if(n===null || n<0 || n>7) return false; break; }
+      case 'incomplets': if(compLus(t) >= 7) return false; if(exp && !showExp) return false; break;
+      case 'averifier': if(!hasCritVerif(t)) return false; if(exp && !showExp) return false; break;
+      case 'rectifs': if(!hasRelation(t)) return false; if(exp && !showExp) return false; break;
+      case 'annules': if(!isAnnule(t)) return false; break;
+      default: if(exp && !showExp) return false;
+    }
     if(curSector !== 'Tous' && t.sector !== curSector) return false;
-    if(!showExp && t.deadline && t.deadline < t0) return false;
-    if(q && !(`${t.title||''} ${t.buyer||''} ${t.reference||''}`.toLowerCase().includes(q))) return false;
+    if(buyer && t.buyer !== buyer) return false;
+    if(prov && t.province !== prov) return false;
+    if(montant==='g1' && !((t.garantie_num||0) >= 1000000)) return false;
+    if(montant==='g10' && !((t.garantie_num||0) >= 10000000)) return false;
+    if(montant==='dossier' && !(t.fiche && t.fiche.prix_dossier && t.fiche.prix_dossier.statut==='LU')) return false;
+    if(comp==='ge10' && compLus(t) < 10) return false;
+    if(comp==='7-9' && (compLus(t) < 7 || compLus(t) > 9)) return false;
+    if(comp==='lt7' && compLus(t) >= 7) return false;
+    if(statutF==='averif' && !hasAnyVerif(t)) return false;
+    if(statutF==='sans' && hasAnyVerif(t)) return false;
+    if(q && !(`${t.title||''} ${t.buyer||''} ${t.reference||''} ${objetText(t)}`.toLowerCase().includes(q))) return false;
     return true;
   });
-  $('#tender-list').innerHTML = list.length ? list.map(t => tenderCard(t)).join('') : '<div class="empty">Aucun avis ne correspond à ce filtre.</div>';
+  $('#tender-list').innerHTML = list.length ? list.map(t => tenderCard(t)).join('') : '<div class="empty">Aucun avis ne correspond à ces filtres.</div>';
   $('#tender-count').textContent = `${list.length} avis affiché(s) sur ${D.tenders.length} suivis.`;
 }
+
+/* ---------- Abonnés / Envois / Sources ---------- */
 function renderSubs(){
   if(!D.subscribers.length){ $('#sub-list').innerHTML = '<div class="empty">Aucun abonné inscrit pour le moment.</div>'; return; }
   $('#sub-list').innerHTML = D.subscribers.map(s => `<div class="card ${s.is_example?'subcard':''}">
@@ -300,18 +539,64 @@ function renderSources(){
     row('Téléchargements en échec', p.failed) +
     ((p.failures&&p.failures.length) ? `<div class="err" style="margin-top:8px">${p.failures.map(f => esc((f.url||'').split('/').pop()) + ' — ' + esc((f.error||'').slice(0,80))).join('<br>')}</div>` : '');
 }
+
+/* ---------- Correspondances entreprises (affiché seulement si des données existent) ---------- */
+function renderMatches(){
+  const m = D.matches;
+  if(!m || !Array.isArray(m.resultats) || !m.resultats.length) return;
+  const byCo = new Map();
+  m.resultats.forEach(r => {
+    const e = r.entreprise;
+    const name = (typeof e==='string' ? e : (e && (e.entreprise||e.nom))) || 'Entreprise';
+    if(!byCo.has(name)) byCo.set(name, []);
+    byCo.get(name).push(r);
+  });
+  const niveauBadge = niv => {
+    const n = String(niv||'').toLowerCase();
+    const cls = n.includes('forte') ? 'b-ok' : (n.includes('partielle') ? 'b-warn' : 'b-grey');
+    return `<span class="badge ${cls}">${esc(niv||'')}</span>`;
+  };
+  const cards = [...byCo.entries()].map(([name, rows]) => `<div class="card">
+    <div class="row"><div class="tt">${esc(name)}</div><span class="badge b-comp">${rows.length} correspondance(s)</span></div>
+    ${rows.map(r => `<div style="margin-top:9px">
+      <div class="row"><div style="font-weight:600;font-size:13.5px">${esc(r.titre||r.avis_key||'Avis')}</div>${niveauBadge(r.niveau)}</div>
+      ${(r.raisons&&r.raisons.length)?`<ul class="match-raisons">${r.raisons.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}
+    </div>`).join('')}
+  </div>`).join('');
+  const sec = document.createElement('section');
+  sec.className = 'screen'; sec.id = 's-matches';
+  sec.innerHTML = (m.generated_le?`<p class="note">Correspondances calculées le ${fmtDate(String(m.generated_le).slice(0,10))}</p>`:'') + cards;
+  document.querySelector('main').insertBefore(sec, document.querySelector('.foot'));
+  const btn = document.createElement('button');
+  btn.dataset.s = 's-matches';
+  btn.innerHTML = '<span class="ic">🤝</span>Correspondances';
+  $('#tabs').appendChild(btn);
+  $('#home-matches').innerHTML = `<h2 class="st">🤝 Correspondances entreprises</h2>
+    <div class="card"><div class="meta" style="margin-top:0">${byCo.size} entreprise(s) · ${m.resultats.length} correspondance(s) — voir l\u2019onglet « Correspondances ».</div></div>`;
+}
+
+/* ---------- Interactions ---------- */
 function bindCards(){
   document.querySelectorAll('.tender').forEach(c => {
-    c.onclick = () => { const d = c.querySelector('.detail'); if(d) d.classList.toggle('open'); };
+    c.onclick = e => { if(e.target.closest('a')) return; const d = c.querySelector('.detail'); if(d) d.classList.toggle('open'); };
   });
 }
-document.querySelectorAll('#tabs button').forEach(b => b.onclick = () => {
+function activateTab(b){
   document.querySelectorAll('#tabs button').forEach(x => x.classList.toggle('on', x===b));
   document.querySelectorAll('.screen').forEach(s => s.classList.toggle('active', s.id === b.dataset.s));
   window.scrollTo(0,0);
-});
+}
+$('#tabs').addEventListener('click', e => { const b = e.target.closest('button'); if(b) activateTab(b); });
 $('#q').addEventListener('input', () => { renderTenders(); bindCards(); });
 $('#show-expired').addEventListener('change', () => { renderTenders(); bindCards(); });
+['f-buyer','f-province','f-montant','f-comp','f-statut'].forEach(id =>
+  document.getElementById(id).addEventListener('change', () => { renderTenders(); bindCards(); }));
+$('#f-reset').addEventListener('click', () => {
+  curFilter = 'tous'; curSector = 'Tous';
+  $('#q').value = ''; $('#show-expired').checked = false;
+  ['f-buyer','f-province','f-montant','f-comp','f-statut'].forEach(id => document.getElementById(id).value = '');
+  renderFilterChips(); renderSectorChips(); renderTenders(); bindCards();
+});
 
 fetch('data.json').then(r => { if(!r.ok) throw new Error(r.status); return r.json(); })
   .then(d => { D = d; render(); })
