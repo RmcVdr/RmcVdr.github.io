@@ -1,0 +1,2371 @@
+{
+ "generated_at": "2026-11-15T14:12:16+00:00",
+ "run": {
+  "date": "2026-11-15",
+  "sources": [
+   {
+    "name": "BurundiJobs",
+    "status": "OK",
+    "count": 22,
+    "error": null
+   },
+   {
+    "name": "Le Renouveau",
+    "status": "OK",
+    "count": 35,
+    "error": null
+   },
+   {
+    "name": "eSoko",
+    "status": "OK",
+    "count": 8,
+    "error": null
+   },
+   {
+    "name": "ARMP",
+    "status": "OK",
+    "count": 30,
+    "error": null
+   },
+   {
+    "name": "PNUD",
+    "status": "OK",
+    "count": 8,
+    "error": null
+   },
+   {
+    "name": "UNGM",
+    "status": "ECHEC",
+    "count": 0,
+    "error": "RuntimeError: recherche UNGM: HTTP 400"
+   },
+   {
+    "name": "TenderImpulse",
+    "status": "OK",
+    "count": 25,
+    "error": null
+   },
+   {
+    "name": "REGIDESO",
+    "status": "OK",
+    "count": 5,
+    "error": null
+   },
+   {
+    "name": "ISABU",
+    "status": "OK",
+    "count": 3,
+    "error": null
+   },
+   {
+    "name": "dgMarket",
+    "status": "ECHEC",
+    "count": 0,
+    "error": "RuntimeError: dgMarket non exploitable — https://www.dgmarket.com/: ChunkedEncodingError: Response ended prematurely ; https://www.dgmarket.com/tender/81690343: HTTP 403"
+   },
+   {
+    "name": "ReliefWeb",
+    "status": "OK",
+    "count": 1,
+    "error": null
+   }
+  ],
+  "sources_ok": 9,
+  "sources_total": 11,
+  "pdf": {
+   "downloaded": 12,
+   "cached": 10,
+   "text_ok": 0,
+   "ocr_ok": 22,
+   "ocr_failed": 0,
+   "failed": 5,
+   "failures": [
+    {
+     "url": "https://armp.gov.bi/wp-content/uploads/2024/11/135t2024-20250001.pdf",
+     "error": "ReadTimeout: HTTPSConnectionPool(host='armp.gov.bi', port=443): Read timed out. (read timeout=60)"
+    },
+    {
+     "url": "https://armp.gov.bi/wp-content/uploads/2024/11/131T2024-2025.pdf",
+     "error": "ReadTimeout: HTTPSConnectionPool(host='armp.gov.bi', port=443): Read timed out. (read timeout=60)"
+    },
+    {
+     "url": "https://armp.gov.bi/wp-content/uploads/2024/11/71T2024-2025.pdf",
+     "error": "ReadTimeout: HTTPSConnectionPool(host='armp.gov.bi', port=443): Read timed out. (read timeout=60)"
+    },
+    {
+     "url": "https://armp.gov.bi/wp-content/uploads/2024/11/Addendum_39s2024-2025.pdf",
+     "error": "ReadTimeout: HTTPSConnectionPool(host='armp.gov.bi', port=443): Read timed out. (read timeout=60)"
+    },
+    {
+     "url": "https://armp.gov.bi/wp-content/uploads/2024/11/50s2024-20250001.pdf",
+     "error": "ReadTimeout: HTTPSConnectionPool(host='armp.gov.bi', port=443): Read timed out. (read timeout=60)"
+    }
+   ]
+  },
+  "total_uniques": 104,
+  "nb_nouveaux": 95,
+  "nb_expires": 9
+ },
+ "tenders": [
+  {
+   "title": "CNIDH : Clôture de la séance de renforcement des capacités à l’endroit des avocats de l’Etat",
+   "buyer": null,
+   "sector": "Services/conseil",
+   "deadline": "2021-08-20",
+   "deadline_source": null,
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "Le Renouveau",
+     "url": "https://lerenouveau.bi/cnidh-cloture-de-la-seance-de-renforcement-des-capacites-a-lendroit-des-avocats-de-letat/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": null,
+   "is_new": false
+  },
+  {
+   "title": "Primature: Appel d’offre pour la fourniture d’une Photocopieuse canon IR 2645",
+   "buyer": null,
+   "sector": "Fournitures/agro",
+   "deadline": "2023-05-29",
+   "deadline_source": null,
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "Le Renouveau",
+     "url": "https://lerenouveau.bi/republique-du-burundi-cabinet-du-premier-ministre/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": null,
+   "is_new": false
+  },
+  {
+   "title": "DOSSIER D’APPEL D’OFFRES OUVERT NATIONAL N° DNCMP/93/F/2023-2024 PORTANT SUR LA FOURNITURE DES MATERIELSELECTRIQUES POUR LE RACCORDEMENT DES USINES A BRIQUETTES DE LA FORCE DE DEFENSE NATIONALE DU BURUNDI",
+   "buyer": null,
+   "sector": "Énergie",
+   "deadline": "2023-09-19",
+   "deadline_source": null,
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "Le Renouveau",
+     "url": "https://lerenouveau.bi/dossier-dappel-doffres-ouvert-national-n-dncmp-93-f-2023-2024-portant-sur-la-fourniture-des-materielselectriques-pour-le-raccordement-des-usines-a-briquettes-de-la-force-de-def/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": null,
+   "is_new": false
+  },
+  {
+   "title": "Avis de relance de l’Appel d’Offre Ouvert National N° DNCMP/59/T/2023-2024 pour les travaux de construction du centre de santé SHOMBO.",
+   "buyer": null,
+   "sector": "Santé",
+   "deadline": "2023-09-25",
+   "deadline_source": null,
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "Le Renouveau",
+     "url": "https://lerenouveau.bi/avis-de-relance-de-lappel-doffre-ouvert-national-n-dncmp-59-t-2023-2024-pour-les-travaux-de-construction-du-centre-de-sante-shombo/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": null,
+   "is_new": false
+  },
+  {
+   "title": "ISABU",
+   "buyer": null,
+   "sector": "Santé",
+   "deadline": "2025-12-24",
+   "deadline_source": null,
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "Le Renouveau",
+     "url": "https://lerenouveau.bi/45550-2/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": null,
+   "is_new": false
+  },
+  {
+   "title": "Avis d'appel d'offres — Les travaux de construction d’une unité de traitement de l’eau des forages de NGAGARA Quartier Industriel, Q",
+   "buyer": null,
+   "sector": "Travaux/BTP",
+   "deadline": "2026-04-14",
+   "deadline_source": null,
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "REGIDESO",
+     "url": "https://regideso.bi/avis-dappel-doffres-14/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": null,
+   "is_new": false
+  },
+  {
+   "title": "Avis d'appel d'offres — LES TRAVAUX DE CONSTRUCTION D’UNE CHAMBRE DE VANNE EN BETON ARME SUR LA ROUTE NATIONALE NUMERO 9 ; DAO N o DEAU/02/T/2025-2026",
+   "buyer": null,
+   "sector": "Travaux/BTP",
+   "deadline": "2026-04-23",
+   "deadline_source": null,
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "REGIDESO",
+     "url": "https://regideso.bi/avis-dappel-doffres-15/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": null,
+   "is_new": false
+  },
+  {
+   "title": "AVIS D’APPEL D’OFFRES",
+   "buyer": null,
+   "sector": "Services/conseil",
+   "deadline": "2026-06-17",
+   "deadline_source": null,
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "REGIDESO",
+     "url": "https://regideso.bi/avis-dappel-doffres-17/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": null,
+   "is_new": false
+  },
+  {
+   "title": "UNIVERSITE DU BURUNDI",
+   "buyer": null,
+   "sector": "Fournitures/agro",
+   "deadline": "2026-11-11",
+   "deadline_source": null,
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "Le Renouveau",
+     "url": "https://lerenouveau.bi/universite-du-burundi-81/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": null,
+   "is_new": false
+  },
+  {
+   "title": "Avis de recrutement pour 4 postes",
+   "buyer": "PRODER",
+   "sector": "Autre",
+   "deadline": "2026-11-15",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "BurundiJobs",
+     "url": "https://www.burundijobs.bi/job/avis-de-recrutement-pour-4-postes/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Acquisition, au transport et à l' installation d'une unité de décorticage de riz",
+   "buyer": "PNUD — Burundi",
+   "sector": "Autre",
+   "deadline": "2026-11-15",
+   "deadline_source": "page web",
+   "reference": "UNDP-BDI-00777",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "PNUD",
+     "url": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=51344"
+    },
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/acquisition-au-transport-et-l-installation-d-une-unit-de-d-corticage-de-riz-16128630"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Equipements pour la formation en système d’alimentation automatisé",
+   "buyer": "PNUD — Burundi",
+   "sector": "Fournitures/agro",
+   "deadline": "2026-11-15",
+   "deadline_source": "page web",
+   "reference": "UNDP-BDI-00774",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "PNUD",
+     "url": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=51271"
+    },
+    {
+     "name": "TenderImpulse",
+     "url": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=51094"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Appel d’offre pour la fourniture et la livraison de chèvres reproductrices locales et de boucs reproducteurs améliorés",
+   "buyer": "PRODER",
+   "sector": "Fournitures/agro",
+   "deadline": "2026-11-16",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "BurundiJobs",
+     "url": "https://www.burundijobs.bi/job/appel-doffre-pour-la-fourniture-et-la-livraison-de-chevres-reproductrices-locales-et-de-boucs-reproducteurs-ameliores/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "MERANKABANDI",
+   "buyer": "Banque mondiale",
+   "sector": "Santé",
+   "deadline": "2026-11-16",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "Le Renouveau",
+     "url": "https://lerenouveau.bi/merankabandi-5/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "ECOLE NORMALE SUPERIEURE",
+   "buyer": "BRB",
+   "sector": "Fournitures/agro",
+   "deadline": "2026-11-16",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "Le Renouveau",
+     "url": "https://lerenouveau.bi/ecole-normale-superieure-26/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "APPEL D'OFFRE NATIONAL-ACHAT DE KITS POUR LES RELAIS COMMUNAUTAIRES",
+   "buyer": "PNUD — Burundi",
+   "sector": "Autre",
+   "deadline": "2026-11-16",
+   "deadline_source": "page web",
+   "reference": "UNDP-BDI-00775",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "PNUD",
+     "url": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=51247"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Fourniture d'uniformes",
+   "buyer": "Agence de Dévelop…",
+   "sector": "Services/conseil",
+   "deadline": "2026-11-17",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": "1000000",
+   "lots": null,
+   "sources": [
+    {
+     "name": "eSoko",
+     "url": "https://www.esoko.bi/akazi/job/fourniture-d-uniformes/"
+    }
+   ],
+   "pdf_enriched": true,
+   "pdf_url": "https://www.esoko.bi/media/vacancy_attachments/2026/11/02/ADB-1.pdf",
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Demande de Quotation pour une Imprimante",
+   "buyer": null,
+   "sector": "Autre",
+   "deadline": "2026-11-17",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/demande-de-quotation-pour-une-imprimante-16302180"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Appel d'offre pour pour une réalisation d'une expertise et l'évaluation de la valeur marchande actuelle de dix-neuf (19) véhicules et de deux (2) générateurs",
+   "buyer": "PRODER",
+   "sector": "Énergie",
+   "deadline": "2026-11-18",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "BurundiJobs",
+     "url": "https://www.burundijobs.bi/job/appel-doffre-pour-pour-une-realisation-dune-expertise-et-levaluation-de-la-valeur-marchande-actuelle-de-dix-neuf-19-vehicules-et-de-deux-2-generateurs/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "AVIS D’APPEL D’OFFRES OUVERT NATIONAL N° DNCMP/45/T/2026-2027 POUR LES TRAVAUX DE REHABILITATION DU BATIMENT ABRITANT LE TRIBUNAL DE GRANDE INSTANCE DE MUGERE ET SON PARQUET",
+   "buyer": "Ministère de la Justice",
+   "sector": "Travaux/BTP",
+   "deadline": "2026-11-18",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "Le Renouveau",
+     "url": "https://lerenouveau.bi/ministere-de-la-justice-124/"
+    },
+    {
+     "name": "eSoko",
+     "url": "https://www.esoko.bi/akazi/job/travaux-de-rehabilitation-d-un-batiment/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "ISABU",
+   "buyer": "ISABU",
+   "sector": "IT/numérique",
+   "deadline": "2026-11-18",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "Le Renouveau",
+     "url": "https://lerenouveau.bi/isabu-107/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Fourniture du matériel électrique",
+   "buyer": "Agence Burundaise…",
+   "sector": "Énergie",
+   "deadline": "2026-11-18",
+   "deadline_source": "page web",
+   "reference": "DNCMP/264/F/2026-2027",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "eSoko",
+     "url": "https://www.esoko.bi/akazi/job/fourniture-du-materiel-electrique-10-30-2026-11-18-01/"
+    }
+   ],
+   "pdf_enriched": true,
+   "pdf_url": "https://www.esoko.bi/media/vacancy_attachments/2026/10/30/ABER.pdf",
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Achat Motos pour la Régie Nationale des Postes",
+   "buyer": "PNUD — Burundi",
+   "sector": "Véhicules/transport",
+   "deadline": "2026-11-18",
+   "deadline_source": "page web",
+   "reference": "UNDP-BDI-00783",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "PNUD",
+     "url": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=51641"
+    },
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/achat-motos-pour-la-r-gie-nationale-des-postes-16397608"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Recrutement d'un cabinet national en evaluation de la vulnerabilité socio",
+   "buyer": "PNUD — Burundi",
+   "sector": "Services/conseil",
+   "deadline": "2026-11-18",
+   "deadline_source": "page web",
+   "reference": "UNDP-BDI-00781",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "PNUD",
+     "url": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=51431"
+    },
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/recrutement-d-un-cabinet-national-en-evaluation-de-la-vulnerabilit-socio-16211946"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Fourniture des transformateurs convertisseur de tension électrique à World Vision International Burundi",
+   "buyer": "PRODER",
+   "sector": "Énergie",
+   "deadline": "2026-11-19",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "BurundiJobs",
+     "url": "https://www.burundijobs.bi/job/fourniture-des-transformateurs-convertisseur-de-tension-electrique-a-world-vision-international-burundi/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "UNIVERSITE DU BURUNDI",
+   "buyer": "BRB",
+   "sector": "Fournitures/agro",
+   "deadline": "2026-11-19",
+   "deadline_source": "page web",
+   "reference": "DNCMP/223/F/2024-2025",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "Le Renouveau",
+     "url": "https://lerenouveau.bi/universite-du-burundi-82/"
+    },
+    {
+     "name": "ARMP",
+     "url": "https://armp.gov.bi/archives/142"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Un bureau chargé de mener une étude sur la rentabilité et viabilité des coopératives et entreprises agricoles endettées auprès du secteur financier en général et des IMF en particulier",
+   "buyer": "PRODER",
+   "sector": "Services/conseil",
+   "deadline": "2026-11-20",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "BurundiJobs",
+     "url": "https://www.burundijobs.bi/job/un-bureau-charge-de-mener-une-etude-sur-la-rentabilite-et-viabilite-des-cooperatives-et-entreprises-agricoles-endettees-aupres-du-secteur-financier-en-general-et-des-imf-en-particulier/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Appel d'offres pour location de véhicules et camions de transport",
+   "buyer": "PRODER",
+   "sector": "Véhicules/transport",
+   "deadline": "2026-11-20",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "BurundiJobs",
+     "url": "https://www.burundijobs.bi/job/appel-doffres-pour-location-de-vehicules-et-camions-de-transport/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Un Bureau chargé d’élaborer un modèle institutionnel de gestion d'infrastructures publiques pour durabilité : marchés et ports dans les sites d'intervention du PFCIGL",
+   "buyer": "PRODER",
+   "sector": "Travaux/BTP",
+   "deadline": "2026-11-20",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "BurundiJobs",
+     "url": "https://www.burundijobs.bi/job/un-bureau-charge-delaborer-un-modele-institutionnel-de-gestion-dinfrastructures-publiques-pour-durabilite-marches-et-ports-dans-les-sites-dintervention-du-pfcigl/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Assistance technique",
+   "buyer": "Projet Pour L'Emp…",
+   "sector": "Services/conseil",
+   "deadline": "2026-11-20",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "eSoko",
+     "url": "https://www.esoko.bi/akazi/job/assistance-technique/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "MFBEN - DSI - AT CABINET- Recrutement d'un consultant pour la formation et la certification des techniciens de la DSI, SETIC et de l'OBR sur l'Audit Système d'information",
+   "buyer": "OBR",
+   "sector": "IT/numérique",
+   "deadline": "2026-11-20",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/mfben-dsi-at-cabinet-recrutement-d-un-consultant-pour-la-formation-et-la-certifi-16165255"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "AVIS D’APPEL D’OFFRES OUVERT NATIONAL N O 550/2409/CAB/2026 POUR LES TRAVAUX DE REHABILITATION DU TRIBUNAL DE RESIDENCE DE MURAMVYA",
+   "buyer": "Ministère de la Justice",
+   "sector": "Travaux/BTP",
+   "deadline": "2026-11-21",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "Le Renouveau",
+     "url": "https://lerenouveau.bi/ministere-de-la-justice-125/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Fourniture et livraison de mobiliers divers",
+   "buyer": "PNUD",
+   "sector": "Services/conseil",
+   "deadline": "2026-11-22",
+   "deadline_source": "page web",
+   "reference": "UNDP-BDI-00779",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "eSoko",
+     "url": "https://www.esoko.bi/akazi/job/fourniture-et-livraison-de-mobiliers-divers/"
+    },
+    {
+     "name": "PNUD",
+     "url": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=51524"
+    },
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/fourniture-et-livraison-de-mobiliers-divers-16293306"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Fourniture des Equipements pour les Petites et Moyennes Entreprises (PMEs)",
+   "buyer": null,
+   "sector": "Fournitures/agro",
+   "deadline": "2026-11-22",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/fourniture-des-equipements-pour-les-petites-et-moyennes-entreprises-pmes-16302068"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "APPEL D’OFFRES OUVERT NATIONAL N° MEAE/ISABU/01/T/2026-2027 RELATIF AUX TRAVAUX DE REHABILITATION ET D’EXTENSIONS DES BUREAUX AU CENTRE D’INNOVATION DE L’ISABU A BUHORO",
+   "buyer": "ISABU",
+   "sector": "Travaux/BTP",
+   "deadline": "2026-11-23",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "Le Renouveau",
+     "url": "https://lerenouveau.bi/isabu-111/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "APPEL D’OFFRES OUVERT NATIONAL N° MEAE/ISABU/ 10 /F/2026-2027 RELATIF A L’ACQUISITION DE MATERIELS AGRICOLES POUR LES CULTURES INDUSTRIELLES (RELANCE)",
+   "buyer": "ISABU",
+   "sector": "Fournitures/agro",
+   "deadline": "2026-11-23",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "Le Renouveau",
+     "url": "https://lerenouveau.bi/isabu-110/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "APPEL D’OFFRES OUVERT NATIONAL N° MEAE/ISABU/12/F/2026-2027 RELATIF A LA FOURNITURE DES RUCHES ET MATERIEL DE RECOLTE DU MIEL POUR L’INTEGRATION DE L’APICULTURE DANS LES BOISEMENTS DE L’ISABU (RELANCE",
+   "buyer": "ISABU",
+   "sector": "Fournitures/agro",
+   "deadline": "2026-11-23",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "Le Renouveau",
+     "url": "https://lerenouveau.bi/isabu-108/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Recrutement d’une agence de communication",
+   "buyer": "Banque de Gestion…",
+   "sector": "Services/conseil",
+   "deadline": "2026-11-23",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "eSoko",
+     "url": "https://www.esoko.bi/akazi/job/recrutement-dune-agence-de-communication/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "MFBEN - DSI - AT CABINET- Recrutement d'un consultant pour la formation et la certification des techniciens de la DSI, SETIC et de l'OBR sur le HACKING FORENSIC INVESTIGATION",
+   "buyer": "OBR",
+   "sector": "Services/conseil",
+   "deadline": "2026-11-23",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/mfben-dsi-at-cabinet-recrutement-d-un-consultant-pour-la-formation-et-la-certifi-16212316"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Achat des équipements de communication et accessoires",
+   "buyer": null,
+   "sector": "Services/conseil",
+   "deadline": "2026-11-23",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/achat-des-quipements-de-communication-et-accessoires-16128097"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Fourniture de machine pour le broyage des ingrédients utilisées dans le mélange des aliments pour volailles",
+   "buyer": "PRODER",
+   "sector": "Fournitures/agro",
+   "deadline": "2026-11-24",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "BurundiJobs",
+     "url": "https://www.burundijobs.bi/job/fourniture-de-machine-pour-le-broyage-des-ingredients-utilisees-dans-le-melange-des-aliments-pour-volailles/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "ODECA",
+   "buyer": "BRB",
+   "sector": "Fournitures/agro",
+   "deadline": "2026-11-24",
+   "deadline_source": "page web",
+   "reference": "DNCMP/206/F/2024-2025",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "Le Renouveau",
+     "url": "https://lerenouveau.bi/odeca-43/"
+    },
+    {
+     "name": "ARMP",
+     "url": "https://armp.gov.bi/archives/181"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Université du Burundi",
+   "buyer": "BRB",
+   "sector": "Travaux/BTP",
+   "deadline": "2026-11-24",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "Le Renouveau",
+     "url": "https://lerenouveau.bi/universite-du-burundi-83/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "AVIS D’APPEL D’OFFRES OUVERT NATIONAL N O 550/2462/CAB/2026 POUR LA FOURTUNITURE DES CHEVRES D’APPUI DES MICROPROJETS DES FEMMES EN COMMUNE MATONGO",
+   "buyer": "Ministère de la Justice",
+   "sector": "Fournitures/agro",
+   "deadline": "2026-11-24",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "Le Renouveau",
+     "url": "https://lerenouveau.bi/ministere-de-la-justice-126/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "AVIS D’APPEL D’OFFRES OUVERT NATIONAL N°DNCMP/271/F/2026 -2027 POUR LA FOURNITURE DE BUREAU, D’HYGIENE ET CONSOMMABLES INFORMATIQUES POUR LES CPVVs",
+   "buyer": "OBR",
+   "sector": "Santé",
+   "deadline": "2026-11-24",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "Le Renouveau",
+     "url": "https://lerenouveau.bi/ministere-de-la-sante-19/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Appel à la formation en Suivi-évaluation des projets et Comptabilité et fiscalité",
+   "buyer": "PRODER",
+   "sector": "Services/conseil",
+   "deadline": "2026-11-25",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "BurundiJobs",
+     "url": "https://www.burundijobs.bi/job/appel-a-la-formation-en-suivi-evaluation-des-projets-et-comptabilite-et-fiscalite/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "ISABU",
+   "buyer": "ISABU",
+   "sector": "Fournitures/agro",
+   "deadline": "2026-11-25",
+   "deadline_source": "page web",
+   "reference": "DNCMP/102/F/2026-2027",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "Le Renouveau",
+     "url": "https://lerenouveau.bi/isabu-109/"
+    },
+    {
+     "name": "ISABU",
+     "url": "https://isabu.bi/avis-dappel-doffres-national-ouvert-pour-differents-marches-a-lisabu/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Appel d'offres pour la fourniture de véhicules camionnettes double-cabine 4x4 hybrides",
+   "buyer": "PRODER",
+   "sector": "Véhicules/transport",
+   "deadline": "2026-11-26",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "BurundiJobs",
+     "url": "https://www.burundijobs.bi/job/appel-doffres-pour-la-fourniture-de-vehicules-camionnettes-double-cabine-4x4-hybrides/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Appel d’offre ouvert pour le choix d'une agence de relations publiques et de communication (2026 - 2028)",
+   "buyer": "PRODER",
+   "sector": "Services/conseil",
+   "deadline": "2026-11-26",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "BurundiJobs",
+     "url": "https://www.burundijobs.bi/job/appel-doffre-ouvert-pour-le-choix-dune-agence-de-relations-publiques-et-de-communication-2026-2028/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Appel d’offre pour services d’avocat - conseil et d’assistance juridique",
+   "buyer": "PRODER",
+   "sector": "Services/conseil",
+   "deadline": "2026-11-26",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "BurundiJobs",
+     "url": "https://www.burundijobs.bi/job/appel-doffre-pour-services-davocat-conseil-et-dassistance-juridique-2/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Appel d'offres pour l'aménagement et la réhabilitation dans les FOSA",
+   "buyer": "PRODER",
+   "sector": "Travaux/BTP",
+   "deadline": "2026-11-26",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "BurundiJobs",
+     "url": "https://www.burundijobs.bi/job/appel-doffres-pour-lamenagement-et-la-rehabilitation-dans-les-fosa/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "APPEL D’OFFRES OUVERT NATIONAL N° DNCMP/289/F/2026-2027 RELATIF A LA FOURNITURE DES RÉACTIFS ET EQUIPEMENTS POUR ÉTENDRE ET MAINTENIR L’ACCRÉDITATION DES LABORATOIRES DE L’ISABU (LASPA, MICROBIOLOGIE, PHYTOPATHOLOGIE ET BIOTECHNOLOGIE DU CAFE)",
+   "buyer": "ISABU",
+   "sector": "Santé",
+   "deadline": "2026-11-26",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "Le Renouveau",
+     "url": "https://lerenouveau.bi/isabu-113/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "APPEL D’OFFRES OUVERT NATIONAL N° DNCMP/288/F/2026-2027 RELATIF A LA FOURNITURE DES REACTIFS ET EQUIPEMENTS DE LABORATOIRE POUR PRODUIRE LES MINI TUBERCULES DANS LE LABORATOIRE",
+   "buyer": "ISABU",
+   "sector": "Santé",
+   "deadline": "2026-11-26",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "Le Renouveau",
+     "url": "https://lerenouveau.bi/isabu-112/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Fourniture, l’installation et la mise en service d’une infrastructure digitale répartie sur deux sites : le site principal (PR) et le site de reprise d’activité (DR)",
+   "buyer": "Banque Commercial…",
+   "sector": "Travaux/BTP",
+   "deadline": "2026-11-26",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "eSoko",
+     "url": "https://www.esoko.bi/akazi/job/fourniture-linstallation-et-la-mise-en-service-dune-infrastructure-digitale-repartie-sur-deux-sites-le-site-principal-pr-et-le-site-de-reprise-dactivite-dr/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Travaux de forage",
+   "buyer": "Ministère de l’Ed…",
+   "sector": "Travaux/BTP",
+   "deadline": "2026-11-26",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": 5,
+   "sources": [
+    {
+     "name": "eSoko",
+     "url": "https://www.esoko.bi/akazi/job/travaux-de-forage/"
+    }
+   ],
+   "pdf_enriched": true,
+   "pdf_url": "https://www.esoko.bi/media/vacancy_attachments/2026/11/07/49t2026-2027.pdf",
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Achat Equipement de Sécurité",
+   "buyer": "PNUD — Burundi",
+   "sector": "Autre",
+   "deadline": "2026-11-26",
+   "deadline_source": "page web",
+   "reference": "UNDP-BDI-00778",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "PNUD",
+     "url": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=51686"
+    },
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/achat-equipement-de-s-curit-16425350"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Fourniture du service d’accès à internet dans les Départements Communaux de l’Education du Ministère de l’Education Nationale de la Recherche Scientifique du Burundi",
+   "buyer": null,
+   "sector": "IT/numérique",
+   "deadline": "2026-11-26",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/fourniture-du-service-d-acc-s-internet-dans-les-d-partements-communaux-de-l-educ-16211790"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Avis d’appel d’offres ouvert national pour la fourniture d’équipements agroalimentaires destinés à la transformation du piment et à la production de poudres de gingembre et d’ail",
+   "buyer": "PRODER",
+   "sector": "Fournitures/agro",
+   "deadline": "2026-11-27",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "BurundiJobs",
+     "url": "https://www.burundijobs.bi/job/avis-dappel-doffres-ouvert-national-pour-la-fourniture-dequipements-agroalimentaires-destines-a-la-transformation-du-piment-et-a-la-production-de-poudres-de-gingembre-et-d/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Avis de recrutement pour 4 postes",
+   "buyer": "PRODER",
+   "sector": "Autre",
+   "deadline": "2026-11-27",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "BurundiJobs",
+     "url": "https://www.burundijobs.bi/job/avis-de-recrutement-pour-4-postes-2/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Recrutement d’un Expert en Marketing International et Communication de Marque Nationale pour l’appui technique à l’ADB",
+   "buyer": "Burundi Development Agency Tender Sector Management Consultancy Tender Service Wo",
+   "sector": "Services/conseil",
+   "deadline": "2026-11-27",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/recrutement-d-un-expert-en-marketing-international-et-communication-de-marque-na-16397139"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Recrutement d’un Expert en Coopération Internationale et Mobilisation des Financements pour l’Appui technique de l’ADB",
+   "buyer": "Burundi Development Agency Tender Sector Management Consultancy Tender Service Wo",
+   "sector": "Autre",
+   "deadline": "2026-11-27",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/recrutement-d-un-expert-en-coop-ration-internationale-et-mobilisation-des-financ-16397138"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Founiture des poussins parentaux",
+   "buyer": "PRODER",
+   "sector": "Fournitures/agro",
+   "deadline": "2026-11-30",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "BurundiJobs",
+     "url": "https://www.burundijobs.bi/job/founiture-des-poussins-parentaux/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Recrutement d'un Expert Spécialiste en suivi évaluation au PRU",
+   "buyer": "Ministry of Infrastructure",
+   "sector": "Travaux/BTP",
+   "deadline": "2026-12-02",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/recrutement-d-un-expert-sp-cialiste-en-suivi-valuation-au-pru-16436436"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Mise en place d’un systeme d’energie solaire de relais au bureau central de l'éducation (BPSE/MENRS) et cinq directions provinciales de l'éducation : bujumbura – butanyerer",
+   "buyer": null,
+   "sector": "Énergie",
+   "deadline": "2026-12-02",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/mise-en-place-d-un-systeme-d-energie-solaire-de-relais-au-bureau-central-de-l-du-16109666"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Appel à la formation certifiante en Planification et Gestion des projets et Excel avancé",
+   "buyer": "PRODER",
+   "sector": "Autre",
+   "deadline": "2026-12-07",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "BurundiJobs",
+     "url": "https://www.burundijobs.bi/job/appel-a-la-formation-certifiante-en-planification-et-gestion-des-projets-et-excel-avance/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "VERIFICATION FOR THE IMPLEMENTATION OF THE PERFORMANCE-BASED FINANCE APPROACH IN THE PROVINCE OF BUJUMBURA, MUNICIPAL DEPARTMENTS OF NTAHANGWA, MUGERE AND MUKAZA",
+   "buyer": null,
+   "sector": "Autre",
+   "deadline": "2026-12-09",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/verification-for-the-implementation-of-the-performance-based-finance-approach-in-16315468"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Avis d’appel d’offres National Ouvert relatif à la fourniture des produits phytosanitaires pour 60 centres de rayonnement communautaires.",
+   "buyer": "PRODER",
+   "sector": "Fournitures/agro",
+   "deadline": "2026-12-11",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "BurundiJobs",
+     "url": "https://www.burundijobs.bi/job/avis-dappel-doffres-national-ouvert-relatif-a-la-fourniture-des-produits-phytosanitaires-pour-60-centres-de-rayonnement-communautaires/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Acquisition des équipements pour le renforcement de l'infrastructure d'hébergement du SETIC",
+   "buyer": null,
+   "sector": "Travaux/BTP",
+   "deadline": "2026-12-11",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/acquisition-des-quipements-pour-le-renforcement-de-l-infrastructure-d-h-bergemen-16040998"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Avis d’appel d’offres ouvert national de fourniture des aliments pour les porcins.",
+   "buyer": "PRODER",
+   "sector": "Fournitures/agro",
+   "deadline": "2026-12-14",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "BurundiJobs",
+     "url": "https://www.burundijobs.bi/job/avis-dappel-doffres-ouvert-national-de-fourniture-des-aliments-pour-les-porcins/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "ARCT: Acquisition des équipements, applications, matériel et logiciels pour le CERT national afin de permettre des capacités de renseignement sur les menaces, de prévention, d'",
+   "buyer": null,
+   "sector": "IT/numérique",
+   "deadline": "2026-12-21",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/arct-acquisition-des-quipements-applications-mat-riel-et-logiciels-pour-le-cert-16302837"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Avis d’appel d’offres ouvert international de fourniture des engrais chimiques et la dolomie pour les centres de rayonnement",
+   "buyer": "PRODER",
+   "sector": "Fournitures/agro",
+   "deadline": "2026-12-28",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "BurundiJobs",
+     "url": "https://www.burundijobs.bi/job/avis-dappel-doffres-ouvert-international-de-fourniture-des-engrais-chimiques-et-la-dolomie-pour-les-centres-de-rayonnement/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "National Technical Expert",
+   "buyer": "Expertise France",
+   "sector": "Services/conseil",
+   "deadline": "2026-12-31",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "ReliefWeb",
+     "url": "https://reliefweb.int/jobs?list=Burundi%20Jobs&advanced-search=%28C47%29"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "MERANKABANDI",
+   "buyer": "Banque mondiale",
+   "sector": "Travaux/BTP",
+   "deadline": "2029-12-31",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "Le Renouveau",
+     "url": "https://lerenouveau.bi/merankabandi-6/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Appel à l’inscription — année académique 2026–2027",
+   "buyer": "PRODER",
+   "sector": "Santé",
+   "deadline": null,
+   "deadline_source": null,
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "BurundiJobs",
+     "url": "https://www.burundijobs.bi/job/appel-a-linscription-annee-academique-2026-2027/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "ASSEMBLEE NATIONALE : AVIS D’APPEL D’OFFRES N° DNCMP/ 75/F/2023-2024 RELATIF A LA FOURNITURE DU MATERIEL D’ENTRETIEN",
+   "buyer": null,
+   "sector": "Fournitures/agro",
+   "deadline": null,
+   "deadline_source": null,
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "Le Renouveau",
+     "url": "https://lerenouveau.bi/23423-2/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "SOCABU :AVIS DE MISE EN VENTE",
+   "buyer": "SOCABU :AVIS DE MISE EN VENTE",
+   "sector": "Véhicules/transport",
+   "deadline": null,
+   "deadline_source": null,
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "Le Renouveau",
+     "url": "https://lerenouveau.bi/socabu-avis-de-mise-en-vente/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Ministère en charge de l’énergie : projet énergie solaire dans les communautés rurales « PROJET SOLEIL-NYAKIRIZA »",
+   "buyer": null,
+   "sector": "Énergie",
+   "deadline": null,
+   "deadline_source": null,
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "Le Renouveau",
+     "url": "https://lerenouveau.bi/ministere-en-charge-de-lenergie-projet-energie-solaire-dans-les-communautes-rurales-projet-soleil-nyakiriza/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "ASBL TWITEZIMBERE : Avis de mise en vente",
+   "buyer": "ASBL TWITEZIMBERE : Avis de mise en vente",
+   "sector": "Énergie",
+   "deadline": null,
+   "deadline_source": null,
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "Le Renouveau",
+     "url": "https://lerenouveau.bi/asbl-twitezimbere-avis-de-mise-en-vente/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "AVIS D’APPEL D’OFFRES OUVERT NATIONAL N° DNCMP /277/F/ 2022-2023 DU MARCHE RELATIF A LA FOURNITURE DES PNEUS DES VEHICULES DU MINISTERE DES FINANCES, DU BUDGET ET DE LA PLANIFICATION ECONOMIQUE",
+   "buyer": "BRB",
+   "sector": "Véhicules/transport",
+   "deadline": null,
+   "deadline_source": null,
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "Le Renouveau",
+     "url": "https://lerenouveau.bi/avis-dappel-doffres-ouvert-national-n-dncmp-277-f-2022-2023-du-marche-relatif-a-la-fourniture-des-pneus-des-vehicules-du-ministere-des-finances-du-budget-et-de-la-planificat/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Cours officiels des changes au comptant appliques par la B.R.B en date du 15 novembre 2022",
+   "buyer": "BRB",
+   "sector": "Autre",
+   "deadline": null,
+   "deadline_source": null,
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "Le Renouveau",
+     "url": "https://lerenouveau.bi/cours-officiels-des-changes-au-comptant-appliques-par-la-b-r-b-en-date-du-15-novembre-2022/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Les avocats de l’Etat ont appris les contentieux pouvant naître à chaque étape du marché public",
+   "buyer": null,
+   "sector": "Services/conseil",
+   "deadline": null,
+   "deadline_source": null,
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "Le Renouveau",
+     "url": "https://lerenouveau.bi/les-avocats-de-letat-ont-appris-les-contentieux-pouvant-naitre-a-chaque-etape-du-marches-public/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "AVIS DE MANIFESTATION D’INTERET POUR LE RECRUTEMENT INTERNATIONAL D’UN CABINET D’AUDIT CHARGE DE REALISER L’AUDIT EXTERNE DU PROJET D’APPUI A L’INCLUSION FINANCIERE AGRICOLE ET RURALE DU BURUNDI (PAIFAR-B)",
+   "buyer": null,
+   "sector": "Services/conseil",
+   "deadline": null,
+   "deadline_source": null,
+   "reference": "PAIFAR-B/.15./S/SQCF/2025-2026",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "ARMP",
+     "url": "https://armp.gov.bi/archives/10111"
+    }
+   ],
+   "pdf_enriched": true,
+   "pdf_url": "https://armp.gov.bi/wp-content/uploads/2026/03/AMI-A-PUBLIE-AUDIT-EXERNE-1.pdf",
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "AVIS D’APPEL D’OFFRES POUR LE PROJET D’AMELIORATION DE LA QUALITE DES APPRENTISSAGES AU BURUNDI (PAQABU) POUR LA FOURNITURE ET DE L’INSTALLATION DU MOBILIER POUR LES LYCEES PEDAGOGIQUES.",
+   "buyer": "Ministere de I'Education Nationale et de la Recherche Scientifique",
+   "sector": "Fournitures/agro",
+   "deadline": null,
+   "deadline_source": null,
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": "13 500 000",
+   "lots": null,
+   "sources": [
+    {
+     "name": "ARMP",
+     "url": "https://armp.gov.bi/archives/8914"
+    }
+   ],
+   "pdf_enriched": true,
+   "pdf_url": "https://armp.gov.bi/wp-content/uploads/2025/11/Pacabu04.pdf",
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Ministère de l’Education Nationale et de la Recherche scientifique : Avis d’appel d’offres ouvert national N° DNCMP/59/S/2024-2025, relatif à la location des véhicules pour l’organisation du concours et tests nationaux, édition 2025",
+   "buyer": "Ministere de TEducation Nationale et de la Recherche Scientifique invite, par le pre",
+   "sector": "Véhicules/transport",
+   "deadline": null,
+   "deadline_source": null,
+   "reference": "DNCMP/59/S/2024-2025",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "ARMP",
+     "url": "https://armp.gov.bi/archives/123"
+    }
+   ],
+   "pdf_enriched": true,
+   "pdf_url": "https://armp.gov.bi/wp-content/uploads/2024/11/59s2024-2025.pdf",
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Clinique Prince Louis RWAGASORE : Avis d’appel d’offres ouvert national N° DNCMP/212/F/2024-2025, relatif à la fourniture des produits pharmaceutiques .",
+   "buyer": null,
+   "sector": "Santé",
+   "deadline": null,
+   "deadline_source": null,
+   "reference": "DNCMP/212/F/2024-2025",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "ARMP",
+     "url": "https://armp.gov.bi/archives/99"
+    }
+   ],
+   "pdf_enriched": true,
+   "pdf_url": "https://armp.gov.bi/wp-content/uploads/2024/10/212f2024-20250001.pdf",
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Commission Vérité et Réconciliation (CVR) : Avis d’appel d’offres ouvert national N° DNCMP/215/F/2024-2025, relatif à la fourniture des ordinateurs portables",
+   "buyer": null,
+   "sector": "IT/numérique",
+   "deadline": null,
+   "deadline_source": null,
+   "reference": "DNCMP/215/F/2024-2025",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "ARMP",
+     "url": "https://armp.gov.bi/archives/145"
+    }
+   ],
+   "pdf_enriched": true,
+   "pdf_url": "https://armp.gov.bi/wp-content/uploads/2024/11/215F2024-2025.pdf",
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Direction Générale de l’Eau Potable et de l’Assainissement de Base (DGEPA) : Avis d’appel d’offres ouvert national N° DNCMP/66/S/2024-2025, relatif aux services de consultance pour la réalisation des études détaillées des projets de construction, réhabilitation et/ou extension des réseaux d’AEP et de construction de deux blocs de latrines de douze à deux trous vidangeables dans certaines communes des Provinces du Burundi",
+   "buyer": "Ministere de Phydraulique, de L'énergie et des Mines,Direction Generale de l'Eau Pot",
+   "sector": "Travaux/BTP",
+   "deadline": null,
+   "deadline_source": null,
+   "reference": "DNCMP/66/S/2024-2025",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "ARMP",
+     "url": "https://armp.gov.bi/archives/11"
+    }
+   ],
+   "pdf_enriched": true,
+   "pdf_url": "https://armp.gov.bi/wp-content/uploads/2024/10/66s2024-2025.pdf",
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Commune GITOBE : Avis d’appel d’offres ouvert national N° GBE/01/F/2024-2025, relatif à la fourniture des équipements et matériels informatiques pour le bureau de la Zone Baziro",
+   "buyer": null,
+   "sector": "IT/numérique",
+   "deadline": null,
+   "deadline_source": null,
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "ARMP",
+     "url": "https://armp.gov.bi/archives/151"
+    }
+   ],
+   "pdf_enriched": true,
+   "pdf_url": "https://armp.gov.bi/wp-content/uploads/2024/11/GBE01F2024-20250001.pdf",
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Hôpital Militaire de Kamenge : Avis d’appel d’offres ouvert national N° DNCMP/207/F/2024-2025, relatif à la fourniture des tissus",
+   "buyer": null,
+   "sector": "Santé",
+   "deadline": null,
+   "deadline_source": null,
+   "reference": "DNCMP/207/F/2024-2025",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "ARMP",
+     "url": "https://armp.gov.bi/archives/148"
+    }
+   ],
+   "pdf_enriched": true,
+   "pdf_url": "https://armp.gov.bi/wp-content/uploads/2024/11/207f2024-20250001.pdf",
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Ministère de l’Intérieur, du Développement Communautaire et de la Sécurité Publique : Avis d’appel d’offres ouvert national N° DNCMP/64/S/2024-2025, relatif au recrutement d’un bureau/cabinet chargé de former en réseaux avancés des policiers de la PNB",
+   "buyer": null,
+   "sector": "Services/conseil",
+   "deadline": null,
+   "deadline_source": null,
+   "reference": "DNCMP/64/S/2024-2025",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "ARMP",
+     "url": "https://armp.gov.bi/archives/113"
+    }
+   ],
+   "pdf_enriched": true,
+   "pdf_url": "https://armp.gov.bi/wp-content/uploads/2024/11/64s2024-20250001.pdf",
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Ministère de la Santé Publique et de la Lutte contre le Sida : Avis d’appel d’offres ouvert international N° DNCMP/137/T/2024-2025, relatif aux travaux d’extension des Hôpitaux communaux de Gishubi et Nyarusange (lot 1) dans la Province de Gitega, Isare et Kibuye (lot 2) dans la Province de Bujumbura; et Kiremba et Marangara (lot 3) dans la Province de Butanyerera",
+   "buyer": null,
+   "sector": "Santé",
+   "deadline": null,
+   "deadline_source": null,
+   "reference": "DNCMP/137/T/2024-2025",
+   "dossier_cost": null,
+   "guarantee": "56 000 000",
+   "lots": 3,
+   "sources": [
+    {
+     "name": "ARMP",
+     "url": "https://armp.gov.bi/archives/193"
+    }
+   ],
+   "pdf_enriched": true,
+   "pdf_url": "https://armp.gov.bi/wp-content/uploads/2024/11/132t2024-2025.pdf",
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Ministère de la Santé Publique et de la Lutte contre le Sida : Avis d’appel d’offres ouvert international N° DNCMP/138/T/2024-2025, relatif aux travaux d’extension des Hôpitaux communaux de Makamba à Kibago (lot 1), Rumonge à Burambi (lot 2) et Rutana à Giharo (lot 3) dans la Province Sanitaire de Burunga, et l’Hôpital Communal de Cankuzo à Mishiha (lot 4) dans la Province de Buhumuza",
+   "buyer": null,
+   "sector": "Santé",
+   "deadline": null,
+   "deadline_source": null,
+   "reference": "DNCMP/138/T/2024-2025",
+   "dossier_cost": null,
+   "guarantee": "56 000 000",
+   "lots": 4,
+   "sources": [
+    {
+     "name": "ARMP",
+     "url": "https://armp.gov.bi/archives/190"
+    }
+   ],
+   "pdf_enriched": true,
+   "pdf_url": "https://armp.gov.bi/wp-content/uploads/2024/11/138t2024-20250001.pdf",
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Ministère de la Santé Publique et de la Lutte contre le Sida : Avis d’appel d’offres ouvert international N° DNCMP/139/T/2024-2025, relatif aux travaux de réhabilitation et extension des Hôpitaux de District Nord, Centre et Sud de Bujumbura Mairie : Kamenge, Bwiza et Ruziba (3 lots)",
+   "buyer": null,
+   "sector": "Santé",
+   "deadline": null,
+   "deadline_source": null,
+   "reference": "DNCMP/139/T/2024-2025",
+   "dossier_cost": null,
+   "guarantee": "56 000 000",
+   "lots": 3,
+   "sources": [
+    {
+     "name": "ARMP",
+     "url": "https://armp.gov.bi/archives/187"
+    }
+   ],
+   "pdf_enriched": true,
+   "pdf_url": "https://armp.gov.bi/wp-content/uploads/2024/11/139t2024-20250001.pdf",
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Force de Défense Nationale : Avis d’appel d’offres à consultation restreinte N° DNCMP/2010/F/2024-2025, relatif à la fourniture des équipements de l’imprimerie",
+   "buyer": null,
+   "sector": "Fournitures/agro",
+   "deadline": null,
+   "deadline_source": null,
+   "reference": "DNCMP/2010/F/2024-2025",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "ARMP",
+     "url": "https://armp.gov.bi/archives/154"
+    }
+   ],
+   "pdf_enriched": true,
+   "pdf_url": "https://armp.gov.bi/wp-content/uploads/2024/11/210F2024-20250001.pdf",
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Ministère de l’Environnement, de l’Agriculture et de l’Elevage : Avis d’appel d’offres ouvert national N° DNCMP/133/T/2024-2025, relatif à l’exécution des travaux de construction des ouvrages d’irrigation collinaire du site de Gasivya en Commune Gitaramuka de la Province Karusi (17 ha)",
+   "buyer": null,
+   "sector": "Travaux/BTP",
+   "deadline": null,
+   "deadline_source": null,
+   "reference": "DNCMP/133/T/2024-2025",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "ARMP",
+     "url": "https://armp.gov.bi/archives/202"
+    }
+   ],
+   "pdf_enriched": true,
+   "pdf_url": "https://armp.gov.bi/wp-content/uploads/2024/11/134t2024-20250001.pdf",
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Commune Urbaine de Ntahangwa : Avis d’appel d’offres ouvert national N° DNCMP/131/T/2024-2025, relatif aux travaux de réhabilitation et d’extension des bureaux de Zone Buterere (lot 1) et Zone Gihosha (lot 2)",
+   "buyer": null,
+   "sector": "Travaux/BTP",
+   "deadline": null,
+   "deadline_source": null,
+   "reference": "DNCMP/131/T/2024-2025",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "ARMP",
+     "url": "https://armp.gov.bi/archives/212"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Commune KIBAGO : Avis de relance d’appel d’offres ouvert national N° DNCMP/71/T/2024-2025, relatif aux travaux de construction des bureaux de Zone Kiyange (lot 1) et Zone Bukeye (lot 2)",
+   "buyer": null,
+   "sector": "Travaux/BTP",
+   "deadline": null,
+   "deadline_source": null,
+   "reference": "DNCMP/71/T/2024-2025",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "ARMP",
+     "url": "https://armp.gov.bi/archives/208"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Office Burundais des Recettes (OBR) : Addendum au DAO n° DNCMP/39/S/2024-2025, relatif à l’assurance des véhicules et motos",
+   "buyer": "OBR",
+   "sector": "Véhicules/transport",
+   "deadline": null,
+   "deadline_source": null,
+   "reference": "DNCMP/39/S/2024-2025",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "ARMP",
+     "url": "https://armp.gov.bi/archives/116"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Ministère du Commerce, du Transport et de l’Industrie : Appel d’offres ouvert national DNCMP/50/S/2024-2025, relatif au recrutement d’un consultant (bureau/cabinet) national pour mener une étude sur la transformation et la commercialisation des produits dérivés du porc et du lapins",
+   "buyer": "Ministère du Commerce",
+   "sector": "Services/conseil",
+   "deadline": null,
+   "deadline_source": null,
+   "reference": "DNCMP/50/S/2024-2025",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "ARMP",
+     "url": "https://armp.gov.bi/archives/135"
+    }
+   ],
+   "pdf_enriched": true,
+   "pdf_url": "https://armp.gov.bi/wp-content/uploads/2024/11/51s2024-20250001.pdf",
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Institut National de Sécurité Sociale (INSS) : Avis d’appel d’offres ouvert portant réparation et entretien des véhicules",
+   "buyer": "INSS",
+   "sector": "Véhicules/transport",
+   "deadline": null,
+   "deadline_source": null,
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "ARMP",
+     "url": "https://armp.gov.bi/archives/129"
+    }
+   ],
+   "pdf_enriched": true,
+   "pdf_url": "https://armp.gov.bi/wp-content/uploads/2024/11/52s2024-2025.pdf",
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Avis d'appel d'offres — LA  FOURNITURE  DES POTEAUX  EN BOIS MT TRAITES AVEC LES CHAPEAUX EN ACIER GALVANISE ET CLOUS DE FIXATION  SUR LE POTEAU POUR NYANGE-BUSHAZA, MURAMA ET BWOGA, OBJET DU DAO",
+   "buyer": "REGIDESO",
+   "sector": "IT/numérique",
+   "deadline": null,
+   "deadline_source": null,
+   "reference": "DNCMP/629/F/2025-2026",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "REGIDESO",
+     "url": "https://regideso.bi/avis-dappel-doffres-20/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "Avis d'appel d'offres — TRAVAUX DE CONSTRUCTION DES CHAMBRES DE VANNES EN BETON ARME A NGAGARA, MUTAKURA ET KINAMA, OBJET DU DAO N° DEAU/03/T/2025-2026",
+   "buyer": "REGIDESO",
+   "sector": "Travaux/BTP",
+   "deadline": null,
+   "deadline_source": null,
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "REGIDESO",
+     "url": "https://regideso.bi/avis-dappel-doffres-16/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "AVIS D’APPEL D’OFFRES NATIONAL OUVERT",
+   "buyer": "ISABU",
+   "sector": "Santé",
+   "deadline": null,
+   "deadline_source": null,
+   "reference": "DNCMP/288/F/2026-2027",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "ISABU",
+     "url": "https://isabu.bi/avis-dappel-doffres-national-ouvert/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  },
+  {
+   "title": "AVIS D’APPEL D’OFFRES OUVERT NATIONAL N°DNCMP/05/T/2026-2027 RELATIF A LA REHABILITATION D’UN BLOC APPRO_PATRIMOINE ET DU BLOC MAGASIN.",
+   "buyer": "ISABU",
+   "sector": "Travaux/BTP",
+   "deadline": null,
+   "deadline_source": null,
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "ISABU",
+     "url": "https://isabu.bi/avis-dappel-doffres-ouvert-national-ndncmp-05-t-2026-2027-relatif-a-la-rehabilitation-dun-bloc-appro_patrimoine-et-du-bloc-magasin/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-15",
+   "is_new": true
+  }
+ ],
+ "subscribers": [
+  {
+   "entreprise": "EXEMPLE — Ne pas envoyer",
+   "sectors": [
+    "Fournitures/agro",
+    "Travaux/BTP"
+   ],
+   "email": "exemple@exemple.bi",
+   "whatsapp": "+25700000000",
+   "paye_jusqu_au": "2026-12-31",
+   "actif": false,
+   "is_example": true
+  }
+ ],
+ "sends": {
+  "date": "2026-11-15",
+  "source_run": "run-2026-11-15.json",
+  "total_new": 95,
+  "entries": [
+   {
+    "entreprise": "EXEMPLE — Ne pas envoyer",
+    "matched": 36,
+    "sectors": [
+     "Fournitures/agro",
+     "Travaux/BTP"
+    ],
+    "email_status": "PRÊT À ENVOYER (envoi réel branché par le parent)",
+    "whatsapp_status": "WhatsApp non configuré — message prêt dans envois/ (champs manquants dans whatsapp-config.json : phone_number_id, access_token_ref, template_name)",
+    "is_example": true
+   }
+  ]
+ }
+}
