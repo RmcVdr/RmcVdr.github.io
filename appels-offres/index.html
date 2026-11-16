@@ -49,6 +49,17 @@ header{position:sticky;top:0;z-index:40;background:rgba(246,244,237,.85);backdro
 .livedot{width:8px;height:8px;border-radius:50%;background:#12b76a;box-shadow:0 0 0 0 rgba(18,183,106,.5);animation:pulse 2.4s infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(18,183,106,.45)}70%{box-shadow:0 0 0 7px rgba(18,183,106,0)}100%{box-shadow:0 0 0 0 rgba(18,183,106,0)}}
 .hd-clock .dt{font-size:11.5px;color:var(--muted);font-weight:500;white-space:nowrap}
+/* Téléphones étroits (360–400 px) : la marque et l'horloge ne doivent
+   JAMAIS se chevaucher — l'horloge passe sur sa propre ligne, à droite. */
+@media (max-width:600px){
+  .hd-in{flex-wrap:wrap;row-gap:1px;padding:10px 14px}
+  .hd-brand{flex:1 1 175px}
+  .hd-brand .b1{font-size:14px}
+  .hd-brand .b2{font-size:9.5px;letter-spacing:.04em}
+  .hd-clock{margin-left:auto}
+  .hd-clock .tm{font-size:14.5px}
+  .hd-clock .dt{font-size:11px}
+}
 
 /* ---------- Structure ---------- */
 main{max-width:920px;margin:0 auto;padding:18px 16px 10px}
@@ -595,9 +606,24 @@ function renderVal(field, valeur){
     } else if(field==='delai_duree'){
       if(g('delai')) parts.push('Délai : '+esc(g('delai')));
       if(g('duree')) parts.push('Durée : '+esc(g('duree')));
+    } else if(field==='garantie'){
+      if(g('montant')) parts.push(esc(g('montant')));
+      if(Array.isArray(g('par_lot'))) g('par_lot').forEach(l => parts.push(`Lot ${esc(l.lot)} : ${esc(l.montant)}`));
     } else if(field==='retrait_depot'){
-      if(g('retrait')) parts.push('Retrait : '+esc(g('retrait')));
-      if(g('depot')) parts.push('Dépôt : '+esc(g('depot')));
+      const r = g('retrait'), d = g('depot');
+      if(r){
+        if(typeof r==='object'){
+          if(r.lieu) parts.push('Retrait : '+esc(r.lieu));
+          if(r.contact) parts.push('Contact : '+esc(r.contact));
+        } else parts.push('Retrait : '+esc(r));
+      }
+      if(d){
+        if(typeof d==='object'){
+          if(Array.isArray(d.modes) && d.modes.length) parts.push('Dépôt : '+esc(d.modes.join(', ')));
+          if(d.adresse) parts.push('Adresse : '+esc(d.adresse));
+          if(d.limite) parts.push('Limite de dépôt : '+esc(d.limite));
+        } else parts.push('Dépôt : '+esc(d));
+      }
     } else if(field==='criteres_mode'){
       if(g('criteres')) parts.push('Critères : '+esc(g('criteres')));
       if(g('mode')) parts.push('Mode : '+esc(g('mode')));
@@ -778,7 +804,7 @@ function render(){
   const subsActifs = D.subscribers.filter(s => s.actif && !s.is_example).length;
   const aVerifier = tenders.filter(hasCritVerif).length;
   const annules = tenders.filter(isAnnule).length;
-  const moy = tenders.length ? (tenders.reduce((s,t) => s+compLus(t),0)/tenders.length) : 0;
+  const moy = actifs.length ? (actifs.reduce((s,t) => s+compLus(t),0)/actifs.length) : 0;
 
   $('#hdr-sub').textContent = `Dernier passage du scanner : ${fmtDate(D.run.date)} · ${tenders.length} avis suivis`;
   $('#foot').innerHTML = `Données générées le ${new Date(D.generated_at).toLocaleString('fr-FR')}<br>Magic Logistic Company · Veille appels d'offres — Burundi`;
@@ -794,7 +820,7 @@ function render(){
   $('#stats').innerHTML =
     ovwRow('alert', 'Fiches avec champ critique à vérifier', aVerifier, aVerifier ? 'warn' : '') +
     ovwRow('x', 'Avis annulés', annules, annules ? 'bad' : '') +
-    ovwRow('gauge', 'Complétude moyenne des fiches', (Math.round(moy*10)/10).toString().replace('.',',')+'/14') +
+    ovwRow('gauge', 'Complétude moyenne (fiches actives)', (Math.round(moy*10)/10).toString().replace('.',',')+'/14') +
     ovwRow('users', 'Abonnés actifs', subsActifs) +
     ovwRow('radio', 'Sources opérationnelles', `${D.run.sources_ok}/${D.run.sources_total}`) +
     ovwRow('paper', 'Avis enrichis par analyse PDF', tenders.filter(t=>t.pdf_enriched).length);
