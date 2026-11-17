@@ -167,6 +167,9 @@ textarea.inp{min-height:74px;resize:vertical}
   .earn{bottom:150px}
   .wafloat{bottom:212px}
 }
+.bar{height:8px;background:#e2e8f0;border-radius:99px;overflow:hidden;margin-top:4px}
+.bar>i{display:block;height:100%;background:var(--blue);border-radius:99px}
+.chk{width:16px;height:16px;accent-color:var(--blue)}
 </style>
 </head>
 <body>
@@ -295,15 +298,17 @@ const MODULES = [
 function currentModule(route){ return route.split("/")[1] || "home"; }
 function renderShell(route){
   const mod = currentModule(route);
+  const VERS = { home: "Web v8.6.4", crm: "CRM v8.6.1", store: "Store v8.7.0", catalog: "Catalog v1.4.0", cards: "Cards v0.1.10", shop: "Version 8.5.0", help: "Web v8.6.4", credits: "Web v8.6.4", account: "Web v8.6.4" };
   $("#side").innerHTML =
     '<div class="brand"><div class="logo">mlc<i>.</i></div><div class="sub">Magic Logistic Company</div></div>' +
     "<nav>" + MODULES.map(m => '<a href="' + m.hash + '" class="' + (mod === m.key ? "on" : "") + '"><span class="ic">' + m.icon + "</span>" + m.label + "</a>").join("") + "</nav>" +
-    '<div class="ver">Version miroir — données locales</div>';
+    '<div class="ver">' + (VERS[mod] || "Web v8.6.4") + "</div>";
   $("#top").innerHTML =
     '<button class="burger" id="burger" aria-label="Menu">☰</button>' +
     '<div class="biz">🏢 ' + esc(DB.business.name) + ' <span class="mut small">(' + DB.business.id + ")</span></div>" +
     '<div class="sp"></div>' +
     '<span class="hello">Bonjour, <b>' + esc(DB.owner.name) + '</b> — Plan : <b>' + esc(DB.plan) + "</b></span>" +
+    '<span id="bellbadge" style="position:relative;display:inline-flex"><button class="btn ghost sm" onclick="viewNotifications()" title="Notifications">🔔</button>' + notifBadgeHTML() + "</span>" +
     '<a class="avatar" href="#/account/profile" title="Mon compte">iA</a>';
   $("#burger").onclick = () => { $("#side").classList.add("open"); $("#scrim").classList.add("show"); };
   $("#scrim").onclick = closeSide;
@@ -318,11 +323,11 @@ function closeModal(){ $("#modal").classList.remove("open"); $("#modalbox").inne
 $("#modal").addEventListener("click", e => { if (e.target.id === "modal") closeModal(); });
 function modalHead(title){ return '<div class="mhead"><div class="sp"><h2>' + esc(title) + '</h2></div><button class="xbtn" onclick="closeModal()">✕</button></div>'; }
 function upgradeModal(feature){
-  openModal(modalHead("Un moment !") +
+  openModal(modalHead("It's time to upgrade!") +
     '<div style="text-align:center;padding:8px 0 4px"><div style="font-size:40px">🔒</div>' +
-    "<h3 style=\"margin:8px 0 4px\">C'est le moment de passer au Premium !</h3>" +
-    '<p class="mut">' + esc(feature || "Fonctionnalité") + " n'est pas disponible dans le plan actuel (" + DB.plan + "). Passez au Premium pour la débloquer.</p>" +
-    '<div style="margin-top:14px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap"><a class="btn" href="#/account/change-plan" onclick="closeModal()">Passer au Premium</a><button class="btn ghost" onclick="closeModal()">Plus tard</button></div></div>');
+    "<h3 style=\"margin:8px 0 4px\">It's time to upgrade!</h3>" +
+    '<p class="mut">' + esc(feature || "Feature") + " — Feature is unavailable in current plan (" + DB.plan + "). Passez au Premium pour débloquer cette fonction.</p>" +
+    '<div style="margin-top:14px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap"><a class="btn" href="#/account/changeplan" onclick="closeModal()">Passer au Premium</a><button class="btn ghost" onclick="closeModal()">Plus tard</button></div></div>');
 }
 function copyText(txt, msg){
   const done = () => toast(msg || "Copié ✓");
@@ -347,12 +352,21 @@ function viewHome(){
     '<button class="earn" onclick="earnModal()">🎁 Gagnez 160 $</button>';
 }
 function earnModal(){
+  const tabs = '<div class="tabs"><a href="javascript:void(0)" onclick="earnTabState=\'invite\';earnModal()" class="' + (earnTabState === "invite" ? "on" : "") + '">Inviter</a><a href="javascript:void(0)" onclick="earnTabState=\'rewards\';earnModal()" class="' + (earnTabState === "rewards" ? "on" : "") + '">Récompenses</a></div>';
+  if (earnTabState === "rewards"){
+    openModal(modalHead("Parrainage MLC") + tabs +
+      '<p style="margin-top:10px">Récompenses gagnées : <b>FBu 0</b></p>' +
+      '<p class="mut" style="margin-top:6px">Vos filleuls apparaîtront ici dès leur inscription : vous recevez 20 % de leurs revenus, jusqu\'à 160 $ par filleul, et ils reçoivent −20 %.</p>' +
+      '<div class="empty" style="margin-top:10px"><div class="big">No Data Found!</div>Aucune récompense pour le moment.</div>');
+    return;
+  }
   openModal(modalHead("Parrainage MLC") +
     "<p><b>Donnez −20 %. Recevez jusqu'à 160 $.</b></p>" +
     '<p class="mut" style="margin:8px 0">Invitez vos amis sur MLC et offrez-leur 20 % de réduction. Vous gagnez 20 % de leurs revenus, jusqu\'à 160 $ par filleul.</p>' +
     '<div class="field"><label>Lien d\'invitation</label><input class="inp" readonly value="mlc.boutique/ref/' + DB.business.id + '"></div>' +
-    '<div class="tabs"><a class="on">Inviter</a><a>Récompenses</a></div>' +
-    '<button class="btn" onclick="earnCopy()">Copier le lien d\'invitation</button>');
+    tabs +
+    '<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" onclick="earnCopy()">Copier le lien d\'invitation</button>' +
+    '<a class="btn green" target="_blank" rel="noopener" href="https://wa.me/?text=' + encodeURIComponent("Essaie MLC pour ta boutique WhatsApp : mlc.boutique/ref/" + DB.business.id) + '">Partager sur WhatsApp</a></div>');
 }
 function earnCopy(){ copyText("mlc.boutique/ref/" + DB.business.id, "Lien d'invitation copié ✓"); }
 /* ================= CRM ================= */
@@ -365,6 +379,7 @@ function pageHead(title, sub, btn){ return '<div class="pagehead"><div><h1>' + t
 function viewCrmDashboard(){
   const t = DB.tickets;
   const stat = (lb, vl, sub) => '<div class="stat"><div class="lb">' + lb + '</div><div class="vl">' + vl + (sub ? ' <small>' + sub + "</small>" : "") + "</div></div>";
+  const prioLine = ["Low", "Medium", "High", "Urgent"].map(p => { const n = t.filter(x => x.priority === p).length; return n ? p + " " + n : ""; }).filter(Boolean).join(" · ");
   return crmNav("dashboard") +
     pageHead("CRM — Dashboard", "Bonjour, " + esc(DB.owner.name) + " — voici un aperçu de ce qui se passe dans votre entreprise. Plage : 18/10/2026 — 17/11/2026.") +
     '<div class="note blue">📲 <b>Visitez WhatsApp Web</b> (web.whatsapp.com) pour commencer à utiliser les fonctions CRM.</div>' +
@@ -377,12 +392,12 @@ function viewCrmDashboard(){
       stat("Contacts — Total", DB.contacts.length, "Mis à jour 0") +
       stat("Messages — Envoyés", 0, "Reçus 0") +
       stat("Tickets — Total", t.length, "En retard 0 · Fermés " + t.filter(x => x.status === "Closed").length) +
-      stat("Ticket Priorities", "—", "Aucune donnée") +
+      stat("Ticket Priorities", t.length ? t.length : "—", prioLine || "Aucune donnée") +
       stat("Reminders — Total", DB.reminders.length, "Lus 0") +
       stat("Quick Replies", DB.quickReplies.length, "Envoyées " + DB.quickReplies.reduce((a, q) => a + q.sent, 0) + " fois") +
       stat("Funnels", DB.funnels.length ? DB.funnels.length : "—", DB.funnels.length ? "" : "Aucune donnée") +
       stat("Tags", DB.tagsList.length ? DB.tagsList.length : "—", DB.tagsList.length ? "" : "Aucune donnée") +
-      stat("Contact Notes — Total", 0, "Mis à jour 0") +
+      stat("Contact Notes — Total", DB.contacts.reduce((a, c) => a + (c.activities || []).length, 0), "Mis à jour 0") +
     "</div>";
 }
 function crmAddFunnel(){
@@ -395,23 +410,34 @@ function crmAddTag(){
 function crmSaveTag(){ const n = $("#tg-name").value.trim(); if (!n) return toast("Nom requis"); DB.tagsList.push({ id: uid("t"), name: n }); save(); closeModal(); toast("Étiquette créée ✓"); render(); }
 
 function viewCrmTickets(){
-  const rows = DB.tickets.map((t, i) => "<tr><td>" + (i + 1) + "</td><td>" + t.id + "</td><td>" + esc(t.priority) + "</td><td>" + esc(t.subject) + '</td><td>' + esc(t.contact) + "</td><td>" + statusBadge(t.status) + "</td><td>" + esc(t.due || "—") + "</td><td>" + esc(t.created) + '</td><td><button class="btn sm ghost" onclick="crmDelTicket(\'' + t.id + '\')">🗑️</button></td></tr>').join("");
+  setTimeout(applyTicketFilter, 0);
   return crmNav("tickets") + pageHead("Tickets (" + DB.tickets.length + ")", "Gérez facilement vos tickets clients et assurez un support sans faille.", '<button class="btn" onclick="crmTicketForm()">+ Add New</button> <button class="btn ghost" onclick="toast(\'Guide : Tickets Management in MLC CRM [Web]\')">Know More</button>') +
-    '<div class="filters"><input class="inp" placeholder="Name"><input class="inp" placeholder="Email"><input class="inp" placeholder="Mobile No"><select class="inp"><option>Priority : Toutes</option><option>Low</option><option>Medium</option><option>High</option><option>Urgent</option></select><select class="inp"><option>Status : Tous</option>' + DB.ticketStatuses.map(s => "<option>" + esc(s.name) + "</option>").join("") + "</select></div>" +
-    '<div class="filters"><button class="btn sm ghost" onclick="toast(\'Sélectionnez d&#39;abord des tickets\')">Change Ticket Priority</button><button class="btn sm ghost" onclick="toast(\'Sélectionnez d&#39;abord des tickets\')">Change Ticket Status</button></div>' +
-    (DB.tickets.length ? '<div class="tblwrap"><table><tr><th>#</th><th>ID</th><th>Priority</th><th>Subject</th><th>Contact</th><th>Status</th><th>Due Date</th><th>Created At</th><th></th></tr>' + rows + "</table></div>"
-      : '<div class="card empty"><div class="big">Ticket Not Found!</div>Gérez facilement vos tickets clients et assurez un support sans faille.<br><span class="small">🎬 Vidéo : « Tickets Management in MLC CRM [Web] »</span></div>');
+    '<div class="filters"><input class="inp" id="tf-name" placeholder="Name" oninput="applyTicketFilter()"><input class="inp" id="tf-email" placeholder="Email" oninput="applyTicketFilter()"><select class="inp" id="tf-cc" onchange="applyTicketFilter()"><option value="">Country Code</option><option>+257</option></select><input class="inp" id="tf-mobile" placeholder="Mobile No" oninput="applyTicketFilter()">' +
+    dateFilterHTML("tf-created", "Created Date", "applyTicketFilter()") + dateFilterHTML("tf-due", "Due Date", "applyTicketFilter()") +
+    '<select class="inp" id="tf-prio" onchange="applyTicketFilter()"><option value="">Priority : Toutes</option><option>Low</option><option>Medium</option><option>High</option><option>Urgent</option></select><select class="inp" id="tf-status" onchange="applyTicketFilter()"><option value="">Status : Tous</option>' + DB.ticketStatuses.map(s => "<option>" + esc(s.name) + "</option>").join("") + "</select></div>" +
+    '<div class="filters"><span class="small mut" style="align-self:center">Actions groupées :</span><select class="inp" id="tb-prio"><option>Low</option><option>Medium</option><option>High</option><option>Urgent</option></select><button class="btn sm ghost" onclick="ticketBulk(\'prio\')">Change Ticket Priority</button><select class="inp" id="tb-status">' + DB.ticketStatuses.map(s => "<option>" + esc(s.name) + "</option>").join("") + '</select><button class="btn sm ghost" onclick="ticketBulk(\'status\')">Change Ticket Status</button></div>' +
+    '<div class="tblwrap"><table><tr><th><input type="checkbox" class="chk" onchange="ticketToggleAll(this.checked)"></th><th>#</th><th>ID</th><th>Priority</th><th>Subject</th><th>Contact</th><th>Status</th><th>Due Date</th><th>Created At</th><th></th></tr><tbody id="tf-body"></tbody></table></div>' +
+    '<p class="small mut" id="tf-count" style="margin-top:8px"></p>' +
+    (DB.tickets.length ? "" : '<div class="card empty"><div class="big">Ticket Not Found!</div>Gérez facilement vos tickets clients et assurez un support sans faille.<br><span class="small">🎬 Vidéo : « Tickets Management in MLC CRM [Web] »</span></div>');
 }
-function crmTicketForm(){
-  openModal(modalHead("Nouveau ticket") +
-    '<div class="field"><label>Sujet</label><input class="inp" id="tk-subject"></div>' +
-    '<div class="field"><label>Contact</label><select class="inp" id="tk-contact">' + DB.contacts.map(c => "<option>" + esc(c.name || c.mobile) + "</option>").join("") + "</select></div>" +
-    '<div class="row"><div class="field"><label>Priorité</label><select class="inp" id="tk-prio"><option>Low</option><option selected>Medium</option><option>High</option><option>Urgent</option></select></div>' +
-    '<div class="field"><label>Statut</label><select class="inp" id="tk-status">' + DB.ticketStatuses.map(s => "<option>" + esc(s.name) + "</option>").join("") + "</select></div></div>" +
-    '<div class="field"><label>Date d\'échéance</label><input class="inp" type="date" id="tk-due"></div>' +
-    '<button class="btn" onclick="crmSaveTicket()">Enregistrer</button>');
+function crmTicketForm(id){
+  const t = id ? DB.tickets.find(x => x.id === id) : null;
+  openModal(modalHead(t ? "Modifier le ticket" : "Nouveau ticket") +
+    '<div class="field"><label>Sujet</label><input class="inp" id="tk-subject" value="' + (t ? esc(t.subject) : "") + '"></div>' +
+    '<div class="field"><label>Contact</label><select class="inp" id="tk-contact">' + DB.contacts.map(c => "<option" + (t && t.contact === (c.name || c.mobile) ? " selected" : "") + ">" + esc(c.name || c.mobile) + "</option>").join("") + "</select></div>" +
+    '<div class="field"><label>Description</label><textarea class="inp" id="tk-desc">' + (t ? esc(t.desc || "") : "") + "</textarea></div>" +
+    '<div class="row"><div class="field"><label>Priorité</label><select class="inp" id="tk-prio">' + ["Low", "Medium", "High", "Urgent"].map(p => "<option" + (t && t.priority === p ? " selected" : (!t && p === "Medium" ? " selected" : "")) + ">" + p + "</option>").join("") + '</select></div>' +
+    '<div class="field"><label>Statut</label><select class="inp" id="tk-status">' + DB.ticketStatuses.map(s => "<option" + (t && t.status === s.name ? " selected" : "") + ">" + esc(s.name) + "</option>").join("") + "</select></div></div>" +
+    '<div class="field"><label>Date d\'échéance</label><input class="inp" type="date" id="tk-due" value="' + (t ? esc(t.due || "") : "") + '"></div>' +
+    '<button class="btn" onclick="crmSaveTicket(' + (t ? "'" + t.id + "'" : "null") + ')">Enregistrer</button>');
 }
-function crmSaveTicket(){ const s = $("#tk-subject").value.trim(); if (!s) return toast("Sujet requis"); DB.tickets.push({ id: uid("TK"), subject: s, contact: $("#tk-contact").value, priority: $("#tk-prio").value, status: $("#tk-status").value, due: $("#tk-due").value, created: "Aujourd'hui" }); save(); closeModal(); toast("Ticket créé ✓"); render(); }
+function crmSaveTicket(id){
+  const s = $("#tk-subject").value.trim(); if (!s) return toast("Sujet requis");
+  const data = { subject: s, contact: $("#tk-contact").value, priority: $("#tk-prio").value, status: $("#tk-status").value, due: $("#tk-due").value, desc: $("#tk-desc").value };
+  if (id){ const t = DB.tickets.find(x => x.id === id); Object.assign(t, data); toast("Ticket mis à jour ✓"); }
+  else { DB.tickets.push(Object.assign({ id: uid("TK"), created: "Aujourd'hui", createdAt: todayStr() }, data)); toast("Ticket créé ✓"); }
+  save(); closeModal(); render();
+}
 function crmDelTicket(id){ DB.tickets = DB.tickets.filter(t => t.id !== id); save(); render(); }
 
 function viewCrmReminders(){
@@ -427,19 +453,49 @@ function crmSaveReminder(){ const t = $("#rm-title").value.trim(); if (!t) retur
 function crmDelReminder(id){ DB.reminders = DB.reminders.filter(r => r.id !== id); save(); render(); }
 
 function contactRow(c, i){
-  return "<tr><td>" + (i + 1) + '</td><td><span class="pthumb" style="background:#94a3b8">👤</span></td><td><a href="#/crm/contact/' + c.id + '"><b>' + esc(c.name || "(sans nom)") + "</b></a></td><td>" + esc(c.mobile) + "</td><td>" + esc(c.email || "—") + "</td><td>" + esc(c.funnel || "—") + "</td><td>" + (c.tags.length ? c.tags.map(t => '<span class="badge">' + esc(t) + "</span>").join(" ") : "—") + '</td><td><a class="btn sm ghost" href="#/crm/contact/' + c.id + '">Ouvrir</a></td><td>' + esc(c.created) + "</td></tr>";
+  return '<tr><td><input type="checkbox" class="chk"' + (contactSel.has(c.id) ? " checked" : "") + ' onchange="contactToggle(\'' + c.id + '\',this.checked)"></td><td>' + (i + 1) + '</td><td><span class="pthumb" style="background:#94a3b8">👤</span></td><td><a href="#/crm/contact/' + c.id + '"><b>' + esc(c.name || "(sans nom)") + "</b></a></td><td>" + esc(c.mobile) + "</td><td>" + esc(c.email || "—") + "</td><td>" + esc(c.funnel || "—") + "</td><td>" + (c.tags.length ? c.tags.map(t => '<span class="badge">' + esc(t) + "</span>").join(" ") : "—") + '</td><td><a class="btn sm ghost" href="#/crm/contact/' + c.id + '">Ouvrir</a></td><td>' + esc(c.created) + "</td></tr>";
 }
 function viewCrmContacts(){
   return crmNav("contacts") + pageHead("Contacts (" + DB.contacts.length + ")", "", '<button class="btn" onclick="crmContactForm()">+ Add New</button>') +
-    '<div class="filters"><input class="inp" id="f-mobile" placeholder="Mobile No"><select class="inp" id="f-funnel"><option value="">Apply Funnel : Tous</option>' + DB.funnels.map(f => "<option>" + esc(f.name) + "</option>").join("") + '</select><select class="inp"><option>Contact Status : All</option><option>Locked</option><option>Unlocked</option></select><select class="inp"><option>Gender : Tous</option><option>Male</option><option>Female</option><option>Other</option></select><button class="btn ghost" onclick="applyContactFilter()">Filtrer</button></div>' +
-    '<p class="small mut" style="margin-bottom:8px">' + (DB.tagsList.length ? "" : "No tags found. Want to add one? ") + '<a href="javascript:void(0)" onclick="crmAddTag()">Add Tag</a> · Action groupée : <a href="javascript:void(0)" onclick="toast(\'Sélectionnez des contacts à supprimer\')">Delete Contacts</a></p>' +
-    '<div class="tblwrap"><table><tr><th>#</th><th>Photo</th><th>Name</th><th>Mobile</th><th>Email</th><th>Funnel</th><th>Tags</th><th>Actions</th><th>Created</th></tr>' + DB.contacts.map(contactRow).join("") + "</table></div>";
+    '<div class="filters"><input class="inp" id="f-mobile" placeholder="Mobile No" oninput="applyContactFilter()"><select class="inp" id="f-funnel" onchange="applyContactFilter()"><option value="">Apply Funnel : Tous</option>' + DB.funnels.map(f => "<option>" + esc(f.name) + "</option>").join("") + '</select><select class="inp" id="f-tags" onchange="applyContactFilter()"><option value="">Tags : Tous</option>' + DB.tagsList.map(t => "<option>" + esc(t.name) + "</option>").join("") + '</select><select class="inp" id="f-status" onchange="applyContactFilter()"><option value="">Contact Status : All</option><option>Locked</option><option>Unlocked</option></select><select class="inp" id="f-gender" onchange="applyContactFilter()"><option value="">Gender : Tous</option><option>Male</option><option>Female</option><option>Other</option></select>' + dateFilterHTML("cf", "Created Date", "applyContactFilter()") + "</div>" +
+    '<p class="small mut" style="margin-bottom:8px">' + (DB.tagsList.length ? "" : "No tags found. Want to add one? ") + '<a href="javascript:void(0)" onclick="crmAddTag()">Add Tag</a> · Action groupée : <a href="javascript:void(0)" onclick="contactBulkDelete()">Delete Contacts</a> <span id="cf-count"></span></p>' +
+    '<div class="tblwrap"><table>' + contactHeadRow() + DB.contacts.map(contactRow).join("") + "</table></div>";
 }
-function applyContactFilter(){ const m = $("#f-mobile").value.trim(); const f = $("#f-funnel").value; const list = DB.contacts.filter(c => (!m || c.mobile.includes(m)) && (!f || c.funnel === f)); $("#content .tblwrap table").innerHTML = "<tr><th>#</th><th>Photo</th><th>Name</th><th>Mobile</th><th>Email</th><th>Funnel</th><th>Tags</th><th>Actions</th><th>Created</th></tr>" + (list.map(contactRow).join("") || '<tr><td colspan="9" class="empty">Aucun contact ne correspond.</td></tr>'); }
+function applyContactFilter(){
+  const v = id => { const e = document.getElementById(id); return e ? e.value : ""; };
+  const m = v("f-mobile").trim(), f = v("f-funnel"), tg = v("f-tags"), st = v("f-status"), g = v("f-gender");
+  const cp = presetOf("cf");
+  const list = DB.contacts.filter(c =>
+    (!m || c.mobile.includes(m)) && (!f || c.funnel === f) && (!tg || (c.tags || []).includes(tg)) &&
+    (!st || (st === "Locked" ? c.locked : !c.locked)) && (!g || c.gender === g) &&
+    inPreset(c.createdAt, cp.preset, cp.from, cp.to));
+  $("#content .tblwrap table").innerHTML = contactHeadRow() + (list.map(contactRow).join("") || '<tr><td colspan="10" class="empty">Aucun contact ne correspond.</td></tr>');
+  const cnt = document.getElementById("cf-count");
+  if (cnt) cnt.textContent = "— " + list.length + " contact(s) affiché(s)" + (contactSel.size ? " · " + contactSel.size + " sélectionné(s)" : "");
+}
 function crmContactForm(){
-  openModal(modalHead("Nouveau contact") + '<div class="field"><label>Nom</label><input class="inp" id="ct-name"></div><div class="field"><label>Mobile</label><input class="inp" id="ct-mobile" placeholder="+257 …"></div><div class="field"><label>Email</label><input class="inp" id="ct-email"></div><button class="btn" onclick="crmSaveContact()">Enregistrer</button>');
+  const sal = ["", "Mr", "Miss", "Ms", "Mrs", "Mx", "Prof", "Sir", "Dr"];
+  openModal(modalHead("Nouveau contact") +
+    '<div class="row"><div class="field"><label>Salutation</label><select class="inp" id="ct-sal">' + sal.map(s => '<option value="' + s + '">' + (s || "Select") + "</option>").join("") + '</select></div>' +
+    '<div class="field"><label>Name</label><input class="inp" id="ct-name"></div></div>' +
+    '<div class="row"><div class="field"><label>Mobile</label><input class="inp" id="ct-mobile" placeholder="+257 …"></div>' +
+    '<div class="field"><label>Email</label><input class="inp" id="ct-email"></div></div>' +
+    '<div class="row"><div class="field"><label>Company</label><input class="inp" id="ct-company"></div>' +
+    '<div class="field"><label>Gender</label><select class="inp" id="ct-gender"><option value="">Select</option><option>Male</option><option>Female</option><option>Other</option></select></div></div>' +
+    '<div class="row"><div class="field"><label>City</label><input class="inp" id="ct-city"></div>' +
+    '<div class="field"><label>Address</label><input class="inp" id="ct-address"></div></div>' +
+    '<div class="row"><div class="field"><label>Funnel</label><select class="inp" id="ct-funnel"><option value="">Apply Funnel</option>' + DB.funnels.map(f => "<option>" + esc(f.name) + "</option>").join("") + '</select></div>' +
+    '<div class="field"><label>Tags <small>(virgules)</small></label><input class="inp" id="ct-tags" placeholder="' + (DB.tagsList.length ? "Séparées par des virgules" : "No tags found. Want to add one?") + '"></div></div>' +
+    '<div class="field"><label>Notes</label><textarea class="inp" id="ct-notes"></textarea></div>' +
+    '<button class="btn" onclick="crmSaveContact()">Enregistrer</button>');
 }
-function crmSaveContact(){ const m = $("#ct-mobile").value.trim(); if (!m) return toast("Mobile requis"); DB.contacts.push({ id: uid("12"), salutation: "", name: $("#ct-name").value.trim(), mobile: m, email: $("#ct-email").value.trim(), company: "", gender: "", city: "", address: "", notes: "", funnel: "", tags: [], locked: false, created: "Aujourd'hui" }); save(); closeModal(); toast("Contact créé ✓"); render(); }
+function crmSaveContact(){
+  const m = $("#ct-mobile").value.trim(); if (!m) return toast("Mobile requis");
+  const tags = $("#ct-tags").value.split(",").map(s => s.trim()).filter(Boolean);
+  tags.forEach(t => { if (!DB.tagsList.some(x => x.name === t)) DB.tagsList.push({ id: uid("t"), name: t }); });
+  DB.contacts.push({ id: uid("12"), salutation: $("#ct-sal").value, name: $("#ct-name").value.trim(), mobile: m, email: $("#ct-email").value.trim(), company: $("#ct-company").value.trim(), gender: $("#ct-gender").value, city: $("#ct-city").value.trim(), address: $("#ct-address").value.trim(), notes: $("#ct-notes").value, funnel: $("#ct-funnel").value, tags, locked: false, created: "Aujourd'hui", createdAt: todayStr(), activities: [] });
+  save(); closeModal(); toast("Contact créé ✓"); render();
+}
 
 function viewCrmContact(id, tab){
   const c = contactById(id); if (!c) return crmNav("contacts") + '<div class="card empty"><div class="big">Contact introuvable</div></div>';
@@ -463,7 +519,12 @@ function viewCrmContact(id, tab){
       '<button class="btn" onclick="crmSaveContactProfile(\'' + id + '\')">Save</button> ' +
       '<button class="btn red" onclick="crmDelContact(\'' + id + '\')">🗑️ Supprimer</button></div>';
   } else if (tab === "activity"){
-    body = '<div class="card"><h3>Activity (0)</h3><div class="filters" style="margin-top:10px"><select class="inp"><option>Type — Note</option></select></div><div class="empty"><div class="big">No Data Found!</div><span class="small">Colonnes : Note · Created At · Action</span></div></div>';
+    const notes = c.activities || [];
+    body = '<div class="card"><h3>Activity (' + notes.length + ')</h3><div class="filters" style="margin-top:10px"><select class="inp"><option>Type — Note</option></select></div>' +
+      '<div class="field"><label>Add Note</label><textarea class="inp" id="cn-text" placeholder="Écrire une note sur ce contact…"></textarea></div>' +
+      '<button class="btn sm" onclick="crmAddNote(\'' + id + '\')">Add Note</button>' +
+      (notes.length ? '<div class="tblwrap" style="margin-top:12px"><table><tr><th>Note</th><th>Created At</th><th>Action</th></tr>' + notes.map((n, ix) => "<tr><td>" + esc(n.txt) + "</td><td>" + esc(n.d) + '</td><td><button class="btn sm ghost" onclick="crmDelNote(\'' + id + '\',' + ix + ')">🗑️</button></td></tr>').join("") + "</table></div>"
+        : '<div class="empty"><div class="big">No Data Found!</div><span class="small">Colonnes : Note · Created At · Action</span></div>') + "</div>";
   } else {
     body = '<div class="card"><h3>Statistics</h3><div class="grid g4" style="margin-top:12px">' + ["Messages", "Images", "Videos", "Audio"].map(x => '<div class="stat"><div class="lb">' + x + '</div><div class="vl">***</div></div>').join("") + '</div><p class="small mut" style="margin-top:10px">* Messages envoyés par l\'utilisateur et enregistrés dans MLC.</p></div>';
   }
@@ -485,32 +546,53 @@ function viewCrmTemplates(){ return crmNav("templates") + cloudApiScreen("Templa
 
 function viewCrmSaved(tab){
   tab = tab || "Text";
+  savedTabState = tab;
   const tabs = ["Text", "Images", "Videos", "Audio", "Documents"];
-  const cols = tab === "Documents" ? ["From > To", "File Name", "Size", "Tags", "Time"] : ["From > To", "Message", "Tags", "Time"];
+  const cols = tab === "Documents" ? ["From > To", "File Name", "Size", "Tags", "Time", "Action"] : ["From > To", "Message", "Tags", "Time", "Action"];
+  setTimeout(applySavedFilter, 0);
   return crmNav("saved") + pageHead("Messages enregistrés") +
     '<div class="tabs">' + tabs.map(t => '<a href="#/crm/saved/' + t + '" class="' + (tab === t ? "on" : "") + '">' + t + "</a>").join("") + "</div>" +
-    '<div class="filters"><input class="inp" type="date"><input class="inp" placeholder="Tags"></div>' +
-    '<div class="tblwrap"><table><tr>' + cols.map(c => "<th>" + c + "</th>").join("") + '</tr><tr><td colspan="' + cols.length + '" class="empty">Aucun message enregistré.</td></tr></table></div>';
+    '<div class="filters"><input class="inp" id="sv-q" placeholder="Rechercher…" oninput="applySavedFilter()">' + dateFilterHTML("sv", "Created Date", "applySavedFilter()") + '<input class="inp" id="sv-tags" placeholder="Tags" oninput="applySavedFilter()"></div>' +
+    '<div class="tblwrap"><table><tr>' + cols.map(c => "<th>" + c + "</th>").join("") + '</tr><tbody id="sv-body"></tbody></table></div>' +
+    '<p class="small mut" style="margin-top:8px">Les messages enregistrés arrivent depuis WhatsApp via l\'extension ou l\'application mobile.</p>';
 }
 function viewCrmChats(){
+  const list = DB.contacts.filter(c => (!chatFilter.funnel || c.funnel === chatFilter.funnel) && (!chatFilter.tags || (c.tags || []).includes(chatFilter.tags)));
   return crmNav("chats") + pageHead("Chats — Chat View", "Voyez tous les messages enregistrés d'un contact dans une interface de discussion. Sélectionnez un contact à gauche pour l'ouvrir.") +
-    '<div class="filters"><select class="inp"><option>Funnel : Tous</option></select><select class="inp"><option>Tags : Tous</option></select></div>' +
-    '<div class="grid g2"><div class="card" style="margin:0">' + DB.contacts.map(c => '<a href="javascript:void(0)" onclick="crmOpenChat(\'' + c.id + '\')" style="display:flex;gap:10px;align-items:center;padding:9px 4px;border-bottom:1px solid #eef2f7;color:var(--ink)"><span class="pthumb" style="background:#94a3b8">👤</span><span><b>' + esc(c.name || "(sans nom)") + '</b><br><span class="small mut">' + esc(c.mobile) + "</span></span></a>").join("") + '</div>' +
+    '<div class="filters"><select class="inp" onchange="chatFilter.funnel=this.value;render()"><option value="">Funnel : Tous</option>' + DB.funnels.map(f => '<option' + (chatFilter.funnel === f.name ? " selected" : "") + ">" + esc(f.name) + "</option>").join("") + '</select><select class="inp" onchange="chatFilter.tags=this.value;render()"><option value="">Tags : Tous</option>' + DB.tagsList.map(t => '<option' + (chatFilter.tags === t.name ? " selected" : "") + ">" + esc(t.name) + "</option>").join("") + '</select><span class="small mut" style="align-self:center">' + list.length + " contact(s)</span></div>" +
+    '<div class="grid g2"><div class="card" style="margin:0">' + (list.length ? list.map(c => '<a href="javascript:void(0)" onclick="crmOpenChat(\'' + c.id + '\')" style="display:flex;gap:10px;align-items:center;padding:9px 4px;border-bottom:1px solid #eef2f7;color:var(--ink)"><span class="pthumb" style="background:#94a3b8">👤</span><span><b>' + esc(c.name || "(sans nom)") + '</b><br><span class="small mut">' + esc(c.mobile) + "</span></span></a>").join("") : '<div class="empty">Aucun contact ne correspond à ces filtres.</div>') + '</div>' +
     '<div class="card empty" style="margin:0" id="chatpane"><div class="big">No Data Found!</div>Essayez de changer les filtres — aucun message enregistré pour ce contact.</div></div>';
 }
 function crmOpenChat(id){ const c = contactById(id); $("#chatpane").innerHTML = '<div class="big">' + esc(c.name || "(sans nom)") + '</div>No Data Found! Try changing filters.<br><span class="small">Aucun message enregistré pour ce contact.</span>'; }
 
 function viewCrmPolls(){
-  const rows = DB.polls.map((p, i) => "<tr><td>" + (i + 1) + "</td><td>" + esc(p.name) + "</td><td>" + p.votes + "</td><td>" + statusBadge(p.status) + "</td><td>" + esc(p.privacy) + "</td><td>" + (p.multiple ? "Oui" : "Non") + "</td><td>" + (p.pinned ? "📌" : "—") + '</td><td><button class="btn sm ghost" onclick="copyText(\'Sondage : ' + esc(p.name) + '\',\'Lien du sondage copié ✓\')">Share</button></td><td>' + esc(p.created) + "</td></tr>").join("");
+  setTimeout(applyPollFilter, 0);
   return crmNav("polls") + pageHead("Polls (" + DB.polls.length + ")", "", '<button class="btn" onclick="crmPollForm()">+ Create Poll</button>') +
-    '<div class="filters"><select class="inp"><option>Status : All</option><option>Active</option><option>Inactive</option></select><select class="inp"><option>Privacy : All</option><option>Public</option><option>Private</option></select><select class="inp"><option>Multiple Votes : Tous</option></select><select class="inp"><option>Store Visibility : Tous</option></select><label class="small" style="align-self:center"><input type="checkbox"> Show Archived Items</label></div>' +
-    (DB.polls.length ? '<div class="tblwrap"><table><tr><th>#</th><th>Name</th><th>Votes</th><th>Status</th><th>Privacy</th><th>Multiple Votes</th><th>Pinned</th><th>Share</th><th>Created At</th></tr>' + rows + "</table></div>"
-      : '<div class="card empty"><div class="big">Poll Not Found!</div>Vous pouvez créer des sondages pour demander aux utilisateurs de voter (enquêtes ou avis).<br><span class="small">🎬 Vidéo : « Create a Poll in WhatsApp with MLC [Web] »</span></div>');
+    '<div class="filters"><input class="inp" id="pl-q" placeholder="Rechercher…" oninput="applyPollFilter()"><select class="inp" id="pl-status" onchange="applyPollFilter()"><option value="">Status : All</option><option>Active</option><option>Inactive</option></select><select class="inp" id="pl-privacy" onchange="applyPollFilter()"><option value="">Privacy : All</option><option>Public</option><option>Private</option></select><select class="inp" id="pl-multi" onchange="applyPollFilter()"><option value="">Multiple Votes : Tous</option><option value="1">Oui</option><option value="0">Non</option></select><select class="inp" id="pl-store" onchange="applyPollFilter()"><option value="">Store Visibility : Tous</option><option value="1">Visible</option><option value="0">Masqué</option></select><label class="small" style="align-self:center"><input type="checkbox" id="pl-arch" onchange="applyPollFilter()"> Show Archived Items</label></div>' +
+    '<div class="tblwrap"><table><tr><th>#</th><th>Name</th><th>Votes</th><th>Status</th><th>Privacy</th><th>Multiple Votes</th><th>Pinned</th><th>Store Visibility</th><th>Archived</th><th>Share</th><th>Created At</th><th>Actions</th></tr><tbody id="pl-body"></tbody></table></div>' +
+    '<p class="small mut" id="pl-count" style="margin-top:8px"></p>' +
+    (DB.polls.length ? "" : '<div class="card empty"><div class="big">Poll Not Found!</div>Vous pouvez créer des sondages pour demander aux utilisateurs de voter (enquêtes ou avis).<br><span class="small">🎬 Vidéo : « Create a Poll in WhatsApp with MLC [Web] »</span></div>');
 }
-function crmPollForm(){
-  openModal(modalHead("Nouveau sondage") + '<div class="field"><label>Question</label><input class="inp" id="pl-name"></div><div class="field"><label>Options <small>(une par ligne)</small></label><textarea class="inp" id="pl-opts"></textarea></div><div class="row"><div class="field"><label>Confidentialité</label><select class="inp" id="pl-priv"><option>Public</option><option>Private</option></select></div><div class="field"><label>Votes multiples</label><select class="inp" id="pl-multi"><option value="">Non</option><option value="1">Oui</option></select></div></div><button class="btn" onclick="crmSavePoll()">Créer</button>');
+function crmPollForm(id){
+  const p = id ? DB.polls.find(x => x.id === id) : null;
+  openModal(modalHead(p ? "Modifier le sondage" : "Nouveau sondage") +
+    '<div class="field"><label>Question</label><input class="inp" id="pl-name" value="' + (p ? esc(p.name) : "") + '"></div>' +
+    '<div class="field"><label>Options <small>(une par ligne)</small></label><textarea class="inp" id="pl-opts">' + (p ? esc(p.options.join("\n")) : "") + "</textarea></div>" +
+    '<div class="row"><div class="field"><label>Statut</label><select class="inp" id="pl-status-f">' + ["Active", "Inactive"].map(s => "<option" + (p && p.status === s ? " selected" : "") + ">" + s + "</option>").join("") + '</select></div>' +
+    '<div class="field"><label>Confidentialité</label><select class="inp" id="pl-priv">' + ["Public", "Private"].map(s => "<option" + (p && p.privacy === s ? " selected" : "") + ">" + s + "</option>").join("") + '</select></div></div>' +
+    '<div class="row"><div class="field"><label>Votes multiples</label><select class="inp" id="pl-multi-f"><option value="">Non</option><option value="1"' + (p && p.multiple ? " selected" : "") + '>Oui</option></select></div>' +
+    '<div class="field"><label>Épinglé (Pinned)</label><select class="inp" id="pl-pin"><option value="">Non</option><option value="1"' + (p && p.pinned ? " selected" : "") + '>Oui</option></select></div></div>' +
+    '<div class="setrow"><div class="tx"><div class="t">Store Visibility</div><div class="d">Afficher le sondage sur la boutique</div></div><label class="switch"><input type="checkbox" id="pl-store-f"' + (!p || p.storeVisibility ? " checked" : "") + '><span class="tr"></span></label></div>' +
+    '<button class="btn" onclick="crmSavePoll(' + (p ? "'" + p.id + "'" : "null") + ')">' + (p ? "Enregistrer" : "Créer") + "</button>");
 }
-function crmSavePoll(){ const n = $("#pl-name").value.trim(); if (!n) return toast("Question requise"); DB.polls.push({ id: uid("p"), name: n, options: $("#pl-opts").value.split("\n").filter(Boolean), votes: 0, status: "Active", privacy: $("#pl-priv").value, multiple: !!$("#pl-multi").value, pinned: false, created: "Aujourd'hui" }); save(); closeModal(); toast("Sondage créé ✓"); render(); }
+function crmSavePoll(id){
+  const n = $("#pl-name").value.trim(); if (!n) return toast("Question requise");
+  const data = { name: n, options: $("#pl-opts").value.split("\n").map(s => s.trim()).filter(Boolean), status: $("#pl-status-f").value, privacy: $("#pl-priv").value, multiple: !!$("#pl-multi-f").value, pinned: !!$("#pl-pin").value, storeVisibility: $("#pl-store-f").checked };
+  if (data.options.length < 2) return toast("Au moins 2 options requises");
+  if (id){ const p = DB.polls.find(x => x.id === id); Object.assign(p, data); toast("Sondage mis à jour ✓"); }
+  else { DB.polls.push(Object.assign({ id: uid("p"), votes: 0, created: "Aujourd'hui", archived: false }, data)); toast("Sondage créé ✓"); }
+  save(); closeModal(); render();
+}
 
 function viewCrmExtension(){
   return crmNav("extension") + pageHead("Chrome Extension") +
@@ -539,7 +621,7 @@ function viewCrmSettings(tab){
       (DB.tagsList.length ? DB.tagsList.map(t => '<div class="card"><span class="badge">' + esc(t.name) + "</span></div>").join("") : '<div class="card empty"><div class="big">Tags Not Found!</div>Ajoutez des étiquettes à afficher dans l\'extension MLC avec WhatsApp Web.</div>');
   } else if (tab === "tiers"){
     body = '<div class="pagehead"><div><h2>Tiers (' + DB.tiers.length + ')</h2></div><div class="sp"></div><button class="btn sm" onclick="crmTierForm()">+ Add New</button></div>' +
-      (DB.tiers.length ? DB.tiers.map(t => '<div class="card"><b>' + esc(t.name) + '</b> — remise ' + t.discount + ' %</div>').join("") : '<div class="card empty"><div class="big">Tier Not Found!</div>Proposez des tarifs différents aux clients fidèles, détaillants, grossistes et clients ordinaires.</div>');
+      (DB.tiers.length ? DB.tiers.map(t => '<div class="card"><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:' + esc(t.color || "#2563eb") + ';margin-right:8px"></span><b>' + esc(t.name) + '</b> — remise ' + t.discount + ' %</div>').join("") : '<div class="card empty"><div class="big">Tier Not Found!</div>Proposez des tarifs différents aux clients fidèles, détaillants, grossistes et clients ordinaires.</div>');
   } else if (tab === "ticketstatus"){
     body = '<h2 style="margin-bottom:10px">Ticket Status (' + DB.ticketStatuses.length + ")</h2>" + DB.ticketStatuses.map((s, i) => '<div class="card" style="display:flex;gap:10px;align-items:center"><b>' + (i + 1) + '.</b><span style="width:14px;height:14px;border-radius:50%;background:' + s.color + ';display:inline-block"></span><span style="flex:1"><b>' + esc(s.name) + "</b></span></div>").join("") + '<button class="btn" onclick="crmTicketStatusForm()">+ Add New</button>';
   } else if (tab === "integrations"){
@@ -551,16 +633,38 @@ function viewCrmSettings(tab){
   return crmNav("settings") + pageHead("CRM — Settings") + crmSettingsNav(tab) + body;
 }
 function crmSaveAbout(){ DB.business.name = $("#cs-bizname").value; DB.business.country = $("#cs-country").value; S().storeName = DB.business.name; save(); toast("Enregistré ✓"); render(); }
-function crmQuickForm(){ openModal(modalHead("Nouvelle réponse rapide") + '<div class="field"><label>Titre</label><input class="inp" id="qr-title"></div><div class="field"><label>Texte</label><textarea class="inp" id="qr-text"></textarea></div><button class="btn" onclick="crmSaveQuick()">Enregistrer</button>'); }
-function crmSaveQuick(){ const t = $("#qr-title").value.trim(); if (!t) return toast("Titre requis"); DB.quickReplies.push({ id: uid("q"), title: t, text: $("#qr-text").value, sent: 0, pinned: false }); save(); closeModal(); toast("Réponse rapide créée ✓"); render(); }
+function crmQuickForm(){
+  openModal(modalHead("Nouvelle réponse rapide") +
+    '<div class="field"><label>Titre</label><input class="inp" id="qr-title"></div>' +
+    '<div class="field"><label>Texte</label><textarea class="inp" id="qr-text"></textarea></div>' +
+    '<p class="small mut">Variables remplacées automatiquement à l\'envoi : &lt;name&gt;, &lt;whatsapp_no&gt;, &lt;whatsapp_no_plain&gt;, &lt;city&gt;, &lt;email&gt;.</p>' +
+    '<div class="setrow"><div class="tx"><div class="t">Pinned (épinglée)</div></div><label class="switch"><input type="checkbox" id="qr-pinned"><span class="tr"></span></label></div>' +
+    '<button class="btn" onclick="crmSaveQuick()">Enregistrer</button>');
+}
+function crmSaveQuick(){
+  const t = $("#qr-title").value.trim(); if (!t) return toast("Titre requis");
+  DB.quickReplies.push({ id: uid("q"), title: t, text: $("#qr-text").value, sent: 0, pinned: $("#qr-pinned").checked });
+  save(); closeModal(); toast("Réponse rapide créée ✓"); render();
+}
 function crmDelQuick(id){ DB.quickReplies = DB.quickReplies.filter(q => q.id !== id); save(); render(); }
-function crmTierForm(){ openModal(modalHead("Nouveau niveau (Tier)") + '<div class="field"><label>Nom</label><input class="inp" id="tr-name" placeholder="Ex. Grossiste"></div><div class="field"><label>Remise (%)</label><input class="inp" type="number" id="tr-disc" value="0"></div><button class="btn" onclick="crmSaveTier()">Enregistrer</button>'); }
-function crmSaveTier(){ const n = $("#tr-name").value.trim(); if (!n) return toast("Nom requis"); DB.tiers.push({ id: uid("tr"), name: n, discount: Number($("#tr-disc").value || 0) }); save(); closeModal(); toast("Tier créé ✓"); render(); }
+function crmTierForm(){
+  openModal(modalHead("Nouveau niveau (Tier)") +
+    '<div class="field"><label>Nom</label><input class="inp" id="tr-name" placeholder="Ex. Grossiste"></div>' +
+    '<div class="row"><div class="field"><label>Remise (%)</label><input class="inp" type="number" id="tr-disc" value="0"></div>' +
+    '<div class="field"><label>Couleur</label><input class="inp" type="color" id="tr-color" value="#2563eb"></div></div>' +
+    '<p class="small mut">Assignez un tier à un contact (manuellement ou en masse par fichier Excel), puis fixez des prix par tier sur chaque produit (hors produits variables).</p>' +
+    '<button class="btn" onclick="crmSaveTier()">Enregistrer</button>');
+}
+function crmSaveTier(){
+  const n = $("#tr-name").value.trim(); if (!n) return toast("Nom requis");
+  DB.tiers.push({ id: uid("tr"), name: n, discount: Number($("#tr-disc").value || 0), color: $("#tr-color").value });
+  save(); closeModal(); toast("Tier créé ✓"); render();
+}
 function crmTicketStatusForm(){ openModal(modalHead("Nouveau statut de ticket") + '<div class="field"><label>Nom</label><input class="inp" id="ts-name"></div><div class="field"><label>Couleur</label><input class="inp" type="color" id="ts-color" value="#2563eb"></div><button class="btn" onclick="crmSaveTicketStatus()">Enregistrer</button>'); }
 function crmSaveTicketStatus(){ const n = $("#ts-name").value.trim(); if (!n) return toast("Nom requis"); DB.ticketStatuses.push({ id: uid("ts"), name: n, color: $("#ts-color").value }); save(); closeModal(); toast("Statut créé ✓"); render(); }
 
 function viewCrmExports(){
-  return crmNav("exports") + pageHead("Export History (0)") + '<div class="card empty"><div class="big">Export history Not Found!</div>Oups ! Aucun historique d\'export CRM trouvé.</div>';
+  return crmNav("exports") + pageHead("Export History (0)", "", '<button class="btn" onclick="upgradeModal(\'Export Reports\')">+ Export</button>') + '<div class="card empty"><div class="big">Export history Not Found!</div>Oups ! Aucun historique d\'export CRM trouvé.</div>';
 }
 /* ================= STORE ================= */
 function storeNav(active){
@@ -577,7 +681,7 @@ function viewStoreDashboard(){
   os.forEach(o => o.items.forEach(i => { catRev[i.category] = (catRev[i.category] || 0) + i.price * i.qty; prodRev[i.name] = (prodRev[i.name] || 0) + i.price * i.qty; }));
   os.forEach(o => { const k = o.customerName || o.customerMobile; custRev[k] = (custRev[k] || 0) + orderTotal(o); });
   const rankList = obj => { const ks = Object.keys(obj); if (!ks.length) return '<div class="empty">No Data Found</div>'; return ks.sort((a, b) => obj[b] - obj[a]).map(k => '<div class="kv"><span>' + esc(k) + '</span><b>' + fmt(obj[k]) + "</b></div>").join(""); };
-  const setupCard = (label, done, hash) => '<div class="card" style="margin:0;display:flex;gap:9px;align-items:center">' + (done ? '<span class="check">✔</span>' : '<span class="dot"></span>') + '<span style="flex:1"><b>' + label + '</b></span><a class="btn sm ghost" href="' + hash + '">Ouvrir</a></div>';
+  const setupCard = (label, done, hash) => '<div class="card" style="margin:0;display:flex;gap:9px;align-items:center">' + (done ? '<span class="check">✔</span>' : '<span class="dot" style="background:#f97316"></span>') + '<span style="flex:1"><b>' + label + '</b></span><a class="btn sm ghost" href="' + hash + '">Ouvrir</a></div>';
   return storeNav("dashboard") +
     pageHead("Store — Dashboard", "Votre boutique est en ligne : <b>boutique-mlc / " + esc(S().storeName.toLowerCase().replace(/\s+/g, "-")) + "</b> — « " + esc(S().about) + " »") +
     '<div class="grid g4">' +
@@ -629,7 +733,7 @@ function viewStoreOrder(id, tab){
       (o.payRef ? '<div class="kv"><span>Référence de paiement</span><b>' + esc(o.payRef) + "</b></div>" : "") +
       '<div class="kv"><span>Transaction ID</span><b>' + esc(o.transactionId || "—") + "</b></div>" +
       '<div class="kv"><span>Ship To</span><b>' + esc(o.shipTo || "—") + "</b></div>" +
-      '<div class="kv"><span>Admin Note</span><b>' + esc(o.adminNote || "—") + "</b></div>" +
+      '<div class="kv"><span>Admin Note</span><span style="display:flex;gap:6px;align-items:center"><input class="inp" id="ord-note" style="max-width:200px" value="' + esc(o.adminNote || "") + '" placeholder="Note interne…"><button class="btn sm ghost" onclick="storeSaveAdminNote(' + o.id + ')">Save</button></span></div>' +
       '<div class="field" style="margin-top:12px"><label>Changer le statut</label><select class="inp" id="ord-status">' + ["Open", "Processing", "Shipped", "Delivered", "Returned", "Closed", "Cancelled"].map(s => '<option' + (o.status === s ? " selected" : "") + ">" + s + "</option>").join("") + '</select></div>' +
       '<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" onclick="storeOrderSetStatus(' + o.id + ')">Appliquer</button>' +
       (o.payment !== "Paid" ? '<button class="btn green" onclick="storeOrderConfirmPay(' + o.id + ')">✔ Confirmer la réception du paiement</button>' : "") +
@@ -669,7 +773,7 @@ function storeSaveManualOrder(){
 }
 function viewStoreContacts(){
   return storeNav("contacts") + pageHead("Contacts (" + DB.contacts.length + ")", "Les mêmes contacts que le CRM (données partagées).") +
-    '<div class="tblwrap"><table><tr><th>#</th><th>Photo</th><th>Name</th><th>Mobile</th><th>Email</th><th>Funnel</th><th>Tags</th><th>Actions</th><th>Created</th></tr>' + DB.contacts.map(contactRow).join("") + "</table></div>";
+    '<div class="tblwrap"><table>' + contactHeadRow() + DB.contacts.map(contactRow).join("") + "</table></div>";
 }
 function viewStoreReviews(){
   return storeNav("reviews") + pageHead("Reviews (0)") +
@@ -678,7 +782,7 @@ function viewStoreReviews(){
 }
 function couponRow(c){
   const exp = couponExpired(c);
-  return "<tr><td><a href=\"#/store/coupon/" + c.id + '"><b>' + esc(c.code) + "</b></a></td><td>" + (c.kind === "%" ? c.value + " %" : fmt(c.value)) + "</td><td>" + c.used + "/∞</td><td>" + (exp ? '<span class="badge red">Expiré le ' + esc(c.expiry) + "</span>" : esc(c.expiry || "—")) + "</td><td>" + (c.visible ? "✓" : "—") + "</td><td>" + (exp ? '<span class="badge red">Expired</span>' : '<span class="badge green">Active</span>') + "</td></tr>";
+  return "<tr><td><a href=\"#/store/coupon/" + c.id + '"><b>' + esc(c.code) + "</b></a></td><td>" + (c.kind === "%" ? c.value + " %" : fmt(c.value)) + "</td><td>" + c.used + "/" + (c.maxUsage ? c.maxUsage : "∞") + "</td><td>" + (exp ? '<span class="badge red">Expiré le ' + esc(c.expiry) + "</span>" : esc(c.expiry || "—")) + "</td><td>" + (c.visible ? "✓" : "—") + "</td><td>" + (exp ? '<span class="badge red">Expired</span>' : '<span class="badge green">Active</span>') + "</td></tr>";
 }
 function viewStoreCoupons(){
   return storeNav("coupons") + pageHead("Coupons (" + DB.coupons.length + ")", "", '<button class="btn" onclick="storeCouponForm()">+ Add New</button>') +
@@ -701,18 +805,40 @@ function viewStoreCoupon(id){
     '<div class="kv"><span>Visible on Store</span><b>' + (c.visible ? "Active" : "Inactive") + '</b></div>' +
     '<div class="kv"><span>Status</span>' + (exp ? '<span class="badge red">Expired</span>' : '<span class="badge green">Active</span>') + '</div>' +
     '<div class="kv"><span>Utilisations</span><b>' + c.used + "</b></div>" +
-    '<div style="margin-top:12px"><button class="btn red" onclick="storeDelCoupon(\'' + c.id + '\')">Supprimer</button></div></div>';
+    '<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn" onclick="storeCouponForm(\'' + c.id + '\')">Éditer</button><button class="btn red" onclick="storeDelCoupon(\'' + c.id + '\')">Supprimer</button></div></div>';
 }
 function storeDelCoupon(id){ if (!confirm("Supprimer ce coupon ?")) return; DB.coupons = DB.coupons.filter(c => c.id !== id); save(); location.hash = "#/store/coupons"; }
-function storeCouponForm(){
-  openModal(modalHead("Nouveau coupon") + '<div class="field"><label>Code</label><input class="inp" id="cp-code"></div><div class="row"><div class="field"><label>Valeur</label><input class="inp" type="number" id="cp-value" value="0"></div><div class="field"><label>Type</label><select class="inp" id="cp-kind"><option>FBu</option><option>%</option></select></div></div><div class="row"><div class="field"><label>Date d\'expiration</label><input class="inp" type="date" id="cp-expiry"></div><div class="field"><label>À partir d\'un panier de (FBu)</label><input class="inp" type="number" id="cp-from" value="0"></div></div><div class="field"><label>Remise maximale (FBu)</label><input class="inp" type="number" id="cp-max" value="0"></div><button class="btn" onclick="storeSaveCoupon()">Enregistrer</button>');
+function storeCouponForm(id){
+  const c = id ? DB.coupons.find(x => x.id === id) : null;
+  openModal(modalHead(c ? "Modifier le coupon" : "Nouveau coupon") +
+    '<div class="field"><label>Code (lettres majuscules et chiffres)</label><input class="inp" id="cp-code" value="' + (c ? esc(c.code) : "") + '"></div>' +
+    '<div class="row"><div class="field"><label>Discount Value</label><input class="inp" type="number" id="cp-value" value="' + (c ? c.value : 0) + '"></div>' +
+    '<div class="field"><label>Type</label><select class="inp" id="cp-kind"><option' + (c && c.kind === "FBu" ? " selected" : "") + '>FBu</option><option' + (c && c.kind === "%" ? " selected" : "") + ">%</option></select></div></div>" +
+    '<div class="row"><div class="field"><label>Expiry Date (optionnel)</label><input class="inp" type="date" id="cp-expiry" value="' + (c ? esc(c.expiry || "") : "") + '"></div>' +
+    '<div class="field"><label>Minimum Cart Amount — From Cart (FBu, optionnel)</label><input class="inp" type="number" id="cp-from" value="' + (c ? (c.fromCart || 0) : 0) + '"></div></div>' +
+    '<div class="row"><div class="field"><label>Maximum Discount Amount (FBu, optionnel)</label><input class="inp" type="number" id="cp-max" value="' + (c ? (c.maxDiscount || 0) : 0) + '"></div>' +
+    '<div class="field"><label>Max Usage (optionnel)</label><input class="inp" type="number" id="cp-maxusage" value="' + (c ? esc(c.maxUsage || "") : "") + '"></div></div>' +
+    '<div class="row"><div class="field"><label>Max Usage per Customer (optionnel)</label><input class="inp" type="number" id="cp-maxper" value="' + (c ? esc(c.maxPerCustomer || "") : "") + '"></div>' +
+    '<div class="field"><label>Tiers (optionnel)</label><select class="inp" id="cp-tiers"><option value="">Tous les tiers</option>' + DB.tiers.map(t => "<option" + (c && c.tiers === t.name ? " selected" : "") + ">" + esc(t.name) + "</option>").join("") + '</select></div></div>' +
+    '<div class="field"><label>Details (optionnel)</label><textarea class="inp" id="cp-details">' + (c ? esc(c.details || "") : "") + "</textarea></div>" +
+    '<div class="setrow"><div class="tx"><div class="t">Visible on Store</div></div><label class="switch"><input type="checkbox" id="cp-visible"' + (!c || c.visible ? " checked" : "") + '><span class="tr"></span></label></div>' +
+    '<p class="small mut">Le client ne voit le coupon que si son tier y est assigné, et seulement après connexion.</p>' +
+    '<button class="btn" onclick="storeSaveCoupon(' + (c ? "'" + c.id + "'" : "null") + ')">Enregistrer</button>');
 }
-function storeSaveCoupon(){ const code = $("#cp-code").value.trim().toUpperCase(); if (!code) return toast("Code requis"); DB.coupons.push({ id: uid("cp"), code, kind: $("#cp-kind").value, value: Number($("#cp-value").value || 0), expiry: $("#cp-expiry").value, fromCart: Number($("#cp-from").value || 0), maxDiscount: Number($("#cp-max").value || 0), maxPerCustomer: "", maxUsage: "", tiers: "", details: "", visible: true, used: 0 }); save(); closeModal(); toast("Coupon créé ✓"); render(); }
+function storeSaveCoupon(id){
+  const code = $("#cp-code").value.trim().toUpperCase(); if (!code) return toast("Code requis");
+  const data = { code, kind: $("#cp-kind").value, value: Number($("#cp-value").value || 0), expiry: $("#cp-expiry").value, fromCart: Number($("#cp-from").value || 0), maxDiscount: Number($("#cp-max").value || 0), maxPerCustomer: $("#cp-maxper").value, maxUsage: $("#cp-maxusage").value, tiers: $("#cp-tiers").value, details: $("#cp-details").value, visible: $("#cp-visible").checked };
+  if (id){ const c = DB.coupons.find(x => x.id === id); Object.assign(c, data); toast("Coupon mis à jour ✓"); }
+  else { DB.coupons.push(Object.assign({ id: uid("cp"), used: 0 }, data)); toast("Coupon créé ✓"); }
+  save(); closeModal(); render();
+}
 function validateCoupon(code, subtotal){
   const c = DB.coupons.find(x => x.code === String(code || "").trim().toUpperCase());
   if (!c) return { ok: false, msg: "Coupon introuvable." };
   if (couponExpired(c)) return { ok: false, msg: "Ce coupon a expiré le " + c.expiry.split("-").reverse().join("/") + "." };
   if (subtotal < Number(c.fromCart || 0)) return { ok: false, msg: "Ce coupon exige un panier d'au moins " + fmt(c.fromCart) + "." };
+  if (c.maxUsage && c.used >= Number(c.maxUsage)) return { ok: false, msg: "Coupon épuisé : usage maximum atteint (" + c.maxUsage + ")." };
+  if (c.tiers) return { ok: false, msg: "Coupon réservé au tier « " + c.tiers + " » : connexion du client requise." };
   let d = c.kind === "%" ? Math.round(subtotal * c.value / 100) : Number(c.value);
   if (c.maxDiscount) d = Math.min(d, Number(c.maxDiscount));
   return { ok: true, coupon: c, discount: d, msg: "Coupon appliqué : −" + fmt(d) };
@@ -807,8 +933,8 @@ function viewStoreSettings(tab){
   } else if (tab === "alerts"){
     const evts = ["Order Created", "Order Processing", "Order Shipped", "Order Delivered", "Order Cancelled"];
     body = '<div class="note">💳 Vous aurez besoin de crédits sur votre compte pour déclencher les notifications. Solde actuel : <b>' + DB.credits + ' $</b> — <a href="#/credits">Acheter des crédits</a></div><div class="card"><h3>Customer Alerts</h3>' +
-      evts.map(e => '<div class="setrow"><div class="tx"><div class="t">' + e + '</div><div class="d">WhatsApp ✔ · Email ✔</div></div><span class="badge green">Activé</span></div>').join("") +
-      '<div class="setrow"><div class="tx"><div class="t">Order Created to Admin</div><div class="d">WhatsApp ✔ · Email : Coming soon</div></div><span class="badge green">Activé</span></div></div>';
+      evts.map(e => { const a = (S().alerts || {})[e] || { wa: true, email: true }; return switchRow("al-" + e.replace(/\s/g, "") + "-wa", e + " — WhatsApp", "", a.wa, "toggleAlertEv('" + e + "','wa',this.checked)") + switchRow("al-" + e.replace(/\s/g, "") + "-em", e + " — Email", "", a.email, "toggleAlertEv('" + e + "','email',this.checked)"); }).join("") +
+      '<div class="setrow"><div class="tx"><div class="t">Order Created to Admin</div><div class="d">WhatsApp ✔ · Email : Coming soon</div></div><span class="badge orange">Coming soon</span></div></div>';
   } else if (tab === "invoice"){
     body = '<div class="card"><h3>Invoice</h3><div class="field" style="margin-top:10px"><label>Invoice Due After — Optional</label><input class="inp" id="inv-due" value="' + esc(S().invoiceDue) + '"></div><div class="field"><label>Receipt Notes — Optional</label><textarea class="inp" id="inv-notes">' + esc(S().receiptNotes) + '</textarea></div><button class="btn" onclick="storeSaveInvoice()">Save</button></div>';
   } else if (tab === "mystores"){
@@ -823,7 +949,7 @@ function viewStoreSettings(tab){
     body = listCrud("Checkout Add-on (" + DB.checkoutAddons.length + ")", "Checkout addon Not Found!", "Ex. : supplément extra fromage, 20 INR.", DB.checkoutAddons, a => '<div class="card" style="display:flex;gap:10px;align-items:center"><div style="flex:1"><b>' + esc(a.name) + "</b> — " + fmt(a.price) + '</div><button class="btn sm ghost" onclick="storeDelItem(\'checkoutAddons\',\'' + a.id + '\')">🗑️</button></div>', "storeAddonForm()");
   } else if (tab === "address"){
     const fields = ["Name", "Email", "Address Line 1", "Address Line 2", "Landmark", "Locality", "City", "State", "Country", "Pincode/Zipcode", "Note", "GST number", "VAT number"];
-    body = '<div class="card"><h3>Address — Form</h3><p class="small mut" style="margin:6px 0">Champs du formulaire d\'adresse à la commande, chacun avec son statut.</p>' + fields.map(f => '<div class="setrow"><div class="tx"><div class="t">' + f + '</div></div><span class="badge green">Status : Active</span></div>').join("") + "</div>";
+    body = '<div class="card"><h3>Address — Form</h3><p class="small mut" style="margin:6px 0">Champs du formulaire d\'adresse à la commande, chacun avec son statut. Un champ masqué disparaît du checkout de la vitrine.</p>' + fields.map((f, i) => switchRow("af-" + i, f, "Status : " + ((S().addressFields || {})[f] ? "Active" : "Inactive"), !!(S().addressFields || {})[f], "toggleAddrField('" + f + "',this.checked)")).join("") + "</div>";
   } else if (tab === "note"){
     body = '<div class="card"><h3>Checkout Note</h3><div class="field" style="margin-top:10px"><label>Checkout Note — Optional</label><textarea class="inp" id="ck-note">' + esc(S().checkoutNote) + '</textarea></div><p class="small mut">Une note d\'aide pour vos clients. Elle s\'affichera au-dessus du bouton « Place Order ».</p><button class="btn" style="margin-top:10px" onclick="storeSaveNote()">Save</button></div>';
   } else if (tab === "verification"){
@@ -860,12 +986,25 @@ function storeShipLocForm(){ if (DB.shippingLocations.length >= 1 && DB.plan ===
 function storeSaveShipLoc(){ DB.shippingLocations.push({ id: uid("sl"), name: $("#sl-name").value || "Lieu" }); save(); closeModal(); render(); }
 function storeShipChargeForm(){ openModal(modalHead("Nouveau frais de livraison") + '<div class="field"><label>Nom</label><input class="inp" id="sh-name"></div><div class="field"><label>Montant (FBu)</label><input class="inp" type="number" id="sh-amount" value="0"></div><button class="btn" onclick="storeSaveShipCharge()">Enregistrer</button>'); }
 function storeSaveShipCharge(){ DB.shippingCharges.push({ id: uid("sh"), name: $("#sh-name").value || "Livraison", amount: Number($("#sh-amount").value || 0) }); save(); closeModal(); render(); }
-function storeAddonForm(){ openModal(modalHead("Nouvel add-on de commande") + '<div class="field"><label>Nom</label><input class="inp" id="ad-name"></div><div class="field"><label>Prix (FBu)</label><input class="inp" type="number" id="ad-price" value="0"></div><button class="btn" onclick="storeSaveAddon()">Enregistrer</button>'); }
-function storeSaveAddon(){ DB.checkoutAddons.push({ id: uid("ad"), name: $("#ad-name").value || "Add-on", price: Number($("#ad-price").value || 0) }); save(); closeModal(); render(); }
+function storeAddonForm(){
+  openModal(modalHead("Nouvel add-on de commande") +
+    '<div class="field"><label>Nom</label><input class="inp" id="ad-name"></div>' +
+    '<div class="field"><label>Description</label><textarea class="inp" id="ad-desc"></textarea></div>' +
+    '<div class="field"><label>Options <small>(une par ligne : Libellé | Prix FBu)</small></label><textarea class="inp" id="ad-options" placeholder="Standard | 0"></textarea></div>' +
+    '<p class="small mut">Les options s\'affichent au paiement (checkout) ; le client en choisit une et son prix s\'ajoute au total de la commande.</p>' +
+    '<button class="btn" onclick="storeSaveAddon()">Enregistrer</button>');
+}
+function storeSaveAddon(){
+  const name = $("#ad-name").value.trim(); if (!name) return toast("Nom requis");
+  const options = $("#ad-options").value.split("\n").map(l => { const parts = l.split("|"); return { label: (parts[0] || "").trim(), price: Number((parts[1] || "0").replace(/[^0-9]/g, "")) || 0 }; }).filter(o => o.label);
+  if (!options.length) return toast("Ajoutez au moins une option (Libellé | Prix)");
+  DB.checkoutAddons.push({ id: uid("ad"), name, desc: $("#ad-desc").value, options, price: options[0].price });
+  save(); closeModal(); toast("Add-on créé ✓"); render();
+}
 function storeCustomFieldForm(){ openModal(modalHead("Nouveau champ personnalisé") + '<div class="field"><label>Nom</label><input class="inp" id="cf-name"></div><button class="btn" onclick="storeSaveCustomField()">Enregistrer</button>'); }
 function storeSaveCustomField(){ DB.customFields.push({ id: uid("cf"), name: $("#cf-name").value || "Champ" }); save(); closeModal(); render(); }
 function viewStoreExports(){
-  return storeNav("exports") + pageHead("Export History (0)") + '<div class="card empty"><div class="big">Export history Not Found!</div>Aucun export pour le moment.</div>';
+  return storeNav("exports") + pageHead("Export History (0)", "", '<button class="btn" onclick="upgradeModal(\'Export Reports\')">+ Export</button>') + '<div class="card empty"><div class="big">Export history Not Found!</div>Aucun export pour le moment.</div>';
 }
 /* ================= CATALOG ================= */
 function catalogNav(active){
@@ -877,11 +1016,32 @@ function productRow(p, i){
 }
 function viewCatalogProducts(){
   const cats = ["All"].concat(DB.categories.map(c => c.name));
+  setTimeout(applyProductFilter, 0);
   return catalogNav("products") + pageHead("Products (" + DB.products.length + ")", "Plan gratuit : 10 produits (Premium : illimité).", '<button class="btn" onclick="catalogProductForm()">+ Add New</button>') +
-    '<div class="filters"><select class="inp" id="pf-cat">' + cats.map(c => "<option>" + c + "</option>").join("") + '</select><select class="inp"><option>Status : Tous</option><option>Active</option><option>Inactive</option></select><select class="inp"><option>Stock : Tous</option></select><select class="inp"><option>Type : All</option><option>Simple</option><option>Variable</option><option>Digital</option></select><button class="btn ghost" onclick="applyProductFilter()">Filtrer</button></div>' +
-    '<div class="tblwrap"><table><tr><th>#</th><th></th><th>Name</th><th>Variants</th><th>Category</th><th>Price</th><th>Stock</th><th>Status</th></tr>' + DB.products.map(productRow).join("") + "</table></div>";
+    '<div class="filters"><input class="inp" id="pf-q" placeholder="Rechercher…" oninput="applyProductFilter()"><select class="inp" id="pf-cat" onchange="applyProductFilter()">' + cats.map(c => "<option>" + c + "</option>").join("") + '</select><select class="inp" id="pf-status" onchange="applyProductFilter()"><option value="">Status : Tous</option><option>Active</option><option>Inactive</option></select><select class="inp" id="pf-stock" onchange="applyProductFilter()"><option value="">Stock : Tous</option><option value="in">En stock</option><option value="out">Rupture de stock</option></select><select class="inp" id="pf-vis" onchange="applyProductFilter()"><option value="">Store Visibility : Tous</option><option value="visible">Visible</option><option value="hidden">Masqué</option></select><select class="inp" id="pf-type" onchange="applyProductFilter()"><option value="">Type : All</option><option>Simple</option><option>Variable</option><option>Digital</option></select><select class="inp" id="pf-badge" onchange="applyProductFilter()"><option value="">Badges : Tous</option>' + DB.badgesList.map(b => "<option>" + esc(b.name) + "</option>").join("") + "</select></div>" +
+    '<div class="tblwrap"><table><tr><th>#</th><th></th><th>Name</th><th>Variants</th><th>Category</th><th>Price</th><th>Stock</th><th>Status</th></tr><tbody id="pf-body"></tbody></table></div>' +
+    '<p class="small mut" id="pf-count" style="margin-top:8px"></p>';
 }
-function applyProductFilter(){ const c = $("#pf-cat").value; const list = DB.products.filter(p => c === "All" || p.category === c); $("#content .tblwrap table").innerHTML = "<tr><th>#</th><th></th><th>Name</th><th>Variants</th><th>Category</th><th>Price</th><th>Stock</th><th>Status</th></tr>" + (list.map(productRow).join("") || '<tr><td colspan="8" class="empty">Aucun produit.</td></tr>'); }
+function applyProductFilter(){
+  const body = document.getElementById("pf-body"); if (!body) return;
+  const v = id => { const e = document.getElementById(id); return e ? e.value : ""; };
+  const q = v("pf-q").toLowerCase(), cat = v("pf-cat"), status = v("pf-status"), stock = v("pf-stock"), vis = v("pf-vis"), type = v("pf-type"), badgeF = v("pf-badge");
+  const list = DB.products.filter(p => {
+    if (q && !p.name.toLowerCase().includes(q)) return false;
+    if (cat && cat !== "All" && p.category !== cat) return false;
+    if (status && p.status !== status) return false;
+    if (stock === "in" && prodStock(p) <= 0) return false;
+    if (stock === "out" && prodStock(p) > 0) return false;
+    if (vis === "visible" && !p.visibility) return false;
+    if (vis === "hidden" && p.visibility) return false;
+    if (type && p.type !== type) return false;
+    if (badgeF && !(p.badges || []).includes(badgeF)) return false;
+    return true;
+  });
+  body.innerHTML = list.map(productRow).join("") || '<tr><td colspan="8" class="empty">Product Not Found! — aucun produit ne correspond.</td></tr>';
+  const cnt = document.getElementById("pf-count");
+  if (cnt) cnt.textContent = list.length + " produit(s) affiché(s) sur " + DB.products.length;
+}
 function catalogProductForm(){
   openModal(modalHead("Nouveau produit") +
     '<div class="field"><label>Name</label><input class="inp" id="np-name"></div>' +
@@ -904,11 +1064,12 @@ function viewCatalogProduct(id, tab){
   const p = prodById(id); if (!p) return catalogNav("products") + '<div class="card empty"><div class="big">Produit introuvable</div></div>';
   tab = tab || "edit";
   const tabs = [ ["edit","Edit"], ["media","Media"], ["badges","Badges"], ["variants","Variants"], ["attributes","Attributes"], ["charges","Charges"], ["stock","Stock"], ["reviews","Reviews"], ["custom","Custom Fields"], ["seo","SEO"] ];
+  const media = (p.media && p.media.length) ? p.media : [prodEmoji(p)];
   let body = "";
   if (tab === "edit"){
     body = '<div class="card"><div class="row"><div class="field"><label>Product Type</label><select class="inp" id="pe-type">' + ["Simple", "Variable", "Digital"].map(t => '<option' + (p.type === t ? " selected" : "") + ">" + t + "</option>").join("") + '</select></div>' +
       '<div class="field"><label>Name</label><input class="inp" id="pe-name" value="' + esc(p.name) + '"></div></div>' +
-      '<div class="field"><label>Category</label><select class="inp" id="pe-cat">' + DB.categories.map(c => '<option' + (p.category === c.name ? " selected" : "") + ">" + esc(c.name) + "</option>").join("") + "</select></div>" +
+      '<div class="field"><label>Category</label><select class="inp" id="pe-cat">' + DB.categories.filter(c => c.status !== "Archived").map(c => '<option' + (p.category === c.name ? " selected" : "") + ">" + esc(c.name) + "</option>").join("") + "</select></div>" +
       '<div class="row"><div class="field"><label>Regular Price (FBu)</label><input class="inp" type="number" id="pe-regular" value="' + p.regular + '"></div>' +
       '<div class="field"><label>Selling Price (FBu)</label><input class="inp" type="number" id="pe-selling" value="' + p.selling + '"></div>' +
       '<div class="field"><label>Discount</label><input class="inp" readonly value="' + prodDiscount(p) + ' %"></div></div>' +
@@ -916,48 +1077,101 @@ function viewCatalogProduct(id, tab){
       '<div class="row"><div class="field"><label>Shipping Weight (kg)</label><input class="inp" type="number" id="pe-weight" value="' + p.weight + '"></div>' +
       '<div class="field"><label>Link for more details</label><input class="inp" id="pe-link" value="' + esc(p.link) + '"></div></div>' +
       '<div class="row"><div class="field"><label>Status</label><select class="inp" id="pe-status"><option' + (p.status === "Active" ? " selected" : "") + '>Active</option><option' + (p.status === "Inactive" ? " selected" : "") + ">Inactive</option></select></div>" +
-      '<div class="field"><label>Out of Stock (marquage inventaire)</label><select class="inp" id="pe-oos"><option value="">Non</option><option value="1"' + (p.outOfStock ? " selected" : "") + ">Marqué en rupture</option></select></div></div>" +
+      '<div class="field"><label>Store Visibility</label><select class="inp" id="pe-vis"><option value="1"' + (p.visibility ? " selected" : "") + '>Visible sur la boutique</option><option value="0"' + (!p.visibility ? " selected" : "") + ">Masqué</option></select></div></div>" +
+      '<div class="field"><label>Out of Stock (marquage inventaire)</label><select class="inp" id="pe-oos"><option value="">Non</option><option value="1"' + (p.outOfStock ? " selected" : "") + ">Marqué en rupture</option></select></div>" +
+      (p.type === "Digital" ? '<h3 style="margin:12px 0 8px">Digital Product — Contenu livré après achat</h3><div class="field"><label>Content Name</label><input class="inp" id="dg-name" value="' + esc((p.digital || {}).name || "") + '"></div><div class="field"><label>Content Description</label><textarea class="inp" id="dg-desc">' + esc((p.digital || {}).desc || "") + '</textarea></div><div class="field"><label>Fichier (nom) ou URL externe</label><input class="inp" id="dg-file" value="' + esc((p.digital || {}).file || "") + '" placeholder="guide.pdf ou https://…"></div><p class="small mut">Les crédits sont obligatoires : le client doit se connecter pour télécharger le contenu.</p>' : "") +
       '<button class="btn" onclick="catalogSaveProductEdit(\'' + id + '\')">Save</button> ' +
       '<button class="btn red" onclick="catalogDelProduct(\'' + id + '\')">Supprimer</button></div>';
   } else if (tab === "media"){
-    body = '<div class="card empty"><div class="big">Media</div><span style="font-size:52px">' + prodEmoji(p) + '</span><br>Visuel actuel du produit (emoji). L\'envoi d\'images se fait depuis l\'application complète.</div>';
+    body = '<div class="card"><h3>Media</h3><div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px">' + media.map((m, ix) =>
+      '<div style="text-align:center"><div class="pthumb" style="width:84px;height:84px;font-size:40px;background:' + catColor(p.category) + '">' + (String(m).indexOf("http") === 0 ? '<img src="' + esc(m) + '" style="width:100%;height:100%;object-fit:cover;border-radius:12px" alt="">' : esc(m)) + '</div>' +
+      '<div class="small mut">' + (ix === 0 ? "Principale" : "Photo " + (ix + 1)) + '</div>' +
+      '<div style="display:flex;gap:4px;justify-content:center;margin-top:4px">' + (ix !== 0 ? '<button class="btn sm ghost" onclick="catalogMainMedia(\'' + id + '\',' + ix + ')">Principale</button>' : "") + '<button class="btn sm ghost" onclick="catalogDelMedia(\'' + id + '\',' + ix + ')">Retirer</button></div></div>').join("") + "</div>" +
+      '<div class="row" style="margin-top:14px"><div class="field"><label>Ajouter par URL d\'image</label><input class="inp" id="cm-url" placeholder="https://…"></div>' +
+      '<div class="field"><label>Ou un emoji</label><input class="inp" id="cm-emoji" placeholder="👟"></div></div>' +
+      '<button class="btn" onclick="catalogAddMedia(\'' + id + '\')">Add Media</button>' +
+      '<p class="small mut" style="margin-top:8px">Créez d\'abord la catégorie du produit ; les photos s\'ajoutent ensuite ici. La première photo est l\'image principale sur la boutique.</p></div>';
   } else if (tab === "badges"){
-    body = '<div class="card"><h3>Badges du produit</h3><div style="margin-top:10px">' + (p.badges.length ? p.badges.map(b => '<span class="badge orange">' + esc(b) + "</span>").join(" ") : '<span class="mut">Aucun badge.</span>') + '</div><div class="filters" style="margin-top:14px"><select class="inp" id="pb-badge">' + DB.badgesList.map(b => "<option>" + esc(b.name) + "</option>").join("") + '</select><button class="btn sm" onclick="catalogAssignBadge(\'' + id + '\')">Assigner</button></div></div>';
+    body = '<div class="card"><h3>Badges du produit</h3><div style="margin-top:10px">' + (p.badges.length ? p.badges.map(b => '<span class="badge orange">' + esc(b) + '</span> <button class="btn sm ghost" onclick="catalogRemoveBadge(\'' + id + "','" + esc(b) + '\')">Retirer</button>').join(" ") : '<span class="mut">Aucun badge.</span>') + '</div><div class="filters" style="margin-top:14px"><select class="inp" id="pb-badge">' + DB.badgesList.map(b => "<option>" + esc(b.name) + "</option>").join("") + '</select><button class="btn sm" onclick="catalogAssignBadge(\'' + id + '\')">Assigner</button></div></div>';
   } else if (tab === "variants"){
     body = '<div class="pagehead"><div><h2>Variants (' + p.variants.length + ')</h2></div><div class="sp"></div><button class="btn sm" onclick="catalogVariantForm(\'' + id + '\')">+ Add Variant</button></div>' +
-      '<div class="tblwrap"><table><tr><th>Variante</th><th>Prix</th><th>Prix barré</th><th>SKU</th><th>Stock</th><th>Statut</th><th></th></tr>' + p.variants.map(v => "<tr><td><b>" + esc(v.label) + '</b></td><td class="money">' + fmt(v.price) + '</td><td class="money">' + fmt(v.regular) + "</td><td>" + esc(v.sku || "—") + "</td><td>" + v.stock + "</td><td>" + (v.active ? '<span class="badge green">Active</span>' : '<span class="badge grey">Inactive</span>') + '</td><td><button class="btn sm ghost" onclick="catalogDelVariant(\'' + id + "','" + v.id + '\')">🗑️</button></td></tr>').join("") + "</table></div>";
+      '<div class="tblwrap"><table><tr><th>Variante</th><th>Prix</th><th>Prix barré</th><th>SKU</th><th>Stock</th><th>Statut</th><th></th></tr>' + p.variants.map(v => "<tr><td><b>" + esc(v.label) + '</b></td><td class="money">' + fmt(v.price) + '</td><td class="money">' + fmt(v.regular) + "</td><td>" + esc(v.sku || "—") + "</td><td>" + v.stock + "</td><td>" + (v.active ? '<span class="badge green">Active</span>' : '<span class="badge grey">Inactive</span>') + '</td><td><button class="btn sm ghost" onclick="catalogVariantEditForm(\'' + id + "','" + v.id + '\')">✏️ Éditer</button> <button class="btn sm ghost" onclick="catalogDelVariant(\'' + id + "','" + v.id + '\')">🗑️</button></td></tr>').join("") + "</table></div>";
   } else if (tab === "attributes"){
-    body = '<div class="card"><h3>Attributes</h3><p class="mut" style="margin-top:6px">Attributs disponibles dans le catalogue : ' + DB.attributes.map(a => esc(a.name) + " (" + a.kind + ")").join(", ") + '.</p><p class="small mut" style="margin-top:6px">Plan gratuit : 2 attributs produit.</p></div>';
+    body = '<div class="card"><h3>Attributes</h3>' +
+      (DB.attributes.length ? DB.attributes.map(a => '<div class="field" style="margin-top:10px"><label>' + esc(a.name) + ' <span class="mut small">(' + esc(a.kind) + ')</span></label><input class="inp" id="pa-' + a.id + '" value="' + esc((p.attrValues || {})[a.id] || "") + '" placeholder="Valeur pour ce produit"></div>').join("") +
+      '<button class="btn" style="margin-top:10px" onclick="catalogSaveAttrs(\'' + id + '\')">Save</button>' : '<div class="empty"><div class="big">No Data Found!</div>Créez d\'abord des attributs dans Catalog → Attributes.</div>') +
+      '<p class="small mut" style="margin-top:8px">Plan gratuit : 2 attributs produit.</p></div>';
   } else if (tab === "charges"){
-    body = '<div class="card empty"><div class="big">Charges</div>Aucune charge assignée à ce produit. Gérez les frais (GST, VAT…) dans Catalog → Charges.</div>';
+    body = '<div class="card"><h3>Charges</h3>' +
+      (DB.productCharges.length ? DB.productCharges.map(ch => '<div class="setrow"><div class="tx"><div class="t">' + esc(ch.name) + '</div><div class="d">' + ch.value + ' %</div></div><label class="switch"><input type="checkbox"' + ((p.charges || []).includes(ch.id) ? " checked" : "") + ' onchange="catalogToggleCharge(\'' + id + "','" + ch.id + '\',this.checked)"><span class="tr"></span></label></div>').join("") +
+      '<p class="small mut" style="margin-top:8px">Mode d\'application : <b>' + esc(S().chargesMode) + '</b> (Customization → About). En mode Exclusive, les charges s\'ajoutent au total au paiement ; en mode Inclusive, elles sont comprises dans le prix.</p>' : '<div class="empty"><div class="big">Product charge Not Found!</div>Créez d\'abord des charges dans Catalog → Charges (GST, VAT…).</div>') + "</div>";
   } else if (tab === "stock"){
-    body = '<div class="tblwrap"><table><tr><th>Variante</th><th>Stock</th><th>Adjust (+/-)</th><th>Stock After</th><th></th></tr>' + p.variants.map(v => '<tr><td><b>' + esc(v.label) + "</b></td><td>" + v.stock + '</td><td><input class="inp" style="width:110px" type="number" id="adj-' + v.id + '" value="0"></td><td>' + v.stock + '</td><td><button class="btn sm" onclick="catalogAdjustStock(\'' + id + "','" + v.id + '\')">Appliquer</button> <button class="btn sm ghost" onclick="toast(\'Stock History : aucun mouvement\')">Stock History</button></td></tr>').join("") + "</table></div>";
+    body = '<div class="tblwrap"><table><tr><th>Variante</th><th>Stock</th><th>Adjust (+/-)</th><th>Stock After</th><th></th></tr>' + p.variants.map(v => '<tr><td><b>' + esc(v.label) + "</b></td><td>" + v.stock + '</td><td><input class="inp" style="width:110px" type="number" id="adj-' + v.id + '" value="0" oninput="document.getElementById(\'after-' + v.id + '\').textContent=' + v.stock + '+Number(this.value||0)"></td><td><b id="after-' + v.id + '">' + v.stock + '</b></td><td><button class="btn sm" onclick="catalogAdjustStock(\'' + id + "','" + v.id + '\')">Appliquer</button> <button class="btn sm ghost" onclick="catalogStockHistory(\'' + id + '\')">Stock History</button></td></tr>').join("") + "</table></div>";
   } else if (tab === "reviews"){
     body = '<div class="note">💳 Your Credit Balance is Low - 0$ — assurez-vous d\'avoir assez de crédits pour cette fonction.</div><div class="card empty"><div class="big">Review Not Found!</div>Aucun avis pour ce produit.</div>';
   } else if (tab === "custom"){
-    body = '<div class="card empty"><div class="big">Custom Fields</div>Aucun champ personnalisé pour ce produit (fonction Premium).</div>';
+    body = '<div class="card"><h3>Custom Fields</h3>' +
+      (DB.customFields.length ? DB.customFields.map(f => '<div class="field" style="margin-top:10px"><label>' + esc(f.name) + '</label><input class="inp" id="pcf-' + f.id + '" value="' + esc((p.customValues || {})[f.id] || "") + '"></div>').join("") +
+      '<button class="btn" style="margin-top:10px" onclick="catalogSaveCustom(\'' + id + '\')">Save</button>' : '<div class="empty"><div class="big">No Data Found!</div>Créez d\'abord des champs dans Store Settings → Custom Fields.</div>') + "</div>";
   } else if (tab === "seo"){
-    body = '<div class="card"><h3>SEO</h3><div class="field" style="margin-top:10px"><label>Title / Description SEO</label><textarea class="inp" id="pseo">' + esc(p.seo) + '</textarea></div><button class="btn" onclick="catalogSaveSeo(\'' + id + '\')">Save</button></div>';
+    body = '<div class="card"><h3>SEO</h3><div class="field" style="margin-top:10px"><label>SEO Title</label><input class="inp" id="pseo-title" value="' + esc(p.seoTitle || "") + '" placeholder="Titre pour les moteurs de recherche"></div><div class="field"><label>SEO Description</label><textarea class="inp" id="pseo-desc">' + esc(p.seoDesc || "") + '</textarea></div><p class="small mut">Variables disponibles : {product_name}, {price}, {category} — voir Catalog → SEO Variables et le guide « How to Use SEO Variables ».</p><button class="btn" style="margin-top:10px" onclick="catalogSaveSeo(\'' + id + '\')">Save</button></div>';
   }
   return catalogNav("products") + pageHead(esc(p.name), "Produit ID " + p.id + " · " + esc(p.category)) +
     '<div class="tabs">' + tabs.map(t => '<a href="#/catalog/product/' + id + "/" + t[0] + '" class="' + (tab === t[0] ? "on" : "") + '">' + t[1] + "</a>").join("") + "</div>" + body;
 }
-function catalogSaveProductEdit(id){ const p = prodById(id); p.type = $("#pe-type").value; p.name = $("#pe-name").value; p.category = $("#pe-cat").value; p.regular = Number($("#pe-regular").value || 0); p.selling = Number($("#pe-selling").value || 0); p.desc = $("#pe-desc").value; p.weight = Number($("#pe-weight").value || 0); p.link = $("#pe-link").value; p.status = $("#pe-status").value; p.outOfStock = !!$("#pe-oos").value; save(); toast("Produit enregistré ✓"); render(); }
+function catalogSaveProductEdit(id){
+  const p = prodById(id);
+  p.type = $("#pe-type").value; p.name = $("#pe-name").value; p.category = $("#pe-cat").value;
+  p.regular = Number($("#pe-regular").value || 0); p.selling = Number($("#pe-selling").value || 0);
+  p.desc = $("#pe-desc").value; p.weight = Number($("#pe-weight").value || 0); p.link = $("#pe-link").value;
+  p.status = $("#pe-status").value; p.visibility = $("#pe-vis").value === "1"; p.outOfStock = !!$("#pe-oos").value;
+  if (document.getElementById("dg-name")){ p.digital = { name: $("#dg-name").value, desc: $("#dg-desc").value, file: $("#dg-file").value }; }
+  save(); toast("Produit enregistré ✓"); render();
+}
 function catalogDelProduct(id){ if (!confirm("Supprimer ce produit ?")) return; DB.products = DB.products.filter(p => p.id !== id); save(); location.hash = "#/catalog/products"; }
 function catalogAssignBadge(id){ const p = prodById(id); const b = $("#pb-badge").value; if (!p.badges.includes(b)) p.badges.push(b); save(); toast("Badge assigné ✓"); render(); }
-function catalogVariantForm(pid){ openModal(modalHead("Nouvelle variante") + '<div class="field"><label>Libellé</label><input class="inp" id="nv-label" placeholder="Ex. Size XL"></div><div class="row"><div class="field"><label>Prix (FBu)</label><input class="inp" type="number" id="nv-price" value="0"></div><div class="field"><label>Stock</label><input class="inp" type="number" id="nv-stock" value="0"></div></div><div class="field"><label>SKU</label><input class="inp" id="nv-sku"></div><button class="btn" onclick="catalogSaveVariant(\'' + pid + '\')">Enregistrer</button>'); }
-function catalogSaveVariant(pid){ const p = prodById(pid); p.variants.push({ id: uid("v"), label: $("#nv-label").value || "Standard", price: Number($("#nv-price").value || 0), regular: p.regular, sku: $("#nv-sku").value, stock: Number($("#nv-stock").value || 0), active: true }); save(); closeModal(); toast("Variante ajoutée ✓"); render(); }
+function catalogVariantForm(pid){
+  openModal(modalHead("Nouvelle variante") +
+    '<div class="field"><label>Libellé</label><input class="inp" id="nv-label" placeholder="Ex. Size XL"></div>' +
+    '<div class="row"><div class="field"><label>Prix (FBu)</label><input class="inp" type="number" id="nv-price" value="0"></div>' +
+    '<div class="field"><label>Prix barré (FBu)</label><input class="inp" type="number" id="nv-regular" value="0"></div></div>' +
+    '<div class="row"><div class="field"><label>Stock</label><input class="inp" type="number" id="nv-stock" value="0"></div>' +
+    '<div class="field"><label>SKU</label><input class="inp" id="nv-sku"></div></div>' +
+    '<button class="btn" onclick="catalogSaveVariant(\'' + pid + '\')">Enregistrer</button>');
+}
+function catalogSaveVariant(pid){
+  const p = prodById(pid);
+  p.variants.push({ id: uid("v"), label: $("#nv-label").value || "Standard", price: Number($("#nv-price").value || 0), regular: Number($("#nv-regular").value || 0) || p.regular, sku: $("#nv-sku").value, stock: Number($("#nv-stock").value || 0), active: true });
+  p.stockHistory = p.stockHistory || []; p.stockHistory.unshift({ d: "Aujourd'hui", txt: "Variante ajoutée — " + $("#nv-label").value });
+  save(); closeModal(); toast("Variante ajoutée ✓"); render();
+}
 function catalogDelVariant(pid, vid){ const p = prodById(pid); p.variants = p.variants.filter(v => v.id !== vid); save(); render(); }
-function catalogAdjustStock(pid, vid){ const p = prodById(pid); const v = p.variants.find(x => x.id === vid); const d = Number(($("#adj-" + vid) || {}).value || 0); v.stock = Math.max(0, v.stock + d); save(); toast("Stock ajusté : " + v.stock + " ✓"); render(); }
-function catalogSaveSeo(id){ prodById(id).seo = $("#pseo").value; save(); toast("SEO enregistré ✓"); }
+function catalogAdjustStock(pid, vid){
+  const p = prodById(pid); const v = p.variants.find(x => x.id === vid);
+  const d = Number(($("#adj-" + vid) || {}).value || 0);
+  v.stock = Math.max(0, v.stock + d);
+  p.stockHistory = p.stockHistory || [];
+  p.stockHistory.unshift({ d: "Aujourd'hui", txt: "Adjust " + (d >= 0 ? "+" : "") + d + " — " + v.label + " → Stock After : " + v.stock });
+  save(); toast("Stock ajusté : " + v.stock + " ✓"); render();
+}
+function catalogSaveSeo(id){
+  const p = prodById(id);
+  p.seoTitle = $("#pseo-title").value; p.seoDesc = $("#pseo-desc").value; p.seo = p.seoDesc;
+  save(); toast("SEO enregistré ✓"); render();
+}
 
 function viewCatalogCategories(){
   return catalogNav("categories") + pageHead("Categories (" + DB.categories.length + ")", "", '<button class="btn" onclick="catalogCategoryForm()">+ Add New</button>') +
-    '<div class="tblwrap"><table><tr><th>#</th><th>Name</th><th>Products</th><th>Status</th><th></th></tr>' + DB.categories.map((c, i) => "<tr><td>" + (i + 1) + "</td><td><b>" + esc(c.name) + "</b></td><td>" + DB.products.filter(p => p.category === c.name).length + " Products</td><td>" + statusBadge(c.status) + '</td><td><button class="btn sm ghost" onclick="catalogDelCategory(\'' + c.id + '\')">🗑️</button></td></tr>').join("") + "</table></div>";
+    '<div class="tblwrap"><table><tr><th>#</th><th>Name</th><th>Products</th><th>Status</th><th></th></tr>' + DB.categories.map((c, i) => "<tr><td>" + (i + 1) + "</td><td><b>" + esc(c.name) + "</b></td><td>" + DB.products.filter(p => p.category === c.name).length + " Products</td><td>" + statusBadge(c.status) + '</td><td>' + (c.status === "Archived" ? '<span class="small mut">Archivée</span>' : '<button class="btn sm ghost" onclick="catalogDelCategory(\'' + c.id + '\')">Archiver</button>') + "</td></tr>").join("") + "</table></div>" +
+    '<p class="small mut" style="margin-top:8px">Une catégorie créée ne peut pas être supprimée : elle peut seulement être archivée.</p>';
 }
 function catalogCategoryForm(){ openModal(modalHead("Nouvelle catégorie") + '<div class="field"><label>Nom</label><input class="inp" id="nc-name"></div><button class="btn" onclick="catalogSaveCategory()">Enregistrer</button>'); }
 function catalogSaveCategory(){ const n = $("#nc-name").value.trim(); if (!n) return toast("Nom requis"); DB.categories.push({ id: uid("c"), name: n, status: "Active" }); save(); closeModal(); render(); }
-function catalogDelCategory(id){ DB.categories = DB.categories.filter(c => c.id !== id); save(); render(); }
+function catalogDelCategory(id){
+  const c = DB.categories.find(x => x.id === id); if (!c) return;
+  if (!confirm("Archiver la catégorie « " + c.name + " » ? Elle ne peut pas être supprimée, seulement archivée.")) return;
+  c.status = "Archived"; save(); toast("Catégorie archivée ✓"); render();
+}
 function viewCatalogBadges(){
   const act = DB.products.filter(p => p.status === "Active").length;
   return catalogNav("badges") + pageHead("Badges (" + DB.badgesList.length + ")", "", '<button class="btn" onclick="catalogBadgeForm()">+ Add New</button>') +
@@ -1000,7 +1214,7 @@ function viewCards(){
     '<div class="grid g3">' + feats.map(f => '<div class="card" style="margin:0;text-align:center"><div style="font-size:26px">💳</div><b>' + f + "</b></div>").join("") + "</div>" +
     '<div class="card" style="margin-top:12px"><h3>Qu\'attendez-vous ?</h3><p class="mut" style="margin:6px 0 10px">Commencez à configurer votre carte maintenant !</p><a class="btn" href="#/cards/new">Get Started</a></div>';
   if (DB.cards.length){
-    body += '<h2 style="margin:12px 0 10px">Mes cartes (' + DB.cards.length + ")</h2>" + DB.cards.map(cd => '<div class="card" style="display:flex;gap:10px;align-items:center"><span class="pthumb" style="background:var(--navy)">💳</span><div style="flex:1"><b>' + esc(cd.name) + '</b><div class="small mut">' + esc(cd.link) + '.mlc.cards</div></div><button class="btn sm ghost" onclick="copyText(\'' + esc(cd.link) + '.mlc.cards\',\'Lien de la carte copié ✓\')">Copier le lien</button></div>').join("");
+    body += '<h2 style="margin:12px 0 10px">Mes cartes (' + DB.cards.length + ")</h2>" + DB.cards.map(cd => '<div class="card" style="display:flex;gap:10px;align-items:center"><span class="pthumb" style="background:var(--navy)">💳</span><div style="flex:1"><b>' + esc(cd.name) + '</b><div class="small mut">' + esc(cd.link) + '.mlc.cards</div></div><a class="btn sm" href="#/cards/view/' + cd.id + '">Ouvrir</a><button class="btn sm ghost" onclick="copyText(\'' + esc(cd.link) + '.mlc.cards\',\'Lien de la carte copié ✓\')">Copier le lien</button></div>').join("");
   }
   return body;
 }
@@ -1104,51 +1318,62 @@ function viewChangePlan(){
 function setPlanPack(p){ planState.pack = p; render(); }
 function setPlanPeriod(annual){ planState.period = annual ? "annual" : "monthly"; render(); }
 /* ================= VITRINE PUBLIQUE ================= */
-let shopState = { q: "", cat: "Tous les articles", couponMsg: "", couponDiscount: 0, couponCode: "" };
+let shopState = { q: "", cat: "Tous les articles", couponMsg: "", couponDiscount: 0, couponCode: "", lang: "fr" };
 function cartCount(){ return DB.cart.reduce((a, i) => a + i.qty, 0); }
 function cartSubtotal(){ return DB.cart.reduce((a, i) => a + i.price * i.qty, 0); }
 function shopNav(active){
-  const items = [ ["home","Accueil"], ["cart","Chariot (" + cartCount() + ")"], ["orders","Mes commandes"] ];
-  return '<div class="subnav">' + items.map(i => '<a href="#/shop' + (i[0] === "home" ? "" : "/" + i[0]) + '" class="' + (active === i[0] ? "on" : "") + '">' + i[1] + "</a>").join("") + ' <span style="flex:1"></span><select class="inp" style="width:auto" onchange="toast(\'Langue de la vitrine : Français\')"><option>Français</option><option>English</option></select></div>';
+  const items = [ ["home", L("home"), "#/shop"], ["cart", L("cart") + " (" + cartCount() + ")", "#/shop/cart"], ["orders", L("orders"), "#/shop/orders"], ["orders", L("login"), "#/shop/orders"] ];
+  return '<div class="subnav">' + items.map(i => '<a href="' + i[2] + '" class="' + (active === i[0] ? "on" : "") + '">' + i[1] + "</a>").join("") + ' <span style="flex:1"></span><select class="inp" style="width:auto" onchange="shopSetLang(this.value)"><option value="fr"' + (shopState.lang === "fr" ? " selected" : "") + '>Français</option><option value="en"' + (shopState.lang === "en" ? " selected" : "") + ">English</option></select></div>";
 }
 function prodCard(p){
   const d = prodDiscount(p);
-  return '<div class="prod"><div class="ph" style="background:' + catColor(p.category) + '">' + prodEmoji(p) + '</div><div class="pb">' +
+  const media = (p.media && p.media[0]) || prodEmoji(p);
+  const mediaHTML = String(media).indexOf("http") === 0 ? '<img src="' + esc(media) + '" style="width:100%;height:100%;object-fit:cover" alt="">' : esc(media);
+  return '<div class="prod"><div class="ph" style="background:' + catColor(p.category) + '">' + mediaHTML + '</div><div class="pb">' +
     (p.badges.length ? '<span class="badge orange" style="align-self:flex-start">' + esc(p.badges[0]) + "</span>" : "") +
     '<span class="nm">' + esc(p.name) + "</span>" +
     '<span class="small mut">' + esc(p.category) + " · Stock " + prodStock(p) + "</span>" +
-    '<div class="pr"><span class="money">' + (p.variants.length > 1 ? "À partir de " : "") + fmt(p.selling) + '</span><span class="strike">' + fmt(p.regular) + "</span>" + (d ? ' <span class="badge red">−' + d + " %</span>" : "") + "</div>" +
-    '<button class="btn sm" style="margin-top:8px" onclick="shopOpenProduct(\'' + p.id + '\')">Voir / Ajouter au panier</button>' +
+    '<div class="pr"><span class="money">' + (p.variants.length > 1 ? L("from") : "") + fmt(p.selling) + '</span><span class="strike">' + fmt(p.regular) + "</span>" + (d ? ' <span class="badge red">−' + d + " %</span>" : "") + "</div>" +
+    '<button class="btn sm" style="margin-top:8px" onclick="shopOpenProduct(\'' + p.id + '\')">' + L("viewAdd") + "</button>" +
     "</div></div>";
 }
 function viewShop(){
-  const cats = ["Tous les articles"].concat(DB.categories.map(c => c.name));
-  let list = DB.products.filter(p => p.status === "Active");
+  const cats = ["Tous les articles"].concat(DB.categories.filter(c => c.status !== "Archived").map(c => c.name));
+  let list = DB.products.filter(p => p.status === "Active" && p.visibility !== false);
   if (shopState.cat !== "Tous les articles") list = list.filter(p => p.category === shopState.cat);
   if (shopState.q) list = list.filter(p => p.name.toLowerCase().includes(shopState.q.toLowerCase()));
   return shopNav("home") +
     '<div class="shophead"><span class="badge orange">' + esc(DB.banners.length ? DB.banners[0].title : "Big Deal") + '</span><h1 style="margin-top:8px">' + esc(S().storeName) + "</h1><p>" + esc(S().about) + "</p></div>" +
-    '<div class="filters"><input class="inp" placeholder="Rechercher des articles" value="' + esc(shopState.q) + '" oninput="shopSearch(this.value)"><select class="inp" onchange="shopSort(this.value)"><option>Recommandé</option><option>Prix croissant</option><option>Prix décroissant</option></select><select class="inp" onchange="shopView(this.value)"><option' + (S().productView === "List" ? " selected" : "") + '>Vue liste</option><option' + (S().productView === "Grid" ? " selected" : "") + ">Vue grille</option><option" + (S().productView === "Compact" ? " selected" : "") + ">Vue compacte</option></select></div>" +
-    '<div class="subnav">' + cats.map(c => '<a href="javascript:void(0)" onclick="shopCat(\'' + esc(c) + '\')" class="' + (shopState.cat === c ? "on" : "") + '">' + esc(c) + "</a>").join("") + "</div>" +
-    (list.length ? '<div class="grid ' + (S().productView === "Grid" ? "g3" : "g2") + '">' + list.map(prodCard).join("") + "</div>" : '<div class="card empty"><div class="big">Aucun article</div>— C\'est tout —</div>') +
-    '<p class="small mut" style="text-align:center;margin-top:14px">— C\'est tout —</p>' +
-    (cartCount() ? '<div class="cartbar"><span>🛒 ' + cartCount() + ' article(s) — <b>' + fmt(cartSubtotal()) + '</b></span><span style="flex:1"></span><a class="btn" href="#/shop/cart">Voir le chariot</a></div>' : "") +
-    '<div class="card" style="margin-top:14px;text-align:center"><b>' + esc(S().storeName) + "</b> — " + esc(S().about) + '<br><span class="small mut">' + (S().branding ? "Propulsé par MLC — Magic Logistic Company" : "") + "</span></div>" +
+    '<div class="filters"><input class="inp" placeholder="' + L("search") + '" value="' + esc(shopState.q) + '" oninput="shopSearch(this.value)"><select class="inp" onchange="shopSort(this.value)"><option value="Recommandé">' + L("rec") + '</option><option value="Prix croissant">' + L("asc") + '</option><option value="Prix décroissant">' + L("desc") + '</option></select><select class="inp" onchange="shopView(this.value)"><option value="Vue liste"' + (S().productView === "List" ? " selected" : "") + ">" + L("list") + '</option><option value="Vue grille"' + (S().productView === "Grid" ? " selected" : "") + ">" + L("grid") + '</option><option value="Vue compacte"' + (S().productView === "Compact" ? " selected" : "") + ">" + L("compact") + "</option></select></div>" +
+    '<div class="subnav">' + cats.map(c => '<a href="javascript:void(0)" onclick="shopCat(\'' + esc(c) + '\')" class="' + (shopState.cat === c ? "on" : "") + '">' + (c === "Tous les articles" && shopState.lang === "en" ? "All products" : esc(c)) + "</a>").join("") + "</div>" +
+    (list.length ? '<div class="grid ' + (S().productView === "Grid" ? "g3" : "g2") + '">' + list.map(prodCard).join("") + "</div>" : '<div class="card empty"><div class="big">' + L("none") + "</div>" + L("end") + "</div>") +
+    '<p class="small mut" style="text-align:center;margin-top:14px">' + L("end") + "</p>" +
+    (cartCount() ? '<div class="cartbar"><span>🛒 ' + cartCount() + ' article(s) — <b>' + fmt(cartSubtotal()) + '</b></span><span style="flex:1"></span><a class="btn" href="#/shop/cart">' + L("cart") + "</a></div>" : "") +
+    '<div class="card" style="margin-top:14px;text-align:center"><b>' + esc(S().storeName) + "</b> — " + esc(S().about) + '<br><span class="small mut">' + (S().branding ? "Powered By MLC — Magic Logistic Company · Version 8.5.0" : "") + "</span></div>" +
     '<button class="wafloat" onclick="shopWhatsApp()" title="WhatsApp">💬</button>';
 }
 function shopSearch(v){ shopState.q = v; clearTimeout(window._sq); window._sq = setTimeout(render, 220); }
-function shopSort(v){ if (v === "Prix croissant") DB.products.sort((a, b) => a.selling - b.selling); else if (v === "Prix décroissant") DB.products.sort((a, b) => b.selling - a.selling); render(); }
+function shopSort(v){
+  if (v === "Prix croissant") DB.products.sort((a, b) => a.selling - b.selling);
+  else if (v === "Prix décroissant") DB.products.sort((a, b) => b.selling - a.selling);
+  else DB.products.sort((a, b) => (a._ord || 0) - (b._ord || 0));
+  render();
+}
 function shopView(v){ S().productView = v.replace("Vue ", "").replace("liste", "List").replace("grille", "Grid").replace("compacte", "Compact"); save(); render(); }
 function shopCat(c){ shopState.cat = c; render(); }
 function shopWhatsApp(){ const num = (S().whatsapp || "").replace(/[^0-9]/g, ""); if (num) window.open("https://wa.me/" + num, "_blank"); else toast("Numéro WhatsApp de la boutique non renseigné (Gestion → Réglages)"); }
 function shopOpenProduct(pid){
   const p = prodById(pid); if (!p) return;
   const d = prodDiscount(p);
+  const media = (p.media && p.media[0]) || prodEmoji(p);
+  const mediaHTML = String(media).indexOf("http") === 0 ? '<img src="' + esc(media) + '" style="width:100%;height:100%;object-fit:cover" alt="">' : esc(media);
+  const attrLines = DB.attributes.filter(a => (p.attrValues || {})[a.id]).map(a => '<div class="kv"><span>' + esc(a.name) + "</span><b>" + esc(p.attrValues[a.id]) + "</b></div>").join("");
   openModal('<div class="mhead"><div class="sp"><h2>' + esc(p.name) + '</h2></div><button class="xbtn" onclick="closeModal()">✕</button></div>' +
-    '<div class="ph" style="height:130px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:60px;background:' + catColor(p.category) + '">' + prodEmoji(p) + "</div>" +
+    '<div class="ph" style="height:130px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:60px;background:' + catColor(p.category) + '">' + mediaHTML + "</div>" +
     '<div style="margin-top:12px">' + (p.badges.length ? '<span class="badge orange">' + esc(p.badges[0]) + "</span> " : "") + '<span class="badge">' + esc(p.category) + "</span></div>" +
     '<div style="margin-top:8px"><span class="money" style="font-size:19px">' + fmt(p.selling) + '</span><span class="strike">' + fmt(p.regular) + "</span>" + (d ? ' <span class="badge red">' + d + " % DE RÉDUCTION</span>" : "") + "</div>" +
     (p.desc ? '<p class="mut" style="margin-top:8px">' + esc(p.desc) + "</p>" : "") +
+    attrLines +
     '<div class="field" style="margin-top:12px"><label>Variante</label><select class="inp" id="sp-variant">' + p.variants.map(v => '<option value="' + v.id + '">' + esc(v.label) + " — " + fmt(v.price) + " (stock " + v.stock + ")</option>").join("") + "</select></div>" +
     '<div class="field"><label>Quantité</label><input class="inp" type="number" id="sp-qty" value="1" min="1"></div>' +
     '<button class="btn" style="width:100%;justify-content:center" onclick="shopAddToCart(\'' + pid + '\')">Ajouter au panier</button>');
@@ -1162,19 +1387,33 @@ function shopAddToCart(pid){
 }
 function viewShopCart(){
   if (!DB.cart.length) return shopNav("cart") + '<div class="card empty"><div class="big">Votre chariot est vide</div><a class="btn" href="#/shop">Voir les articles</a></div>';
-  const sub = cartSubtotal();
-  const disc = shopState.couponDiscount || 0;
+  const af = S().addressFields || {};
+  const F = (key, label, id, extra) => af[key] ? '<div class="field"><label>' + label + '</label><input class="inp" id="' + id + '"' + (extra || "") + "></div>" : "";
+  const FR = (a, b) => '<div class="row">' + a + b + "</div>";
+  const t0 = shopComputeTotals();
   return shopNav("cart") + pageHead("Chariot") +
     '<div class="card">' + DB.cart.map((i, ix) => '<div class="setrow"><span class="pthumb" style="background:' + catColor(i.category) + '">' + prodEmoji(prodById(i.productId) || { category: i.category }) + '</span><div class="tx"><div class="t">' + esc(i.name) + '</div><div class="d">' + esc(i.variant) + " · " + fmt(i.price) + '</div></div><span class="qty"><button onclick="cartQty(' + ix + ',-1)">−</button><span>' + i.qty + '</span><button onclick="cartQty(' + ix + ',1)">+</button></span><b class="money">' + fmt(i.price * i.qty) + '</b><button class="xbtn" onclick="cartRemove(' + ix + ')">🗑️</button></div>').join("") +
-    '<div class="field" style="margin-top:14px"><label>Coupon</label><div style="display:flex;gap:8px"><input class="inp" id="cart-coupon" placeholder="Code coupon" value="' + esc(shopState.couponCode) + '"><button class="btn ghost" onclick="cartApplyCoupon()">Appliquer</button></div>' + (shopState.couponMsg ? '<p class="small" style="margin-top:6px;color:' + (disc ? "var(--green)" : "var(--red)") + '">' + esc(shopState.couponMsg) + "</p>" : "") + "</div>" +
-    '<div class="kv"><span>Sous-total</span><b>' + fmt(sub) + '</b></div>' + (disc ? '<div class="kv"><span>Remise coupon</span><b>−' + fmt(disc) + "</b></div>" : "") + '<div class="kv"><span>Total</span><b>' + fmt(sub - disc) + "</b></div></div>" +
+    '<div class="field" style="margin-top:14px"><label>Coupon</label><div style="display:flex;gap:8px"><input class="inp" id="cart-coupon" placeholder="Code coupon" value="' + esc(shopState.couponCode) + '"><button class="btn ghost" onclick="cartApplyCoupon()">Appliquer</button></div>' + (shopState.couponMsg ? '<p class="small" style="margin-top:6px;color:' + (shopState.couponDiscount ? "var(--green)" : "var(--red)") + '">' + esc(shopState.couponMsg) + "</p>" : "") + "</div>" +
+    '<div class="kv"><span>Sous-total</span><b id="st-sub">' + fmt(t0.sub) + '</b></div>' + (t0.disc ? '<div class="kv"><span>Remise coupon</span><b>−' + fmt(t0.disc) + "</b></div>" : "") +
+    '<div class="kv"><span>Livraison</span><b id="st-ship">' + fmt(t0.ship) + '</b></div>' +
+    '<div class="kv"><span>Taxes & charges' + (S().chargesMode === "Inclusive" ? " (incluses)" : "") + '</span><b id="st-tax">' + fmt(t0.taxes) + '</b></div>' +
+    '<div class="kv"><span>Checkout Add-ons</span><b id="st-addon">' + fmt(t0.addonTotal) + '</b></div>' +
+    '<div class="kv"><span>Total</span><b id="st-total">' + fmt(t0.total) + "</b></div></div>" +
     '<div class="card"><h3>Commander</h3>' +
-    '<div class="field" style="margin-top:10px"><label>Name</label><input class="inp" id="co-name"></div>' +
-    '<div class="field"><label>Mobile Number</label><input class="inp" id="co-mobile" placeholder="+257 …"></div>' +
-    '<div class="field"><label>Email</label><input class="inp" id="co-email"></div>' +
-    '<div class="field"><label>Address Line 1</label><input class="inp" id="co-addr"></div>' +
-    '<div class="row"><div class="field"><label>City</label><input class="inp" id="co-city"></div><div class="field"><label>Country</label><input class="inp" id="co-country" value="Burundi"></div></div>' +
-    '<div class="field"><label>Note</label><input class="inp" id="co-note"></div>' +
+    F("Name", "Name", "co-name") +
+    '<div class="field"><label>Mobile Number</label><input class="inp" id="co-mobile" placeholder="+257 …"><p class="small mut" style="margin-top:4px">Vérification du numéro avant la commande' + (S().otpVerification ? " — OTP Verification activée : un code est envoyé sur WhatsApp (crédits requis)" : "") + ".</p></div>" +
+    (S().otpVerification ? '<div class="field"><label>Code OTP reçu</label><input class="inp" id="co-otp" placeholder="Code reçu par WhatsApp"></div>' : "") +
+    F("Email", "Email", "co-email") +
+    F("Address Line 1", "Address Line 1", "co-addr") +
+    F("Address Line 2", "Address Line 2", "co-addr2") +
+    FR(F("Landmark", "Landmark", "co-landmark"), F("Locality", "Locality", "co-locality")) +
+    FR(F("City", "City", "co-city"), F("State", "State", "co-state")) +
+    FR(F("Country", "Country", "co-country", ' value="Burundi"'), F("Pincode/Zipcode", "Pincode/Zipcode", "co-pin")) +
+    FR(F("GST number", "GST number (optionnel)", "co-gst"), F("VAT number", "VAT number (optionnel)", "co-vat")) +
+    F("Note", "Note", "co-note") +
+    '<div class="field"><label>Livraison</label><select class="inp" id="co-ship" onchange="shopPayInfo()"><option value="0">Retrait en boutique — FBu 0</option>' + DB.shippingCharges.map(sc => '<option value="' + Number(sc.amount || 0) + '">' + esc(sc.name) + " — " + fmt(sc.amount) + "</option>").join("") + "</select></div>" +
+    (DB.checkoutAddons.length ? '<h3 style="margin:12px 0 6px">Checkout Add-ons</h3>' + DB.checkoutAddons.map(a => '<div class="field"><label>' + esc(a.name) + (a.desc ? ' <span class="mut small">— ' + esc(a.desc) + "</span>" : "") + '</label><select class="inp co-addon" onchange="shopPayInfo()"><option value="0">Aucun</option>' + (a.options || []).map(o => '<option value="' + o.price + '">' + esc(o.label) + " — " + fmt(o.price) + "</option>").join("") + "</select></div>").join("") : "") +
+    (S().minOrderNote ? '<div class="note">' + esc(S().minOrderNote) + "</div>" : "") +
     (S().checkoutNote ? '<div class="note">' + esc(S().checkoutNote) + "</div>" : "") +
     '<div class="field"><label>Mode de paiement</label><select class="inp" id="co-pay" onchange="shopPayInfo()">' +
       (S().lumicashEnabled ? '<option value="Lumicash">Lumicash</option>' : "") + (S().enotiEnabled ? '<option value="eNoti">eNoti</option>' : "") + (S().payLaterEnabled ? '<option value="Pay Later">Payer plus tard (Pay Later)</option>' : "") + "</select></div>" +
@@ -1185,29 +1424,45 @@ function viewShopCart(){
 }
 function shopPayInfo(){
   const mode = ($("#co-pay") || {}).value; if (!mode) return;
-  const total = cartSubtotal() - (shopState.couponDiscount || 0);
+  const t = shopComputeTotals();
+  const set = (id, val) => { const e = document.getElementById(id); if (e) e.textContent = val; };
+  set("st-sub", fmt(t.sub)); set("st-ship", fmt(t.ship)); set("st-tax", fmt(t.taxes)); set("st-addon", fmt(t.addonTotal)); set("st-total", fmt(t.total));
   const num = mode === "Lumicash" ? S().lumicashNumber : mode === "eNoti" ? S().enotiNumber : "";
   const refField = $("#payref-field");
   if (mode === "Pay Later"){ $("#payinfo").innerHTML = '<div class="note">Paiement manuel plus tard : la boutique vous contactera pour le règlement.</div>'; if (refField) refField.style.display = "none"; }
-  else { $("#payinfo").innerHTML = '<div class="note blue">📲 Payez <b>' + fmt(total) + '</b> par <b>' + mode + '</b> au numéro marchand : <b>' + esc(num || "à renseigner par la boutique") + '</b>, puis saisissez la référence de la transaction ci-dessous. La boutique confirmera la réception.</div>'; if (refField) refField.style.display = ""; }
+  else { $("#payinfo").innerHTML = '<div class="note blue">📲 Payez <b>' + fmt(t.total) + '</b> par <b>' + mode + '</b> au numéro marchand : <b>' + esc(num || "à renseigner par la boutique") + '</b>, puis saisissez la référence de la transaction ci-dessous. La boutique confirmera la réception.</div>'; if (refField) refField.style.display = ""; }
 }
 function cartQty(ix, d){ DB.cart[ix].qty += d; if (DB.cart[ix].qty <= 0) DB.cart.splice(ix, 1); save(); render(); }
 function cartRemove(ix){ DB.cart.splice(ix, 1); save(); render(); }
 function cartApplyCoupon(){ const r = validateCoupon($("#cart-coupon").value, cartSubtotal()); shopState.couponCode = $("#cart-coupon").value; shopState.couponMsg = r.msg; shopState.couponDiscount = r.ok ? r.discount : 0; if (r.ok) shopState.couponObj = r.coupon.code; render(); }
 function shopPlaceOrder(){
-  const name = $("#co-name").value.trim(), mobile = $("#co-mobile").value.trim();
-  if (!name || !mobile) return toast("Nom et numéro de mobile requis");
+  const gv = id => { const e = document.getElementById(id); return e ? e.value.trim() : ""; };
+  const name = gv("co-name") || "Client boutique";
+  const mobile = gv("co-mobile");
+  if (!mobile) return toast("Numéro de mobile requis (vérification du numéro)");
+  if (S().otpVerification && !gv("co-otp")) return toast("OTP Verification activée : saisissez le code reçu sur WhatsApp");
+  const t = shopComputeTotals();
+  const min = Number(S().minOrderAmount || 0);
+  if (min && t.sub < min) return toast(S().minOrderNote || ("Montant minimum de commande : " + fmt(min)));
+  if (shopState.couponObj){
+    const chk = validateCouponFor(shopState.couponObj, t.sub, mobile);
+    if (!chk.ok) return toast(chk.msg);
+  }
   const mode = $("#co-pay").value; const ref = ($("#co-ref") || {}).value || "";
   if (mode !== "Pay Later" && !ref) return toast("Saisissez la référence de la transaction " + mode);
-  const sub = cartSubtotal(); const disc = shopState.couponDiscount || 0;
-  const shipTo = [$("#co-addr").value, $("#co-city").value, $("#co-country").value].filter(Boolean).join(", ");
-  const o = { id: DB.nextOrder, num: DB.nextOrder, customerId: "", customerName: name, customerMobile: mobile, placedBy: "User", status: "Open", payment: "Unpaid", paidVia: mode, payRef: ref, shipTo, transactionId: ref, adminNote: "", placed: "Aujourd'hui", discount: disc, shipping: 0, taxes: 0, adjustment: 0, coupon: shopState.couponObj || "",
+  const shipParts = [gv("co-addr"), gv("co-addr2"), gv("co-landmark"), gv("co-locality"), gv("co-city"), gv("co-state"), gv("co-pin"), gv("co-country")].filter(Boolean);
+  const shipSel = document.getElementById("co-ship");
+  const shipName = shipSel && shipSel.selectedIndex > 0 ? shipSel.options[shipSel.selectedIndex].text : "";
+  const o = { id: DB.nextOrder, num: DB.nextOrder, customerId: "", customerName: name, customerMobile: mobile, placedBy: "User", status: "Open", payment: "Unpaid", paidVia: mode, payRef: ref, shipTo: shipParts.join(", "), transactionId: ref, adminNote: "", placed: "Aujourd'hui", discount: t.disc, shipping: t.ship, taxes: t.taxes, adjustment: t.addonTotal, coupon: shopState.couponObj || "", note: gv("co-note"),
     items: DB.cart.map(i => ({ productId: i.productId, name: i.name, variant: i.variant, category: i.category, price: i.price, qty: i.qty })),
     activity: ["Order Created", "Payment mode " + mode + (ref ? " — réf. " + ref : "")] };
+  if (t.ship) o.activity.push("Shipping : " + shipName);
+  if (t.addonTotal) o.activity.push("Checkout Add-ons : " + fmt(t.addonTotal));
+  if (t.taxes) o.activity.push("Taxes (charges produits) : " + fmt(t.taxes));
   DB.cart.forEach(i => { const p = prodById(i.productId); if (p) { const v = p.variants.find(x => x.id === i.variantId); if (v) v.stock = Math.max(0, v.stock - i.qty); } });
   if (shopState.couponObj){ const cp = DB.coupons.find(c => c.code === shopState.couponObj); if (cp) cp.used++; }
   DB.nextOrder++; DB.orders.push(o);
-  let cust = DB.contacts.find(c => c.mobile === mobile); if (!cust) { cust = { id: uid("12"), salutation: "", name, mobile, email: $("#co-email").value, company: "", gender: "", city: $("#co-city").value, address: $("#co-addr").value, notes: "", funnel: "", tags: [], locked: false, created: "Aujourd'hui" }; DB.contacts.push(cust); }
+  let cust = DB.contacts.find(c => c.mobile === mobile); if (!cust) { cust = { id: uid("12"), salutation: "", name, mobile, email: gv("co-email"), company: "", gender: "", city: gv("co-city"), address: gv("co-addr"), notes: "", funnel: "", tags: [], locked: false, created: "Aujourd'hui", createdAt: todayStr(), activities: [] }; DB.contacts.push(cust); }
   o.customerId = cust.id;
   DB.cart = []; shopState.couponDiscount = 0; shopState.couponMsg = ""; shopState.couponCode = ""; shopState.couponObj = "";
   save();
@@ -1224,6 +1479,323 @@ function shopFindOrders(){
   const m = $("#so-mobile").value.trim(); if (!m) return toast("Numéro requis");
   const list = DB.orders.filter(o => o.customerMobile.replace(/\s/g, "").includes(m.replace(/\s/g, "")) || m.replace(/\s/g, "").includes(o.customerMobile.replace(/\s/g, "")));
   $("#so-results").innerHTML = list.length ? list.map(o => '<div class="kv"><span><b>Commande n°' + o.num + "</b> — " + esc(o.placed) + "<br><span class='small mut'>" + o.items.map(i => esc(i.name) + " ×" + i.qty).join(", ") + '</span></span><span style="text-align:right">' + fmt(orderTotal(o)) + "<br>" + statusBadge(o.status) + " " + payBadge(o.payment) + "</span></div>").join("") : '<div class="empty">Aucune commande pour ce numéro.</div>';
+}
+
+/* ================= Approfondissement — utilitaires partagés ================= */
+let ticketSel = new Set();
+let contactSel = new Set();
+let chatFilter = { funnel: "", tags: "" };
+let earnTabState = "invite";
+let savedTabState = "Text";
+const SHOP_I18N = {
+  fr: { home: "Accueil", cart: "Chariot", orders: "Mes commandes", login: "Se connecter", search: "Rechercher des articles", rec: "Recommandé", asc: "Prix croissant", desc: "Prix décroissant", list: "Vue liste", grid: "Vue grille", compact: "Vue compacte", end: "— C'est tout —", none: "Aucun article", viewAdd: "Voir / Ajouter au panier", from: "À partir de " },
+  en: { home: "Home", cart: "Cart", orders: "My Orders", login: "Login", search: "Search products", rec: "Recommended", asc: "Price: Low to High", desc: "Price: High to Low", list: "List View", grid: "Grid View", compact: "Compact View", end: "— That's all —", none: "No products", viewAdd: "View / Add to Cart", from: "From " }
+};
+function inPreset(dateStr, preset, from, to){
+  if (!preset || preset === "all") return true;
+  const d = (dateStr || "").slice(0, 10);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(d)) return false;
+  const now = new Date();
+  const iso = x => x.toISOString().slice(0, 10);
+  const t = iso(now);
+  if (preset === "today") return d === t;
+  if (preset === "yesterday") return d === iso(new Date(now.getTime() - 864e5));
+  if (preset === "week"){ const s = new Date(now.getTime() - ((now.getDay() + 6) % 7) * 864e5); return d >= iso(s) && d <= t; }
+  if (preset === "month") return d.slice(0, 7) === t.slice(0, 7);
+  if (preset === "year") return d.slice(0, 4) === t.slice(0, 4);
+  if (preset === "custom") return (!from || d >= from) && (!to || d <= to);
+  return true;
+}
+function dateFilterHTML(pfx, label, onchange){
+  return '<span style="display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap"><select class="inp" id="' + pfx + '-preset" onchange="document.getElementById(\'' + pfx + '-custom\').style.display=this.value===\'custom\'?\'inline-flex\':\'none\';' + onchange + '"><option value="all">' + label + '</option><option value="custom">Custom</option><option value="today">Today</option><option value="yesterday">Yesterday</option><option value="week">This Week</option><option value="month">This Month</option><option value="year">This Year</option></select>' +
+  '<span id="' + pfx + '-custom" style="display:none;gap:6px;align-items:center"><input class="inp" type="date" id="' + pfx + '-from" onchange="' + onchange + '"><span class="small mut">From / To</span><input class="inp" type="date" id="' + pfx + '-to" onchange="' + onchange + '"></span></span>';
+}
+function presetOf(pfx){
+  const p = document.getElementById(pfx + "-preset");
+  if (!p) return { preset: "all", from: "", to: "" };
+  const f = document.getElementById(pfx + "-from"), t = document.getElementById(pfx + "-to");
+  return { preset: p.value, from: f ? f.value : "", to: t ? t.value : "" };
+}
+function migrate(){
+  const d = DB, s = d.settings;
+  if (!s.addressFields) s.addressFields = { "Name": 1, "Email": 1, "Address Line 1": 1, "Address Line 2": 1, "Landmark": 1, "Locality": 1, "City": 1, "State": 1, "Country": 1, "Pincode/Zipcode": 1, "Note": 1, "GST number": 1, "VAT number": 1 };
+  if (!s.alerts){ s.alerts = {}; ["Order Created", "Order Processing", "Order Shipped", "Order Delivered", "Order Cancelled"].forEach(e => { s.alerts[e] = { wa: true, email: true }; }); }
+  if (!d.savedMessages) d.savedMessages = [];
+  if (d.notifSeen == null) d.notifSeen = 0;
+  d.contacts.forEach(c => { if (!c.createdAt) c.createdAt = (c.created === "Aujourd'hui" ? todayStr() : "2024-08-01"); if (!c.activities) c.activities = []; });
+  d.tickets.forEach(t => { if (!t.createdAt) t.createdAt = "2024-08-01"; if (t.desc == null) t.desc = ""; });
+  d.products.forEach((p, ix) => {
+    if (p._ord == null) p._ord = ix;
+    if (!p.media || !p.media.length) p.media = [prodEmoji(p)];
+    if (!p.attrValues) p.attrValues = {};
+    if (!p.customValues) p.customValues = {};
+    if (!p.stockHistory) p.stockHistory = p.variants.map(v => ({ d: "Il y a 2 ans", txt: "Stock initial — " + v.label + " : " + v.stock }));
+    if (p.visibility == null) p.visibility = true;
+    if (p.seoTitle == null) p.seoTitle = "";
+    if (p.seoDesc == null) p.seoDesc = p.seo || "";
+    if (!p.digital) p.digital = { name: "", desc: "", file: "" };
+  });
+  d.polls.forEach(p => { if (p.storeVisibility == null) p.storeVisibility = true; if (p.archived == null) p.archived = false; });
+  d.tiers.forEach(t => { if (!t.color) t.color = "#2563eb"; });
+  d.checkoutAddons.forEach(a => { if (!a.options) a.options = [{ label: "Standard", price: Number(a.price || 0) }]; if (a.desc == null) a.desc = ""; });
+  d.coupons.forEach(c => { if (c.visible == null) c.visible = true; });
+}
+function notifItems(){
+  const items = [];
+  const today = todayStr();
+  DB.tickets.filter(t => t.status !== "Closed" && t.due).forEach(t => {
+    if (t.due <= today) items.push({ ic: "⏰", txt: "Ticket « " + t.subject + " » — échéance " + (t.due === today ? "aujourd'hui" : "dépassée (" + t.due + ")"), href: "#/crm/tickets" });
+    else if ((new Date(t.due) - new Date(today)) / 864e5 <= 2) items.push({ ic: "⏰", txt: "Ticket « " + t.subject + " » — échéance proche (" + t.due + ")", href: "#/crm/tickets" });
+  });
+  const unpaid = DB.orders.filter(o => o.payment === "Unpaid").length;
+  if (unpaid) items.push({ ic: "🧾", txt: unpaid + " commande(s) en attente de paiement", href: "#/store/orders" });
+  if (Number(DB.credits || 0) <= 0) items.push({ ic: "🪙", txt: "Solde de crédits à 0 $ — notifications et OTP suspendus faute de crédits", href: "#/credits" });
+  DB.reminders.filter(r => r.at && r.at !== "—" && r.at.slice(0, 10) <= today).forEach(r => items.push({ ic: "🔔", txt: "Rappel : " + r.title, href: "#/crm/reminders" }));
+  return items;
+}
+function notifBadgeHTML(){
+  const n = Math.max(0, notifItems().length - (DB.notifSeen || 0));
+  return n ? '<span style="position:absolute;top:-5px;right:-5px;background:var(--red);color:#fff;font-size:10px;font-weight:800;border-radius:99px;padding:1px 6px">' + n + "</span>" : "";
+}
+function viewNotifications(){
+  const items = notifItems();
+  openModal(modalHead("Notifications") +
+    (items.length ? items.map(i => '<a class="setrow" href="' + i.href + '" onclick="closeModal()" style="color:var(--ink)"><span>' + i.ic + " " + esc(i.txt) + '</span><span class="mut">›</span></a>').join("") : '<div class="empty"><div class="big">No Data Found!</div>Aucune notification pour le moment.</div>'));
+  DB.notifSeen = items.length; save();
+  const b = document.getElementById("bellbadge"); if (b) b.innerHTML = '<button class="btn ghost sm" onclick="viewNotifications()">🔔</button>';
+}
+function toggleAlertEv(ev, ch, on){ S().alerts[ev][ch] = !!on; save(); toast("Alerte « " + ev + " » mise à jour ✓"); }
+function toggleAddrField(f, on){ S().addressFields[f] = on ? 1 : 0; save(); toast("Champ « " + f + " » " + (on ? "activé" : "masqué") + " au checkout ✓"); }
+function storeSaveAdminNote(id){
+  const o = DB.orders.find(x => x.id === id); if (!o) return;
+  o.adminNote = document.getElementById("ord-note").value.trim();
+  o.activity.push("Admin Note updated");
+  save(); toast("Admin Note enregistrée ✓"); render();
+}
+function crmAddNote(cid){
+  const txt = (document.getElementById("cn-text") || {}).value || "";
+  if (!txt.trim()) return toast("Écrivez la note d'abord");
+  const c = contactById(cid); c.activities = c.activities || [];
+  c.activities.unshift({ txt: txt.trim(), d: "Aujourd'hui" });
+  save(); toast("Note ajoutée ✓"); render();
+}
+function crmDelNote(cid, ix){
+  const c = contactById(cid); c.activities.splice(ix, 1);
+  save(); toast("Note supprimée ✓"); render();
+}
+function applySavedFilter(){
+  const body = document.getElementById("sv-body"); if (!body) return;
+  const q = (document.getElementById("sv-q").value || "").toLowerCase();
+  const tag = (document.getElementById("sv-tags").value || "").toLowerCase();
+  const cp = presetOf("sv");
+  const cols = savedTabState === "Documents" ? 5 : 4;
+  const rows = (DB.savedMessages || []).filter(m => {
+    if (m.type !== savedTabState) return false;
+    if (q && !(m.text || "").toLowerCase().includes(q) && !(m.fromTo || "").toLowerCase().includes(q)) return false;
+    if (tag && !(m.tags || "").toLowerCase().includes(tag)) return false;
+    if (!inPreset(m.createdAt, cp.preset, cp.from, cp.to)) return false;
+    return true;
+  });
+  body.innerHTML = rows.length ? rows.map(m => savedTabState === "Documents"
+    ? "<tr><td>" + esc(m.fromTo) + "</td><td>" + esc(m.text) + "</td><td>" + esc(m.size || "—") + "</td><td>" + esc(m.tags || "—") + "</td><td>" + esc(m.time) + '</td><td><button class="btn sm ghost" onclick="crmDelSaved(\'' + m.id + '\')">🗑️</button></td></tr>'
+    : "<tr><td>" + esc(m.fromTo) + "</td><td>" + esc(m.text) + "</td><td>" + esc(m.tags || "—") + "</td><td>" + esc(m.time) + '</td><td><button class="btn sm ghost" onclick="crmDelSaved(\'' + m.id + '\')">🗑️</button></td></tr>').join("")
+    : '<tr><td colspan="' + (cols + 1) + '" class="empty">Aucun message enregistré ne correspond.</td></tr>';
+}
+function crmDelSaved(id){ DB.savedMessages = DB.savedMessages.filter(m => m.id !== id); save(); applySavedFilter(); }
+function applyPollFilter(){
+  const body = document.getElementById("pl-body"); if (!body) return;
+  const v = id => { const e = document.getElementById(id); return e ? e.value : ""; };
+  const q = v("pl-q").toLowerCase(), status = v("pl-status"), privacy = v("pl-privacy"), multi = v("pl-multi"), store = v("pl-store");
+  const arch = document.getElementById("pl-arch") && document.getElementById("pl-arch").checked;
+  const rows = DB.polls.filter(p => {
+    if (q && !p.name.toLowerCase().includes(q)) return false;
+    if (status && p.status !== status) return false;
+    if (privacy && p.privacy !== privacy) return false;
+    if (multi !== "" && String(p.multiple ? 1 : 0) !== multi) return false;
+    if (store !== "" && String(p.storeVisibility ? 1 : 0) !== store) return false;
+    if (!arch && p.archived) return false;
+    return true;
+  });
+  body.innerHTML = rows.length ? rows.map((p, i) => "<tr><td>" + (i + 1) + "</td><td>" + esc(p.name) + "</td><td>" + p.votes + "</td><td>" + statusBadge(p.status) + "</td><td>" + esc(p.privacy) + "</td><td>" + (p.multiple ? "Oui" : "Non") + "</td><td>" + (p.pinned ? "📌" : "—") + "</td><td>" + (p.storeVisibility ? "Visible" : "Masqué") + "</td><td>" + (p.archived ? "Oui" : "Non") + '</td><td><button class="btn sm ghost" onclick="crmPollDetail(\'' + p.id + '\')">Résultats</button> <button class="btn sm ghost" onclick="copyText(\'Sondage : ' + esc(p.name).replace(/'/g, "") + '\',\'Lien du sondage copié ✓\')">Share</button></td><td>' + esc(p.created) + '</td><td><button class="btn sm ghost" onclick="crmPollForm(\'' + p.id + '\')">✏️</button> <button class="btn sm ghost" onclick="crmPollArchive(\'' + p.id + '\')">' + (p.archived ? "Désarchiver" : "Archiver") + '</button> <button class="btn sm ghost" onclick="crmDelPoll(\'' + p.id + '\')">🗑️</button></td></tr>').join("")
+    : '<tr><td colspan="12" class="empty">Aucun sondage ne correspond.</td></tr>';
+  const cnt = document.getElementById("pl-count");
+  if (cnt) cnt.textContent = rows.length + " sondage(s) affiché(s) sur " + DB.polls.length;
+}
+function pollVoteSplit(p){
+  const n = p.options.length; if (!n) return [];
+  const weights = p.options.map((o, i) => ((p.name.length * (i + 3) + o.length * 7 + i * 11) % 10) + 1);
+  const sum = weights.reduce((a, b) => a + b, 0);
+  let used = 0;
+  return p.options.map((o, i) => { const v = i === n - 1 ? p.votes - used : Math.round(p.votes * weights[i] / sum); used += v; return { label: o, votes: v }; });
+}
+function crmPollDetail(id){
+  const p = DB.polls.find(x => x.id === id); if (!p) return;
+  const split = pollVoteSplit(p);
+  openModal(modalHead("Résultats du sondage") +
+    '<p><b>' + esc(p.name) + '</b></p><p class="small mut" style="margin:4px 0 8px">' + p.votes + " vote(s) — " + p.privacy + (p.privacy === "Public" ? " (les votants voient les résultats)" : " (résultats privés)") + "</p>" +
+    split.map(s => { const pct = p.votes ? Math.round(s.votes / p.votes * 100) : 0; return '<div style="margin-top:10px"><div style="display:flex;justify-content:space-between"><span>' + esc(s.label) + "</span><b>" + s.votes + " (" + pct + "%)</b></div><div class=\"bar\"><i style=\"width:" + pct + '%"></i></div></div>'; }).join("") +
+    '<p class="small mut" style="margin-top:12px">Chaque réponse est un lien : le votant est redirigé vers WhatsApp avec un message prédéfini (« Smart Message ») et le vote est compté automatiquement.</p>');
+}
+function crmPollArchive(id){
+  const p = DB.polls.find(x => x.id === id); if (!p) return;
+  p.archived = !p.archived; save(); toast(p.archived ? "Sondage archivé ✓" : "Sondage désarchivé ✓"); render();
+}
+function crmDelPoll(id){ if (!confirm("Supprimer ce sondage ?")) return; DB.polls = DB.polls.filter(x => x.id !== id); save(); render(); }
+function catalogAddMedia(id){
+  const p = prodById(id);
+  const url = document.getElementById("cm-url").value.trim();
+  const emoji = document.getElementById("cm-emoji").value.trim();
+  const val = url || emoji;
+  if (!val) return toast("Collez une URL d'image ou un emoji");
+  p.media = p.media || []; p.media.push(val);
+  save(); toast("Media ajouté ✓"); render();
+}
+function catalogDelMedia(id, ix){ const p = prodById(id); p.media.splice(ix, 1); if (!p.media.length) p.media = [prodEmoji(p)]; save(); render(); }
+function catalogMainMedia(id, ix){ const p = prodById(id); const m = p.media.splice(ix, 1)[0]; p.media.unshift(m); save(); toast("Photo principale définie ✓"); render(); }
+function catalogSaveAttrs(id){
+  const p = prodById(id); p.attrValues = p.attrValues || {};
+  DB.attributes.forEach(a => { const e = document.getElementById("pa-" + a.id); if (e) p.attrValues[a.id] = e.value.trim(); });
+  save(); toast("Attributs enregistrés ✓"); render();
+}
+function catalogToggleCharge(id, cid, on){
+  const p = prodById(id); p.charges = p.charges || [];
+  if (on && !p.charges.includes(cid)) p.charges.push(cid);
+  if (!on) p.charges = p.charges.filter(x => x !== cid);
+  save(); toast("Charges du produit mises à jour ✓");
+}
+function catalogSaveCustom(id){
+  const p = prodById(id); p.customValues = p.customValues || {};
+  DB.customFields.forEach(f => { const e = document.getElementById("pcf-" + f.id); if (e) p.customValues[f.id] = e.value.trim(); });
+  save(); toast("Champs personnalisés enregistrés ✓"); render();
+}
+function catalogRemoveBadge(id, name){ const p = prodById(id); p.badges = p.badges.filter(b => b !== name); save(); toast("Badge retiré ✓"); render(); }
+function catalogVariantEditForm(pid, vid){
+  const p = prodById(pid); const v = p.variants.find(x => x.id === vid); if (!v) return;
+  openModal(modalHead("Modifier la variante") +
+    '<div class="field"><label>Libellé</label><input class="inp" id="ve-label" value="' + esc(v.label) + '"></div>' +
+    '<div class="row"><div class="field"><label>Prix (FBu)</label><input class="inp" type="number" id="ve-price" value="' + v.price + '"></div>' +
+    '<div class="field"><label>Prix barré (FBu)</label><input class="inp" type="number" id="ve-regular" value="' + (v.regular || 0) + '"></div></div>' +
+    '<div class="row"><div class="field"><label>SKU</label><input class="inp" id="ve-sku" value="' + esc(v.sku || "") + '"></div>' +
+    '<div class="field"><label>Stock</label><input class="inp" type="number" id="ve-stock" value="' + v.stock + '"></div></div>' +
+    '<div class="setrow"><div class="tx"><div class="t">Active</div></div><label class="switch"><input type="checkbox" id="ve-active"' + (v.active ? " checked" : "") + '><span class="tr"></span></label></div>' +
+    '<button class="btn" onclick="catalogSaveVariantEdit(\'' + pid + "','" + vid + '\')">Enregistrer</button>');
+}
+function catalogSaveVariantEdit(pid, vid){
+  const p = prodById(pid); const v = p.variants.find(x => x.id === vid); if (!v) return;
+  v.label = document.getElementById("ve-label").value.trim() || v.label;
+  v.price = Number(document.getElementById("ve-price").value || v.price);
+  v.regular = Number(document.getElementById("ve-regular").value || 0);
+  v.sku = document.getElementById("ve-sku").value;
+  v.stock = Number(document.getElementById("ve-stock").value || 0);
+  v.active = document.getElementById("ve-active").checked;
+  save(); closeModal(); toast("Variante mise à jour ✓"); render();
+}
+function catalogStockHistory(id){
+  const p = prodById(id);
+  const h = p.stockHistory || [];
+  openModal(modalHead("Stock History — " + p.name) +
+    (h.length ? h.map(e => '<div class="kv"><span>' + esc(e.d) + "</span><b>" + esc(e.txt) + "</b></div>").join("") : '<div class="empty"><div class="big">No Data Found!</div>Aucun mouvement de stock enregistré.</div>'));
+}
+function viewCardDetail(cd){
+  const link = cd.link + ".mlc.cards";
+  return pageHead("Carte — " + esc(cd.name), "", '<a class="btn ghost" href="#/cards">← Cards</a>') +
+  '<div class="card" style="background:linear-gradient(120deg,#0f766e,#2563eb);color:#fff">' +
+  '<div style="font-size:14px;opacity:.85">💳 MLC Card</div>' +
+  '<div style="font-size:25px;font-weight:800;margin-top:8px">' + esc(DB.business.name) + "</div>" +
+  "<div>" + esc(cd.name) + '</div><div style="margin-top:10px" class="small">' + esc(link) + "</div>" +
+  '<div style="opacity:.85" class="small">' + esc(S().address || "") + "</div></div>" +
+  '<div class="card"><h3>Modifier la carte</h3>' +
+  '<div class="field" style="margin-top:10px"><label>Card Name</label><input class="inp" id="cd-name" value="' + esc(cd.name) + '"></div>' +
+  '<div class="field"><label>Card Link</label><div style="display:flex;gap:8px;align-items:center"><input class="inp" id="cd-link" value="' + esc(cd.link) + '"><span class="mut b">.mlc.cards</span></div></div>' +
+  '<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" onclick="cardsSaveEdit(\'' + cd.id + '\')">Save</button>' +
+  '<button class="btn ghost" onclick="cardsVCard(\'' + cd.id + '\')">Save to Phonebook</button>' +
+  '<button class="btn ghost" onclick="copyText(\'' + esc(link) + '\',\'Lien de la carte copié ✓\')">Partager / Copier le lien</button>' +
+  '<button class="btn red" onclick="cardsDelete(\'' + cd.id + '\')">Supprimer</button></div></div>';
+}
+function cardsSaveEdit(id){
+  const cd = DB.cards.find(x => x.id === id); if (!cd) return;
+  cd.name = document.getElementById("cd-name").value.trim() || cd.name;
+  cd.link = document.getElementById("cd-link").value.trim().toLowerCase().replace(/\s+/g, "-") || cd.link;
+  save(); toast("Carte mise à jour ✓"); render();
+}
+function cardsDelete(id){ if (!confirm("Supprimer définitivement cette carte ? Son lien public cessera de fonctionner.")) return; DB.cards = DB.cards.filter(x => x.id !== id); save(); toast("Carte supprimée ✓"); location.hash = "#/cards"; }
+function cardsVCard(id){
+  const cd = DB.cards.find(x => x.id === id); if (!cd) return;
+  const vcf = ["BEGIN:VCARD", "VERSION:3.0", "FN:" + DB.business.name, "ORG:" + DB.business.name, "TITLE:" + cd.name, "URL:https://" + cd.link + ".mlc.cards", "ADR:;;" + (S().address || "") + ";;;;", "END:VCARD"].join("\n");
+  downloadText(cd.link + ".vcf", vcf);
+  toast("Fiche contact téléchargée (Save to Phonebook) ✓");
+}
+function shopComputeTotals(){
+  const sub = cartSubtotal();
+  const disc = shopState.couponDiscount || 0;
+  const shipEl = document.getElementById("co-ship");
+  const ship = shipEl ? Number(shipEl.value || 0) : 0;
+  let addonTotal = 0;
+  $$(".co-addon").forEach(sel => { addonTotal += Number(sel.value || 0); });
+  let taxes = 0;
+  if (S().chargesMode === "Exclusive"){
+    let pct = 0;
+    DB.cart.forEach(i => { const p = prodById(i.productId); if (p) (p.charges || []).forEach(cid => { const ch = DB.productCharges.find(x => x.id === cid); if (ch) pct += Number(ch.value || 0); }); });
+    taxes = Math.round(sub * pct / 100);
+  }
+  return { sub, disc, ship, addonTotal, taxes, total: Math.max(0, sub - disc) + ship + addonTotal + taxes };
+}
+function validateCouponFor(code, subtotal, mobile){
+  const r = validateCoupon(code, subtotal);
+  if (!r.ok) return r;
+  const c = r.coupon;
+  if (c.maxPerCustomer && mobile){
+    const usedBy = DB.orders.filter(o => o.coupon === c.code && (o.customerMobile || "").replace(/\s/g, "") === mobile.replace(/\s/g, "")).length;
+    if (usedBy >= Number(c.maxPerCustomer)) return { ok: false, msg: "Usage maximum par client atteint pour ce coupon (" + c.maxPerCustomer + ")." };
+  }
+  return r;
+}
+function L(k){ return (SHOP_I18N[shopState.lang] || SHOP_I18N.fr)[k] || k; }
+function shopSetLang(l){ shopState.lang = l; render(); }
+function ticketContact(t){
+  return DB.contacts.find(c => (c.name && c.name === t.contact) || c.mobile === t.contact) || null;
+}
+function applyTicketFilter(){
+  const body = document.getElementById("tf-body"); if (!body) return;
+  const v = id => { const e = document.getElementById(id); return e ? e.value : ""; };
+  const name = v("tf-name").toLowerCase(), email = v("tf-email").toLowerCase(), cc = v("tf-cc"), mob = v("tf-mobile").replace(/\s/g, "");
+  const cp = presetOf("tf-created"), dp = presetOf("tf-due");
+  const prio = v("tf-prio"), status = v("tf-status");
+  const rows = DB.tickets.filter(t => {
+    const c = ticketContact(t);
+    if (name && !(c && c.name.toLowerCase().includes(name))) return false;
+    if (email && !(c && (c.email || "").toLowerCase().includes(email))) return false;
+    if (cc && !(c && c.mobile.indexOf(cc) === 0)) return false;
+    if (mob && !(c && c.mobile.replace(/\s/g, "").includes(mob))) return false;
+    if (!inPreset(t.createdAt, cp.preset, cp.from, cp.to)) return false;
+    if (!inPreset(t.due, dp.preset, dp.from, dp.to)) return false;
+    if (prio && t.priority !== prio) return false;
+    if (status && t.status !== status) return false;
+    return true;
+  });
+  body.innerHTML = rows.length ? rows.map((t, i) => "<tr><td><input type=\"checkbox\" class=\"chk\"" + (ticketSel.has(t.id) ? " checked" : "") + " onchange=\"ticketToggle('" + t.id + "',this.checked)\"></td><td>" + (i + 1) + "</td><td>" + t.id + "</td><td>" + esc(t.priority) + "</td><td>" + esc(t.subject) + "</td><td>" + esc(t.contact) + "</td><td>" + statusBadge(t.status) + "</td><td>" + esc(t.due || "—") + "</td><td>" + esc(t.created) + '</td><td><button class="btn sm ghost" onclick="crmTicketForm(\'' + t.id + '\')">✏️</button> <button class="btn sm ghost" onclick="crmDelTicket(\'' + t.id + '\')">🗑️</button></td></tr>').join("")
+    : '<tr><td colspan="10" class="empty">Ticket Not Found! — aucun ticket ne correspond à ces filtres.</td></tr>';
+  const cnt = document.getElementById("tf-count");
+  if (cnt) cnt.textContent = rows.length + " ticket(s) affiché(s) sur " + DB.tickets.length + (ticketSel.size ? " — " + ticketSel.size + " sélectionné(s)" : "");
+}
+function ticketToggle(id, on){ if (on) ticketSel.add(id); else ticketSel.delete(id); applyTicketFilter(); }
+function ticketToggleAll(on){ if (on) DB.tickets.forEach(t => ticketSel.add(t.id)); else ticketSel.clear(); applyTicketFilter(); }
+function ticketBulk(kind){
+  if (!ticketSel.size) return toast("Sélectionnez d'abord des tickets (cases à cocher)");
+  const val = document.getElementById(kind === "prio" ? "tb-prio" : "tb-status").value;
+  DB.tickets.forEach(t => { if (ticketSel.has(t.id)){ if (kind === "prio") t.priority = val; else t.status = val; } });
+  save(); toast(ticketSel.size + " ticket(s) mis à jour : " + (kind === "prio" ? "Priority" : "Status") + " → " + val + " ✓");
+  applyTicketFilter();
+}
+function contactHeadRow(){
+  return "<tr><th></th><th>#</th><th>Photo</th><th>Name</th><th>Mobile</th><th>Email</th><th>Funnel</th><th>Tags</th><th>Actions</th><th>Created</th></tr>";
+}
+function contactToggle(id, on){ if (on) contactSel.add(id); else contactSel.delete(id); }
+function contactBulkDelete(){
+  if (!contactSel.size) return toast("Sélectionnez d'abord des contacts (cases à cocher)");
+  if (!confirm("Delete Contacts : supprimer définitivement " + contactSel.size + " contact(s) sélectionné(s) ?")) return;
+  DB.contacts = DB.contacts.filter(c => !contactSel.has(c.id));
+  contactSel.clear(); save(); toast("Contacts supprimés ✓"); render();
 }
 
 /* ================= ROUTEUR ================= */
@@ -1274,7 +1846,7 @@ function render(){
     else if (a === "integrations") html = viewCatalogIntegrations();
     else if (a === "seo") html = viewCatalogSeo();
   }
-  else if (mod === "cards"){ html = a === "new" ? viewCardsNew() : viewCards(); }
+  else if (mod === "cards"){ const cd = DB.cards.find(x => x.id === b); html = a === "new" ? viewCardsNew() : (a === "view" && cd) ? viewCardDetail(cd) : viewCards(); }
   else if (mod === "shop"){
     if (a === "cart") html = viewShopCart();
     else if (a === "orders") html = viewShopOrders();
@@ -1289,6 +1861,7 @@ function render(){
   closeSide();
   window.scrollTo(0, 0);
 }
+migrate(); save();
 window.addEventListener("hashchange", render);
 render();
 </script>
