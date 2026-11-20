@@ -283,7 +283,7 @@ Object.assign(IC,{
 });
 
 /* ==================== état ==================== */
-const KEY='mlc_mobile_v2';
+const KEY='mlc_mobile_v3';
 let _uid=1000; const uid=p=>p+(++_uid)+Math.random().toString(36).slice(2,6);
 const D2Y=Date.now()-2*365*864e5;
 function seed(){return {
@@ -332,15 +332,18 @@ function seed(){return {
 let S;
 try{S=JSON.parse(localStorage.getItem(KEY))||seed();}catch(e){S=seed();}
 if(!S.products||!S.about)S=seed();
+if(!localStorage.getItem(KEY))save();
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
 /* ---- formats relevés ---- */
 const fmt=n=>Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g,' ');           // admin : 215 000
 const fmtV=n=>'FBu '+Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g,','); // vitrine : FBu 215,000
 const fmtC=n=>'FBu'+Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g,',');   // vitrine compact : FBu215,000
-const discOf=(reg,sell)=>reg>0?Math.floor((1-sell/reg)*100):0;
+const discOf=(reg,sell)=>reg>0?Math.floor(((reg-sell)*100)/reg):0;
 const stockOf=p=>p.variants.reduce((a,v)=>a+(+v.stock||0),0);
-const prodById=id=>S.products.find(x=>x.id===id);
+let draftP=null;
+const prodById=id=>(draftP&&draftP.id===id)?draftP:S.products.find(x=>x.id===id);
 const esc=s=>String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+const q=s=>String(s==null?'':s).replace(/\\/g,'\\\\').replace(/'/g,"\\'");
 const todayStr=()=>new Date().toISOString().slice(0,10);
 const dfr=ts=>{const d=new Date(ts);return d.toLocaleDateString('fr-FR');};
 function rel(ts){const s=(Date.now()-ts)/1000;if(s<3600)return "à l'instant";if(s<86400)return 'il y a '+Math.floor(s/3600)+' h';if(s<86400*30)return 'il y a '+Math.floor(s/86400)+' j';if(s<86400*365)return 'il y a '+Math.floor(s/86400/30)+' mois';return 'il y a '+Math.floor(s/86400/365)+' ans';}
@@ -366,7 +369,13 @@ function renderTabs(){
 function goTab(k){tab=k;stack=[];render();}
 function push(v,arg){stack.push([v,arg]);render();}
 function replaceTop(v,arg){if(stack.length)stack[stack.length-1]=[v,arg];else stack.push([v,arg]);render();}
-function pop(){stack.pop();render();}
+function pop(){if(draftP&&stack.length&&stack[stack.length-1][0]==='pEdit'&&stack[stack.length-1][1]===draftP.id)draftP=null;stack.pop();render();}
+try{history.pushState({mlc:1},'');}catch(e){}
+window.addEventListener('popstate',function(){
+ var shopOpen=document.getElementById('shop').style.display==='block';
+ if(shopOpen){closeShop();try{history.pushState({mlc:1},'');}catch(e){}}
+ else if(stack.length){pop();try{history.pushState({mlc:1},'');}catch(e){}}
+});
 const VIEWS={};
 function render(){
  renderTabs();
@@ -478,8 +487,8 @@ VIEWS.produitType=function(){
 };
 function newProduct(type){
  if(S.products.length>=10){toast('Limite du plan Free : 10 produits');return;}
- const p={id:uid('p'),name:'',type:type,cat:S.categories.find(c=>!c.archived)?S.categories.find(c=>!c.archived).name:'',reg:0,sell:0,desc:'',weight:0,link:'',oos:false,status:'Active',badges:[],charges:[],unit:'',manageInv:true,img:null,col:'#5B7FBF',tiers:{},variants:[{label:'',price:0,sku:'',stock:0}]};
- S.products.push(p);save();replaceTop('pEdit',p.id);
+ draftP={id:uid('p'),name:'',type:type,cat:S.categories.find(c=>!c.archived)?S.categories.find(c=>!c.archived).name:'',reg:0,sell:0,desc:'',weight:0,link:'',oos:false,status:'Active',badges:[],charges:[],unit:'',manageInv:true,img:null,col:'#5B7FBF',tiers:{},variants:[{label:'',price:0,sku:'',stock:0}]};
+ replaceTop('pEdit',draftP.id);
 }
 VIEWS.produit=function(id){
  const p=prodById(id); if(!p)return subHead('Produit')+emptyZ();
@@ -498,10 +507,10 @@ VIEWS.produit=function(id){
  <div class="list-card">${subs.map(([v,lb])=>menuRow(IC.doc('#5A6B8C',22),lb,`push('${v}','${p.id}')`)).join('')}</div>
  <div style="padding:0 16px"><button class="btn red" onclick="delProduct('${p.id}')">Delete Product</button></div>`;
 };
-function delProduct(id){S.products=S.products.filter(p=>p.id!==id);save();pop();}
+function delProduct(id){S.products=S.products.filter(p=>p.id!==id);S.cart=S.cart.filter(i=>i.pid!==id);S.reviews=S.reviews.filter(r=>r.pid!==id);save();pop();}
 VIEWS.pEdit=function(id){
  const p=prodById(id); if(!p)return subHead('Edit')+emptyZ();
- const cats=S.categories.filter(c=>!c.archived).map(c=>c.name);
+ const cats=S.categories.filter(c=>!c.archived).map(c=>c.name); if(p.cat&&!cats.includes(p.cat))cats.push(p.cat);
  return subHead('Edit')+`<div class="card">
  ${fld('Product Type',sel('f-type',['Simple','Variable','Digital'],p.type))}
  ${fld('Name',inp('f-name',p.name))}
@@ -518,12 +527,14 @@ VIEWS.pEdit=function(id){
  ${fld('Status',sel('f-status',['Active','Inactive'],p.status),'Inactive products will not be listed in store.')}
  <button class="btn" onclick="saveProduct('${p.id}')">Save</button></div>`;
 };
-function updDisc(){const r=valN('f-reg'),s=valN('f-sell');const e=document.getElementById('f-disc');if(e)e.textContent='Discount: '+(r>0?Math.floor((1-s/r)*100):0)+'%';}
+function updDisc(){const r=valN('f-reg'),s=valN('f-sell');const e=document.getElementById('f-disc');if(e)e.textContent='Discount: '+(r>0?Math.floor(((r-s)*100)/r):0)+'%';}
 function saveProduct(id){
  const p=prodById(id); if(!p)return;
- p.type=val('f-type'); p.name=val('f-name')||p.name; p.cat=val('f-cat'); p.reg=valN('f-reg'); p.sell=valN('f-sell');
+ const nm=val('f-name'); if(!nm){toast('Nom requis');return;}
+ p.type=val('f-type'); p.name=nm; p.cat=val('f-cat'); p.reg=valN('f-reg'); p.sell=valN('f-sell');
  p.desc=val('f-desc'); p.weight=valN('f-weight'); p.link=val('f-link'); p.unit=val('f-unit'); p.status=val('f-status');
  if(p.type==='Simple'&&p.variants.length===1)p.variants[0].price=p.sell;
+ if(draftP&&draftP.id===id){if(S.products.length>=10){toast('Limite du plan Free : 10 produits');return;}S.products.push(p);draftP=null;}
  save(); toast('Produit enregistré'); pop();
 }
 VIEWS.pMedia=function(id){
@@ -534,11 +545,11 @@ VIEWS.pMedia=function(id){
  ${[0,1,2,3].map(i=>fld('Image URL'+(i+1),inp('m-url'+i,urls[i],'placeholder="https://"'))).join('')}
  <button class="btn" onclick="saveMedia('${p.id}')">Save</button></div>`;
 };
-function saveMedia(id){const p=prodById(id);p.mediaUrls=[0,1,2,3].map(i=>val('m-url'+i));if(p.mediaUrls[0]){p.img=null;p.media0=p.mediaUrls[0];}save();toast('Media enregistré');pop();}
+function saveMedia(id){const p=prodById(id);p.mediaUrls=[0,1,2,3].map(i=>val('m-url'+i));p.media0=p.mediaUrls[0]||'';if(p.mediaUrls[0])p.img=null;save();toast('Media enregistré');pop();}
 VIEWS.pBadges=function(id){
  const p=prodById(id); if(!p)return subHead('Badges')+emptyZ();
  return subHead('Badges')+`<div class="card">${S.badges.length?S.badges.map(b=>`
-  <label class="checkrow"><input type="checkbox" ${p.badges.includes(b.name)?'checked':''} onchange="toggleProdBadge('${p.id}','${esc(b.name)}',this.checked)"><span style="font-weight:700">${esc(b.name)}</span></label>`).join(''):'<div class="empty">Aucun insigne</div>'}
+  <label class="checkrow"><input type="checkbox" ${p.badges.includes(b.name)?'checked':''} onchange="toggleProdBadge('${p.id}','${q(b.name)}',this.checked)"><span style="font-weight:700">${esc(b.name)}</span></label>`).join(''):'<div class="empty">Aucun insigne</div>'}
  </div><div class="help" style="padding:0 16px">L'insigne coché s'affiche sur la carte produit de la vitrine.</div>`;
 };
 function toggleProdBadge(id,name,on){const p=prodById(id);if(on&&!p.badges.includes(name))p.badges.push(name);if(!on)p.badges=p.badges.filter(x=>x!==name);save();}
@@ -565,7 +576,7 @@ VIEWS.pAttributsP=function(id){
 VIEWS.pCharges=function(id){
  const p=prodById(id); if(!p)return subHead('Charges')+emptyZ();
  return subHead('Charges')+`<div class="card">${S.charges.length?S.charges.map(c=>`
-  <label class="checkrow"><input type="checkbox" ${p.charges.includes(c.name)?'checked':''} onchange="toggleProdCharge('${p.id}','${esc(c.name)}',this.checked)"><span style="font-weight:700">${esc(c.name)}</span></label>`).join(''):'<div class="empty">Product charge Not Found!</div>'}</div>`;
+  <label class="checkrow"><input type="checkbox" ${p.charges.includes(c.name)?'checked':''} onchange="toggleProdCharge('${p.id}','${q(c.name)}',this.checked)"><span style="font-weight:700">${esc(c.name)}</span></label>`).join(''):'<div class="empty">Product charge Not Found!</div>'}</div>`;
 };
 function toggleProdCharge(id,name,on){const p=prodById(id);if(on&&!p.charges.includes(name))p.charges.push(name);if(!on)p.charges=p.charges.filter(x=>x!==name);save();}
 VIEWS.pStock=function(id){
@@ -608,7 +619,7 @@ function archiveCat(i){S.categories[i].archived=true;save();render();}
 VIEWS.catForm=function(){
  return subHead('Add Category')+`<div class="card">${fld('Name',inp('c-name','','placeholder="Category name"'))}<button class="btn" onclick="saveCat()">Save</button></div>`;
 };
-function saveCat(){const n=val('c-name');if(!n){toast('Nom requis');return;}if(S.categories.some(c=>c.name===n)){toast('Catégorie existante');return;}S.categories.push({name:n,archived:false});save();pop();}
+function saveCat(){const n=val('c-name');if(!n){toast('Nom requis');return;}if(S.categories.some(c=>c.name.toLowerCase()===n.toLowerCase())){toast('Catégorie existante');return;}S.categories.push({name:n,archived:false});save();pop();}
 
 /* ==================== Insignes ==================== */
 VIEWS.insignes=function(){
@@ -619,7 +630,7 @@ VIEWS.insignes=function(){
 };
 function delBadge(i){const nm=S.badges[i].name;S.badges.splice(i,1);S.products.forEach(p=>p.badges=p.badges.filter(x=>x!==nm));save();render();}
 VIEWS.badgeForm=function(){return subHead('Add New')+`<div class="card">${fld('Badge',inp('b-name','','placeholder="New Arrival"'))}<button class="btn" onclick="saveBadge()">Save</button></div>`;};
-function saveBadge(){const n=val('b-name');if(!n){toast('Nom requis');return;}S.badges.push({name:n});save();pop();}
+function saveBadge(){const n=val('b-name');if(!n){toast('Nom requis');return;}if(S.badges.some(b=>b.name.toLowerCase()===n.toLowerCase())){toast('Insigne existant');return;}S.badges.push({name:n});save();pop();}
 
 /* ==================== Attributs ==================== */
 VIEWS.attributs=function(){
@@ -635,7 +646,7 @@ VIEWS.attrForm=function(){
  ${fld('Interface',sel('a-iface',['Color-Palette','Radio'],'Radio'))}
  <button class="btn" onclick="saveAttr()">Save</button></div>`;
 };
-function saveAttr(){const n=val('a-name');if(!n){toast('Nom requis');return;}S.attributes.push({id:uid('at'),name:n,iface:val('a-iface'),options:[]});save();pop();}
+function saveAttr(){const n=val('a-name');if(!n){toast('Nom requis');return;}if(S.attributes.some(a=>a.name.toLowerCase()===n.toLowerCase())){toast('Attribut existant');return;}S.attributes.push({id:uid('at'),name:n,iface:val('a-iface'),options:[]});save();pop();}
 VIEWS.attrDetail=function(id){
  const a=S.attributes.find(x=>x.id===id); if(!a)return subHead('Attribut')+emptyZ();
  return subHead(a.name)+`<div class="card"><h3>Options</h3>
@@ -654,7 +665,7 @@ VIEWS.frais=function(){
 };
 function delCharge(i){const nm=S.charges[i].name;S.charges.splice(i,1);S.products.forEach(p=>p.charges=p.charges.filter(x=>x!==nm));save();render();}
 VIEWS.fraisForm=function(){return subHead('Add New')+`<div class="card">${fld('Name',inp('ch-name',''))}<button class="btn" onclick="saveCharge()">Save</button></div><div class="help" style="padding:0 16px">Le frais nommé se rattache ensuite aux produits via l'onglet Charges de leur fiche.</div>`;};
-function saveCharge(){const n=val('ch-name');if(!n){toast('Nom requis');return;}S.charges.push({id:uid('ch'),name:n});save();pop();}
+function saveCharge(){const n=val('ch-name');if(!n){toast('Nom requis');return;}if(S.charges.some(c=>c.name.toLowerCase()===n.toLowerCase())){toast('Frais existant');return;}S.charges.push({id:uid('ch'),name:n});save();pop();}
 
 /* ==================== Inventaire ==================== */
 VIEWS.inventaire=function(){
@@ -727,7 +738,7 @@ VIEWS.commande=function(id){
   <div style="padding:0 16px"><button class="btn red" onclick="delOrder(${o.id})">Delete Order</button></div>`;
  } else if(ordTab==='Items'){
   h+=`<div class="card"><h3>Order (${o.items.length})</h3>
-  ${o.items.map((i,x)=>`<div class="row"><span class="k">${x+1}. ${esc(i.name)}${i.variant?' — '+esc(i.variant):''}<br><span style="font-size:13px">${esc(i.cat||'')} · Stock ${i.pid&&prodById(i.pid)?stockOf(prodById(i.pid)):'—'}</span></span><span class="v">${fmt(i.price*i.qty)} FBu</span></div>`).join('')}
+  ${o.items.map((i,x)=>{const pp=i.pid?prodById(i.pid):null;const vv=pp&&i.variant?pp.variants.find(v2=>v2.label===i.variant):null;const stk=pp?(vv?(+vv.stock||0):stockOf(pp)):'—';return `<div class="row"><span class="k">${x+1}. ${esc(i.name)}${i.variant?' — '+esc(i.variant):''}<br><span style="font-size:13px">${esc(i.cat||'')}${i.sku?' · SKU '+esc(i.sku):''} · Stock ${stk}</span></span><span class="v">${fmt(i.price*i.qty)} FBu</span></div>`;}).join('')}
   <div class="row" style="border-top:1px solid var(--line);margin-top:4px;padding-top:11px"><span class="k" style="font-weight:800;color:var(--navy)">Total</span><span class="v">${fmt(o.total)} FBu</span></div></div>`;
  } else {
   const acts=o.activity||[];
@@ -830,7 +841,7 @@ VIEWS.contact=function(id){
   ${fld('Contact Status',sel('ct-status',['Unlocked','Locked'],c.status))}
   <button class="btn sm" onclick="saveContactMeta('${c.id}')">Save</button>
   <div style="margin-top:16px"><b style="font-size:14.5px">Tags</b>
-  <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">${c.tags.map(t=>`<span class="chip on" onclick="rmContactTag('${c.id}','${esc(t)}')">${esc(t)} ✕</span>`).join('')||'<span class="help">No tags found. Want to add one?</span>'}</div>
+  <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">${c.tags.map(t=>`<span class="chip on" onclick="rmContactTag('${c.id}','${q(t)}')">${esc(t)} ✕</span>`).join('')||'<span class="help">No tags found. Want to add one?</span>'}</div>
   ${S.tags.filter(t=>t.type==='contact').length?`<div style="display:flex;gap:8px;margin-top:10px"><select class="inp" id="ct-tagadd" style="flex:1;margin:0">${S.tags.filter(t=>t.type==='contact').map(t=>`<option>${esc(t.name)}</option>`).join('')}</select><button class="mini blue" onclick="addContactTag('${c.id}')">Add Tag</button></div>`:'<div class="help">Créez des tags dans CRM → Tags.</div>'}
   </div></div>
   <div style="padding:0 16px"><button class="btn red" onclick="delContact('${c.id}')">Delete Contact</button></div>`;
@@ -843,8 +854,9 @@ VIEWS.contact=function(id){
  return h;
 };
 function saveContactMeta(id){const c=S.contacts.find(x=>x.id===id);c.funnel=val('ct-funnel');c.tier=val('ct-tier');c.status=val('ct-status');save();toast('Contact mis à jour');render();}
-function addContactTag(id){const c=S.contacts.find(x=>x.id===id);const t=val('ct-tagadd');if(t&&!c.tags.includes(t))c.tags.push(t);save();render();}
-function rmContactTag(id,t){const c=S.contacts.find(x=>x.id===id);c.tags=c.tags.filter(x=>x!==t);save();render();}
+function captureContactMeta(c){const f=document.getElementById('ct-funnel');if(f){c.funnel=f.value;const t=document.getElementById('ct-tier');if(t)c.tier=t.value;const st=document.getElementById('ct-status');if(st)c.status=st.value;}}
+function addContactTag(id){const c=S.contacts.find(x=>x.id===id);captureContactMeta(c);const t=val('ct-tagadd');if(t&&!c.tags.includes(t))c.tags.push(t);save();render();}
+function rmContactTag(id,t){const c=S.contacts.find(x=>x.id===id);captureContactMeta(c);c.tags=c.tags.filter(x=>x!==t);save();render();}
 function delContact(id){S.contacts=S.contacts.filter(c=>c.id!==id);save();pop();}
 
 /* ==================== Coupons ==================== */
@@ -880,6 +892,7 @@ VIEWS.couponForm=function(id){
 function saveCoupon(id){
  const code=val('cp-code').toUpperCase().replace(/[^A-Z0-9]/g,'');
  if(!code){toast('Coupon Code requis');return;}
+ if(S.coupons.some(c=>c.code===code&&c.id!==id)){toast('Code coupon déjà utilisé');return;}
  const data={code:code,kind:val('cp-kind'),value:valN('cp-value'),expiry:val('cp-expiry'),minCart:valN('cp-min'),maxDisc:valN('cp-maxd'),maxUsage:valN('cp-maxu'),maxPerCust:valN('cp-maxc'),tier:val('cp-tier'),details:val('cp-details'),visible:chk('cp-vis'),status:val('cp-status')};
  if(id)Object.assign(S.coupons.find(x=>x.id===id),data);
  else S.coupons.push(Object.assign({id:uid('cp'),used:0,usedBy:{}},data));
@@ -1189,7 +1202,7 @@ function saveWaCloud(){Object.assign(S.integrations.wacloud,{token:val('wa-token
 VIEWS.compte=function(){
  const rows=[['abonnement','Abonnement',IC.card('#5A6B8C',24)],['credits','Crédits',IC.dollar('#5A6B8C',24)],['utilisateurs','Utilisateurs',IC.users('#5A6B8C',24)],['titre|Langue','Langue',IC.globe('#5A6B8C',24)],['titre|Changer le mot de passe','Changer le mot de passe',IC.key('#5A6B8C',24)],['titre|politique de confidentialité','politique de confidentialité',IC.shield('#5A6B8C',24)],["titre|Conditions d'utilisation","Conditions d'utilisation",IC.doc('#5A6B8C',24)],['titre|Supprimer le compte','Supprimer le compte',IC.trash('#5A6B8C',24)]];
  return subHead('Compte')+`
- <div class="id-card"><span class="id-ava">${esc(S.user.name[0]||'I')}</span><div><div class="nm">${esc(S.user.name)}</div><div class="em">${esc(S.user.email)}</div></div><button class="mod" onclick="push('profilEdit')">Modifier</button></div>
+ <div class="id-card"><span class="id-ava">${esc((S.user.name[0]||'I').toUpperCase())}</span><div><div class="nm">${esc(S.user.name)}</div><div class="em">${esc(S.user.email)}</div></div><button class="mod" onclick="push('profilEdit')">Modifier</button></div>
  <div class="list-card">${rows.map(([v,lb,ic])=>`<button class="list-row" onclick="push('${v.split('|')[0]}','${(v.split('|')[1]||'').replace(/'/g,"\\'")}')"><span class="ic">${ic}</span><span class="lb">${lb}</span></button>`).join('')}</div>`;
 };
 VIEWS.titre=function(t){return titleOnly(t||'');};
@@ -1197,7 +1210,7 @@ VIEWS.profilEdit=function(){
  return subHead('Modifier')+`<div class="card">
  ${fld('Name',inp('pf-name',S.user.name))}
  ${fld('Email',inp('pf-email',S.user.email,'disabled'))}
- <button class="btn" onclick="S.user.name=val('pf-name')||S.user.name;save();toast('Profil enregistré');pop()">Save</button></div>`;
+ <button class="btn" onclick="S.user.name=val('pf-name')||S.user.name;const u0=S.users.find(u=>u.roles&&u.roles.includes('Admin'));if(u0)u0.name=S.user.name;save();toast('Profil enregistré');pop()">Save</button></div>`;
 };
 /* ---- Abonnement ---- */
 let annual=false;
@@ -1368,9 +1381,9 @@ VIEWS.funnels=function(){
  +`<div style="padding:0 16px"><button class="btn" onclick="push('funnelForm')">Add new</button></div>
  <div class="help" style="padding:0 16px">Assignez un entonnoir depuis la fiche d'un contact (« Apply Funnel »), puis filtrez les contacts par entonnoir.</div>`;
 };
-function delFunnel(i){S.funnels.splice(i,1);save();render();}
+function delFunnel(i){const nm=S.funnels[i].name;S.funnels.splice(i,1);S.contacts.forEach(c=>{if(c.funnel===nm)c.funnel='';});save();render();}
 VIEWS.funnelForm=function(){return subHead('Add new')+`<div class="card">${fld('Name',inp('fn-name',''))}<button class="btn" onclick="saveFunnel()">Save</button></div>`;};
-function saveFunnel(){const n=val('fn-name');if(!n){toast('Nom requis');return;}S.funnels.push({name:n});save();pop();}
+function saveFunnel(){const n=val('fn-name');if(!n){toast('Nom requis');return;}if(S.funnels.some(f=>f.name.toLowerCase()===n.toLowerCase())){toast('Entonnoir existant');return;}S.funnels.push({name:n});save();pop();}
 /* ---- Tags ---- */
 VIEWS.tagsCrm=function(){
  const grp=(type,lb)=>`<div class="card"><h3>${lb}</h3>${S.tags.filter(t=>t.type===type).map(t=>`<div class="row"><span class="k" style="color:var(--navy);font-weight:700">#${esc(t.name)}</span><button class="mini red" onclick="delTag('${t.id}')">Delete</button></div>`).join('')||'<div class="help">Aucun tag</div>'}</div>`;
@@ -1384,14 +1397,14 @@ VIEWS.tagForm=function(){
  ${fld('Name',inp('tg-name',''))}
  <button class="btn" onclick="saveTag()">Save</button></div>`;
 };
-function saveTag(){const n=val('tg-name');if(!n){toast('Nom requis');return;}S.tags.push({id:uid('tg'),name:n,type:val('tg-type')});save();pop();}
+function saveTag(){const n=val('tg-name');if(!n){toast('Nom requis');return;}const ty=val('tg-type');if(S.tags.some(t=>t.type===ty&&t.name.toLowerCase()===n.toLowerCase())){toast('Tag existant');return;}S.tags.push({id:uid('tg'),name:n,type:ty});save();pop();}
 /* ---- Tickets ---- */
 let tkFilterP='', tkFilterS='';
 VIEWS.tickets=function(){
  let list=S.tickets; if(tkFilterP)list=list.filter(t=>t.priority===tkFilterP); if(tkFilterS)list=list.filter(t=>t.status===tkFilterS);
  return subHead('Tickets')+`
  <div class="chips"><span class="chip ${!tkFilterP?'on':''}" onclick="tkFilterP='';render()">Toutes priorités</span>${['Low','Medium','High','Urgent'].map(p=>`<span class="chip ${tkFilterP===p?'on':''}" onclick="tkFilterP='${p}';render()">${p}</span>`).join('')}</div>
- <div class="chips">${[''].concat(S.ticketStatuses.map(s=>s.name)).map(s=>`<span class="chip ${tkFilterS===s?'on':''}" onclick="tkFilterS='${s}';render()">${s||'Tous statuts'}</span>`).join('')}</div>
+ <div class="chips">${[''].concat(S.ticketStatuses.map(s=>s.name)).map(s=>`<span class="chip ${tkFilterS===s?'on':''}" onclick="tkFilterS='${q(s)}';render()">${s||'Tous statuts'}</span>`).join('')}</div>
  ${list.length?list.map(t=>{const c=S.contacts.find(x=>x.id===t.contactId);return `<div class="card">
    <div class="row" style="padding:2px 0"><span style="font-weight:800">${esc(t.subject)}</span><span class="badge ${t.priority==='Urgent'||t.priority==='High'?'orange':'grey'}">${esc(t.priority)}</span></div>
    ${rowKV('Contact',esc(c?(c.name||c.mobile):'—'))}${rowKV('Status',esc(t.status))}${t.due?rowKV('Due Date',t.due.split('-').reverse().join('/')):''}${rowKV('Created',dfr(t.ts))}
@@ -1420,14 +1433,14 @@ VIEWS.ticketStatuses=function(){
   <div class="list-row"><span style="width:14px;height:14px;border-radius:50%;background:${s.color};flex:none"></span><span class="lb">${esc(s.name)}</span><button class="mini red" style="margin-left:auto" onclick="delTStatus(${i})">Delete</button></div>`).join('')}</div>
  <div style="padding:0 16px"><button class="btn" onclick="push('tsForm')">Add New</button></div>`;
 };
-function delTStatus(i){S.ticketStatuses.splice(i,1);save();render();}
+function delTStatus(i){const nm=S.ticketStatuses[i].name;if(S.tickets.some(t=>t.status===nm)){toast('Statut utilisé par un ticket');return;}S.ticketStatuses.splice(i,1);save();render();}
 VIEWS.tsForm=function(){
  return subHead('Add New')+`<div class="card">
  ${fld('Name',inp('ts-name',''))}
  ${fld('Color',`<input class="inp" type="color" id="ts-color" value="#2F9E6E">`)}
  <button class="btn" onclick="saveTStatus()">Save</button></div>`;
 };
-function saveTStatus(){const n=val('ts-name');if(!n){toast('Nom requis');return;}S.ticketStatuses.push({name:n,color:val('ts-color')});save();pop();}
+function saveTStatus(){const n=val('ts-name');if(!n){toast('Nom requis');return;}if(S.ticketStatuses.some(x=>x.name.toLowerCase()===n.toLowerCase())){toast('Statut existant');return;}S.ticketStatuses.push({name:n,color:val('ts-color')});save();pop();}
 /* ---- Reminders ---- */
 VIEWS.reminders=function(){
  return subHead('Reminders')+(S.reminders.length?S.reminders.map(r=>{const c=S.contacts.find(x=>x.id===r.contactId);return `
@@ -1455,14 +1468,14 @@ VIEWS.tiers=function(){
  +`<div style="padding:0 16px"><button class="btn" onclick="push('tierForm')">Add New</button></div>
  <div class="help" style="padding:0 16px">Offer different rates to loyal users, retailers, wholesalers, and general customers. Assignation : depuis la fiche contact ; prix par palier : sur la fiche produit.</div>`;
 };
-function delTier(id){S.tiers=S.tiers.filter(t=>t.id!==id);save();render();}
+function delTier(id){const t=S.tiers.find(x=>x.id===id);S.tiers=S.tiers.filter(x=>x.id!==id);if(t){S.contacts.forEach(c=>{if(c.tier===t.name)c.tier='';});S.coupons.forEach(c=>{if(c.tier===t.name)c.tier='';});S.products.forEach(pr=>{if(pr.tiers)delete pr.tiers[id];});}save();render();}
 VIEWS.tierForm=function(){
  return subHead('Add New')+`<div class="card">
  ${fld('Name',inp('ti-name','','placeholder="Grossistes"'))}
  ${fld('Color',`<input class="inp" type="color" id="ti-color" value="#2E5BFF">`)}
  <button class="btn" onclick="saveTier()">Save</button></div>`;
 };
-function saveTier(){const n=val('ti-name');if(!n){toast('Nom requis');return;}S.tiers.push({id:uid('ti'),name:n,color:val('ti-color')});save();pop();}
+function saveTier(){const n=val('ti-name');if(!n){toast('Nom requis');return;}if(S.tiers.some(t=>t.name.toLowerCase()===n.toLowerCase())){toast('Palier existant');return;}S.tiers.push({id:uid('ti'),name:n,color:val('ti-color')});save();pop();}
 /* ---- Groupes / Broadcast / Intégrations CRM / About / Exports ---- */
 VIEWS.groupes=function(){
  return subHead('WhatsApp Groups')+(S.groups.length?S.groups.map(g=>`<div class="card">${esc(g.name)}</div>`).join(''):'<div class="empty"></div>')
@@ -1495,9 +1508,9 @@ VIEWS.crmExports=function(){
 };
 
 /* ==================== Sondages WhatsApp (Polls) ==================== */
-let pollFS='', pollFP='';
+let pollFS='', pollFP='', pollArch=false;
 VIEWS.sondages=function(){
- let list=S.polls.filter(p=>!p.archived);
+ let list=S.polls.filter(p=>pollArch?!!p.archived:!p.archived);
  if(pollFS)list=list.filter(p=>p.status===pollFS);
  if(pollFP)list=list.filter(p=>p.privacy===pollFP);
  return subHead('Sondages')+`
@@ -1506,7 +1519,8 @@ VIEWS.sondages=function(){
  <span class="chip ${pollFS==='Inactive'?'on':''}" onclick="pollFS='Inactive';render()">Inactive</span>
  <span class="chip ${!pollFP?'on':''}" onclick="pollFP='';render()">Public + Private</span>
  <span class="chip ${pollFP==='Public'?'on':''}" onclick="pollFP='Public';render()">Public</span>
- <span class="chip ${pollFP==='Private'?'on':''}" onclick="pollFP='Private';render()">Private</span></div>
+ <span class="chip ${pollFP==='Private'?'on':''}" onclick="pollFP='Private';render()">Private</span>
+ <span class="chip ${pollArch?'on':''}" onclick="pollArch=!pollArch;render()">${pollArch?'← Sondages actifs':'Archivés'}</span></div>
  ${list.length?list.map(p=>{const votes=p.options.reduce((a,o)=>a+o.votes.length,0);return `
   <div class="card" onclick="push('pollResults','${p.id}')" style="cursor:pointer">
   <div class="row" style="padding:2px 0"><span style="font-weight:800;font-size:16px">${esc(p.question)}</span><span class="badge ${p.status==='Active'?'green':'grey'}">${esc(p.status)}</span></div>
@@ -1551,7 +1565,7 @@ VIEWS.pollResults=function(id){
  ${p.options.map((o,i)=>`<div class="bar-row"><div class="t"><span>${esc(o.text)}</span><b>${o.votes.length} vote(s)${total?' · '+Math.round(o.votes.length/total*100)+'%':''}</b></div><div class="bar"><i style="width:${total?Math.round(o.votes.length/total*100):0}%"></i></div>
  ${o.votes.length?`<div class="help">${o.votes.map(esc).join(', ')}</div>`:''}</div>`).join('')}
  <div class="help">Résultats en temps réel : totaux par option et liste des votants, vérifiable individuellement.${p.privacy==='Public'?' Sondage public : les votants voient aussi les résultats via l\'URL de résultats.':''}</div>
- <button class="btn ghost" onclick="copyTxt('Sondage : ${esc(p.question)}','Lien du sondage copié')">Share This Poll on WhatsApp</button></div>
+ <button class="btn ghost" onclick="copyTxt('Sondage : ${q(p.question)}','Lien du sondage copié')">Share This Poll on WhatsApp</button></div>
  <div class="card"><h3>Enregistrer un vote reçu (Smart Message)</h3>
  ${fld('Téléphone du votant',inp('pv-phone','','type="tel" placeholder="+257 …"'))}
  ${fld('Option',sel('pv-opt',p.options.map((o,i)=>[i,o.text]),0))}
@@ -1576,7 +1590,7 @@ VIEWS.cartes=function(){
  ${S.cards.length?`<div class="wrap"><div class="sec-title">Mes cartes</div></div>`+S.cards.map(c=>`
   <div class="card"><div style="font-weight:800;font-size:16px">${esc(c.name)}</div>
   <div class="help">${esc(c.link)}</div>
-  <button class="mini" onclick="copyTxt('${esc(c.link)}','Lien de la carte copié')">Copier le lien</button></div>`).join(''):''}`;
+  <button class="mini" onclick="copyTxt('${q(c.link)}','Lien de la carte copié')">Copier le lien</button></div>`).join(''):''}`;
 };
 VIEWS.carteForm=function(){
  return subHead('Create Card')+`<div class="card">
@@ -1584,7 +1598,7 @@ VIEWS.carteForm=function(){
  ${fld('Card Link',inp('cd-link','','placeholder="votre-nom"'),'Adresse en .mlc.cards')}
  <button class="btn" onclick="saveCard()">Create</button></div>`;
 };
-function saveCard(){const n=val('cd-name'),l=val('cd-link').toLowerCase().replace(/[^a-z0-9-]/g,'');if(!n||!l){toast('Nom et lien requis');return;}S.cards.push({id:uid('cd'),name:n,link:l+'.mlc.cards'});save();pop();}
+function saveCard(){const n=val('cd-name'),l=val('cd-link').toLowerCase().replace(/[^a-z0-9-]/g,'');if(!n||!l){toast('Nom et lien requis');return;}if(S.cards.some(c=>c.link===l+'.mlc.cards')){toast('Lien déjà utilisé');return;}S.cards.push({id:uid('cd'),name:n,link:l+'.mlc.cards'});save();pop();}
 
 /* ==================== Vitrine publique (français, relevée) ==================== */
 const shopEl=document.getElementById('shop'), adminEl=document.getElementById('admin');
@@ -1644,7 +1658,7 @@ function renderShop(){
  } else if(shopView==='cats'){
   const cats=S.categories.filter(c=>!c.archived);
   h+=`<div class="wrap"><h1 class="title" style="margin:14px 0 6px">Catégories</h1></div>`
-  +cats.map(c=>{const n=S.products.filter(p=>p.status==='Active'&&p.cat===c.name).length;return `<div class="prod-row" onclick="shopCat='${esc(c.name)}';shopView='home';renderShop()"><div class="inf"><div class="nm">${esc(c.name)}</div><div class="st">${n} article${n>1?'s':''}</div></div>${IC.chevR('#8494B3',20)}</div>`;}).join('')
+  +cats.map(c=>{const n=S.products.filter(p=>p.status==='Active'&&p.cat===c.name).length;return `<div class="prod-row" onclick="shopCat='${q(c.name)}';shopView='home';renderShop()"><div class="inf"><div class="nm">${esc(c.name)}</div><div class="st">${n} article${n>1?'s':''}</div></div>${IC.chevR('#8494B3',20)}</div>`;}).join('')
   +(shopCat?`<div style="padding:0 16px"><button class="btn ghost" onclick="shopCat='';renderShop()">Tous les articles</button></div>`:'');
  } else if(shopView==='product'){ h+=shopProductHtml(); }
  else if(shopView==='review'){ h+=`<div class="sub-head"><button class="back" onclick="shopView='product';renderShop()">${IC.back('#17264A',24)}</button><span class="t">Laisser un commentaire</span></div><div class="empty"></div>`; }
@@ -1671,6 +1685,7 @@ function renderShop(){
   <div class="row" style="border-top:1px solid var(--line);margin-top:4px;padding-top:11px"><span class="k" style="font-weight:800;color:var(--navy)">Total</span><span class="v">${fmt(o.total)} FBu</span></div></div>
   <div style="padding:0 16px"><button class="btn ghost" onclick="shopView='orders';renderShop()">← Mes commandes</button></div>`;}
  }
+ if(shopView==='home'){const sps=S.polls.filter(x=>x.storeVis&&!x.archived&&x.status==='Active');if(sps.length){h+=`<div class="wrap"><div class="sec-title" style="margin-top:18px">Sondages</div></div>`+sps.map(x=>{const tot=x.options.reduce((a,o)=>a+o.votes.length,0);return `<div class="card"><div style="font-weight:800">${esc(x.question)}</div>${x.options.map((o,i)=>`<button class="btn ghost sm" style="margin-top:8px" onclick="shopPollVote('${x.id}',${i})">${esc(o.text)}${tot?' · '+Math.round(o.votes.length/tot*100)+'%':''}</button>`).join('')}</div>`;}).join('');}}
  h+=`<div class="shop-foot"><div style="color:#fff;font-weight:800;font-size:16px">${esc(S.about.name)}</div>
  <div>${esc(S.about.slogan)}</div><div>🇫🇷 Français</div><div class="pw">Powered By MLC · Version 8.5.0</div></div>`
  +(shopView==='cart'?'':shopNav())
@@ -1693,9 +1708,9 @@ function shopProductHtml(){
   <div class="bd">${p.badges.map(b=>`<span class="badge orange">${esc(b)}</span>`).join(' ')}
   <div class="nm" style="margin-top:7px;font-size:19px">${esc(p.name)}</div>
   ${Object.entries(attrs).map(([a,vals])=>`<div style="margin-top:12px"><div style="font-size:13.5px;color:#5A6B8C;font-weight:700">${esc(a)}</div>
-   <div style="display:flex;gap:8px;margin-top:7px;flex-wrap:wrap">${vals.map(v=>{const lab=a+': '+v;return `<button class="varbtn ${shopVariant===lab?'on':''}" onclick="shopVariant='${esc(lab)}';renderShop()">${esc(v)}</button>`;}).join('')}</div></div>`).join('')}
+   <div style="display:flex;gap:8px;margin-top:7px;flex-wrap:wrap">${vals.map(v=>{const lab=a+': '+v;return `<button class="varbtn ${shopVariant===lab?'on':''}" onclick="shopVariant='${q(lab)}';renderShop()">${esc(v)}</button>`;}).join('')}</div></div>`).join('')}
   <div class="pr" style="font-size:19px">${fmtV(price)} <s>${fmtV(p.reg)}</s> <span class="badge green">${discOf(p.reg,p.sell)}% DE RÉDUCTION</span></div>
-  ${p.oos||stockOf(p)<=0?`<button class="addbtn" disabled>Out of Stock</button>`:`<div style="display:flex;gap:9px"><button class="addbtn" style="flex:1;background:${S.theme.primary};color:#fff" onclick="buyNow('${p.id}')">Acheter maintenant</button>
+  ${p.oos||(curVar?(+curVar.stock||0)<=0:stockOf(p)<=0)?`<button class="addbtn" disabled>Out of Stock</button>`:`<div style="display:flex;gap:9px"><button class="addbtn" style="flex:1;background:${S.theme.primary};color:#fff" onclick="buyNow('${p.id}')">Acheter maintenant</button>
   <button class="addbtn" style="flex:1" onclick="addToCart('${p.id}',true)">Ajouter au panier</button></div>`}
   ${p.desc?`<div style="margin-top:14px;font-size:15px;line-height:1.55">${esc(p.desc)}</div>`:''}
   ${p.link?`<div style="margin-top:8px"><a href="${esc(p.link)}" target="_blank" rel="noopener" style="color:var(--blue);font-weight:600">Plus de détails</a></div>`:''}
@@ -1707,7 +1722,12 @@ function shopProductHtml(){
 }
 function addToCart(pid,stay){
  const p=prodById(pid); if(!p)return;
- const v=p.variants.find(x=>x.label===shopVariant&&shopPid===pid)||p.variants.slice().sort((a,b)=>a.price-b.price)[0];
+ if(p.oos){toast('Out of Stock');return;}
+ const fromDetail=shopPid===pid&&shopView==='product';
+ const v=fromDetail?(p.variants.find(x=>x.label===shopVariant)||p.variants[0]):p.variants.slice().sort((a,b)=>a.price-b.price).find(x=>(+x.stock||0)>0);
+ if(!v){toast('Rupture de stock');return;}
+ const ex0=S.cart.find(i=>i.pid===pid&&i.variant===(v.label||''));
+ if(p.manageInv&&(+v.stock||0)-(ex0?ex0.qty:0)<=0){toast('Rupture de stock pour cette variante');return;}
  const label=v?v.label:'';
  const price=priceFor(p,label);
  const ex=S.cart.find(i=>i.pid===pid&&i.variant===label);
@@ -1717,7 +1737,7 @@ function addToCart(pid,stay){
 function buyNow(pid){addToCart(pid,false);}
 function clientLogin(){const ph=val('lg-phone');if(!ph){toast('Numéro requis');return;}S.client=ph;save();shopView='orders';renderShop();}
 /* ---- Panier 3 étapes ---- */
-function setQty(idx,d){const it=S.cart[idx];if(!it)return;it.qty+=d;if(it.qty<1)S.cart.splice(idx,1);save();renderShop();}
+function setQty(idx,d){const it=S.cart[idx];if(!it)return;if(d>0){const p=prodById(it.pid);if(p&&p.manageInv){const v=p.variants.find(x=>x.label===it.variant)||p.variants[0];if(v&&it.qty+1>(+v.stock||0)){toast('Stock insuffisant');return;}}}it.qty+=d;if(it.qty<1)S.cart.splice(idx,1);save();renderShop();}
 function removeCartItem(idx){S.cart.splice(idx,1);save();renderShop();}
 function clearCart(){S.cart=[];S.couponApplied=null;appliedDisc=0;save();renderShop();}
 function shopCartHtml(){
@@ -1725,7 +1745,8 @@ function shopCartHtml(){
  let body='';
  const sub=cartSubtotal();
  const ship=cartStep>=2?shippingFor(sub,S.shopAddr):0;
- const disc=appliedDisc||0;
+ const cpPhone=(S.shopAddr&&S.shopAddr['Mobile'])||S.client||'';
+ const disc=S.couponApplied?(function(){const r=couponCheck(S.couponApplied,sub,cpPhone);return r.ok?r.discount:0;})():0;
  const total=Math.max(0,sub-disc)+ship;
  if(cartStep===1){
   body=S.cart.length?`<div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">${cartCount()} ARTICLES</h3><span style="color:var(--blue);font-weight:600;cursor:pointer" onclick="clearCart()">vider panier</span></div>
@@ -1769,7 +1790,7 @@ function shopCartHtml(){
    <div class="row"><span class="k">Frais de livraison</span><span class="v">${fmtC(ship)}</span></div>
    <div class="row"><span class="k" style="font-weight:800;color:var(--navy)">Total</span><span class="v">${fmtC(total)}</span></div></div></div>
   <div id="co-err"></div>`
-  :`<div class="card"><div class="help" style="margin:0">Aucun mode de paiement disponible.</div></div>`;
+  :`<div class="card"><div class="help" style="margin:0">Aucun mode de paiement disponible.</div></div><div id="co-err"></div>`;
  }
  const labels={1:'Adresse',2:'Paiement',3:'Commander'};
  return steps+body+((S.cart.length||cartStep>1)?`<div class="cartbar"><span class="tt">Total ${fmtC(total)}</span><button class="btn" onclick="cartNext()">${labels[cartStep]}</button></div>`:'');
@@ -1777,8 +1798,8 @@ function shopCartHtml(){
 function applyCoupon(){
  const code=val('coupon'); const phone=(S.shopAddr&&S.shopAddr['Mobile'])||S.client||'';
  const r=couponCheck(code,cartSubtotal(),phone);
- if(r.ok){S.couponApplied=r.coupon.code;appliedDisc=r.discount;couponMsg={ok:true,t:'Coupon appliqué : −'+fmt(r.discount)+' FBu'};}
- else{S.couponApplied=null;appliedDisc=0;couponMsg={ok:false,t:r.msg};}
+ if(r.ok){S.couponApplied=r.coupon.code;couponMsg={ok:true,t:'Coupon appliqué : −'+fmt(r.discount)+' FBu'};}
+ else{S.couponApplied=null;couponMsg={ok:false,t:r.msg};}
  save(); renderShop();
 }
 function shareCartWA(){
@@ -1805,13 +1826,16 @@ function cartNext(){
  if(payChoice!=='Pay Later'&&!ref){document.getElementById('co-err').innerHTML='<div class="msg err">Référence de la transaction requise.</div>';return;}
  const a=S.shopAddr||{};
  const phone=a['Mobile']||S.client||'';
+ for(const i of S.cart){const p=prodById(i.pid);if(!p){document.getElementById('co-err').innerHTML='<div class="msg err">Un article du panier n\'est plus disponible.</div>';return;}if(p.manageInv){const v=p.variants.find(x=>x.label===i.variant)||p.variants[0];if(v&&(+v.stock||0)<i.qty){document.getElementById('co-err').innerHTML='<div class="msg err">Stock insuffisant pour '+esc(p.name)+'.</div>';return;}}}
+ let discFinal=0;
+ if(S.couponApplied){const cr=couponCheck(S.couponApplied,sub,phone);if(!cr.ok){document.getElementById('co-err').innerHTML='<div class="msg err">'+cr.msg+'</div>';return;}discFinal=cr.discount;}
  const ship=shippingFor(sub,a);
- const total=Math.max(0,sub-(appliedDisc||0))+ship;
+ const total=Math.max(0,sub-discFinal)+ship;
  const o={id:S.nextOrder++,ref:'',phone:phone?'+ '+phone.replace(/^\+/,'').replace(/\s/g,''):'' ,custPhone:phone,status:'Open',
   payment:payChoice==='Pay Later'?'Unpaid':'Paid',via:payChoice,txn:payChoice==='Pay Later'?'':ref,placedBy:'user',ts:Date.now(),
   shipTo:Object.values(a).filter(Boolean).join(', '),note:'',
-  items:S.cart.map(i=>{const p=prodById(i.pid);return {pid:i.pid,name:p?p.name:'',variant:i.variant,cat:p?p.cat:'',sku:'',price:i.price,qty:i.qty};}),
-  discount:appliedDisc||0,shipping:ship,taxes:0,adjustment:0,total:total,
+  items:S.cart.map(i=>{const p=prodById(i.pid);const v=p?p.variants.find(x=>x.label===i.variant):null;return {pid:i.pid,name:p?p.name:'',variant:i.variant,cat:p?p.cat:'',sku:v?(v.sku||''):((p&&p.variants[0]&&p.variants[0].sku)||''),price:i.price,qty:i.qty};}),
+  discount:discFinal,shipping:ship,taxes:0,adjustment:0,total:total,
   activity:[{t:'Order Created',ts:Date.now()}]};
  /* décrément du stock (attesté à la validation) */
  o.items.forEach(i=>{const p=prodById(i.pid);if(p&&p.manageInv){const v=p.variants.find(x=>x.label===i.variant)||p.variants[0];if(v)v.stock=Math.max(0,(+v.stock||0)-i.qty);}});
@@ -1832,6 +1856,7 @@ function cartNext(){
  <button class="btn ghost" onclick="shopView='home';renderShop()">Retour à la boutique</button></div>`+shopNav()+`<div style="height:86px"></div>`;
  window.scrollTo(0,0);
 }
+function shopPollVote(id,oi){const p=S.polls.find(x=>x.id===id);if(!p)return;const phone=S.client;if(!phone){toast('Connectez-vous pour voter');shopView='login';renderShop();return;}if(!p.multiple){p.options.forEach(o=>{o.votes=o.votes.filter(v=>v!==phone);});}if(!p.options[oi].votes.includes(phone))p.options[oi].votes.push(phone);save();toast('Vote enregistré');renderShop();}
 /* ---- avis client (formulaire de dépôt non relevé → écran titre seul) ---- */
 let shopReviewPid=null;
 
