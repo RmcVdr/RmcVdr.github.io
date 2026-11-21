@@ -1,12 +1,12 @@
 {
- "generated_at": "2026-11-17T05:22:56+00:00",
+ "generated_at": "2026-11-21T05:19:33+00:00",
  "run": {
-  "date": "2026-11-17",
+  "date": "2026-11-21",
   "sources": [
    {
     "name": "BurundiJobs",
     "status": "OK",
-    "count": 7,
+    "count": 5,
     "error": null
    },
    {
@@ -18,14 +18,14 @@
    {
     "name": "eSoko",
     "status": "OK",
-    "count": 9,
+    "count": 5,
     "error": null
    },
    {
     "name": "ARMP",
-    "status": "ECHEC",
-    "count": 0,
-    "error": "RuntimeError: HTTP 500"
+    "status": "OK",
+    "count": 30,
+    "error": null
    },
    {
     "name": "PNUD",
@@ -61,7 +61,7 @@
     "name": "dgMarket",
     "status": "ECHEC",
     "count": 0,
-    "error": "RuntimeError: dgMarket non exploitable — https://www.dgmarket.com/: ProxyError: HTTPSConnectionPool(host='www.dgmarket.com', port=443): Max retries exceeded with url: / (Caused by  ; https://www.dgmarket.com/tender/81690343: ProxyErro"
+    "error": "RuntimeError: dgMarket non exploitable — https://www.dgmarket.com/: ChunkedEncodingError: Response ended prematurely ; https://www.dgmarket.com/tender/81690343: ChunkedEncodingError: Response ended prematurely"
    },
    {
     "name": "ReliefWeb",
@@ -70,20 +70,20 @@
     "error": null
    }
   ],
-  "sources_ok": 7,
+  "sources_ok": 8,
   "sources_total": 11,
   "pdf": {
-   "downloaded": 1,
-   "cached": 2,
-   "text_ok": 1,
-   "ocr_ok": 2,
+   "downloaded": 0,
+   "cached": 32,
+   "text_ok": 0,
+   "ocr_ok": 32,
    "ocr_failed": 0,
    "failed": 0,
    "failures": []
   },
-  "total_uniques": 47,
-  "nb_nouveaux": 5,
-  "nb_expires": 0
+  "total_uniques": 72,
+  "nb_nouveaux": 2,
+  "nb_expires": 1
  },
  "tenders": [
   {
@@ -9654,7 +9654,7 @@
    "province": null,
    "garantie_num": null,
    "dossier_num": null,
-   "is_new": true
+   "is_new": false
   },
   {
    "title": "AVIS D’APPEL D’OFFRES OUVERT NATIONAL N O 550/2409/CAB/2026 POUR LES TRAVAUX DE REHABILITATION DU TRIBUNAL DE RESIDENCE DE MURAMVYA",
@@ -12963,6 +12963,218 @@
    "is_new": false
   },
   {
+   "title": "FOURNITURE ET LIVRAISON DE MOBILIERS DIVERS",
+   "buyer": "PNUD — Burundi",
+   "sector": "Fournitures/agro",
+   "deadline": "2026-11-23",
+   "deadline_source": "page web",
+   "reference": "UNDP-BDI-00779",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "PNUD",
+     "url": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=51524"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-19",
+   "resume": {
+    "objet": "FOURNITURE ET LIVRAISON DE MOBILIERS DIVERS",
+    "heure": "06h00",
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "christella.biraronderwa@undp.org",
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "5/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "FOURNITURE ET LIVRAISON DE MOBILIERS DIVERS",
+     "statut": "LU",
+     "source_doc": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=51524",
+     "page": null,
+     "passage": "Procurement Notices - UNDP-BDI-00779 - FOURNITURE ET LIVRAISON DE MOBILIERS DIVERS GLOBAL Procurement Notices About Us Procurement at UNDP UNDP Office of Procurement Our Guiding Principles UNDP Procurement Strategy & Sustainable Procurement",
+     "confiance": "haute",
+     "verifie_le": "2026-11-19"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "acheteur": {
+     "valeur": "PNUD — Burundi",
+     "statut": "LU",
+     "source_doc": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=51524",
+     "page": null,
+     "passage": "BUREAU DU PNUD AU BURUNDI UNITÉ D'APPROVISIONNEMENT Documents : Negotiation Document(s) (Before Accessing other negotiations Document(s), please click on this link ) United Nations Development Programme Twitter Facebook Youtube Instagram Li",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-19"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2026-11-23",
+      "heure": "06h00"
+     },
+     "statut": "LU",
+     "source_doc": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=51524",
+     "page": null,
+     "passage": "23-Nov-26 @ 06:00 PM (New York time) Published on 06-Nov-26 @ 12:00 AM (New York time) Reference Number UNDP-BDI-00779 Contact Unité des approvisionnements - christella.biraronderwa@undp.org This specific tender is managed via the new suppl",
+     "confiance": "haute",
+     "verifie_le": "2026-11-19"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "lieu_execution": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "retrait_depot": {
+     "valeur": {
+      "retrait": {
+       "contact": "christella.biraronderwa@undp.org"
+      },
+      "depot": null
+     },
+     "statut": "LU",
+     "source_doc": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=51524",
+     "page": null,
+     "passage": "23-Nov-26 @ 06:00 PM (New York time) Published on 06-Nov-26 @ 12:00 AM (New York time) Reference Number UNDP-BDI-00779 Contact Unité des approvisionnements - christella.biraronderwa@undp.org This specific tender is managed via the new suppl",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-19"
+    },
+    "conditions": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "criteres_mode": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    }
+   },
+   "completude_v2": {
+    "lus": 4,
+    "a_verifier": 0,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "4/14"
+   },
+   "fiabilite": {
+    "score": 75,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 8,
+     "critiques_verifies": 12,
+     "coherence": 15
+    }
+   },
+   "conflits": [],
+   "documents": [
+    {
+     "url": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=51524",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-19"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": false
+  },
+  {
    "title": "Fourniture de machine pour le broyage des ingrédients utilisées dans le mélange des aliments pour volailles",
    "buyer": "PRODER",
    "sector": "Fournitures/agro",
@@ -15310,7 +15522,505 @@
    "province": null,
    "garantie_num": null,
    "dossier_num": null,
-   "is_new": true
+   "is_new": false
+  },
+  {
+   "title": "Manifestation d’intérêt",
+   "buyer": "Banque Burundaise pour le Commerce et l'Investissement",
+   "sector": "Autre",
+   "deadline": "2026-11-25",
+   "deadline_source": "page web",
+   "reference": "PAIFAR-B/.15./S/SQCF/2025-2026",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "eSoko",
+     "url": "https://www.esoko.bi/akazi/job/manifestation-dinteret-11-16-2026-13-14-41/"
+    },
+    {
+     "name": "ARMP",
+     "url": "https://armp.gov.bi/archives/10111"
+    }
+   ],
+   "pdf_enriched": true,
+   "pdf_url": "https://armp.gov.bi/wp-content/uploads/2026/03/AMI-A-PUBLIE-AUDIT-EXERNE-1.pdf",
+   "first_seen": "2026-11-18",
+   "resume": {
+    "objet": "Le recrutement d'un Cabinet d’Avocats-Conseils>, <Vacancy: Fourniture des équipements et consommables informatiques>, <Vacancy: Plusieurs postes>, <Vacancy: Monitoring, Evaluation, Accountability and Learning (MEAL) Coordinator>, <Vacancy: APPEL D’OFFRE POUR LA FOURNITURE DES FERTILISANTS>, <Vacancy: Avis d'Appel d'Offres",
+    "heure": "16h00",
+    "mode": "Avis à manifestation d'intérêt (AMI)",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "LesCabinets/bureauxinteresses sont tenusde donner les informations attestantqu'ilspossedent lesqualificationsrequiseset l'experiencenecessaire en la matiere pour produire ces services sans toutefois donnerlesrenseignementspersonne…"
+    ],
+    "documents": [
+     "Registre de commerce (RC)",
+     "NIF"
+    ],
+    "criteres": null,
+    "retrait": "N.B.:L'avis dappel a manifestation d’interet complet peut etre consulte sur les sites suivants: www.programmefidaburundi.org,www.arpm.bi，www.burundijob.bi，www.intercontactservices.comet https://lerenouveau.bi Fait aBujumbura,le.0.3..0.3../2026 Callixte MASABO Coordonnateur du PAIFAR-B B unungnpapeny…",
+    "contact": "info@bbcibank.com · +257 22275900",
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "9/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "Le recrutement d'un Cabinet d’Avocats-Conseils>, <Vacancy: Fourniture des équipements et consommables informatiques>, <Vacancy: Plusieurs postes>, <Vacancy: Monitoring, Evaluation, Accountability and Learning (MEAL) Coordinator>, <Vacancy: APPEL D’OFFRE POUR LA FOURNITURE DES FERTILISANTS>",
+     "statut": "À VÉRIFIER",
+     "source_doc": "https://www.esoko.bi/akazi/job/manifestation-dinteret-11-16-2026-13-14-41/",
+     "page": null,
+     "passage": "<Vacancy: Agence de Relations publiques et de communication>, <Vacancy: Appel d'offres pour le recrutement d'un Cabinet d’Avocats-Conseils>, <Vacancy: Fourniture des équipements et consommables informatiques>, <Vacancy: Plusieurs postes>, <",
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "acheteur": {
+     "valeur": "Banque Burundaise pour le Commerce et l'Investissement",
+     "statut": "LU",
+     "source_doc": "https://www.esoko.bi/akazi/job/manifestation-dinteret-11-16-2026-13-14-41/",
+     "page": null,
+     "passage": "www.esoko.bi/akazi/plus Manifestation d’intérêt Banque Burundaise pour le Commerce et l'Investissement (BBCI) Délai: 25 novembre 2026 23:59 APPEL À MANIFESTATION D’INTÉRÊT POUR LA CONSTITUTION ET L’ACTUALISATION DE LA BASE DE DONNÉES DES FO",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-18"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2026-11-25",
+      "heure": "16h00"
+     },
+     "statut": "À VÉRIFIER",
+     "source_doc": "https://www.esoko.bi/akazi/job/manifestation-dinteret-11-16-2026-13-14-41/",
+     "page": null,
+     "passage": "www.esoko.bi/akazi/plus Manifestation d’intérêt Banque Burundaise pour le Commerce et l'Investissement (BBCI) Délai: 25 novembre 2026 23:59 APPEL À MANIFESTATION D’INTÉRÊT POUR LA CONSTITUTION ET L’ACTUALISATION DE LA BASE DE DONNÉES DES FO",
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "lieu_execution": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "retrait_depot": {
+     "valeur": {
+      "retrait": {
+       "lieu": "Adresse ci-dessous (voir Dépôt) · www.programmefidaburundi.org",
+       "contact": "info@bbcibank.com · +257 22275900"
+      },
+      "depot": {
+       "modes": [
+        "Sous pli fermé"
+       ],
+       "adresse": "« MANIFESTATION D’INTÉRÊT – BASE DE DONNÉES DES FOURNISSEURS ET PRESTATAIRES DE LA BBCI – DOMAINE D’ACTIVITÉ » Les dossiers devront être déposés au Secrétariat de la Direction Générale de la BBCI à l’adresse suivante : Chaussée du Peuple"
+      }
+     },
+     "statut": "LU",
+     "source_doc": "https://www.esoko.bi/akazi/job/manifestation-dinteret-11-16-2026-13-14-41/",
+     "page": null,
+     "passage": "Dépôt des dossiers Les dossiers de manifestation d’intérêt devront être transmis sous pli fermé portant clairement la mention : « MANIFESTATION D’INTÉRÊT – BASE DE DONNÉES DES FOURNISSEURS ET PRESTATAIRES DE LA BBCI – DOMAINE D’ACTIVITÉ » L",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-18"
+    },
+    "conditions": {
+     "valeur": [
+      "LesCabinets/bureauxinteresses sont tenusde donner les informations attestantqu'ilspossedent lesqualificationsrequiseset l'experiencenecessaire en la matiere pour produire ces services sans toutefois donnerlesrenseignementspersonnelsrelatifs a chacun des experts,a la methodologie,au plan de travail",
+      "Les candidats dont les dossiers sont conformes pourront être intégrés dans la base de données des fournisseurs et prestataires de la BBCI et pourront être consultés ultérieurement, en fonction des besoins de la Banque"
+     ],
+     "statut": "LU",
+     "source_doc": "https://armp.gov.bi/wp-content/uploads/2026/03/AMI-A-PUBLIE-AUDIT-EXERNE-1.pdf",
+     "page": 1,
+     "passage": "LesCabinets/bureauxinteresses sont tenusde donner les informations attestantqu'ilspossedent lesqualificationsrequiseset l'experiencenecessaire en la matiere pour produire ces services sans toutefois donnerlesrenseignementspersonnelsrelatifs",
+     "confiance": "haute",
+     "verifie_le": "2026-11-18"
+    },
+    "documents_requis": {
+     "valeur": [
+      "Ressées sont invitées à fournir les informations permettant d’apprécier leur capacité juridique, technique et professionnelle, notamment : Une copie du Registre de Commerce (RC)",
+      "Une copie du Numéro d’Identification Fiscale (NIF)",
+      "Adresse physique et coordonnées de contact (Téléphone et mail obligatoires sont obligatoires)",
+      "Présentation de l’entreprise et de ses principaux domaines d’activités",
+      "Liste des principaux produits",
+      "Services ou travaux proposés",
+      "Au moins trois (3) références techniques relatives à des marchés similaires exécutés au cours des trois dernières années (copies de contrats ou bon de commande)",
+      "Coordonnées des clients de référence (au moins 3 références avec numéros de contact et mail)",
+      "Compte bancaire",
+      "Tout autre document permettant de démontrer la capacité technique et professionnelle du candidat",
+      "Les références présentées doivent être en rapport avec le domaine pour lequel le candidat manifeste son intérêt",
+      "Dépôt des dossiers Les dossiers de manifestation d’intérêt devront être transmis sous pli fermé portant clairement la mention : « MANIFESTATION D’INTÉRÊT – BASE DE DONNÉES DES FOURNISSEURS ET PRESTATAIRES DE LA BBCI – DOMAINE D’ACTIVITÉ » Les dossiers devront être déposés au Secrétariat de la Direction Générale de la BBCI à l’adresse suivante : Chaussée du Peuple Murundi N° 13, BP : 2320 BUJUMBURA-BURUNDI Téléphone : (+257) 22 22 33 28 – Fax : (+257) 22 22 33 39 , Email : info@bbcibank.com La date et l’heure limites de dépôt sont fixées au 25 /11 /2026 à 16 heures "
+     ],
+     "statut": "LU",
+     "source_doc": "https://www.esoko.bi/akazi/job/manifestation-dinteret-11-16-2026-13-14-41/",
+     "page": null,
+     "passage": "Dépôt des dossiers Les dossiers de manifestation d’intérêt devront être transmis sous pli fermé portant clairement la mention : « MANIFESTATION D’INTÉRÊT – BASE DE DONNÉES DES FOURNISSEURS ET PRESTATAIRES DE LA BBCI – DOMAINE D’ACTIVITÉ » L",
+     "confiance": "haute",
+     "verifie_le": "2026-11-18"
+    },
+    "criteres_mode": {
+     "valeur": {
+      "criteres": null,
+      "mode": "Avis à manifestation d'intérêt (AMI)"
+     },
+     "statut": "LU",
+     "source_doc": "https://armp.gov.bi/wp-content/uploads/2026/03/AMI-A-PUBLIE-AUDIT-EXERNE-1.pdf",
+     "page": 1,
+     "passage": "REPUBLIQUEDUBURUNDI MINISTEREDEL'ENVIRONNEMENT,DELAGRICULTUREETDEL'ELEVAGE PROJETD'APPUIAL'INCLUSIONFINANCIEREAGRICOLEETRURALEDUBURUNDI\"PAIFAR-B\" DONFIDAN°2000001940 DONADDITIONNELN2000005133 AVISDEMANIFESTATIOND'INTERETPOURLERECRUTEMENTINT",
+     "confiance": "haute",
+     "verifie_le": "2026-11-18"
+    }
+   },
+   "completude_v2": {
+    "lus": 5,
+    "a_verifier": 2,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "5/14"
+   },
+   "fiabilite": {
+    "score": 57,
+    "niveau": "moyenne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 12,
+     "critiques_verifies": 0,
+     "coherence": 5
+    }
+   },
+   "conflits": [
+    {
+     "champ": "date_limite",
+     "valeurs": [
+      "2026-11-25",
+      "2026-11-20"
+     ],
+     "detail": "Valeurs discordantes entre extractions indépendantes (fiche, page) ; valeur de la fiche avis/v1 conservée, à vérifier humainement."
+    },
+    {
+     "champ": "objet",
+     "valeurs": [
+      "Le recrutement d'un Cabinet d’Avocats-Conseils>, <Vacancy: Fourniture des équipements et consommables informatiques>, <Vacancy: Plusieurs postes>, <Vacancy: Monitoring, Evaluation, Accountability and Learning (MEAL) Coordinator>, <Vacancy: APPEL D’OFFRE POUR LA FOURNITURE DES FERTILISANTS>"
+     ],
+     "detail": "Objet suspecté de pollution par les avis voisins de la plateforme (mots absents du texte cadré de l'avis) — à vérifier."
+    }
+   ],
+   "documents": [
+    {
+     "url": "https://armp.gov.bi/wp-content/uploads/2026/03/AMI-A-PUBLIE-AUDIT-EXERNE-1.pdf",
+     "type": "pdf",
+     "role": "avis",
+     "collecte_le": "2026-11-18"
+    },
+    {
+     "url": "https://www.esoko.bi/akazi/job/manifestation-dinteret-11-16-2026-13-14-41/",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-18"
+    },
+    {
+     "url": "https://armp.gov.bi/archives/10111",
+     "type": "page",
+     "role": "secondaire",
+     "collecte_le": "2026-11-18"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": false
+  },
+  {
+   "title": "Recrutement d'un cabinet national en evaluation de la vulnerabilité socio",
+   "buyer": "PNUD — Burundi",
+   "sector": "Services/conseil",
+   "deadline": "2026-11-25",
+   "deadline_source": "page web",
+   "reference": "UNDP-BDI-00781",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "PNUD",
+     "url": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=51431"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-18",
+   "resume": {
+    "objet": "Recrutement d'un cabinet national en evaluation de la vulnerabilité socio",
+    "heure": "10h00",
+    "mode": "Appel d'offres national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "laurent.denis@undp.org",
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "6/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "Recrutement d'un cabinet national en evaluation de la vulnerabilité socio",
+     "statut": "LU",
+     "source_doc": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=51431",
+     "page": null,
+     "passage": "Procurement Notices - UNDP-BDI-00781 - Recrutement d'un cabinet national en evaluation de la vulnerabilité socio GLOBAL Procurement Notices About Us Procurement at UNDP UNDP Office of Procurement Our Guiding Principles UNDP Procurement Stra",
+     "confiance": "haute",
+     "verifie_le": "2026-11-18"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "acheteur": {
+     "valeur": "PNUD — Burundi",
+     "statut": "LU",
+     "source_doc": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=51431",
+     "page": null,
+     "passage": null,
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-18"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2026-11-25",
+      "heure": "10h00"
+     },
+     "statut": "À VÉRIFIER",
+     "source_doc": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=51431",
+     "page": null,
+     "passage": "Title Recrutement d'un cabinet national en evaluation de la vulnerabilité socio Ref No UNDP-BDI-00781 UNDP Office/Country UNDP-BDI/BURUNDI Process RFP - Request for proposal Deadline 25-Nov-26 10:00 AM (New York time) Posted 04-Nov-26",
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "lieu_execution": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "retrait_depot": {
+     "valeur": {
+      "retrait": {
+       "contact": "laurent.denis@undp.org"
+      },
+      "depot": null
+     },
+     "statut": "LU",
+     "source_doc": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=51431",
+     "page": null,
+     "passage": "Procurement Process RFP - Request for proposal Office UNDP-BDI - BURUNDI Deadline 18-Nov-26 @ 10:00 AM (New York time) Published on 04-Nov-26 @ 12:00 AM (New York time) Reference Number UNDP-BDI-00781 Contact UNITE DES ACHATS - laurent.deni",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-18"
+    },
+    "conditions": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "criteres_mode": {
+     "valeur": {
+      "criteres": null,
+      "mode": "Appel d'offres national"
+     },
+     "statut": "LU",
+     "source_doc": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=51431",
+     "page": null,
+     "passage": "Procurement Notices - UNDP-BDI-00781 - Recrutement d'un cabinet national en evaluation de la vulnerabilité socio GLOBAL Procurement Notices About Us Procurement at UNDP UNDP Office of Procurement Our Guiding Principles UNDP Procurement Stra",
+     "confiance": "haute",
+     "verifie_le": "2026-11-18"
+    }
+   },
+   "completude_v2": {
+    "lus": 4,
+    "a_verifier": 1,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "4/14"
+   },
+   "fiabilite": {
+    "score": 48,
+    "niveau": "moyenne",
+    "facteurs": {
+     "preuve_textuelle": 30,
+     "qualite_document": 8,
+     "critiques_verifies": 0,
+     "coherence": 10
+    }
+   },
+   "conflits": [
+    {
+     "champ": "date_limite",
+     "valeurs": [
+      "2026-11-25",
+      "2026-11-18"
+     ],
+     "detail": "Valeurs discordantes entre extractions indépendantes (fiche, page) ; valeur de la fiche avis/v1 conservée, à vérifier humainement."
+    }
+   ],
+   "documents": [
+    {
+     "url": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=51431",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-18"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": false
   },
   {
    "title": "Appel d'offres pour la fourniture de véhicules camionnettes double-cabine 4x4 hybrides",
@@ -19645,6 +20355,460 @@
    "is_new": false
   },
   {
+   "title": "Fournitures de Produits d’entretien, d’hygiène et articles de vie courante",
+   "buyer": "PRODER",
+   "sector": "Fournitures/agro",
+   "deadline": "2026-11-27",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "BurundiJobs",
+     "url": "https://www.burundijobs.bi/job/fournitures-de-produits-dentretien-dhygiene-et-articles-de-vie-courante/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-18",
+   "resume": {
+    "objet": "La fourniture de fertilisants ONE ACRE FUND TUBURA Manifestation d’intérêt pour la constitution et l’actualisation de la base de données des fournisseurs et prestataires BBCI SM Bujumbura Fourniture de machine pour le broyage des ingrédients utilisées dans le mélange des aliments pour volailles ZOA Avis d’appel d’offres ouvert international de fourniture des engrais chimiques… — Quantités énoncées : 60 centres",
+    "heure": "16h00",
+    "mode": "Avis à manifestation d'intérêt (AMI)",
+    "lieu": "Buhumuza, Bujumbura et Burunga",
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Objet du présent appel à manifestation d’intérêt : Dans le cadre du renforcement, de l’optimisation et de la rationalisation de ses achats récurrents, Tdh lance le présent appel d’offre en vue de sélectionner des prestataires qual…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": "Les prestataires intéressés peuvent obtenir les documents d’appel d’offres par courrier à l’adresse email : [email protected] Date limite de retrait du dossier : au plus tard le 23/11/2026 à 16h00 (heure de Bujumbura) Demandes de clarification au plus tard le 24/11/2026 à 16h00 (heure de Bujumbura)…",
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "7/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "La fourniture de fertilisants ONE ACRE FUND TUBURA Manifestation d’intérêt pour la constitution et l’actualisation de la base de données des fournisseurs et prestataires BBCI SM Bujumbura Fourniture de machine pour le broyage des ingrédients utilisées dans le mélange des aliments pour volailles ZOA Avis d’appel",
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/fournitures-de-produits-dentretien-dhygiene-et-articles-de-vie-courante/",
+     "page": null,
+     "passage": "constitution et l’actualisation de la base de données des fournisseurs et prestataires BBCI SM Bujumbura Fourniture de machine pour le broyage des ingrédients utilisées dans le mélange des aliments pour volailles ZOA Avis d’appel d’offres o",
+     "confiance": "haute",
+     "verifie_le": "2026-11-18"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "acheteur": {
+     "valeur": "PRODER",
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/fournitures-de-produits-dentretien-dhygiene-et-articles-de-vie-courante/",
+     "page": null,
+     "passage": "constitution et l’actualisation de la base de données des fournisseurs et prestataires BBCI SM Bujumbura Fourniture de machine pour le broyage des ingrédients utilisées dans le mélange des aliments pour volailles ZOA Avis d’appel d’offres o",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-18"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2026-11-27",
+      "heure": "16h00"
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/fournitures-de-produits-dentretien-dhygiene-et-articles-de-vie-courante/",
+     "page": null,
+     "passage": "Emplois Appel d’offres Recruteurs Poster une offre Trouver un freelancer accuel offres d’emplois Fournitures de Produits d’entretien, d’hygiène et articles de vie courante Fournitures de Produits d’entretien, d’hygiène et articles de vie co",
+     "confiance": "haute",
+     "verifie_le": "2026-11-18"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "lieu_execution": {
+     "valeur": "Buhumuza, Bujumbura, Burunga",
+     "statut": "À VÉRIFIER",
+     "source_doc": "https://www.burundijobs.bi/job/fournitures-de-produits-dentretien-dhygiene-et-articles-de-vie-courante/",
+     "page": null,
+     "passage": "environnemental et social relatives à la construction de trois (03) hangars multifonctionnels de stockage des productions agricoles dans les provinces de Buhumuza, Bujumbura et Burunga Programme de Développement de l’Entrepreneuriat Rural «",
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "retrait_depot": {
+     "valeur": {
+      "retrait": {
+       "lieu": "Les prestataires intéressés peuvent obtenir les documents d’appel d’offres par courrier à l’adresse email : [email protected] Date limite de retrait du dossier : au plus tard le"
+      },
+      "depot": null
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/fournitures-de-produits-dentretien-dhygiene-et-articles-de-vie-courante/",
+     "page": null,
+     "passage": "Les prestataires intéressés peuvent obtenir les documents d’appel d’offres par courrier à l’adresse email : [email protected] Date limite de retrait du dossier : au plus tard le 23/11/2026 à 16h00 (heure de Bujumbura) Demandes de clarificat",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-18"
+    },
+    "conditions": {
+     "valeur": [
+      "Objet du présent appel à manifestation d’intérêt : Dans le cadre du renforcement, de l’optimisation et de la rationalisation de ses achats récurrents, Tdh lance le présent appel d’offre en vue de sélectionner des prestataires qualifiés disposant d’une expérience avérée et de capacités techniques, logistiques et commerciales adéquates dans la catégorie « Produits d’entretien, d’hygiène et articles de vie courante » pour constituer un portefeuille de partenaires de référence et établir des contrats-cadres"
+     ],
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/fournitures-de-produits-dentretien-dhygiene-et-articles-de-vie-courante/",
+     "page": null,
+     "passage": "Objet du présent appel à manifestation d’intérêt : Dans le cadre du renforcement, de l’optimisation et de la rationalisation de ses achats récurrents, Tdh lance le présent appel d’offre en vue de sélectionner des prestataires qualifiés disp",
+     "confiance": "haute",
+     "verifie_le": "2026-11-18"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "criteres_mode": {
+     "valeur": {
+      "criteres": null,
+      "mode": "Avis à manifestation d'intérêt (AMI)"
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/fournitures-de-produits-dentretien-dhygiene-et-articles-de-vie-courante/",
+     "page": null,
+     "passage": "Objet du présent appel à manifestation d’intérêt : Dans le cadre du renforcement, de l’optimisation et de la rationalisation de ses achats récurrents, Tdh lance le présent appel d’offre en vue de sélectionner des prestataires qualifiés disp",
+     "confiance": "haute",
+     "verifie_le": "2026-11-18"
+    }
+   },
+   "completude_v2": {
+    "lus": 6,
+    "a_verifier": 1,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "6/14"
+   },
+   "fiabilite": {
+    "score": 70,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 8,
+     "critiques_verifies": 12,
+     "coherence": 10
+    }
+   },
+   "conflits": [
+    {
+     "champ": "lieu_execution",
+     "valeurs": [
+      "Buhumuza, Bujumbura, Burunga"
+     ],
+     "detail": "Lieu absent du texte cadré de l'avis (pollution plateforme suspectée) — à vérifier."
+    }
+   ],
+   "documents": [
+    {
+     "url": "https://www.burundijobs.bi/job/fournitures-de-produits-dentretien-dhygiene-et-articles-de-vie-courante/",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-18"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": false
+  },
+  {
+   "title": "Fournitures de bureau et papeterie",
+   "buyer": "PRODER",
+   "sector": "Fournitures/agro",
+   "deadline": "2026-11-27",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "BurundiJobs",
+     "url": "https://www.burundijobs.bi/job/fournitures-de-bureau-et-papeterie/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-18",
+   "resume": {
+    "objet": "La fourniture de fertilisants ONE ACRE FUND TUBURA Manifestation d’intérêt pour la constitution et l’actualisation de la base de données des fournisseurs et prestataires BBCI SM Bujumbura Fourniture de machine pour le broyage des ingrédients utilisées dans le mélange des aliments pour volailles ZOA Avis d’appel d’offres ouvert international de fourniture des engrais chimiques… — Quantités énoncées : 60 centres",
+    "heure": "16h00",
+    "mode": "Avis à manifestation d'intérêt (AMI)",
+    "lieu": "Buhumuza, Bujumbura et Burunga",
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Objet du présent appel à manifestation d’intérêt : Dans le cadre du renforcement, de l’optimisation et de la rationalisation de ses achats récurrents, Tdh lance le présent appel d’offre en vue de sélectionner des prestataires qual…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": "Les prestataires intéressés peuvent obtenir les documents d’appel d’offres par courrier à l’adresse email : [email protected] Date limite de retrait du dossier : au plus tard le 23/11/2026 à 16h00 (heure de Bujumbura) Demandes de clarification au plus tard le 24/11/2026 à 16h00 (heure de Bujumbura)…",
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "7/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "La fourniture de fertilisants ONE ACRE FUND TUBURA Manifestation d’intérêt pour la constitution et l’actualisation de la base de données des fournisseurs et prestataires BBCI SM Bujumbura Fourniture de machine pour le broyage des ingrédients utilisées dans le mélange des aliments pour volailles ZOA Avis d’appel",
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/fournitures-de-bureau-et-papeterie/",
+     "page": null,
+     "passage": "Manifestation d’intérêt pour la constitution et l’actualisation de la base de données des fournisseurs et prestataires BBCI SM Bujumbura Fourniture de machine pour le broyage des ingrédients utilisées dans le mélange des aliments pour volai",
+     "confiance": "haute",
+     "verifie_le": "2026-11-18"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "acheteur": {
+     "valeur": "PRODER",
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/fournitures-de-bureau-et-papeterie/",
+     "page": null,
+     "passage": "l’Entrepreneuriat Rural « PRODER » Avis d’appel d’offres ouvert national de fourniture des aliments pour les porcins.",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-18"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2026-11-27",
+      "heure": "16h00"
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/fournitures-de-bureau-et-papeterie/",
+     "page": null,
+     "passage": "Emplois Appel d’offres Recruteurs Poster une offre Trouver un freelancer accuel offres d’emplois Fournitures de bureau et papeterie Fournitures de bureau et papeterie Emplacement Salaire négociable Publié: 17 heures depuis Catégorie Date li",
+     "confiance": "haute",
+     "verifie_le": "2026-11-18"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "lieu_execution": {
+     "valeur": "Buhumuza, Bujumbura, Burunga",
+     "statut": "À VÉRIFIER",
+     "source_doc": "https://www.burundijobs.bi/job/fournitures-de-bureau-et-papeterie/",
+     "page": null,
+     "passage": "environnemental et social relatives à la construction de trois (03) hangars multifonctionnels de stockage des productions agricoles dans les provinces de Buhumuza, Bujumbura et Burunga Programme de Développement de l’Entrepreneuriat Rural «",
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "retrait_depot": {
+     "valeur": {
+      "retrait": {
+       "lieu": "Les prestataires intéressés peuvent obtenir les documents d’appel d’offres par courrier à l’adresse email : [email protected] Date limite de retrait du dossier : au plus tard le"
+      },
+      "depot": null
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/fournitures-de-bureau-et-papeterie/",
+     "page": null,
+     "passage": "Les prestataires intéressés peuvent obtenir les documents d’appel d’offres par courrier à l’adresse email : [email protected] Date limite de retrait du dossier : au plus tard le 23/11/2026 à 16h00 (heure de Bujumbura) Demandes de clarificat",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-18"
+    },
+    "conditions": {
+     "valeur": [
+      "Objet du présent appel à manifestation d’intérêt : Dans le cadre du renforcement, de l’optimisation et de la rationalisation de ses achats récurrents, Tdh lance le présent appel d’offre en vue de sélectionner des prestataires qualifiés disposant d’une expérience avérée et de capacités techniques, logistiques et commerciales adéquates dans la catégorie « Fournitures de bureau et papeterie » pour constituer un portefeuille de partenaires de référence et établir des contrats-cadres"
+     ],
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/fournitures-de-bureau-et-papeterie/",
+     "page": null,
+     "passage": "Objet du présent appel à manifestation d’intérêt : Dans le cadre du renforcement, de l’optimisation et de la rationalisation de ses achats récurrents, Tdh lance le présent appel d’offre en vue de sélectionner des prestataires qualifiés disp",
+     "confiance": "haute",
+     "verifie_le": "2026-11-18"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "criteres_mode": {
+     "valeur": {
+      "criteres": null,
+      "mode": "Avis à manifestation d'intérêt (AMI)"
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/fournitures-de-bureau-et-papeterie/",
+     "page": null,
+     "passage": "Objet du présent appel à manifestation d’intérêt : Dans le cadre du renforcement, de l’optimisation et de la rationalisation de ses achats récurrents, Tdh lance le présent appel d’offre en vue de sélectionner des prestataires qualifiés disp",
+     "confiance": "haute",
+     "verifie_le": "2026-11-18"
+    }
+   },
+   "completude_v2": {
+    "lus": 6,
+    "a_verifier": 1,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "6/14"
+   },
+   "fiabilite": {
+    "score": 70,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 8,
+     "critiques_verifies": 12,
+     "coherence": 10
+    }
+   },
+   "conflits": [
+    {
+     "champ": "lieu_execution",
+     "valeurs": [
+      "Buhumuza, Bujumbura, Burunga"
+     ],
+     "detail": "Lieu absent du texte cadré de l'avis (pollution plateforme suspectée) — à vérifier."
+    }
+   ],
+   "documents": [
+    {
+     "url": "https://www.burundijobs.bi/job/fournitures-de-bureau-et-papeterie/",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-18"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": false
+  },
+  {
    "title": "Travaux de Remise en bon état des portails d'accès au compound",
    "buyer": "PNUD — Burundi",
    "sector": "IT/numérique",
@@ -19854,7 +21018,7 @@
    "province": null,
    "garantie_num": null,
    "dossier_num": null,
-   "is_new": true
+   "is_new": false
   },
   {
    "title": "Founiture des poussins parentaux",
@@ -20402,7 +21566,697 @@
    "province": null,
    "garantie_num": null,
    "dossier_num": null,
-   "is_new": true
+   "is_new": false
+  },
+  {
+   "title": "Appel à proposition pour la construction d’un Espace Ami des Enfants (EAE) et de blocs de sanitaires constitués de 4 latrines et 2 douches à Busuma.",
+   "buyer": "PRODER",
+   "sector": "IT/numérique",
+   "deadline": "2026-11-30",
+   "deadline_source": "page web",
+   "reference": "BDI-26-BUJ-312-MIG",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": 2,
+   "sources": [
+    {
+     "name": "BurundiJobs",
+     "url": "https://www.burundijobs.bi/job/appel-a-proposition-pour-la-construction-dun-espace-ami-des-enfants-eae-et-de-blocs-de-sanitaires-constitues-de-4-latrines-et-2-douches-a-busuma/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-19",
+   "resume": {
+    "objet": "La fourniture de fertilisants ONE ACRE FUND TUBURA Manifestation d’intérêt pour la constitution et l’actualisation de la base de données des fournisseurs et prestataires BBCI SM Bujumbura Fourniture de machine pour le broyage des ingrédients utilisées dans le mélange des aliments pour volailles ZOA Avis d’appel d’offres ouvert international de fourniture des engrais chimiques… — Quantités énoncées : 60 centres",
+    "heure": "17h00",
+    "mode": "Avis à manifestation d'intérêt (AMI)",
+    "lieu": "Buhumuza, Bujumbura et Burunga",
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Objet du présent appel à proposition : Tdh lance le présent appel à proposition en vue de sélectionner un/des prestataire(s) qualifié(s) disposant d’une expérience avérée et de capacités techniques, logistiques et commerciales adé…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": "Date limite de retrait du dossier : au plus tard le 25/11/2026 à 17h00 (heure de Bujumbura).",
+    "contact": null,
+    "depot": "Les offres doivent être transmises uniquement par courrier électronique à l’adresse [email protected] .",
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "10/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "La fourniture de fertilisants ONE ACRE FUND TUBURA Manifestation d’intérêt pour la constitution et l’actualisation de la base de données des fournisseurs et prestataires BBCI SM Bujumbura Fourniture de machine pour le broyage des ingrédients utilisées dans le mélange des aliments pour volailles ZOA Avis d’appel",
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/appel-a-proposition-pour-la-construction-dun-espace-ami-des-enfants-eae-et-de-blocs-de-sanitaires-constitues-de-4-latrines-et-2-douches-a-busuma/",
+     "page": null,
+     "passage": "pour la fourniture de fertilisants ONE ACRE FUND TUBURA Manifestation d’intérêt pour la constitution et l’actualisation de la base de données des fournisseurs et prestataires BBCI SM Bujumbura Fourniture de machine pour le broyage des ingré",
+     "confiance": "haute",
+     "verifie_le": "2026-11-19"
+    },
+    "quantites_lots": {
+     "valeur": {
+      "nb_lots": 2,
+      "description": "Lot 1 : Construction d’un Espace Ami des Enfants (EAE) constitué d’un espace récréatif ; Lot 2 : Construction de blocs de sanitaires constitués de 4 latrines et 2 douches"
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/appel-a-proposition-pour-la-construction-dun-espace-ami-des-enfants-eae-et-de-blocs-de-sanitaires-constitues-de-4-latrines-et-2-douches-a-busuma/",
+     "page": null,
+     "passage": "Appel à proposition pour la construction d’un Espace Ami des Enfants (EAE) et de blocs de sanitaires constitués de 4 latrines et 2 douches à Busuma.",
+     "confiance": "haute",
+     "verifie_le": "2026-11-19"
+    },
+    "acheteur": {
+     "valeur": "PRODER",
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/appel-a-proposition-pour-la-construction-dun-espace-ami-des-enfants-eae-et-de-blocs-de-sanitaires-constitues-de-4-latrines-et-2-douches-a-busuma/",
+     "page": null,
+     "passage": "rayonnement Programme de Développement de l’Entrepreneuriat Rural « PRODER » Avis d’appel d’offres ouvert national de fourniture des aliments pour les porcins.",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-19"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2026-11-30",
+      "heure": "17h00"
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/appel-a-proposition-pour-la-construction-dun-espace-ami-des-enfants-eae-et-de-blocs-de-sanitaires-constitues-de-4-latrines-et-2-douches-a-busuma/",
+     "page": null,
+     "passage": "Emplacement Salaire négociable Publié: 8 minutes depuis Catégorie Date limite 30 novembre 2026 Appel à proposition REFERENCE : BDI-26-BUJ-312-MIG POUR DES TRAVAUX DE CONSTRUCTION A BUSUMA : Lot1 : Construction d’un Espace Ami des Enfants (E",
+     "confiance": "haute",
+     "verifie_le": "2026-11-19"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "lieu_execution": {
+     "valeur": "Buhumuza, Bujumbura, Burunga",
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/appel-a-proposition-pour-la-construction-dun-espace-ami-des-enfants-eae-et-de-blocs-de-sanitaires-constitues-de-4-latrines-et-2-douches-a-busuma/",
+     "page": null,
+     "passage": "multifonctionnels de stockage des productions agricoles dans les provinces de Buhumuza, Bujumbura et Burunga Programme de Développement de l’Entrepreneuriat Rural « PRODER » Bujumbura Un bureau de conseil chargé de réaliser une étude sur la",
+     "confiance": "haute",
+     "verifie_le": "2026-11-19"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "retrait_depot": {
+     "valeur": {
+      "retrait": {
+       "lieu": "Date limite de retrait du dossier : au plus tard le 25/11/2026 à 17h00 (heure de Bujumbura)."
+      },
+      "depot": {
+       "modes": [
+        "Courrier",
+        "Électronique"
+       ]
+      }
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/appel-a-proposition-pour-la-construction-dun-espace-ami-des-enfants-eae-et-de-blocs-de-sanitaires-constitues-de-4-latrines-et-2-douches-a-busuma/",
+     "page": null,
+     "passage": "Date limite de retrait du dossier : au plus tard le 25/11/2026 à 17h00 (heure de Bujumbura).",
+     "confiance": "haute",
+     "verifie_le": "2026-11-19"
+    },
+    "conditions": {
+     "valeur": [
+      "Objet du présent appel à proposition : Tdh lance le présent appel à proposition en vue de sélectionner un/des prestataire(s) qualifié(s) disposant d’une expérience avérée et de capacités techniques, logistiques et commerciales adéquates pour la construction d’un Espace Ami des Enfants (EAE) et de blocs de sanitaires constitués de 4 latrines et 2 douches à Busuma"
+     ],
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/appel-a-proposition-pour-la-construction-dun-espace-ami-des-enfants-eae-et-de-blocs-de-sanitaires-constitues-de-4-latrines-et-2-douches-a-busuma/",
+     "page": null,
+     "passage": "Objet du présent appel à proposition : Tdh lance le présent appel à proposition en vue de sélectionner un/des prestataire(s) qualifié(s) disposant d’une expérience avérée et de capacités techniques, logistiques et commerciales adéquates pou",
+     "confiance": "haute",
+     "verifie_le": "2026-11-19"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "criteres_mode": {
+     "valeur": {
+      "criteres": null,
+      "mode": "Avis à manifestation d'intérêt (AMI)"
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/appel-a-proposition-pour-la-construction-dun-espace-ami-des-enfants-eae-et-de-blocs-de-sanitaires-constitues-de-4-latrines-et-2-douches-a-busuma/",
+     "page": null,
+     "passage": "pour la fourniture de fertilisants ONE ACRE FUND TUBURA Manifestation d’intérêt pour la constitution et l’actualisation de la base de données des fournisseurs et prestataires BBCI SM Bujumbura Fourniture de machine pour le broyage des ingré",
+     "confiance": "haute",
+     "verifie_le": "2026-11-19"
+    }
+   },
+   "completude_v2": {
+    "lus": 8,
+    "a_verifier": 0,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "8/14"
+   },
+   "fiabilite": {
+    "score": 82,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 8,
+     "critiques_verifies": 19,
+     "coherence": 15
+    }
+   },
+   "conflits": [],
+   "documents": [
+    {
+     "url": "https://www.burundijobs.bi/job/appel-a-proposition-pour-la-construction-dun-espace-ami-des-enfants-eae-et-de-blocs-de-sanitaires-constitues-de-4-latrines-et-2-douches-a-busuma/",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-19"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": "Buhumuza",
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": false
+  },
+  {
+   "title": "Un cabinet d’audit pour l’exercice clos le 31 décembre 2026.",
+   "buyer": "PRODER",
+   "sector": "Services/conseil",
+   "deadline": "2026-11-30",
+   "deadline_source": "page web",
+   "reference": "BDI-26-BUJ-314-ADM",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "BurundiJobs",
+     "url": "https://www.burundijobs.bi/job/un-cabinet-daudit-pour-lexercice-clos-le-31-decembre-2026/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-19",
+   "resume": {
+    "objet": "La fourniture de fertilisants ONE ACRE FUND TUBURA Manifestation d’intérêt pour la constitution et l’actualisation de la base de données des fournisseurs et prestataires BBCI SM Bujumbura Fourniture de machine pour le broyage des ingrédients utilisées dans le mélange des aliments pour volailles ZOA Avis d’appel d’offres ouvert international de fourniture des engrais chimiques… — Quantités énoncées : 60 centres",
+    "heure": "17h00",
+    "mode": "Appel d'offres international",
+    "lieu": "Buhumuza, Bujumbura et Burunga",
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Profil et conditions d’éligibilité Être un cabinet d’audit légalement établi au Burundi, agréé par l’autorité nationale compétente, avec des auditeurs qualifiés et expérimentés ; Justifier d’une expérience dans l’audit d’ONG inter…",
+     "Évaluation des propositions Les propositions seront évaluées selon les procédures d’achat de Tdh, sur la base de la qualité technique (expérience, méthodologie, équipe,…) et de l’offre financière."
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "7/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "La fourniture de fertilisants ONE ACRE FUND TUBURA Manifestation d’intérêt pour la constitution et l’actualisation de la base de données des fournisseurs et prestataires BBCI SM Bujumbura Fourniture de machine pour le broyage des ingrédients utilisées dans le mélange des aliments pour volailles ZOA Avis d’appel",
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/un-cabinet-daudit-pour-lexercice-clos-le-31-decembre-2026/",
+     "page": null,
+     "passage": "D'ENFANTS Appel d’offres pour la fourniture de fertilisants ONE ACRE FUND TUBURA Manifestation d’intérêt pour la constitution et l’actualisation de la base de données des fournisseurs et prestataires BBCI SM Bujumbura Fourniture de machine ",
+     "confiance": "haute",
+     "verifie_le": "2026-11-19"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "acheteur": {
+     "valeur": "PRODER",
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/un-cabinet-daudit-pour-lexercice-clos-le-31-decembre-2026/",
+     "page": null,
+     "passage": "dolomie pour les centres de rayonnement Programme de Développement de l’Entrepreneuriat Rural « PRODER » Avis d’appel d’offres ouvert national de fourniture des aliments pour les porcins.",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-19"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2026-11-30",
+      "heure": "17h00"
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/un-cabinet-daudit-pour-lexercice-clos-le-31-decembre-2026/",
+     "page": null,
+     "passage": "Emplacement Bujumbura Salaire négociable Publié: 20 heures depuis Catégorie Date limite 30 novembre 2026 AVIS À PROPOSITIONS Objet : Audit statutaire annuel de la Fondation Terre des hommes (Bureau Burundi) Référence : BDI-26-BUJ-314-ADM Co",
+     "confiance": "haute",
+     "verifie_le": "2026-11-19"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "lieu_execution": {
+     "valeur": "Buhumuza, Bujumbura, Burunga",
+     "statut": "À VÉRIFIER",
+     "source_doc": "https://www.burundijobs.bi/job/un-cabinet-daudit-pour-lexercice-clos-le-31-decembre-2026/",
+     "page": null,
+     "passage": "multifonctionnels de stockage des productions agricoles dans les provinces de Buhumuza, Bujumbura et Burunga Programme de Développement de l’Entrepreneuriat Rural « PRODER » Bujumbura Un bureau de conseil chargé de réaliser une étude sur la",
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "retrait_depot": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "conditions": {
+     "valeur": [
+      "Être un cabinet d’audit légalement établi au Burundi, agréé par l’autorité nationale compétente, avec des auditeurs qualifiés et expérimentés",
+      "Justifier d’une expérience dans l’audit d’ONG internationales gérant de nombreux projets financés par des bailleurs institutionnels (UE, USAID, DDC, etc.)",
+      "Maîtriser les normes ISA (dont ISA 805), les GAAP locaux et le Code IESBA, et confirmer son indépendance vis-à-vis de Tdh",
+      "Disposer d’une équipe maîtrisant le français",
+      "La connaissance du logiciel SAGA est un atout",
+      "Contenu de la proposition La proposition, en français, comprendra deux parties distinctes : Offre technique : présentation du cabinet (statut légal, agrément, NIF/RC), références similaires des trois dernières années avec contacts, compréhension de la mission, méthodologie et plan de travail, composition et CV de l’équipe détachée, attestation de disponibilité, attestation d’indépendance et déclaration d’absence de conflit d’intérêts",
+      "Offre financière : honoraires détaillés en précisant notamment le nombre de jours/homme par profil, la devise, les taxes applicables et les modalités de paiement",
+      "L’offre doit rester valable au moins 60 jours à compter de la date limite de soumission",
+      "Évaluation des propositions Les propositions seront évaluées selon les procédures d’achat de Tdh, sur la base de la qualité technique (expérience, méthodologie, équipe,…) et de l’offre financière",
+      "Tdh se réserve le droit de demander des compléments, d’organiser des entretiens avec les cabinets présélectionnés et de ne donner aucune suite à cet avis",
+      "A noter que le cabinet retenu sera soumis pour avis de non-objection par la DDC avant tout engagement contractuel",
+      "Modalités de soumission et clarifications Retrait des Termes de",
+      "Référence (TdR) : le document est disponible sur demande écrite par courriel adressée à [email protected] avec l’objet : BDI-26-BUJ-314-ADM – Audit statutaire annuel de Tdh",
+      "Date limite de retrait des dossiers : 26/11/2026 à 17h00 (heure de Bujumbura) Date limite des demandes de clarification : 26/11/2026 à 17h00 (heure de Bujumbura) Les demandes de clarification doivent être adressées à [email protected] Date limite de dépôt des propositions : 30/11/2026 à 23h59 (heure de Bujumbura) Adresse de soumission des offres : [email protected] Objet du courriel : BDI-26-BUJ-314-ADM – Audit statutaire annuel de Tdh Les prestataires doivent soumettre la proposition technique et la proposition financière sous forme de fichiers PDF distincts",
+      "Toute proposition reçue après cette date ne sera pas examinée"
+     ],
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/un-cabinet-daudit-pour-lexercice-clos-le-31-decembre-2026/",
+     "page": null,
+     "passage": "Contenu de la proposition La proposition, en français, comprendra deux parties distinctes : Offre technique : présentation du cabinet (statut légal, agrément, NIF/RC), références similaires des trois dernières années avec contacts, compréhe",
+     "confiance": "haute",
+     "verifie_le": "2026-11-19"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "criteres_mode": {
+     "valeur": {
+      "criteres": null,
+      "mode": "Appel d'offres international"
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/un-cabinet-daudit-pour-lexercice-clos-le-31-decembre-2026/",
+     "page": null,
+     "passage": "Objet et étendue de la mission Le cabinet retenu réalisera sa mission conformément aux normes internationales d’audit (ISA), aux GAAP locaux et aux termes de référence de Tdh (disponibles sur demande).",
+     "confiance": "haute",
+     "verifie_le": "2026-11-19"
+    }
+   },
+   "completude_v2": {
+    "lus": 5,
+    "a_verifier": 1,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "5/14"
+   },
+   "fiabilite": {
+    "score": 70,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 8,
+     "critiques_verifies": 12,
+     "coherence": 10
+    }
+   },
+   "conflits": [
+    {
+     "champ": "lieu_execution",
+     "valeurs": [
+      "Buhumuza, Bujumbura, Burunga"
+     ],
+     "detail": "Lieu absent du texte cadré de l'avis (pollution plateforme suspectée) — à vérifier."
+    }
+   ],
+   "documents": [
+    {
+     "url": "https://www.burundijobs.bi/job/un-cabinet-daudit-pour-lexercice-clos-le-31-decembre-2026/",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-19"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": false
+  },
+  {
+   "title": "Avis d’appel d’offres pour le recrutement d’un consultant formateur sur la sante, l’hygiène et la biosécurité des volailles",
+   "buyer": "PRODER",
+   "sector": "Santé",
+   "deadline": "2026-11-30",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "BurundiJobs",
+     "url": "https://www.burundijobs.bi/job/avis-dappel-doffres-pour-le-recrutement-dun-consultant-formateur-sur-la-sante-lhygiene-et-la-biosecurite-des-volailles/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-20",
+   "resume": {
+    "objet": "La fourniture des produits phytosanitaires pour 60 centres de rayonnement communautaires",
+    "heure": "12h30",
+    "mode": "Appel d'offres",
+    "lieu": "Buhumuza, Bujumbura et Burunga",
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Qualification requise Le formateur candidat à la réalisation de cette formation doit répondre aux qualifications suivantes : Être titulaire d’un diplôme universitaire en Médecine vétérinaire, Santé animale ou dans un domaine équiv…"
+    ],
+    "documents": [
+     "CV"
+    ],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "7/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "Le recrutement d’un consultant formateur sur la sante, l’hygiène et la biosécurité des volailles",
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/avis-dappel-doffres-pour-le-recrutement-dun-consultant-formateur-sur-la-sante-lhygiene-et-la-biosecurite-des-volailles/",
+     "page": null,
+     "passage": "Avis d’appel d’offres pour le recrutement d’un consultant formateur sur la sante, l’hygiène et la biosécurité des volailles - burundijobs Menu Accueil Qui sommes nous?",
+     "confiance": "haute",
+     "verifie_le": "2026-11-20"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-20"
+    },
+    "acheteur": {
+     "valeur": "PRODER",
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/avis-dappel-doffres-pour-le-recrutement-dun-consultant-formateur-sur-la-sante-lhygiene-et-la-biosecurite-des-volailles/",
+     "page": null,
+     "passage": "Partager: imprimer Emploi lié Fourniture des semences d’oignons rouge pour 60 centres de rayonnement communautaires Programme de Développement de l’Entrepreneuriat Rural « PRODER » Services de dédouanement, renouvellement d’immatriculation ",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-20"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2026-11-30",
+      "heure": "12h30"
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/avis-dappel-doffres-pour-le-recrutement-dun-consultant-formateur-sur-la-sante-lhygiene-et-la-biosecurite-des-volailles/",
+     "page": null,
+     "passage": "limite 30 novembre 2026 AVIS D’APPEL D’OFFRES POUR LE RECRUTEMENT D’UN CONSULTANT FORMATEUR SUR LA SANTE, L’HYGIENE ET LA BIOSECURITE DES VOLAILLES Employeur ZOA BURUNDI Titre du projet PROMOTION DE L’ELEVAGE COMMERCIAL DE VOLAILLES Titre d",
+     "confiance": "haute",
+     "verifie_le": "2026-11-20"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-20"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-20"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-20"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-20"
+    },
+    "lieu_execution": {
+     "valeur": "Buhumuza, Bujumbura, Burunga",
+     "statut": "À VÉRIFIER",
+     "source_doc": "https://www.burundijobs.bi/job/avis-dappel-doffres-pour-le-recrutement-dun-consultant-formateur-sur-la-sante-lhygiene-et-la-biosecurite-des-volailles/",
+     "page": null,
+     "passage": "multifonctionnels de stockage des productions agricoles dans les provinces de Buhumuza, Bujumbura et Burunga Programme de Développement de l’Entrepreneuriat Rural « PRODER » Bujumbura Un bureau de conseil chargé de réaliser une étude sur la",
+     "confiance": "faible",
+     "verifie_le": "2026-11-20"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-20"
+    },
+    "retrait_depot": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-20"
+    },
+    "conditions": {
+     "valeur": [
+      "Qualification requise Le formateur candidat à la réalisation de cette formation doit répondre aux qualifications suivantes : Être titulaire d’un diplôme universitaire en Médecine vétérinaire, Santé animale ou dans un domaine équivalent ; Justifier d’une expérience professionnelle pertinente en santé animale et en élevage avicole ; Disposer d’une expérience avérée dans la conduite de formations destinées aux adultes; Démontrer une bonne maîtrise des questions liées à la santé, à l’hygiène et à la biosécurité avicoles ; Avoir de bonnes compétences en communication et en facilitation ; Maîtriser le français et le kirundi"
+     ],
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/avis-dappel-doffres-pour-le-recrutement-dun-consultant-formateur-sur-la-sante-lhygiene-et-la-biosecurite-des-volailles/",
+     "page": null,
+     "passage": "Qualification requise Le formateur candidat à la réalisation de cette formation doit répondre aux qualifications suivantes : Être titulaire d’un diplôme universitaire en Médecine vétérinaire, Santé animale ou dans un domaine équivalent ;",
+     "confiance": "haute",
+     "verifie_le": "2026-11-20"
+    },
+    "documents_requis": {
+     "valeur": [
+      "CV"
+     ],
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/avis-dappel-doffres-pour-le-recrutement-dun-consultant-formateur-sur-la-sante-lhygiene-et-la-biosecurite-des-volailles/",
+     "page": null,
+     "passage": null,
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-20"
+    },
+    "criteres_mode": {
+     "valeur": {
+      "criteres": null,
+      "mode": "Appel d'offres"
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/avis-dappel-doffres-pour-le-recrutement-dun-consultant-formateur-sur-la-sante-lhygiene-et-la-biosecurite-des-volailles/",
+     "page": null,
+     "passage": "Avis d’appel d’offres pour le recrutement d’un consultant formateur sur la sante, l’hygiène et la biosécurité des volailles - burundijobs Menu Accueil Qui sommes nous?",
+     "confiance": "haute",
+     "verifie_le": "2026-11-20"
+    }
+   },
+   "completude_v2": {
+    "lus": 6,
+    "a_verifier": 1,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "6/14"
+   },
+   "fiabilite": {
+    "score": 63,
+    "niveau": "moyenne",
+    "facteurs": {
+     "preuve_textuelle": 33,
+     "qualite_document": 8,
+     "critiques_verifies": 12,
+     "coherence": 10
+    }
+   },
+   "conflits": [
+    {
+     "champ": "lieu_execution",
+     "valeurs": [
+      "Buhumuza, Bujumbura, Burunga"
+     ],
+     "detail": "Lieu absent du texte cadré de l'avis (pollution plateforme suspectée) — à vérifier."
+    }
+   ],
+   "documents": [
+    {
+     "url": "https://www.burundijobs.bi/job/avis-dappel-doffres-pour-le-recrutement-dun-consultant-formateur-sur-la-sante-lhygiene-et-la-biosecurite-des-volailles/",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-20"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": false
   },
   {
    "title": "Appel d'offres pour la fourniture de fertilisants",
@@ -20661,7 +22515,7 @@
    "province": null,
    "garantie_num": null,
    "dossier_num": null,
-   "is_new": true
+   "is_new": false
   },
   {
    "title": "Recrutement d'un Expert Spécialiste en suivi évaluation au PRU",
@@ -21098,6 +22952,455 @@
      "source": "https://tenderimpulse.com/government-tenders/burundi/mise-en-place-d-un-systeme-d-energie-solaire-de-relais-au-bureau-central-de-l-du-16109666"
     }
    ],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": false
+  },
+  {
+   "title": "TRAVAUX DE REHABILITATION/INSTALLATIONS SANITAIRES-COMPOUND ONU II PNUD",
+   "buyer": "PNUD — Burundi",
+   "sector": "Travaux/BTP",
+   "deadline": "2026-12-02",
+   "deadline_source": "page web",
+   "reference": "UNDP-BDI-00785",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "PNUD",
+     "url": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=51871"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-19",
+   "resume": {
+    "objet": "TRAVAUX DE REHABILITATION/INSTALLATIONS SANITAIRES-COMPOUND ONU II PNUD",
+    "heure": "10h30",
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "soumissiondesoffres.bi@undp.org",
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "5/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "TRAVAUX DE REHABILITATION/INSTALLATIONS SANITAIRES-COMPOUND ONU II PNUD",
+     "statut": "LU",
+     "source_doc": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=51871",
+     "page": null,
+     "passage": "Procurement Notices - UNDP-BDI-00785 - TRAVAUX DE REHABILITATION/INSTALLATIONS SANITAIRES-COMPOUND ONU II PNUD GLOBAL Procurement Notices About Us Procurement at UNDP UNDP Office of Procurement Our Guiding Principles UNDP Procurement Strate",
+     "confiance": "haute",
+     "verifie_le": "2026-11-19"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "acheteur": {
+     "valeur": "PNUD — Burundi",
+     "statut": "LU",
+     "source_doc": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=51871",
+     "page": null,
+     "passage": "Title TRAVAUX DE REHABILITATION/INSTALLATIONS SANITAIRES-COMPOUND ONU II PNUD Ref No UNDP-BDI-00785 UNDP Office/Country UNDP-BDI/BURUNDI Process ITB - Invitation to bid Deadline 02-Dec-26 10:30 AM (New York time) Posted 18-Nov-26",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-19"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2026-12-02",
+      "heure": "10h30"
+     },
+     "statut": "LU",
+     "source_doc": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=51871",
+     "page": null,
+     "passage": "Procurement Process ITB - Invitation to bid Office UNDP-BDI - BURUNDI Deadline 02-Dec-26 @ 10:30 AM (New York time) Published on 18-Nov-26 @ 12:00 AM (New York time) Reference Number UNDP-BDI-00785 Contact Procurement Unit - soumissiondesof",
+     "confiance": "haute",
+     "verifie_le": "2026-11-19"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "lieu_execution": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "retrait_depot": {
+     "valeur": {
+      "retrait": {
+       "contact": "soumissiondesoffres.bi@undp.org"
+      },
+      "depot": null
+     },
+     "statut": "LU",
+     "source_doc": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=51871",
+     "page": null,
+     "passage": "Procurement Process ITB - Invitation to bid Office UNDP-BDI - BURUNDI Deadline 02-Dec-26 @ 10:30 AM (New York time) Published on 18-Nov-26 @ 12:00 AM (New York time) Reference Number UNDP-BDI-00785 Contact Procurement Unit - soumissiondesof",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-19"
+    },
+    "conditions": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "criteres_mode": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    }
+   },
+   "completude_v2": {
+    "lus": 4,
+    "a_verifier": 0,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "4/14"
+   },
+   "fiabilite": {
+    "score": 75,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 8,
+     "critiques_verifies": 12,
+     "coherence": 15
+    }
+   },
+   "conflits": [],
+   "documents": [
+    {
+     "url": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=51871",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-19"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": false
+  },
+  {
+   "title": "Un Cabinet d’audit comptable et financier",
+   "buyer": "PRODER",
+   "sector": "IT/numérique",
+   "deadline": "2026-12-03",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "BurundiJobs",
+     "url": "https://www.burundijobs.bi/job/un-cabinet-daudit-comptable-et-financier/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-20",
+   "resume": {
+    "objet": "Le recrutement d’un consultant formateur sur la sante, l’hygiène et la biosécurité des volailles ZOA Un Médecin clinicien ABUBEF Un cabinet d’audit pour l’exercice clos le 31 décembre 2026 — Quantités énoncées : 60 centres, 60 centres",
+    "heure": "10h00",
+    "mode": "Avis à manifestation d'intérêt (AMI)",
+    "lieu": "Buhumuza, Bujumbura et Burunga",
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Les critères d’éligibilité, l’établissement de la liste restreinte et la procédure de sélection seront conformes au Cadre de la Passation des Marchés de la Banque Africaine de Développement, édition d’octobre 2015, qui est disponi…",
+     "Les cabinets intéressés doivent produire les informations sur leurs capacités et expériences démontrant qu’ils sont qualifiés pour les prestations en démontrant leurs : Expérience confirmée en audits financiers des projets de déve…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "6/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "Le recrutement d’un consultant formateur sur la sante, l’hygiène et la biosécurité des volailles ZOA Un Médecin clinicien ABUBEF Un cabinet d’audit pour l’exercice clos le 31 décembre 2026",
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/un-cabinet-daudit-comptable-et-financier/",
+     "page": null,
+     "passage": "Développement de l’Entrepreneuriat Rural « PRODER » Services de dédouanement, renouvellement d’immatriculation temporaire et connexes ICAP Un (e) réfèrent (e) santé/ projet Amagara Yacu Croix-Rouge Burundi Avis d’appel d’offres pour le recr",
+     "confiance": "haute",
+     "verifie_le": "2026-11-20"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-20"
+    },
+    "acheteur": {
+     "valeur": "PRODER",
+     "statut": "À VÉRIFIER",
+     "source_doc": "https://www.burundijobs.bi/job/un-cabinet-daudit-comptable-et-financier/",
+     "page": null,
+     "passage": "Développement de l’Entrepreneuriat Rural « PRODER » Services de dédouanement, renouvellement d’immatriculation temporaire et connexes ICAP Un (e) réfèrent (e) santé/ projet Amagara Yacu Croix-Rouge Burundi Avis d’appel d’offres pour le recr",
+     "confiance": "faible",
+     "verifie_le": "2026-11-20"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2026-12-03",
+      "heure": "10h00"
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/un-cabinet-daudit-comptable-et-financier/",
+     "page": null,
+     "passage": "Emplois Appel d’offres Recruteurs Poster une offre Trouver un freelancer accuel offres d’emplois Un Cabinet d’audit comptable et financier Un Cabinet d’audit comptable et financier Emplacement Salaire négociable Publié: 21 heures depuis Cat",
+     "confiance": "haute",
+     "verifie_le": "2026-11-20"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-20"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-20"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-20"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-20"
+    },
+    "lieu_execution": {
+     "valeur": "Buhumuza, Bujumbura, Burunga",
+     "statut": "À VÉRIFIER",
+     "source_doc": "https://www.burundijobs.bi/job/un-cabinet-daudit-comptable-et-financier/",
+     "page": null,
+     "passage": "multifonctionnels de stockage des productions agricoles dans les provinces de Buhumuza, Bujumbura et Burunga Programme de Développement de l’Entrepreneuriat Rural « PRODER » Bujumbura Un bureau de conseil chargé de réaliser une étude sur la",
+     "confiance": "faible",
+     "verifie_le": "2026-11-20"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-20"
+    },
+    "retrait_depot": {
+     "valeur": {
+      "retrait": {
+       "lieu": "Adresse ci-dessous (voir Dépôt) · www.afdb.org"
+      },
+      "depot": null
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/un-cabinet-daudit-comptable-et-financier/",
+     "page": null,
+     "passage": "Les critères d’éligibilité, l’établissement de la liste restreinte et la procédure de sélection seront conformes au Cadre de la Passation des Marchés de la Banque Africaine de Développement, édition d’octobre 2015, qui est disponibles sur l",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-20"
+    },
+    "conditions": {
+     "valeur": [
+      "Les cabinets intéressés doivent produire les informations sur leurs capacités et expériences démontrant qu’ils sont qualifiés pour les prestations en démontrant leurs : Expérience confirmée en audits financiers des projets de développement financés par les Partenaires au Développement",
+      "Les critères d’éligibilité, l’établissement de la liste restreinte et la procédure de sélection seront conformes au Cadre de la Passation des Marchés de la Banque Africaine de Développement, édition d’octobre 2015, qui est disponibles sur le site web de la Banque à l’adresse : http://www.afdb.org Le cabinet sera sélectionné selon la méthode de Sélection au moindre coût (SMC)"
+     ],
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/un-cabinet-daudit-comptable-et-financier/",
+     "page": null,
+     "passage": "Les critères d’éligibilité, l’établissement de la liste restreinte et la procédure de sélection seront conformes au Cadre de la Passation des Marchés de la Banque Africaine de Développement, édition d’octobre 2015, qui est disponibles sur l",
+     "confiance": "haute",
+     "verifie_le": "2026-11-20"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-20"
+    },
+    "criteres_mode": {
+     "valeur": {
+      "criteres": "Sera sélectionné selon la méthode de Sélection au moindre coût (SMC)",
+      "mode": "Avis à manifestation d'intérêt (AMI)"
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/un-cabinet-daudit-comptable-et-financier/",
+     "page": null,
+     "passage": "Les critères d’éligibilité, l’établissement de la liste restreinte et la procédure de sélection seront conformes au Cadre de la Passation des Marchés de la Banque Africaine de Développement, édition d’octobre 2015, qui est disponibles sur l",
+     "confiance": "haute",
+     "verifie_le": "2026-11-20"
+    }
+   },
+   "completude_v2": {
+    "lus": 5,
+    "a_verifier": 2,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "5/14"
+   },
+   "fiabilite": {
+    "score": 78,
+    "niveau": "moyenne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 8,
+     "critiques_verifies": 25,
+     "coherence": 5
+    }
+   },
+   "conflits": [
+    {
+     "champ": "acheteur",
+     "valeurs": [
+      "PRODER",
+      "Ministère des Finances, du Budget et de l"
+     ],
+     "detail": "Valeurs discordantes entre extractions indépendantes (fiche, page) ; valeur de la fiche avis/v1 conservée, à vérifier humainement."
+    },
+    {
+     "champ": "lieu_execution",
+     "valeurs": [
+      "Buhumuza, Bujumbura, Burunga"
+     ],
+     "detail": "Lieu absent du texte cadré de l'avis (pollution plateforme suspectée) — à vérifier."
+    }
+   ],
+   "documents": [
+    {
+     "url": "https://www.burundijobs.bi/job/un-cabinet-daudit-comptable-et-financier/",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-20"
+    }
+   ],
+   "historique": [],
    "relation": {
     "type": "principale",
     "parent_key": null
@@ -22595,6 +24898,673 @@
    "is_new": false
   },
   {
+   "title": "VERIFICATION FOR THE IMPLEMENTATION OF THE PERFORMANCE-BASED FINANCE APPROACH IN THE PROVINCE OF BUJUMBURA, MUNICIPAL DEPARTMENTS OF NTAHANGWA, MUGERE AND MUKAZA",
+   "buyer": "EXPERTISE FRANCE Tender Sector Infrastructure and construction Tender Service Wor",
+   "sector": "Services/conseil",
+   "deadline": "2026-12-14",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/verification-for-the-implementation-of-the-performance-based-finance-approach-in-16540029"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-18",
+   "resume": {
+    "objet": "VERIFICATION FOR THE IMPLEMENTATION OF THE PERFORMANCE-BASED FINANCE APPROACH IN THE PROVINCE OF BUJUMBURA, MUNICIPAL DEPARTMENTS OF NTAHANGWA, MUGERE AND MUKAZA",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from TED Europa and is eligible for suppliers interested in Financial consultancy, financial transaction processing and clearing-house services, Feasibility study, advisory service, analysis ."
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "3/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "VERIFICATION FOR THE IMPLEMENTATION OF THE PERFORMANCE-BASED FINANCE APPROACH IN THE PROVINCE OF BUJUMBURA, MUNICIPAL DEPARTMENTS OF NTAHANGWA, MUGERE AND MUKAZA",
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/verification-for-the-implementation-of-the-performance-based-finance-approach-in-16540029",
+     "page": null,
+     "passage": "VERIFICATION FOR THE IMPLEMENTATION OF THE PERFORMANCE-BASE… VERIFICATION FOR THE IMPLEMENTATION OF THE PERFORMANCE-BASED FINANCE APPROACH IN THE PROVINCE OF BUJUMBURA, MUNICIPAL DEPARTMENTS OF NTAHANGWA, MUGERE AND MUKAZA Tender Summary Th",
+     "confiance": "haute",
+     "verifie_le": "2026-11-18"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "acheteur": {
+     "valeur": "EXPERTISE FRANCE Tender Sector Infrastructure and construction Tender Service Wor",
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/verification-for-the-implementation-of-the-performance-based-finance-approach-in-16540029",
+     "page": null,
+     "passage": "Tender Details Tender Notice TI Ref: 16540029 Tender Notice No 799475-2026 Tender Organisation EXPERTISE FRANCE Tender Sector Infrastructure and construction Tender Service Worldwide Tender Region African Tender Project Location Burundi Ten",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-18"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2026-12-14",
+      "heure": null
+     },
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/verification-for-the-implementation-of-the-performance-based-finance-approach-in-16540029",
+     "page": null,
+     "passage": "The tender is due to expire on 14 Dec 2026 .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-18"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "lieu_execution": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "retrait_depot": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "conditions": {
+     "valeur": [
+      "This tender is sourced from TED Europa and is eligible for suppliers interested in Financial consultancy, financial transaction processing and clearing-house services, Feasibility study, advisory service, analysis "
+     ],
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/verification-for-the-implementation-of-the-performance-based-finance-approach-in-16540029",
+     "page": null,
+     "passage": "This tender is sourced from TED Europa and is eligible for suppliers interested in Financial consultancy, financial transaction processing and clearing-house services, Feasibility study, advisory service, analysis .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-18"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    },
+    "criteres_mode": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-18"
+    }
+   },
+   "completude_v2": {
+    "lus": 4,
+    "a_verifier": 0,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "4/14"
+   },
+   "fiabilite": {
+    "score": 75,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 8,
+     "critiques_verifies": 12,
+     "coherence": 15
+    }
+   },
+   "conflits": [],
+   "documents": [
+    {
+     "url": "https://tenderimpulse.com/government-tenders/burundi/verification-for-the-implementation-of-the-performance-based-finance-approach-in-16540029",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-18"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": false
+  },
+  {
+   "title": "Fourniture d' équipements TIC , de bureau et pour entretien pour les communes , OBUHA,OGR ( SP/CNF), SFC",
+   "buyer": "Ministry of Infrastructure",
+   "sector": "Travaux/BTP",
+   "deadline": "2026-12-14",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/fourniture-d-quipements-tic-de-bureau-et-pour-entretien-pour-les-communes-obuha-16580307"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-19",
+   "resume": {
+    "objet": "Fourniture d' équipements TIC , de bureau et pour entretien pour les communes , OBUHA,OGR ( SP/CNF), SFC",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from World Bank website and is eligible for suppliers interested in Office and computing machinery, equipment and supplies except furniture and software packages, Telecommunications equipment and supplies, R…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "3/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "Fourniture d' équipements TIC , de bureau et pour entretien pour les communes , OBUHA,OGR ( SP/CNF), SFC",
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/fourniture-d-quipements-tic-de-bureau-et-pour-entretien-pour-les-communes-obuha-16580307",
+     "page": null,
+     "passage": "Fourniture d' équipements TIC , de bureau et pour entretien… Fourniture d' équipements TIC , de bureau et pour entretien pour les communes , OBUHA,OGR ( SP/CNF), SFC Tender Summary The Ministry of Infrastructure, Equipment and Social Housin",
+     "confiance": "haute",
+     "verifie_le": "2026-11-19"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "acheteur": {
+     "valeur": "Ministry of Infrastructure",
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/fourniture-d-quipements-tic-de-bureau-et-pour-entretien-pour-les-communes-obuha-16580307",
+     "page": null,
+     "passage": "Fourniture d' équipements TIC , de bureau et pour entretien… Fourniture d' équipements TIC , de bureau et pour entretien pour les communes , OBUHA,OGR ( SP/CNF), SFC Tender Summary The Ministry of Infrastructure, Equipment and Social Housin",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-19"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2026-12-14",
+      "heure": null
+     },
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/fourniture-d-quipements-tic-de-bureau-et-pour-entretien-pour-les-communes-obuha-16580307",
+     "page": null,
+     "passage": "The tender is due to expire on 14 Dec 2026 .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-19"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "lieu_execution": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "retrait_depot": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "conditions": {
+     "valeur": [
+      "This tender is sourced from World Bank website and is eligible for suppliers interested in Office and computing machinery, equipment and supplies except furniture and software packages, Telecommunications equipment and supplies, Repair, maintenance and associated services related to personal computers, office equipment, telecommunications and audio-visual equipment, Maintenance of information technology equipment, Computer equipment and supplies "
+     ],
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/fourniture-d-quipements-tic-de-bureau-et-pour-entretien-pour-les-communes-obuha-16580307",
+     "page": null,
+     "passage": "This tender is sourced from World Bank website and is eligible for suppliers interested in Office and computing machinery, equipment and supplies except furniture and software packages, Telecommunications equipment and supplies, Repair, mai",
+     "confiance": "haute",
+     "verifie_le": "2026-11-19"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "criteres_mode": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    }
+   },
+   "completude_v2": {
+    "lus": 4,
+    "a_verifier": 0,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "4/14"
+   },
+   "fiabilite": {
+    "score": 75,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 8,
+     "critiques_verifies": 12,
+     "coherence": 15
+    }
+   },
+   "conflits": [],
+   "documents": [
+    {
+     "url": "https://tenderimpulse.com/government-tenders/burundi/fourniture-d-quipements-tic-de-bureau-et-pour-entretien-pour-les-communes-obuha-16580307",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-19"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": false
+  },
+  {
+   "title": "Fourniture des semences d’oignons rouge pour 60 centres de rayonnement communautaires",
+   "buyer": "PRODER",
+   "sector": "Fournitures/agro",
+   "deadline": "2026-12-19",
+   "deadline_source": "page web",
+   "reference": "DNCMP/316/F/2026-2027",
+   "dossier_cost": "200.000 BIF",
+   "guarantee": "4 500 000 BIF",
+   "lots": null,
+   "sources": [
+    {
+     "name": "BurundiJobs",
+     "url": "https://www.burundijobs.bi/job/fourniture-des-semences-doignons-rouge-pour-60-centres-de-rayonnement-communautaires/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-20",
+   "resume": {
+    "objet": "La fourniture semences d’oignons rouge pour 60 centres de rayonnement communautaires",
+    "heure": "10h00",
+    "mode": "Appel d'offres ouvert international",
+    "lieu": "Buhumuza, Bujumbura et Burunga",
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "L’acheteur invite à présent les entités remplissant les conditions requises (soumissionnaires) à communiquer leurs offres sous pli cacheté pour la fourniture semences d’oignons rouge pour 60 centres de rayonnement communautaires .",
+     "L’appel d’offres est ouvert à quiconque souhaite y répondre, pourvu qu’il remplisse les conditions requises."
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": "Le Dossier d’Appel d’Offres peut être consulté au secrétariat du Programme de Développement de l’Entrepreneuriat Rural « PRODER », sise Avenue du Large n° 30, Zone KININDO ; Commune MUGERE ; Province de Bujumbura/Burundi ; Immeuble des Projets/Programmes financés par le FIDA au Burundi ; 1 èr étage,…",
+    "contact": "+257 22 21 12 00",
+    "depot": "L’acheteur invite à présent les entités remplissant les conditions requises (soumissionnaires) à communiquer leurs offres sous pli cacheté pour la fourniture semences d’oignons rouge pour 60 centres de rayonnement communautaires .",
+    "ouverture": "Date d’ouverture des offres : Le 21/12/2026 à 10heures 30minutes Le gouvernement du Burundi a obtenu un financement du Fonds international de développement agricole (",
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "13/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "La fourniture semences d’oignons rouge pour 60 centres de rayonnement communautaires",
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/fourniture-des-semences-doignons-rouge-pour-60-centres-de-rayonnement-communautaires/",
+     "page": null,
+     "passage": "Avis d’appel d’offres National Ouvert N° DNCMP/316/F/2026-2027 relatif à la fourniture semences d’oignons rouge pour 60 centres de rayonnement communautaires.",
+     "confiance": "haute",
+     "verifie_le": "2026-11-20"
+    },
+    "quantites_lots": {
+     "valeur": {
+      "nb_lots": null,
+      "description": "60 centres"
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/fourniture-des-semences-doignons-rouge-pour-60-centres-de-rayonnement-communautaires/",
+     "page": null,
+     "passage": "Les biens et services connexes, ainsi que le marché qu’il est prévu d’attribuer, sont en lot unique portant sur la fourniture des semences d’oignons rouge pour 60 centres de rayonnement communautaires.",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-20"
+    },
+    "acheteur": {
+     "valeur": "PRODER",
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/fourniture-des-semences-doignons-rouge-pour-60-centres-de-rayonnement-communautaires/",
+     "page": null,
+     "passage": "Le FIDA et ses représentants, mandataires et fonctionnaires sont dégagés de toute responsabilité concernant les actions en justice, procédures, réclamations, demandes, pertes et obligations en tout genre et de toute nature qu’une quelconque",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-20"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2026-12-19",
+      "heure": "10h00"
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/fourniture-des-semences-doignons-rouge-pour-60-centres-de-rayonnement-communautaires/",
+     "page": null,
+     "passage": "Emplois Appel d’offres Recruteurs Poster une offre Trouver un freelancer accuel offres d’emplois Fourniture des semences d’oignons rouge pour 60 centres de rayonnement communautaires Fourniture des semences d’oignons rouge pour 60 centres d",
+     "confiance": "haute",
+     "verifie_le": "2026-11-20"
+    },
+    "ouverture_plis": {
+     "valeur": {
+      "date": "2026-12-21",
+      "heure": "10h00",
+      "lieu": null
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/fourniture-des-semences-doignons-rouge-pour-60-centres-de-rayonnement-communautaires/",
+     "page": null,
+     "passage": "Les offres doivent parvenir à l’adresse ci-dessous et selon les modalités indiquées dans les données particulières de l’appel d’offres – clause 24 des instructions à l’intention des soumissionnaires, au plus tard le 21/12/2026 à 10 heures.",
+     "confiance": "haute",
+     "verifie_le": "2026-11-20"
+    },
+    "prix_dossier": {
+     "valeur": "200.000 BIF",
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/fourniture-des-semences-doignons-rouge-pour-60-centres-de-rayonnement-communautaires/",
+     "page": null,
+     "passage": "Il peut être obtenu à l’adresse indiquée ci-dessus moyennant paiement d’un montant non remboursable de deux cent mille Francs Burundi (Bif 200.000) dont la moitié cent mille (100.000 BIF) sera versée sur le sous- compte des recettes non fis",
+     "confiance": "haute",
+     "verifie_le": "2026-11-20"
+    },
+    "garantie": {
+     "valeur": {
+      "montant": "4 500 000 BIF",
+      "par_lot": []
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/fourniture-des-semences-doignons-rouge-pour-60-centres-de-rayonnement-communautaires/",
+     "page": null,
+     "passage": "Toutes les offres devront être accompagnées d’une garantie de soumission de Quatre millions cinq cent mille de francs Burundais (4 500 000 BIF).",
+     "confiance": "haute",
+     "verifie_le": "2026-11-20"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-20"
+    },
+    "lieu_execution": {
+     "valeur": "Buhumuza, Bujumbura, Burunga",
+     "statut": "À VÉRIFIER",
+     "source_doc": "https://www.burundijobs.bi/job/fourniture-des-semences-doignons-rouge-pour-60-centres-de-rayonnement-communautaires/",
+     "page": null,
+     "passage": "multifonctionnels de stockage des productions agricoles dans les provinces de Buhumuza, Bujumbura et Burunga Programme de Développement de l’Entrepreneuriat Rural « PRODER » Bujumbura Un bureau de conseil chargé de réaliser une étude sur la",
+     "confiance": "faible",
+     "verifie_le": "2026-11-20"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-20"
+    },
+    "retrait_depot": {
+     "valeur": {
+      "retrait": {
+       "lieu": "Adresse ci-dessous (voir Dépôt) · www.youtube.com",
+       "contact": "+257 22 21 12 00"
+      },
+      "depot": {
+       "modes": [
+        "Sous pli cacheté"
+       ]
+      }
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/fourniture-des-semences-doignons-rouge-pour-60-centres-de-rayonnement-communautaires/",
+     "page": null,
+     "passage": "1 èr étage, Tél : +257 22 21 12 00 et [email protected] , sur le site web des marchés publics du Burundi wwwarmp.bi, et sur le site de Burundi Jobs wwwburundijobs.bi .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-20"
+    },
+    "conditions": {
+     "valeur": [
+      "(soumissionnaires) à communiquer leurs offres sous pli cacheté pour la fourniture semences d’oignons rouge pour 60 centres de rayonnement communautaires ",
+      "On trouvera de plus amples informations concernant ces biens et les services connexes sur le bordereau des quantités/calendrier de livraison qui figure dans le présent dossier d’appel d’offres",
+      "L’appel d’offres est ouvert à quiconque souhaite y répondre, pourvu qu’il remplisse les"
+     ],
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/fourniture-des-semences-doignons-rouge-pour-60-centres-de-rayonnement-communautaires/",
+     "page": null,
+     "passage": "On trouvera de plus amples informations concernant ces biens et les services connexes sur le bordereau des quantités/calendrier de livraison qui figure dans le présent dossier d’appel d’offres.",
+     "confiance": "haute",
+     "verifie_le": "2026-11-20"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-20"
+    },
+    "criteres_mode": {
+     "valeur": {
+      "criteres": null,
+      "mode": "Appel d'offres ouvert international"
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/fourniture-des-semences-doignons-rouge-pour-60-centres-de-rayonnement-communautaires/",
+     "page": null,
+     "passage": "D'ENFANTS Appel d’offres pour la fourniture de fertilisants ONE ACRE FUND TUBURA Manifestation d’intérêt pour la constitution et l’actualisation de la base de données des fournisseurs et prestataires BBCI SM Bujumbura Fourniture de machine ",
+     "confiance": "haute",
+     "verifie_le": "2026-11-20"
+    }
+   },
+   "completude_v2": {
+    "lus": 10,
+    "a_verifier": 1,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "10/14"
+   },
+   "fiabilite": {
+    "score": 78,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 8,
+     "critiques_verifies": 20,
+     "coherence": 10
+    }
+   },
+   "conflits": [
+    {
+     "champ": "lieu_execution",
+     "valeurs": [
+      "Buhumuza, Bujumbura, Burunga"
+     ],
+     "detail": "Lieu absent du texte cadré de l'avis (pollution plateforme suspectée) — à vérifier."
+    }
+   ],
+   "documents": [
+    {
+     "url": "https://www.burundijobs.bi/job/fourniture-des-semences-doignons-rouge-pour-60-centres-de-rayonnement-communautaires/",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-20"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": 4500000,
+   "dossier_num": 200000,
+   "is_new": false
+  },
+  {
    "title": "ARCT: Acquisition des équipements, applications, matériel et logiciels pour le CERT national afin de permettre des capacités de renseignement sur les menaces, de prévention, d'",
    "buyer": null,
    "sector": "IT/numérique",
@@ -23325,6 +26295,1100 @@
      "type": "page",
      "role": "avis",
      "collecte_le": "2026-11-15"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": false
+  },
+  {
+   "title": "Appel d’Offres pour l’acquisition de deux (02) véhicules SUV châssis long électriques et de trois (03) motos tout terrain",
+   "buyer": "PRODER",
+   "sector": "Énergie",
+   "deadline": "2027-01-04",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": "17 000 000 BIF",
+   "lots": 2,
+   "sources": [
+    {
+     "name": "BurundiJobs",
+     "url": "https://www.burundijobs.bi/job/appel-doffres-pour-lacquisition-de-deux-02-vehicules-suv-chassis-long-electriques-et-de-trois-03-motos-tout-terrain/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-21",
+   "resume": {
+    "objet": "Le montant ci-après en BIF ou toute autre monnaie librement convertible : Lot 1 : Dix-sept millions de francs Burundi (17 000 000 BIF) ou l’équivalent en devises convertibles au Burundi Lot 2 : Un million deux cent mille de francs Burundi (1 200 000 BIF) ou l’équivalent en devises convertibles au Burundi La source du taux de change est : Banque de la République du Burundi… — Quantités énoncées : 60 centres, 60 centres",
+    "heure": "10h00",
+    "mode": "Appel d'offres ouvert national",
+    "lieu": "Buhumuza, Bujumbura et Burunga",
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Le Projet d’Accès à l’Eau Potable et à l’Assainissement au Burundi (PAEPA AMAZI IWACU) sollicite des offres fermées de la part de soumissionnaires éligibles et répondant aux qualifications requises pour fournir de matériel roulant…",
+     "La passation du Marché sera conduite par Mise en Concurrence ouverte nationale (AON) tel que défini dans le « Règlement de Passation des Marchés pour les Emprunteurs sollicitant le Financement de Projets d’Investissement » de la B…",
+     "Les soumissionnaires éligibles et intéressés peuvent obtenir des informations auprès du Projet d’Accès à l’Eau Potable et à l’Assainissement au Burundi (PAEPA AMAZI IWACU), UGP MRMEICT, et prendre connaissance des documents d’Appe…",
+     "A l’Attention de Monsieur Epimaque MURENGERANTWARI, Coordonnateur du Projet, Téléphone : +257 61 438 686, e-mail : [email protected] , avec copies à : [email protected] , [email protected] et [email protected] Les Soumissionnaires…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": "Date d’ouverture des offres)",
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "9/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "Le montant ci-après en BIF ou toute autre monnaie librement convertible : Lot 1 : Dix-sept millions de francs Burundi (17 000 000 BIF) ou l’équivalent en devises convertibles au Burundi Lot 2 : Un million deux cent mille de francs Burundi (1 200 000 BIF) ou l’équivalent en devises convertibles au Burundi La source du",
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/appel-doffres-pour-lacquisition-de-deux-02-vehicules-suv-chassis-long-electriques-et-de-trois-03-motos-tout-terrain/",
+     "page": null,
+     "passage": "Toutes les offres doivent comprendre une garantie Bancaire de l’offre pour le montant ci-après en BIF ou toute autre monnaie librement convertible : Lot 1 : Dix-sept millions de francs Burundi (17 000 000 BIF) ou l’équivalent en devises con",
+     "confiance": "haute",
+     "verifie_le": "2026-11-21"
+    },
+    "quantites_lots": {
+     "valeur": {
+      "nb_lots": 2,
+      "description": "02 véhicules, 03 motos"
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/appel-doffres-pour-lacquisition-de-deux-02-vehicules-suv-chassis-long-electriques-et-de-trois-03-motos-tout-terrain/",
+     "page": null,
+     "passage": "Le marché est constitué de deux lots à savoir : Lot 1 : Acquisition de deux (02) véhicules SUV châssis long électriques pour les deux UGP du PAEPA AMAZI IWACU Lot 2 : Acquisition de trois (03) motos tout terrain pour les Départements Eau-En",
+     "confiance": "haute",
+     "verifie_le": "2026-11-21"
+    },
+    "acheteur": {
+     "valeur": "PRODER",
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/appel-doffres-pour-lacquisition-de-deux-02-vehicules-suv-chassis-long-electriques-et-de-trois-03-motos-tout-terrain/",
+     "page": null,
+     "passage": "Téléphone : +257 61 438 686 Fait à Bujumbura, le ……… Novembre 2026 Epimaque MURENGERANTWARI Coordonnateur du PAEPA AMAZI IWACU, UGP MRMEICT Partager: imprimer Emploi lié Responsable Administratif et Financier TERRE DES HOMMES Fourniture des",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-21"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2027-01-04",
+      "heure": "10h00"
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/appel-doffres-pour-lacquisition-de-deux-02-vehicules-suv-chassis-long-electriques-et-de-trois-03-motos-tout-terrain/",
+     "page": null,
+     "passage": "4 janvier 2027 PROJET D’ACCES A L’EAU POTABLE ET A L’ASSAINISSEMENT AU BURUNDI « PAEPA-UGP MRMEICT » N° du projet : P507207 Financement : Don IDA n°E6160-BI Appel d’Offres pour l’acquisition de matériel roulant pour les deux UGP du PAEPA et",
+     "confiance": "haute",
+     "verifie_le": "2026-11-21"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-21"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-21"
+    },
+    "garantie": {
+     "valeur": {
+      "montant": "17 000 000 BIF",
+      "par_lot": []
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/appel-doffres-pour-lacquisition-de-deux-02-vehicules-suv-chassis-long-electriques-et-de-trois-03-motos-tout-terrain/",
+     "page": null,
+     "passage": "Toutes les offres doivent comprendre une garantie Bancaire de l’offre pour le montant ci-après en BIF ou toute autre monnaie librement convertible : Lot 1 : Dix-sept millions de francs Burundi (17 000 000 BIF) ou l’équivalent en devises con",
+     "confiance": "haute",
+     "verifie_le": "2026-11-21"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-21"
+    },
+    "lieu_execution": {
+     "valeur": "Buhumuza, Bujumbura, Burunga",
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/appel-doffres-pour-lacquisition-de-deux-02-vehicules-suv-chassis-long-electriques-et-de-trois-03-motos-tout-terrain/",
+     "page": null,
+     "passage": "un modèle institutionnel de gestion d’infrastructures publiques pour durabilité : marchés et ports dans les sites d’intervention du PFCIGL PFCIGL Un bureau d’études chargé de la réalisation des études technico-économiques et de l’étude d’im",
+     "confiance": "haute",
+     "verifie_le": "2026-11-21"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-21"
+    },
+    "retrait_depot": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-21"
+    },
+    "conditions": {
+     "valeur": [
+      "Pour fournir de matériel roulant pour les deux UGP du PAEPA et les partenaires d’exécution du Projet",
+      "La passation du Marché sera conduite par Mise en Concurrence ouverte nationale (AON) tel que défini dans le « Règlement de Passation des Marchés pour les Emprunteurs sollicitant le Financement de Projets d’Investissement » de la Banque mondiale à savoir « Passation des Marchés dans le cadre du Financement de Projets d’Investissement (FPI) : Fourniture, travaux, services autres que des Services de consultants et services de consultants, daté de septembre 2025 » et ouverte à tous les soumissionnaires de pays éligibles tels que définis dans le dit-Règlement",
+      "Les soumissionnaires éligibles et intéressés peuvent obtenir des informations auprès du Projet d’Accès à l’Eau Potable et à l’Assainissement au Burundi (PAEPA AMAZI IWACU), UGP MRMEICT, et prendre connaissance des documents d’Appel d’offres durant les heures de bureau de Lundi à Vendredi (08h30 à 12h00 et 14h30 à 17h00) à l’adresse mentionnée ci-dessous : PAEPA- UGP MRMEICT sis à BUJUMBURA, Commune NTAHANGWA, Kigobe Sud, Avenue des Etats Unis n°68",
+      "A l’Attention de Monsieur Epimaque MURENGERANTWARI, Coordonnateur du Projet, Téléphone : +257 61 438 686, e-mail : [email protected] , avec copies à : [email protected] , [email protected] et [email protected] Les Soumissionnaires intéressés et éligibles peuvent obtenir un dossier d’appel d’offres complet en Français, en formulant une demande écrite à l’adresse mentionnée ci-dessous et contre un paiement non remboursable de deux cent cinquante mille (250 000) BIF ",
+      "La méthode de paiement sera par virement ou versement à parts égales, soit 50% au compte n ° 04104582328 ouvert à la Banque de la République du Burundi (BRB) au nom du « PAEPA GOV/BIF » et 50% au compte n°01104582385 ouvert à la Banque de la République du Burundi (BRB) au nom de l’Office Burundais des Recettes (OBR)",
+      "Le dossier d’appel d’offres sera obtenu par retrait directement auprès de l’Acheteur à l’adresse ci-dessous, ou par voie électronique pour les soumissionnaires se trouvant à l’étranger ",
+      "Le marché est constitué de deux lots"
+     ],
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/appel-doffres-pour-lacquisition-de-deux-02-vehicules-suv-chassis-long-electriques-et-de-trois-03-motos-tout-terrain/",
+     "page": null,
+     "passage": "Les soumissionnaires éligibles et intéressés peuvent obtenir des informations auprès du Projet d’Accès à l’Eau Potable et à l’Assainissement au Burundi (PAEPA AMAZI IWACU), UGP MRMEICT, et prendre connaissance des documents d’Appel d’offres",
+     "confiance": "haute",
+     "verifie_le": "2026-11-21"
+    },
+    "documents_requis": {
+     "valeur": [
+      "Lot 1 : Acquisition de deux (02) véhicules SUV châssis long électriques pour les deux UGP du PAEPA AMAZI IWACU Lot 2 : Acquisition de trois (03) motos tout terrain pour les Départements Eau-Energie-Carrière de la commune Butihinda ciblée (01), pour AHAMR (01) et CPEA Province Buhumuza (01) Chaque lot est indépendant et le soumissionnaire peut gagner tous les deux lots",
+      "Les offres devront être soumises à l’adresse ci-dessous au plus tard le lundi 04/01 /2027 à 10 h00, heure locale ",
+      "La soumission des offres par voie électronique ne sera pas autorisée",
+      "Les offres remises en retard ne seront pas acceptées",
+      "Les offres seront ouvertes publiquement le même jour, en présence des représentants des Soumissionnaires et de toute personne choisissant d’être présente à l’adresse mentionnée ci-dessous à 10 h15minutes, heure locale ",
+      "Toutes les offres doivent comprendre une garantie Bancaire de l’offre pour le montant ci-après en BIF ou toute autre monnaie librement convertible : Lot 1 : Dix-sept millions de francs Burundi (17 000 000 BIF) ou l’équivalent en devises convertibles au Burundi Lot 2 : Un million deux cent mille de francs Burundi (1 200 000 BIF) ou l’équivalent en devises convertibles au Burundi La source du taux de change est : Banque de la République du Burundi (BRB) au taux vendeur",
+      "La date de référence pour le taux de change appliqué sera le 04/01/2027 (Taux vendeur de la date d’ouverture des offres)",
+      "La garantie de soumission demeurera valide pendant vingt-huit jours (28) après l’expiration de la période de validité de l’offre",
+      "NB : En cas de saisie de la garantie, si le montant de ladite garantie est libellé dans une devise étrangère, le paiement par la banque ou l’institution émettrice devra être effectué à première demande, sans contestation ni délai, dans la même devise que celle indiquée dans la garantie",
+      "Le Projet d’Accès à l’Eau Potable et à l’Assainissement au Burundi (PAEPA AMAZI IWACU) ne saurait accepter un paiement en monnaie locale en substitution",
+      "L’attention est attirée sur le Règlement de Passation de Marchés exigeant que l’Emprunteur divulgue des informations sur la propriété effective du Soumissionnaire retenu, dans le cadre de la Notification d’Attribution du Marché, en utilisant le Formulaire de Divulgation des Bénéficiaires Effectifs tel qu’il est inclus dans le document d’appel d’offres",
+      "Les adresses auxquelles il est fait référence ci-dessus sont : Projet d’Accès à l’Eau Potable et à l’Assainissement au Burundi (PAEPA AMAZI IWACU) /UGP MRMEICT A l’attention de Monsieur Epimaque MURENGERANTWARI, Coordonnateur Commune NTAHANGWA, Kigobe Sud, Avenue des Etats Unis, n°68"
+     ],
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/appel-doffres-pour-lacquisition-de-deux-02-vehicules-suv-chassis-long-electriques-et-de-trois-03-motos-tout-terrain/",
+     "page": null,
+     "passage": "Le marché est constitué de deux lots à savoir : Lot 1 : Acquisition de deux (02) véhicules SUV châssis long électriques pour les deux UGP du PAEPA AMAZI IWACU Lot 2 : Acquisition de trois (03) motos tout terrain pour les Départements Eau-En",
+     "confiance": "haute",
+     "verifie_le": "2026-11-21"
+    },
+    "criteres_mode": {
+     "valeur": {
+      "criteres": null,
+      "mode": "Appel d'offres ouvert national"
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/appel-doffres-pour-lacquisition-de-deux-02-vehicules-suv-chassis-long-electriques-et-de-trois-03-motos-tout-terrain/",
+     "page": null,
+     "passage": "dolomie pour les centres de rayonnement Programme de Développement de l’Entrepreneuriat Rural « PRODER » Avis d’appel d’offres ouvert national de fourniture des aliments pour les porcins.",
+     "confiance": "haute",
+     "verifie_le": "2026-11-21"
+    }
+   },
+   "completude_v2": {
+    "lus": 9,
+    "a_verifier": 0,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "9/14"
+   },
+   "fiabilite": {
+    "score": 82,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 8,
+     "critiques_verifies": 19,
+     "coherence": 15
+    }
+   },
+   "conflits": [],
+   "documents": [
+    {
+     "url": "https://www.burundijobs.bi/job/appel-doffres-pour-lacquisition-de-deux-02-vehicules-suv-chassis-long-electriques-et-de-trois-03-motos-tout-terrain/",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-21"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": "Buhumuza",
+   "garantie_num": 17000000,
+   "dossier_num": null,
+   "is_new": true
+  },
+  {
+   "title": "Acquisition d'une plateforme d'interopérabilité gouvernementale intégrant un système PKI (Infrastructure à clés publiques)",
+   "buyer": "Ministry of Communication",
+   "sector": "Travaux/BTP",
+   "deadline": "2027-01-11",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/acquisition-d-une-plateforme-d-interop-rabilit-gouvernementale-int-grant-un-syst-16626587"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-20",
+   "resume": {
+    "objet": "Acquisition d'une plateforme d'interopérabilité gouvernementale intégrant un système PKI (Infrastructure à clés publiques)",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from World Bank website and is eligible for suppliers interested in Information systems and servers, Information systems, Platform interconnectivity software development services, Government services ."
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "72212211",
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "4/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "Acquisition d'une plateforme d'interopérabilité gouvernementale intégrant un système PKI (Infrastructure à clés publiques)",
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/acquisition-d-une-plateforme-d-interop-rabilit-gouvernementale-int-grant-un-syst-16626587",
+     "page": null,
+     "passage": "Acquisition d'une plateforme d'interopérabilité gouvernemen… Acquisition d'une plateforme d'interopérabilité gouvernementale intégrant un système PKI (Infrastructure à clés publiques) Tender Summary The Ministry of Communication, Informatio",
+     "confiance": "haute",
+     "verifie_le": "2026-11-20"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-20"
+    },
+    "acheteur": {
+     "valeur": "Ministry of Communication",
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/acquisition-d-une-plateforme-d-interop-rabilit-gouvernementale-int-grant-un-syst-16626587",
+     "page": null,
+     "passage": "Acquisition d'une plateforme d'interopérabilité gouvernemen… Acquisition d'une plateforme d'interopérabilité gouvernementale intégrant un système PKI (Infrastructure à clés publiques) Tender Summary The Ministry of Communication, Informatio",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-20"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2027-01-11",
+      "heure": null
+     },
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/acquisition-d-une-plateforme-d-interop-rabilit-gouvernementale-int-grant-un-syst-16626587",
+     "page": null,
+     "passage": "The tender is due to expire on 11 Jan 2027 .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-20"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-20"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-20"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-20"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-20"
+    },
+    "lieu_execution": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-20"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-20"
+    },
+    "retrait_depot": {
+     "valeur": {
+      "retrait": {
+       "contact": "72212211"
+      },
+      "depot": null
+     },
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/acquisition-d-une-plateforme-d-interop-rabilit-gouvernementale-int-grant-un-syst-16626587",
+     "page": null,
+     "passage": "Tender Details Tender Notice TI Ref: 16626587 Tender Notice No BI-PAFEN-PIU-2.3.1.5-NC-RFB Tender Organisation Ministry of Communication, Information Technology and Media - Executive Secretariat for ICT (SETIC) Tender Sector IT-Software Ten",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-20"
+    },
+    "conditions": {
+     "valeur": [
+      "This tender is sourced from World Bank website and is eligible for suppliers interested in Information systems and servers, Information systems, Platform interconnectivity software development services, Government services "
+     ],
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/acquisition-d-une-plateforme-d-interop-rabilit-gouvernementale-int-grant-un-syst-16626587",
+     "page": null,
+     "passage": "This tender is sourced from World Bank website and is eligible for suppliers interested in Information systems and servers, Information systems, Platform interconnectivity software development services, Government services .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-20"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-20"
+    },
+    "criteres_mode": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-20"
+    }
+   },
+   "completude_v2": {
+    "lus": 5,
+    "a_verifier": 0,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "5/14"
+   },
+   "fiabilite": {
+    "score": 75,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 8,
+     "critiques_verifies": 12,
+     "coherence": 15
+    }
+   },
+   "conflits": [],
+   "documents": [
+    {
+     "url": "https://tenderimpulse.com/government-tenders/burundi/acquisition-d-une-plateforme-d-interop-rabilit-gouvernementale-int-grant-un-syst-16626587",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-20"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": false
+  },
+  {
+   "title": "Appel    manifestation d   int  r  t N   PIPARV-B 51 AMI 2025-2026 pour le recrutement d   un Consultant individuel charg   d   assurer la formation des cadres du Projet  les utili",
+   "buyer": null,
+   "sector": "Services/conseil",
+   "deadline": "2027-04-18",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/appel-manifestation-d-int-r-t-n-piparv-b-51-ami-2025-2026-pour-le-recrutement-d-13405819"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-19",
+   "resume": {
+    "objet": "Appel manifestation d int r t N PIPARV-B 51 AMI 2025-2026 pour le recrutement d un Consultant individuel charg d assurer la formation des cadres du Projet les utili",
+    "heure": null,
+    "mode": "Avis à manifestation d'intérêt (AMI)",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from Burundi procurement and is eligible for suppliers interested in Software programming and consultancy services, Training software development services, Software consultancy services, Survey services, Sur…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "4/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "Appel manifestation d int r t N PIPARV-B 51 AMI 2025-2026 pour le recrutement d un Consultant individuel charg d assurer la formation des cadres du Projet les utili",
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/appel-manifestation-d-int-r-t-n-piparv-b-51-ami-2025-2026-pour-le-recrutement-d-13405819",
+     "page": null,
+     "passage": "Appel manifestation d int r t N PIPARV-B 51 AMI 20… Appel manifestation d int r t N PIPARV-B 51 AMI 2025-2026 pour le recrutement d un Consultant individuel charg d assurer la formation des cadres du Projet les utilisateurs du RUCHE et les ",
+     "confiance": "haute",
+     "verifie_le": "2026-11-19"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "acheteur": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2027-04-18",
+      "heure": null
+     },
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/appel-manifestation-d-int-r-t-n-piparv-b-51-ami-2025-2026-pour-le-recrutement-d-13405819",
+     "page": null,
+     "passage": "The tender is due to expire on 18 Apr 2027 .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-19"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "lieu_execution": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "retrait_depot": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "conditions": {
+     "valeur": [
+      "This tender is sourced from Burundi procurement and is eligible for suppliers interested in Software programming and consultancy services, Training software development services, Software consultancy services, Survey services, Survey analysis services "
+     ],
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/appel-manifestation-d-int-r-t-n-piparv-b-51-ami-2025-2026-pour-le-recrutement-d-13405819",
+     "page": null,
+     "passage": "This tender is sourced from Burundi procurement and is eligible for suppliers interested in Software programming and consultancy services, Training software development services, Software consultancy services, Survey services, Survey analys",
+     "confiance": "haute",
+     "verifie_le": "2026-11-19"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "criteres_mode": {
+     "valeur": {
+      "criteres": null,
+      "mode": "Avis à manifestation d'intérêt (AMI)"
+     },
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/appel-manifestation-d-int-r-t-n-piparv-b-51-ami-2025-2026-pour-le-recrutement-d-13405819",
+     "page": null,
+     "passage": "Appel manifestation d int r t N PIPARV-B 51 AMI 20… Appel manifestation d int r t N PIPARV-B 51 AMI 2025-2026 pour le recrutement d un Consultant individuel charg d assurer la formation des cadres du Projet les utilisateurs du RUCHE et les ",
+     "confiance": "haute",
+     "verifie_le": "2026-11-19"
+    }
+   },
+   "completude_v2": {
+    "lus": 4,
+    "a_verifier": 0,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "4/14"
+   },
+   "fiabilite": {
+    "score": 88,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 8,
+     "critiques_verifies": 25,
+     "coherence": 15
+    }
+   },
+   "conflits": [],
+   "documents": [
+    {
+     "url": "https://tenderimpulse.com/government-tenders/burundi/appel-manifestation-d-int-r-t-n-piparv-b-51-ami-2025-2026-pour-le-recrutement-d-13405819",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-19"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": false
+  },
+  {
+   "title": "Lettre d   invitation Demande de Proposition N   DNCMP 141 S 2025-2026",
+   "buyer": null,
+   "sector": "Autre",
+   "deadline": "2027-05-21",
+   "deadline_source": "page web",
+   "reference": "DNCMP141S2025-2026",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/lettre-d-invitation-demande-de-proposition-n-dncmp-141-s-2025-2026-13405818"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-21",
+   "resume": {
+    "objet": "Lettre d invitation Demande de Proposition N DNCMP 141 S 2025-2026",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from Burundi procurement and is eligible for suppliers interested in Procurement consultancy services, Consulting Tenders, consultancy services ."
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "4/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "Lettre d invitation Demande de Proposition N DNCMP 141 S 2025-2026",
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/lettre-d-invitation-demande-de-proposition-n-dncmp-141-s-2025-2026-13405818",
+     "page": null,
+     "passage": "Lettre d invitation Demande de Proposition N DNCMP 141 … Lettre d invitation Demande de Proposition N DNCMP 141 S 2025-2026 Tender Summary The Public Procurement Burundi in Burundi from African region has released this tender for Lettre d i",
+     "confiance": "haute",
+     "verifie_le": "2026-11-21"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-21"
+    },
+    "acheteur": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-21"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2027-05-21",
+      "heure": null
+     },
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/lettre-d-invitation-demande-de-proposition-n-dncmp-141-s-2025-2026-13405818",
+     "page": null,
+     "passage": "The tender is due to expire on 21 May 2027 .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-21"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-21"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-21"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-21"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-21"
+    },
+    "lieu_execution": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-21"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-21"
+    },
+    "retrait_depot": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-21"
+    },
+    "conditions": {
+     "valeur": [
+      "This tender is sourced from Burundi procurement and is eligible for suppliers interested in Procurement consultancy services, Consulting Tenders, consultancy services "
+     ],
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/lettre-d-invitation-demande-de-proposition-n-dncmp-141-s-2025-2026-13405818",
+     "page": null,
+     "passage": "This tender is sourced from Burundi procurement and is eligible for suppliers interested in Procurement consultancy services, Consulting Tenders, consultancy services .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-21"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-21"
+    },
+    "criteres_mode": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-21"
+    }
+   },
+   "completude_v2": {
+    "lus": 3,
+    "a_verifier": 0,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "3/14"
+   },
+   "fiabilite": {
+    "score": 88,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 8,
+     "critiques_verifies": 25,
+     "coherence": 15
+    }
+   },
+   "conflits": [],
+   "documents": [
+    {
+     "url": "https://tenderimpulse.com/government-tenders/burundi/lettre-d-invitation-demande-de-proposition-n-dncmp-141-s-2025-2026-13405818",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-21"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": true
+  },
+  {
+   "title": "DOSSIER D   APPEL D   OFFRES OUVERT NATIONAL N     DNCMP 149 S 2025-2026 RELATIF AU RECRUTEMENT D   UN BUREAU DE SURVEILLANCE DES TRAVAUX DE CONSTRUCTION D   UN IMMEUBLE COMMERCIAL",
+   "buyer": null,
+   "sector": "Travaux/BTP",
+   "deadline": "2027-06-19",
+   "deadline_source": "page web",
+   "reference": "DNCMP149S2025-2026",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/dossier-d-appel-d-offres-ouvert-national-n-dncmp-149-s-2025-2026-relatif-au-recr-13525406"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-19",
+   "resume": {
+    "objet": "DOSSIER D APPEL D OFFRES OUVERT NATIONAL N DNCMP 149 S 2025-2026 RELATIF AU RECRUTEMENT D UN BUREAU DE SURVEILLANCE DES TRAVAUX DE CONSTRUCTION D UN IMMEUBLE COMMERCIAL",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from Burundi procurement and is eligible for suppliers interested in Construction work for commercial buildings, Supervision of building work, Construction supervision services, Construction-site supervision…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "4/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "DOSSIER D APPEL D OFFRES OUVERT NATIONAL N DNCMP 149 S 2025-2026 RELATIF AU RECRUTEMENT D UN BUREAU DE SURVEILLANCE DES TRAVAUX DE CONSTRUCTION D UN IMMEUBLE COMMERCIAL",
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/dossier-d-appel-d-offres-ouvert-national-n-dncmp-149-s-2025-2026-relatif-au-recr-13525406",
+     "page": null,
+     "passage": "DOSSIER D APPEL D OFFRES OUVERT NATIONAL N DNCMP 14… DOSSIER D APPEL D OFFRES OUVERT NATIONAL N DNCMP 149 S 2025-2026 RELATIF AU RECRUTEMENT D UN BUREAU DE SURVEILLANCE DES TRAVAUX DE CONSTRUCTION D UN IMMEUBLE COMMERCIAL EN ETAGE CAVE R 5 ",
+     "confiance": "haute",
+     "verifie_le": "2026-11-19"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "acheteur": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2027-06-19",
+      "heure": null
+     },
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/dossier-d-appel-d-offres-ouvert-national-n-dncmp-149-s-2025-2026-relatif-au-recr-13525406",
+     "page": null,
+     "passage": "The tender is due to expire on 19 Jun 2027 .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-19"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "lieu_execution": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "retrait_depot": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "conditions": {
+     "valeur": [
+      "This tender is sourced from Burundi procurement and is eligible for suppliers interested in Construction work for commercial buildings, Supervision of building work, Construction supervision services, Construction-site supervision services "
+     ],
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/dossier-d-appel-d-offres-ouvert-national-n-dncmp-149-s-2025-2026-relatif-au-recr-13525406",
+     "page": null,
+     "passage": "This tender is sourced from Burundi procurement and is eligible for suppliers interested in Construction work for commercial buildings, Supervision of building work, Construction supervision services, Construction-site supervision services ",
+     "confiance": "haute",
+     "verifie_le": "2026-11-19"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    },
+    "criteres_mode": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-19"
+    }
+   },
+   "completude_v2": {
+    "lus": 3,
+    "a_verifier": 0,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "3/14"
+   },
+   "fiabilite": {
+    "score": 88,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 8,
+     "critiques_verifies": 25,
+     "coherence": 15
+    }
+   },
+   "conflits": [],
+   "documents": [
+    {
+     "url": "https://tenderimpulse.com/government-tenders/burundi/dossier-d-appel-d-offres-ouvert-national-n-dncmp-149-s-2025-2026-relatif-au-recr-13525406",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-19"
     }
    ],
    "historique": [],
@@ -29933,6 +33997,18 @@
      "type": "page",
      "role": "avis",
      "collecte_le": "2026-11-15"
+    },
+    {
+     "url": "https://armp.gov.bi/wp-content/uploads/2024/11/Addendum_39s2024-2025.pdf",
+     "type": "pdf",
+     "role": "addendum",
+     "collecte_le": "2026-11-18"
+    },
+    {
+     "url": "https://armp.gov.bi/archives/116",
+     "type": "page",
+     "role": "addendum",
+     "collecte_le": "2026-11-18"
     }
    ],
    "historique": [
@@ -29946,6 +34022,13 @@
       },
       "depot": null
      },
+     "source": "https://armp.gov.bi/archives/116"
+    },
+    {
+     "date": "2026-11-18",
+     "champ": "document lié",
+     "avant": null,
+     "apres": "Office Burundais des Recettes (OBR) : Addendum au DAO n° DNCMP/39/S/2024-2025, relatif à l’assurance des véhicules et motos",
      "source": "https://armp.gov.bi/archives/116"
     }
    ],
@@ -34150,9 +38233,9 @@
   }
  ],
  "sends": {
-  "date": "2026-11-17",
-  "source_run": "run-2026-11-17.json",
-  "total_new": 5,
+  "date": "2026-11-21",
+  "source_run": "run-2026-11-21.json",
+  "total_new": 2,
   "entries": []
  },
  "matches": {
