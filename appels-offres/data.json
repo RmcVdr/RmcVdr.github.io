@@ -1,12 +1,12 @@
 {
- "generated_at": "2026-11-21T05:19:33+00:00",
+ "generated_at": "2026-11-23T05:19:09+00:00",
  "run": {
-  "date": "2026-11-21",
+  "date": "2026-11-23",
   "sources": [
    {
     "name": "BurundiJobs",
     "status": "OK",
-    "count": 5,
+    "count": 4,
     "error": null
    },
    {
@@ -18,7 +18,7 @@
    {
     "name": "eSoko",
     "status": "OK",
-    "count": 5,
+    "count": 4,
     "error": null
    },
    {
@@ -30,7 +30,7 @@
    {
     "name": "PNUD",
     "status": "OK",
-    "count": 7,
+    "count": 5,
     "error": null
    },
    {
@@ -61,7 +61,7 @@
     "name": "dgMarket",
     "status": "ECHEC",
     "count": 0,
-    "error": "RuntimeError: dgMarket non exploitable — https://www.dgmarket.com/: ChunkedEncodingError: Response ended prematurely ; https://www.dgmarket.com/tender/81690343: ChunkedEncodingError: Response ended prematurely"
+    "error": "RuntimeError: dgMarket non exploitable — https://www.dgmarket.com/: ChunkedEncodingError: Response ended prematurely ; https://www.dgmarket.com/tender/81690343: ProxyError: HTTPSConnectionPool(host='www.dgmarket.com', port=443): Max r"
    },
    {
     "name": "ReliefWeb",
@@ -81,8 +81,8 @@
    "failed": 0,
    "failures": []
   },
-  "total_uniques": 72,
-  "nb_nouveaux": 2,
+  "total_uniques": 69,
+  "nb_nouveaux": 3,
   "nb_expires": 1
  },
  "tenders": [
@@ -26549,7 +26549,7 @@
    "province": "Buhumuza",
    "garantie_num": 17000000,
    "dossier_num": null,
-   "is_new": true
+   "is_new": false
   },
   {
    "title": "Acquisition d'une plateforme d'interopérabilité gouvernementale intégrant un système PKI (Infrastructure à clés publiques)",
@@ -26766,6 +26766,428 @@
    "garantie_num": null,
    "dossier_num": null,
    "is_new": false
+  },
+  {
+   "title": "APPEL A MANIFESTATION D   INTERET POUR LA CONSTITUTION D   UNEBASE DE DONNEES DES FOURNISSEURS ET DES PRESTATAIRES DESSERVICES DANS LE CADRE DU PROJET PLANTWISEPLUS BURUNDI  2026",
+   "buyer": null,
+   "sector": "Services/conseil",
+   "deadline": "2027-03-11",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/appel-a-manifestation-d-interet-pour-la-constitution-d-unebase-de-donnees-des-fo-13405817"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-23",
+   "resume": {
+    "objet": "APPEL A MANIFESTATION D INTERET POUR LA CONSTITUTION D UNEBASE DE DONNEES DES FOURNISSEURS ET DES PRESTATAIRES DESSERVICES DANS LE CADRE DU PROJET PLANTWISEPLUS BURUNDI 2026",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from Burundi procurement and is eligible for suppliers interested in Project management software development services, Project management consultancy services, Database services, Data supply services, Projec…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "3/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "APPEL A MANIFESTATION D INTERET POUR LA CONSTITUTION D UNEBASE DE DONNEES DES FOURNISSEURS ET DES PRESTATAIRES DESSERVICES DANS LE CADRE DU PROJET PLANTWISEPLUS BURUNDI 2026",
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/appel-a-manifestation-d-interet-pour-la-constitution-d-unebase-de-donnees-des-fo-13405817",
+     "page": null,
+     "passage": "APPEL A MANIFESTATION D INTERET POUR LA CONSTITUTION D … APPEL A MANIFESTATION D INTERET POUR LA CONSTITUTION D UNEBASE DE DONNEES DES FOURNISSEURS ET DES PRESTATAIRES DESSERVICES DANS LE CADRE DU PROJET PLANTWISEPLUS BURUNDI 2026 Tender Su",
+     "confiance": "haute",
+     "verifie_le": "2026-11-23"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-23"
+    },
+    "acheteur": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-23"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2027-03-11",
+      "heure": null
+     },
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/appel-a-manifestation-d-interet-pour-la-constitution-d-unebase-de-donnees-des-fo-13405817",
+     "page": null,
+     "passage": "The tender is due to expire on 11 Mar 2027 .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-23"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-23"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-23"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-23"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-23"
+    },
+    "lieu_execution": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-23"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-23"
+    },
+    "retrait_depot": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-23"
+    },
+    "conditions": {
+     "valeur": [
+      "This tender is sourced from Burundi procurement and is eligible for suppliers interested in Project management software development services, Project management consultancy services, Database services, Data supply services, Project-management services other than for construction work "
+     ],
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/appel-a-manifestation-d-interet-pour-la-constitution-d-unebase-de-donnees-des-fo-13405817",
+     "page": null,
+     "passage": "This tender is sourced from Burundi procurement and is eligible for suppliers interested in Project management software development services, Project management consultancy services, Database services, Data supply services, Project-manageme",
+     "confiance": "haute",
+     "verifie_le": "2026-11-23"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-23"
+    },
+    "criteres_mode": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-23"
+    }
+   },
+   "completude_v2": {
+    "lus": 3,
+    "a_verifier": 0,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "3/14"
+   },
+   "fiabilite": {
+    "score": 88,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 8,
+     "critiques_verifies": 25,
+     "coherence": 15
+    }
+   },
+   "conflits": [],
+   "documents": [
+    {
+     "url": "https://tenderimpulse.com/government-tenders/burundi/appel-a-manifestation-d-interet-pour-la-constitution-d-unebase-de-donnees-des-fo-13405817",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-23"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": true
+  },
+  {
+   "title": "AVIS DE RELANCE D   APPEL D   OFFRES OUVERT NATIONAL N   DNCMP 60 S 2025-2026 RELATIF A L   ASSURANCE INCENDIE DES IMMEUBLES  VILLAS ET DES EQUIPEMENTS DE L   INSS",
+   "buyer": "INSS",
+   "sector": "Fournitures/agro",
+   "deadline": "2027-03-12",
+   "deadline_source": "page web",
+   "reference": "DNCMP60S2025-2026",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/avis-de-relance-d-appel-d-offres-ouvert-national-n-dncmp-60-s-2025-2026-relatif-13405815"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-23",
+   "resume": {
+    "objet": "AVIS DE RELANCE D APPEL D OFFRES OUVERT NATIONAL N DNCMP 60 S 2025-2026 RELATIF A L ASSURANCE INCENDIE DES IMMEUBLES VILLAS ET DES EQUIPEMENTS DE L INSS",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from Burundi procurement and is eligible for suppliers interested in Fire-brigade and rescue services, Fire-prevention services ."
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "4/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "AVIS DE RELANCE D APPEL D OFFRES OUVERT NATIONAL N DNCMP 60 S 2025-2026 RELATIF A L ASSURANCE INCENDIE DES IMMEUBLES VILLAS ET DES EQUIPEMENTS DE L INSS",
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/avis-de-relance-d-appel-d-offres-ouvert-national-n-dncmp-60-s-2025-2026-relatif-13405815",
+     "page": null,
+     "passage": "AVIS DE RELANCE D APPEL D OFFRES OUVERT NATIONAL N DN… AVIS DE RELANCE D APPEL D OFFRES OUVERT NATIONAL N DNCMP 60 S 2025-2026 RELATIF A L ASSURANCE INCENDIE DES IMMEUBLES VILLAS ET DES EQUIPEMENTS DE L INSS Tender Summary The Public Procur",
+     "confiance": "haute",
+     "verifie_le": "2026-11-23"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-23"
+    },
+    "acheteur": {
+     "valeur": "INSS",
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/avis-de-relance-d-appel-d-offres-ouvert-national-n-dncmp-60-s-2025-2026-relatif-13405815",
+     "page": null,
+     "passage": "AVIS DE RELANCE D APPEL D OFFRES OUVERT NATIONAL N DN… AVIS DE RELANCE D APPEL D OFFRES OUVERT NATIONAL N DNCMP 60 S 2025-2026 RELATIF A L ASSURANCE INCENDIE DES IMMEUBLES VILLAS ET DES EQUIPEMENTS DE L INSS Tender Summary The Public Procur",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-23"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2027-03-12",
+      "heure": null
+     },
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/avis-de-relance-d-appel-d-offres-ouvert-national-n-dncmp-60-s-2025-2026-relatif-13405815",
+     "page": null,
+     "passage": "The tender is due to expire on 12 Mar 2027 .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-23"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-23"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-23"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-23"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-23"
+    },
+    "lieu_execution": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-23"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-23"
+    },
+    "retrait_depot": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-23"
+    },
+    "conditions": {
+     "valeur": [
+      "This tender is sourced from Burundi procurement and is eligible for suppliers interested in Fire-brigade and rescue services, Fire-prevention services "
+     ],
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/avis-de-relance-d-appel-d-offres-ouvert-national-n-dncmp-60-s-2025-2026-relatif-13405815",
+     "page": null,
+     "passage": "This tender is sourced from Burundi procurement and is eligible for suppliers interested in Fire-brigade and rescue services, Fire-prevention services .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-23"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-23"
+    },
+    "criteres_mode": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-23"
+    }
+   },
+   "completude_v2": {
+    "lus": 4,
+    "a_verifier": 0,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "4/14"
+   },
+   "fiabilite": {
+    "score": 75,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 8,
+     "critiques_verifies": 12,
+     "coherence": 15
+    }
+   },
+   "conflits": [],
+   "documents": [
+    {
+     "url": "https://tenderimpulse.com/government-tenders/burundi/avis-de-relance-d-appel-d-offres-ouvert-national-n-dncmp-60-s-2025-2026-relatif-13405815",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-23"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": true
   },
   {
    "title": "Appel    manifestation d   int  r  t N   PIPARV-B 51 AMI 2025-2026 pour le recrutement d   un Consultant individuel charg   d   assurer la formation des cadres du Projet  les utili",
@@ -27178,6 +27600,220 @@
      "type": "page",
      "role": "avis",
      "collecte_le": "2026-11-21"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": false
+  },
+  {
+   "title": "APPEL    MANIFESTATION D   INT  R  TS OUVERT INTERNATIONAL AMI N    05 PRODER 2025-2026 POUR LE RECRUTEMENT D   UN PRESTATAIRE CHARG   DE LA FORMATION  SUIVI ET D   ACCOMPAGNEMENT",
+   "buyer": "PRODER",
+   "sector": "Autre",
+   "deadline": "2027-06-11",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/appel-manifestation-d-int-r-ts-ouvert-international-ami-n-05-proder-2025-2026-po-13405816"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-23",
+   "resume": {
+    "objet": "APPEL MANIFESTATION D INT R TS OUVERT INTERNATIONAL AMI N 05 PRODER 2025-2026 POUR LE RECRUTEMENT D UN PRESTATAIRE CHARG DE LA FORMATION SUIVI ET D ACCOMPAGNEMENT",
+    "heure": null,
+    "mode": "Avis à manifestation d'intérêt (AMI)",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from Burundi procurement and is eligible for suppliers interested in Technical support services, Education and training services, Training services, Industrial and technical training services, Technical trai…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "4/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "APPEL MANIFESTATION D INT R TS OUVERT INTERNATIONAL AMI N 05 PRODER 2025-2026 POUR LE RECRUTEMENT D UN PRESTATAIRE CHARG DE LA FORMATION SUIVI ET D ACCOMPAGNEMENT",
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/appel-manifestation-d-int-r-ts-ouvert-international-ami-n-05-proder-2025-2026-po-13405816",
+     "page": null,
+     "passage": "APPEL MANIFESTATION D INT R TS OUVERT INTERNATIONAL … APPEL MANIFESTATION D INT R TS OUVERT INTERNATIONAL AMI N 05 PRODER 2025-2026 POUR LE RECRUTEMENT D UN PRESTATAIRE CHARG DE LA FORMATION SUIVI ET D ACCOMPAGNEMENT TECHNIQUE ET ORGANISATI",
+     "confiance": "haute",
+     "verifie_le": "2026-11-23"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-23"
+    },
+    "acheteur": {
+     "valeur": "PRODER",
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/appel-manifestation-d-int-r-ts-ouvert-international-ami-n-05-proder-2025-2026-po-13405816",
+     "page": null,
+     "passage": "APPEL MANIFESTATION D INT R TS OUVERT INTERNATIONAL … APPEL MANIFESTATION D INT R TS OUVERT INTERNATIONAL AMI N 05 PRODER 2025-2026 POUR LE RECRUTEMENT D UN PRESTATAIRE CHARG DE LA FORMATION SUIVI ET D ACCOMPAGNEMENT TECHNIQUE ET ORGANISATI",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-23"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2027-06-11",
+      "heure": null
+     },
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/appel-manifestation-d-int-r-ts-ouvert-international-ami-n-05-proder-2025-2026-po-13405816",
+     "page": null,
+     "passage": "The tender is due to expire on 11 Jun 2027 .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-23"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-23"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-23"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-23"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-23"
+    },
+    "lieu_execution": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-23"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-23"
+    },
+    "retrait_depot": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-23"
+    },
+    "conditions": {
+     "valeur": [
+      "This tender is sourced from Burundi procurement and is eligible for suppliers interested in Technical support services, Education and training services, Training services, Industrial and technical training services, Technical training services "
+     ],
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/appel-manifestation-d-int-r-ts-ouvert-international-ami-n-05-proder-2025-2026-po-13405816",
+     "page": null,
+     "passage": "This tender is sourced from Burundi procurement and is eligible for suppliers interested in Technical support services, Education and training services, Training services, Industrial and technical training services, Technical training servi",
+     "confiance": "haute",
+     "verifie_le": "2026-11-23"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-23"
+    },
+    "criteres_mode": {
+     "valeur": {
+      "criteres": null,
+      "mode": "Avis à manifestation d'intérêt (AMI)"
+     },
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/appel-manifestation-d-int-r-ts-ouvert-international-ami-n-05-proder-2025-2026-po-13405816",
+     "page": null,
+     "passage": "APPEL MANIFESTATION D INT R TS OUVERT INTERNATIONAL … APPEL MANIFESTATION D INT R TS OUVERT INTERNATIONAL AMI N 05 PRODER 2025-2026 POUR LE RECRUTEMENT D UN PRESTATAIRE CHARG DE LA FORMATION SUIVI ET D ACCOMPAGNEMENT TECHNIQUE ET ORGANISATI",
+     "confiance": "haute",
+     "verifie_le": "2026-11-23"
+    }
+   },
+   "completude_v2": {
+    "lus": 5,
+    "a_verifier": 0,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "5/14"
+   },
+   "fiabilite": {
+    "score": 75,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 8,
+     "critiques_verifies": 12,
+     "coherence": 15
+    }
+   },
+   "conflits": [],
+   "documents": [
+    {
+     "url": "https://tenderimpulse.com/government-tenders/burundi/appel-manifestation-d-int-r-ts-ouvert-international-ami-n-05-proder-2025-2026-po-13405816",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-23"
     }
    ],
    "historique": [],
@@ -38233,9 +38869,9 @@
   }
  ],
  "sends": {
-  "date": "2026-11-21",
-  "source_run": "run-2026-11-21.json",
-  "total_new": 2,
+  "date": "2026-11-23",
+  "source_run": "run-2026-11-23.json",
+  "total_new": 3,
   "entries": []
  },
  "matches": {
