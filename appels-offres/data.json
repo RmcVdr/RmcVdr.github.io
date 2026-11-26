@@ -1,31 +1,31 @@
 {
- "generated_at": "2026-11-25T05:19:29+00:00",
+ "generated_at": "2026-11-26T05:19:05+00:00",
  "run": {
-  "date": "2026-11-25",
+  "date": "2026-11-26",
   "sources": [
    {
     "name": "BurundiJobs",
     "status": "OK",
-    "count": 5,
+    "count": 4,
     "error": null
    },
    {
     "name": "Le Renouveau",
     "status": "ECHEC",
     "count": 0,
-    "error": "ProxyError: HTTPSConnectionPool(host='lerenouveau.bi', port=443): Max retries exceeded with url: /wp-json/wp/v2/categories?per_page=100&_fields=id,slug (Caused by ProxyError('Unable to connect to proxy', RemoteDisconnected('Remote e"
+    "error": "ProxyError: HTTPSConnectionPool(host='lerenouveau.bi', port=443): Max retries exceeded with url: /wp-json/wp/v2/posts?categories=77&per_page=20&_fields=date,title,link,content (Caused by ProxyError('Unable to connect to proxy', Remo"
    },
    {
     "name": "eSoko",
     "status": "OK",
-    "count": 6,
+    "count": 5,
     "error": null
    },
    {
     "name": "ARMP",
-    "status": "ECHEC",
-    "count": 0,
-    "error": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+    "status": "OK",
+    "count": 30,
+    "error": null
    },
    {
     "name": "PNUD",
@@ -61,28 +61,28 @@
     "name": "dgMarket",
     "status": "ECHEC",
     "count": 0,
-    "error": "RuntimeError: dgMarket non exploitable — https://www.dgmarket.com/: HTTP 403 ; https://www.dgmarket.com/tender/81690343: ChunkedEncodingError: Response ended prematurely"
+    "error": "RuntimeError: dgMarket non exploitable — https://www.dgmarket.com/: ChunkedEncodingError: Response ended prematurely ; https://www.dgmarket.com/tender/81690343: ChunkedEncodingError: Response ended prematurely"
    },
    {
     "name": "ReliefWeb",
     "status": "OK",
-    "count": 1,
+    "count": 2,
     "error": null
    }
   ],
-  "sources_ok": 7,
+  "sources_ok": 8,
   "sources_total": 11,
   "pdf": {
-   "downloaded": 0,
-   "cached": 1,
-   "text_ok": 0,
-   "ocr_ok": 1,
+   "downloaded": 1,
+   "cached": 31,
+   "text_ok": 1,
+   "ocr_ok": 31,
    "ocr_failed": 0,
    "failed": 0,
    "failures": []
   },
-  "total_uniques": 44,
-  "nb_nouveaux": 7,
+  "total_uniques": 67,
+  "nb_nouveaux": 10,
   "nb_expires": 0
  },
  "tenders": [
@@ -20769,6 +20769,223 @@
    "province": null,
    "garantie_num": null,
    "dossier_num": null,
+   "is_new": false
+  },
+  {
+   "title": "Burundi: Recruitment of an expert in international marketing and national brand communication for the Burundi Development Agency (PRETE project)",
+   "buyer": null,
+   "sector": "Services/conseil",
+   "deadline": "2026-11-27",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/burundi-recruitment-of-an-expert-in-international-marketing-and-national-brand-c-16497912"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-26",
+   "resume": {
+    "objet": "Burundi: Recruitment of an expert in international marketing and national brand communication for the Burundi Development Agency (PRETE project)",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from Official Website and is eligible for suppliers interested in Marketing services ."
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "3/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "Burundi: Recruitment of an expert in international marketing and national brand communication for the Burundi Development Agency (PRETE project)",
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/burundi-recruitment-of-an-expert-in-international-marketing-and-national-brand-c-16497912",
+     "page": null,
+     "passage": "Burundi: Recruitment of an expert in international marketin… Burundi: Recruitment of an expert in international marketing and national brand communication for the Burundi Development Agency (PRETE project) Tender Summary The Burundi Develop",
+     "confiance": "haute",
+     "verifie_le": "2026-11-26"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "acheteur": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2026-11-27",
+      "heure": null
+     },
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/burundi-recruitment-of-an-expert-in-international-marketing-and-national-brand-c-16497912",
+     "page": null,
+     "passage": "The tender is due to expire on 27 Nov 2026 .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-26"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "lieu_execution": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "retrait_depot": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "conditions": {
+     "valeur": [
+      "This tender is sourced from Official Website and is eligible for suppliers interested in Marketing services "
+     ],
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/burundi-recruitment-of-an-expert-in-international-marketing-and-national-brand-c-16497912",
+     "page": null,
+     "passage": "This tender is sourced from Official Website and is eligible for suppliers interested in Marketing services .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-26"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "criteres_mode": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    }
+   },
+   "completude_v2": {
+    "lus": 3,
+    "a_verifier": 0,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "3/14"
+   },
+   "fiabilite": {
+    "score": 88,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 8,
+     "critiques_verifies": 25,
+     "coherence": 15
+    }
+   },
+   "conflits": [],
+   "documents": [
+    {
+     "url": "https://tenderimpulse.com/government-tenders/burundi/burundi-recruitment-of-an-expert-in-international-marketing-and-national-brand-c-16497912",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-26"
+    },
+    {
+     "url": "https://tenderimpulse.com/government-tenders/burundi/burundi-recruitment-of-an-expert-in-international-cooperation-and-fundraising-fo-16497910",
+     "type": "page",
+     "role": "secondaire",
+     "collecte_le": "2026-11-26"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
    "is_new": true
   },
   {
@@ -22222,6 +22439,428 @@
    "is_new": false
   },
   {
+   "title": "Burundi: Recruitment of an individual consultant responsible for operations for the acquisition of grants under component 1 of the PRETE (recovery) program.",
+   "buyer": null,
+   "sector": "Services/conseil",
+   "deadline": "2026-11-30",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/burundi-recruitment-of-an-individual-consultant-responsible-for-operations-for-t-16497676"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-26",
+   "resume": {
+    "objet": "Burundi: Recruitment of an individual consultant responsible for operations for the acquisition of grants under component 1 of the PRETE (recovery) program",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from Official Website and is eligible for suppliers interested in Research consultancy services, Development consultancy services, Procurement consultancy services, consultancy services ."
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "3/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "Burundi: Recruitment of an individual consultant responsible for operations for the acquisition of grants under component 1 of the PRETE (recovery) program",
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/burundi-recruitment-of-an-individual-consultant-responsible-for-operations-for-t-16497676",
+     "page": null,
+     "passage": "Burundi: Recruitment of an individual consultant responsibl… Burundi: Recruitment of an individual consultant responsible for operations for the acquisition of grants under component 1 of the PRETE (recovery) program.",
+     "confiance": "haute",
+     "verifie_le": "2026-11-26"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "acheteur": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2026-11-30",
+      "heure": null
+     },
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/burundi-recruitment-of-an-individual-consultant-responsible-for-operations-for-t-16497676",
+     "page": null,
+     "passage": "The tender is due to expire on 30 Nov 2026 .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-26"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "lieu_execution": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "retrait_depot": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "conditions": {
+     "valeur": [
+      "This tender is sourced from Official Website and is eligible for suppliers interested in Research consultancy services, Development consultancy services, Procurement consultancy services, consultancy services "
+     ],
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/burundi-recruitment-of-an-individual-consultant-responsible-for-operations-for-t-16497676",
+     "page": null,
+     "passage": "This tender is sourced from Official Website and is eligible for suppliers interested in Research consultancy services, Development consultancy services, Procurement consultancy services, consultancy services .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-26"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "criteres_mode": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    }
+   },
+   "completude_v2": {
+    "lus": 3,
+    "a_verifier": 0,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "3/14"
+   },
+   "fiabilite": {
+    "score": 88,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 8,
+     "critiques_verifies": 25,
+     "coherence": 15
+    }
+   },
+   "conflits": [],
+   "documents": [
+    {
+     "url": "https://tenderimpulse.com/government-tenders/burundi/burundi-recruitment-of-an-individual-consultant-responsible-for-operations-for-t-16497676",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-26"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": true
+  },
+  {
+   "title": "Burundi: Training of trainers in health and climate change integrating the One Health approach (Expertise France, Amagara Yacu II project)",
+   "buyer": null,
+   "sector": "Services/conseil",
+   "deadline": "2026-11-30",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/burundi-training-of-trainers-in-health-and-climate-change-integrating-the-one-he-16347149"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-26",
+   "resume": {
+    "objet": "Burundi: Training of trainers in health and climate change integrating the One Health approach (Expertise France, Amagara Yacu II project)",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from Official Website and is eligible for suppliers interested in Training services, Health and first-aid training services, Staff training services, Training seminars, Health training services ."
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "3/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "Burundi: Training of trainers in health and climate change integrating the One Health approach (Expertise France, Amagara Yacu II project)",
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/burundi-training-of-trainers-in-health-and-climate-change-integrating-the-one-he-16347149",
+     "page": null,
+     "passage": "Burundi: Training of trainers in health and climate change … Burundi: Training of trainers in health and climate change integrating the One Health approach (Expertise France, Amagara Yacu II project) Tender Summary The Expert: France in Bur",
+     "confiance": "haute",
+     "verifie_le": "2026-11-26"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "acheteur": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2026-11-30",
+      "heure": null
+     },
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/burundi-training-of-trainers-in-health-and-climate-change-integrating-the-one-he-16347149",
+     "page": null,
+     "passage": "The tender is due to expire on 30 Nov 2026 .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-26"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "lieu_execution": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "retrait_depot": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "conditions": {
+     "valeur": [
+      "This tender is sourced from Official Website and is eligible for suppliers interested in Training services, Health and first-aid training services, Staff training services, Training seminars, Health training services "
+     ],
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/burundi-training-of-trainers-in-health-and-climate-change-integrating-the-one-he-16347149",
+     "page": null,
+     "passage": "This tender is sourced from Official Website and is eligible for suppliers interested in Training services, Health and first-aid training services, Staff training services, Training seminars, Health training services .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-26"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "criteres_mode": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    }
+   },
+   "completude_v2": {
+    "lus": 3,
+    "a_verifier": 0,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "3/14"
+   },
+   "fiabilite": {
+    "score": 88,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 8,
+     "critiques_verifies": 25,
+     "coherence": 15
+    }
+   },
+   "conflits": [],
+   "documents": [
+    {
+     "url": "https://tenderimpulse.com/government-tenders/burundi/burundi-training-of-trainers-in-health-and-climate-change-integrating-the-one-he-16347149",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-26"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": true
+  },
+  {
    "title": "Appel d'offres pour la fourniture de fertilisants",
    "buyer": "PRODER",
    "sector": "Fournitures/agro",
@@ -23358,6 +23997,217 @@
    "province": null,
    "garantie_num": null,
    "dossier_num": null,
+   "is_new": false
+  },
+  {
+   "title": "Burundi: Recruitment of a Monitoring and Evaluation Specialist for the Emergency Urban Resilience Project (PRU)",
+   "buyer": null,
+   "sector": "Services/conseil",
+   "deadline": "2026-12-02",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/burundi-recruitment-of-a-monitoring-and-evaluation-specialist-for-the-emergency-16497820"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-26",
+   "resume": {
+    "objet": "Burundi: Recruitment of a Monitoring and Evaluation Specialist for the Emergency Urban Resilience Project (PRU)",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from Official Website and is eligible for suppliers interested in Urban environmental development planning, Monitoring and control services, Test and Evaluation ."
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "3/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "Burundi: Recruitment of a Monitoring and Evaluation Specialist for the Emergency Urban Resilience Project (PRU)",
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/burundi-recruitment-of-a-monitoring-and-evaluation-specialist-for-the-emergency-16497820",
+     "page": null,
+     "passage": "Burundi: Recruitment of a Monitoring and Evaluation Special… Burundi: Recruitment of a Monitoring and Evaluation Specialist for the Emergency Urban Resilience Project (PRU) Tender Summary The Ministry of Infrastructure, Social Housing, Tran",
+     "confiance": "haute",
+     "verifie_le": "2026-11-26"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "acheteur": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2026-12-02",
+      "heure": null
+     },
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/burundi-recruitment-of-a-monitoring-and-evaluation-specialist-for-the-emergency-16497820",
+     "page": null,
+     "passage": "The tender is due to expire on 02 Dec 2026 .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-26"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "lieu_execution": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "retrait_depot": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "conditions": {
+     "valeur": [
+      "This tender is sourced from Official Website and is eligible for suppliers interested in Urban environmental development planning, Monitoring and control services, Test and Evaluation "
+     ],
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/burundi-recruitment-of-a-monitoring-and-evaluation-specialist-for-the-emergency-16497820",
+     "page": null,
+     "passage": "This tender is sourced from Official Website and is eligible for suppliers interested in Urban environmental development planning, Monitoring and control services, Test and Evaluation .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-26"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "criteres_mode": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    }
+   },
+   "completude_v2": {
+    "lus": 3,
+    "a_verifier": 0,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "3/14"
+   },
+   "fiabilite": {
+    "score": 88,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 8,
+     "critiques_verifies": 25,
+     "coherence": 15
+    }
+   },
+   "conflits": [],
+   "documents": [
+    {
+     "url": "https://tenderimpulse.com/government-tenders/burundi/burundi-recruitment-of-a-monitoring-and-evaluation-specialist-for-the-emergency-16497820",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-26"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
    "is_new": true
   },
   {
@@ -23596,6 +24446,217 @@
    "garantie_num": null,
    "dossier_num": null,
    "is_new": false
+  },
+  {
+   "title": "Fourniture et livraison de matériels et d’équipements destinés aux Comités Colli",
+   "buyer": "IOM Tender Sector Furniture & Furnishings Tender Service Worldwide Tender Region",
+   "sector": "Fournitures/agro",
+   "deadline": "2026-12-03",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/fourniture-et-livraison-de-mat-riels-et-d-quipements-destin-s-aux-comit-s-colli-16785398"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-26",
+   "resume": {
+    "objet": "Fourniture et livraison de matériels et d’équipements destinés aux Comités Colli",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from United Nations Global Marketplace and is eligible for suppliers interested in Office equipment except furniture, Furniture (incl. office furniture), furnishings, domestic appliances (excl. lighting) and…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "3/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "Fourniture et livraison de matériels et d’équipements destinés aux Comités Colli",
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/fourniture-et-livraison-de-mat-riels-et-d-quipements-destin-s-aux-comit-s-colli-16785398",
+     "page": null,
+     "passage": "Fourniture et livraison de matériels et d’équipements desti… Fourniture et livraison de matériels et d’équipements destinés aux Comités Colli Tender Summary The IOM in Burundi from African region has released this tender for Fourniture et l",
+     "confiance": "haute",
+     "verifie_le": "2026-11-26"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "acheteur": {
+     "valeur": "IOM Tender Sector Furniture & Furnishings Tender Service Worldwide Tender Region",
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/fourniture-et-livraison-de-mat-riels-et-d-quipements-destin-s-aux-comit-s-colli-16785398",
+     "page": null,
+     "passage": "Tender Details Tender Notice TI Ref: 16785398 Tender Notice No 30000037457 Tender Organisation IOM Tender Sector Furniture & Furnishings Tender Service Worldwide Tender Region African Tender Project Location Burundi Tender CPV 30191000 : Of",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-26"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2026-12-03",
+      "heure": null
+     },
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/fourniture-et-livraison-de-mat-riels-et-d-quipements-destin-s-aux-comit-s-colli-16785398",
+     "page": null,
+     "passage": "The tender is due to expire on 03 Dec 2026 .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-26"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "lieu_execution": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "retrait_depot": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "conditions": {
+     "valeur": [
+      "This tender is sourced from United Nations Global Marketplace and is eligible for suppliers interested in Office equipment except furniture, Furniture (incl. office furniture), furnishings, domestic appliances (excl. lighting) and cleaning products, Miscellaneous furniture and equipment, Bedroom, dining room and living-room furniture, Educational equipment "
+     ],
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/fourniture-et-livraison-de-mat-riels-et-d-quipements-destin-s-aux-comit-s-colli-16785398",
+     "page": null,
+     "passage": "This tender is sourced from United Nations Global Marketplace and is eligible for suppliers interested in Office equipment except furniture, Furniture (incl.",
+     "confiance": "haute",
+     "verifie_le": "2026-11-26"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "criteres_mode": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    }
+   },
+   "completude_v2": {
+    "lus": 4,
+    "a_verifier": 0,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "4/14"
+   },
+   "fiabilite": {
+    "score": 75,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 8,
+     "critiques_verifies": 12,
+     "coherence": 15
+    }
+   },
+   "conflits": [],
+   "documents": [
+    {
+     "url": "https://tenderimpulse.com/government-tenders/burundi/fourniture-et-livraison-de-mat-riels-et-d-quipements-destin-s-aux-comit-s-colli-16785398",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-26"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": true
   },
   {
    "title": "Appel d'offres pour l'aménagement et la réhabilitation dans les FOSA",
@@ -24299,6 +25360,217 @@
    "is_new": false
   },
   {
+   "title": "Burundi: Recruitment of an international individual consultant in reserve management, treasury and capacity building for the Bank of the Republic of Burundi (BRB)",
+   "buyer": "BRB",
+   "sector": "Services/conseil",
+   "deadline": "2026-12-04",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/burundi-recruitment-of-an-international-individual-consultant-in-reserve-managem-16752404"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-26",
+   "resume": {
+    "objet": "Burundi: Recruitment of an international individual consultant in reserve management, treasury and capacity building for the Bank of the Republic of Burundi (BRB)",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from Official Website and is eligible for suppliers interested in Recruitment services, consultancy services ."
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "3/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "Burundi: Recruitment of an international individual consultant in reserve management, treasury and capacity building for the Bank of the Republic of Burundi (BRB)",
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/burundi-recruitment-of-an-international-individual-consultant-in-reserve-managem-16752404",
+     "page": null,
+     "passage": "Burundi: Recruitment of an international individual consult… Burundi: Recruitment of an international individual consultant in reserve management, treasury and capacity building for the Bank of the Republic of Burundi (BRB) Tender Summary T",
+     "confiance": "haute",
+     "verifie_le": "2026-11-26"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "acheteur": {
+     "valeur": "BRB",
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/burundi-recruitment-of-an-international-individual-consultant-in-reserve-managem-16752404",
+     "page": null,
+     "passage": "Burundi: Recruitment of an international individual consult… Burundi: Recruitment of an international individual consultant in reserve management, treasury and capacity building for the Bank of the Republic of Burundi (BRB) Tender Summary T",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-26"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2026-12-04",
+      "heure": null
+     },
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/burundi-recruitment-of-an-international-individual-consultant-in-reserve-managem-16752404",
+     "page": null,
+     "passage": "The tender is due to expire on 04 Dec 2026 .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-26"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "lieu_execution": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "retrait_depot": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "conditions": {
+     "valeur": [
+      "This tender is sourced from Official Website and is eligible for suppliers interested in Recruitment services, consultancy services "
+     ],
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/burundi-recruitment-of-an-international-individual-consultant-in-reserve-managem-16752404",
+     "page": null,
+     "passage": "This tender is sourced from Official Website and is eligible for suppliers interested in Recruitment services, consultancy services .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-26"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "criteres_mode": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    }
+   },
+   "completude_v2": {
+    "lus": 4,
+    "a_verifier": 0,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "4/14"
+   },
+   "fiabilite": {
+    "score": 75,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 8,
+     "critiques_verifies": 12,
+     "coherence": 15
+    }
+   },
+   "conflits": [],
+   "documents": [
+    {
+     "url": "https://tenderimpulse.com/government-tenders/burundi/burundi-recruitment-of-an-international-individual-consultant-in-reserve-managem-16752404",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-26"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": true
+  },
+  {
    "title": "Recrutement d'un cabinet",
    "buyer": "PROJET DE RESILIENCE DES TRANSPORTS Recrutement d'un cabinet Appel d'offre Dé",
    "sector": "Services/conseil",
@@ -24535,7 +25807,7 @@
    "province": null,
    "garantie_num": null,
    "dossier_num": null,
-   "is_new": true
+   "is_new": false
   },
   {
    "title": "Appel à la formation certifiante en Planification et Gestion des projets et Excel avancé",
@@ -25020,7 +26292,7 @@
    "province": null,
    "garantie_num": null,
    "dossier_num": null,
-   "is_new": true
+   "is_new": false
   },
   {
    "title": "Maintenance du parc informatique",
@@ -25495,6 +26767,217 @@
    "is_new": false
   },
   {
+   "title": "Burundi: Verification of the implementation of the performance-based financing approach in Bujumbura province (Expertise France)",
+   "buyer": null,
+   "sector": "Services/conseil",
+   "deadline": "2026-12-09",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/burundi-verification-of-the-implementation-of-the-performance-based-financing-ap-16418696"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-26",
+   "resume": {
+    "objet": "Burundi: Verification of the implementation of the performance-based financing approach in Bujumbura province (Expertise France)",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from Official Website and is eligible for suppliers interested in Feasibility study, advisory service, analysis, Project and design preparation, estimation of costs, Pre-feasibility study & technological dem…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "3/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "Burundi: Verification of the implementation of the performance-based financing approach in Bujumbura province (Expertise France)",
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/burundi-verification-of-the-implementation-of-the-performance-based-financing-ap-16418696",
+     "page": null,
+     "passage": "Burundi: Verification of the implementation of the performa… Burundi: Verification of the implementation of the performance-based financing approach in Bujumbura province (Expertise France) Tender Summary The Expert: France in Burundi from ",
+     "confiance": "haute",
+     "verifie_le": "2026-11-26"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "acheteur": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2026-12-09",
+      "heure": null
+     },
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/burundi-verification-of-the-implementation-of-the-performance-based-financing-ap-16418696",
+     "page": null,
+     "passage": "The tender is due to expire on 09 Dec 2026 .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-26"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "lieu_execution": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "retrait_depot": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "conditions": {
+     "valeur": [
+      "This tender is sourced from Official Website and is eligible for suppliers interested in Feasibility study, advisory service, analysis, Project and design preparation, estimation of costs, Pre-feasibility study & technological demonstration, Evaluation consultancy services, business process management "
+     ],
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/burundi-verification-of-the-implementation-of-the-performance-based-financing-ap-16418696",
+     "page": null,
+     "passage": "This tender is sourced from Official Website and is eligible for suppliers interested in Feasibility study, advisory service, analysis, Project and design preparation, estimation of costs, Pre-feasibility study & technological demonstration",
+     "confiance": "haute",
+     "verifie_le": "2026-11-26"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "criteres_mode": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    }
+   },
+   "completude_v2": {
+    "lus": 3,
+    "a_verifier": 0,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "3/14"
+   },
+   "fiabilite": {
+    "score": 88,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 8,
+     "critiques_verifies": 25,
+     "coherence": 15
+    }
+   },
+   "conflits": [],
+   "documents": [
+    {
+     "url": "https://tenderimpulse.com/government-tenders/burundi/burundi-verification-of-the-implementation-of-the-performance-based-financing-ap-16418696",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-26"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": true
+  },
+  {
    "title": "RFQ for Fire Alarm System Maintenance Services under a 2 years non-exclusive LTA",
    "buyer": "IOM Tender Sector Management Consultancy Tender Service Worldwide Tender Region A",
    "sector": "Autre",
@@ -25691,6 +27174,246 @@
      "type": "page",
      "role": "avis",
      "collecte_le": "2026-11-25"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": false
+  },
+  {
+   "title": "Appel d'offres pour la réalisation d'une évaluation de base du Programme d'autonomisation des ménages ultra-pauvres",
+   "buyer": "PRODER",
+   "sector": "Services/conseil",
+   "deadline": "2026-12-10",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "BurundiJobs",
+     "url": "https://www.burundijobs.bi/job/appel-doffres-pour-la-realisation-dune-evaluation-de-base-du-programme-dautonomisation-des-menages-ultra-pauvres/"
+    }
+   ],
+   "pdf_enriched": true,
+   "pdf_url": "https://www.burundijobs.bi/wp-content/uploads/2026/11/TDRs-Baseline-TLF-corrige.pdf",
+   "first_seen": "2026-11-26",
+   "resume": {
+    "objet": "La réalisation d'une évaluation de base du Programme d'autonomisation des ménages ultra- pauvres — Quantités énoncées : 60 centres, 60 centres, 60 centres",
+    "heure": "16h00",
+    "mode": "Appel d'offres international",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Les soumissionnaires intéressés et éligibles peuvent consulter le dossier d'appel d'offres disponible au bureau de coordination de FXB Burundi situé à Rue Nyakana 6, Quartier Rohero II, Bujumbura Mairie, ou nous contacter par e-ma…",
+     "Modalités de soumission et critères de sélection Les candidats soumettront: • Une offre technique détaillant la compréhension de la mission, la méthodologie, le plan de travail, la composition de l’équipe et son expérience : les C…",
+     "Date limite de dépôt des offres : Les offres dûment préparées devront être soumises par email à burundi@fxb.org au plus tard le 4 Décembre 2026 à 16 hCritères d’évaluation : offre technique, méthodologie et expérience et profil de…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "burundi@fxb.org",
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "6/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "La réalisation d'une évaluation de base du Programme d'autonomisation des ménages ultra- pauvres",
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/wp-content/uploads/2026/11/TDRs-Baseline-TLF-corrige.pdf",
+     "page": 1,
+     "passage": "FXB Burundi invite les entreprises et les particuliers intéressés et qualifiés à soumettre leurs offres pour la réalisation d'une évaluation de base du Programme d'autonomisation des ménages ultra- pauvres.",
+     "confiance": "haute",
+     "verifie_le": "2026-11-26"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "acheteur": {
+     "valeur": "PRODER",
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/appel-doffres-pour-la-realisation-dune-evaluation-de-base-du-programme-dautonomisation-des-menages-ultra-pauvres/",
+     "page": null,
+     "passage": "terrain PAEPA Fourniture des semences d’oignons rouge pour 60 centres de rayonnement communautaires Programme de Développement de l’Entrepreneuriat Rural « PRODER » Services de dédouanement, renouvellement d’immatriculation temporaire et co",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-26"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2026-12-10",
+      "heure": "16h00"
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/wp-content/uploads/2026/11/TDRs-Baseline-TLF-corrige.pdf",
+     "page": 1,
+     "passage": "Les offres dûment préparées devront être soumises par email à burundi@fxb.org au plus tard le 10 Décembre 2026 à 16 h.",
+     "confiance": "haute",
+     "verifie_le": "2026-11-26"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "lieu_execution": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "retrait_depot": {
+     "valeur": {
+      "retrait": {
+       "contact": "burundi@fxb.org"
+      },
+      "depot": null
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/wp-content/uploads/2026/11/TDRs-Baseline-TLF-corrige.pdf",
+     "page": 1,
+     "passage": "Les soumissionnaires intéressés et éligibles peuvent consulter le dossier d'appel d'offres disponible au bureau de coordination de FXB Burundi situé à Rue Nyakana 6, Quartier Rohero II, Bujumbura Mairie, ou nous contacter par e-mail à l'adr",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-26"
+    },
+    "conditions": {
+     "valeur": [
+      "Les candidats soumettront: • Une offre technique détaillant la compréhension de la mission, la méthodologie, le plan de travail, la composition de l’équipe et son expérience : les CV des membres de l’équipe et au moins deux références de missions similaires ( un exemplaire d’évaluation déjà réalisée serait un atout) • Une offre financière détaillée décrivant les honoraires, la logistique, la prise en charge des enquêteurs, le transport",
+      "Date limite de dépôt des offres : Les offres dûment préparées devront être soumises par email à burundi@fxb.org au plus tard le 4 Décembre 2026 à 16 hCritères d’évaluation : offre technique, méthodologie et expérience et profil de l’équipe 5",
+      "Propriété des données et confidentialité Toutes les données, outils et rapports produits sont la propriété de FXB",
+      "Le consultant s’engage à ne pas les diffuser ni les utiliser à d’autres fins sans autorisation écrite préalable, et à respecter les règles de protection des données et de sauvegarde des enfants de FXB",
+      "Emplois Appel d’offres Recruteurs Poster une offre Trouver un freelancer +257 22281273/ 68420420, mail: [email protected] Immeuble Premium House , Bureau 111 Mon - Sat 8.00 - 18.00",
+      "Sunday CLOSED 2 inscrire maintenant pour atteindre des emplois de rêve plus facilement",
+      "Accueil Qui sommes nous?",
+      "Elle a pour mission de s’attaquer aux causes profondes de la pauvreté afin de garantir aux enfants le droit de survivre, de grandir et de se développer",
+      "L’organisation s’efforce d’être un catalyseur de changements positifs durables au sein des familles vulnérables à faibles et moyens revenus, en les aidant à améliorer leurs conditions sociales, économiques et environnementales",
+      "FXB Burundi invite les entreprises et les particuliers intéressés et qualifiés à soumettre leurs offres pour la réalisation d’une évaluation de base du Programme d’autonomisation des ménages ultra-pauvres",
+      "Les soumissionnaires intéressés et éligibles peuvent consulter le dossier d’appel d’offres disponible au bureau de coordination de FXB Burundi situé à Rue Nyakana 6, Quartier Rohero II, Bujumbura Mairie, ou nous contacter par e-mail à l’adresse [email protected] ",
+      "Les offres dûment préparées devront être soumises par email à [email protected] au plus tard le 10 Décembre 2026 à 16 h",
+      "Aucune copie papier n’est acceptée",
+      "Télécharger les TDRs sur ce lien: TDRs Baseline TLF corrigé"
+     ],
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/appel-doffres-pour-la-realisation-dune-evaluation-de-base-du-programme-dautonomisation-des-menages-ultra-pauvres/",
+     "page": null,
+     "passage": "Emplois Appel d’offres Recruteurs Poster une offre Trouver un freelancer +257 22281273/ 68420420, mail: [email protected] Immeuble Premium House , Bureau 111 Mon - Sat 8.00 - 18.00.",
+     "confiance": "haute",
+     "verifie_le": "2026-11-26"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "criteres_mode": {
+     "valeur": {
+      "criteres": null,
+      "mode": "Appel d'offres international"
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/wp-content/uploads/2026/11/TDRs-Baseline-TLF-corrige.pdf",
+     "page": 1,
+     "passage": "AVIS D'APPEL D'OFFRES Objet : Services de conseil pour la réalisation de l'évaluation de base du Programme d'autonomisation des ménages ultra-pauvres FXB est une organisation non gouvernementale internationale enregistrée au Burundi depuis ",
+     "confiance": "haute",
+     "verifie_le": "2026-11-26"
+    }
+   },
+   "completude_v2": {
+    "lus": 6,
+    "a_verifier": 0,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "6/14"
+   },
+   "fiabilite": {
+    "score": 87,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 20,
+     "critiques_verifies": 12,
+     "coherence": 15
+    }
+   },
+   "conflits": [],
+   "documents": [
+    {
+     "url": "https://www.burundijobs.bi/wp-content/uploads/2026/11/TDRs-Baseline-TLF-corrige.pdf",
+     "type": "pdf",
+     "role": "avis",
+     "collecte_le": "2026-11-26"
+    },
+    {
+     "url": "https://www.burundijobs.bi/job/appel-doffres-pour-la-realisation-dune-evaluation-de-base-du-programme-dautonomisation-des-menages-ultra-pauvres/",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-26"
     }
    ],
    "historique": [],
@@ -26939,6 +28662,439 @@
    "is_new": false
   },
   {
+   "title": "Burundi: Verification of the implementation of the performance-based financing approach in Bujumbura province (Expertise France)",
+   "buyer": null,
+   "sector": "Services/conseil",
+   "deadline": "2026-12-14",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/burundi-verification-of-the-implementation-of-the-performance-based-financing-ap-16601461"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-26",
+   "resume": {
+    "objet": "Burundi: Verification of the implementation of the performance-based financing approach in Bujumbura province (Expertise France)",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from Official Website and is eligible for suppliers interested in Feasibility study, advisory service, analysis, Project and design preparation, estimation of costs, Pre-feasibility study & technological dem…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "3/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "Burundi: Verification of the implementation of the performance-based financing approach in Bujumbura province (Expertise France)",
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/burundi-verification-of-the-implementation-of-the-performance-based-financing-ap-16601461",
+     "page": null,
+     "passage": "Burundi: Verification of the implementation of the performa… Burundi: Verification of the implementation of the performance-based financing approach in Bujumbura province (Expertise France) Tender Summary The Expert: France in Burundi from ",
+     "confiance": "haute",
+     "verifie_le": "2026-11-26"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "acheteur": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2026-12-14",
+      "heure": null
+     },
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/burundi-verification-of-the-implementation-of-the-performance-based-financing-ap-16601461",
+     "page": null,
+     "passage": "The tender is due to expire on 14 Dec 2026 .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-26"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "lieu_execution": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "retrait_depot": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "conditions": {
+     "valeur": [
+      "This tender is sourced from Official Website and is eligible for suppliers interested in Feasibility study, advisory service, analysis, Project and design preparation, estimation of costs, Pre-feasibility study & technological demonstration, Evaluation consultancy services, business process management "
+     ],
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/burundi-verification-of-the-implementation-of-the-performance-based-financing-ap-16601461",
+     "page": null,
+     "passage": "This tender is sourced from Official Website and is eligible for suppliers interested in Feasibility study, advisory service, analysis, Project and design preparation, estimation of costs, Pre-feasibility study & technological demonstration",
+     "confiance": "haute",
+     "verifie_le": "2026-11-26"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "criteres_mode": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    }
+   },
+   "completude_v2": {
+    "lus": 3,
+    "a_verifier": 0,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "3/14"
+   },
+   "fiabilite": {
+    "score": 88,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 8,
+     "critiques_verifies": 25,
+     "coherence": 15
+    }
+   },
+   "conflits": [],
+   "documents": [
+    {
+     "url": "https://tenderimpulse.com/government-tenders/burundi/burundi-verification-of-the-implementation-of-the-performance-based-financing-ap-16601461",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-26"
+    },
+    {
+     "url": "https://tenderimpulse.com/government-tenders/burundi/verification-for-the-implementation-of-the-performance-based-finance-approach-in-16540029",
+     "type": "page",
+     "role": "secondaire",
+     "collecte_le": "2026-11-26"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": true
+  },
+  {
+   "title": "Director, Innovation and Continuous Analytics & Assurance (Internal Audit)",
+   "buyer": "World Vision",
+   "sector": "Services/conseil",
+   "deadline": "2026-12-15",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "ReliefWeb",
+     "url": "https://reliefweb.int/jobs?list=Burundi%20Jobs&advanced-search=%28C47%29"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-26",
+   "resume": {
+    "objet": "Director, Innovation and Continuous Analytics & Assurance (Internal Audit)",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "2/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "Director, Innovation and Continuous Analytics & Assurance (Internal Audit)",
+     "statut": "LU",
+     "source_doc": "https://reliefweb.int/jobs?list=Burundi%20Jobs&advanced-search=%28C47%29",
+     "page": null,
+     "passage": "Burundi + 5 more Director, Innovation and Continuous Analytics & Assurance (Internal Audit) Organization World Vision Posted 25 Nov 2026 Closing date 15 Dec 2026",
+     "confiance": "haute",
+     "verifie_le": "2026-11-26"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "acheteur": {
+     "valeur": "World Vision",
+     "statut": "LU",
+     "source_doc": "https://reliefweb.int/jobs?list=Burundi%20Jobs&advanced-search=%28C47%29",
+     "page": null,
+     "passage": "Burundi + 5 more Director, Innovation and Continuous Analytics & Assurance (Internal Audit) Organization World Vision Posted 25 Nov 2026 Closing date 15 Dec 2026",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-26"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2026-12-15",
+      "heure": null
+     },
+     "statut": "À VÉRIFIER",
+     "source_doc": "https://reliefweb.int/jobs?list=Burundi%20Jobs&advanced-search=%28C47%29",
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "lieu_execution": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "retrait_depot": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "conditions": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    },
+    "criteres_mode": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-26"
+    }
+   },
+   "completude_v2": {
+    "lus": 2,
+    "a_verifier": 1,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "2/14"
+   },
+   "fiabilite": {
+    "score": 58,
+    "niveau": "moyenne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 8,
+     "critiques_verifies": 0,
+     "coherence": 10
+    }
+   },
+   "conflits": [
+    {
+     "champ": "date_limite",
+     "valeurs": [
+      "2026-12-15",
+      "2026-11-26"
+     ],
+     "detail": "Valeurs discordantes entre extractions indépendantes (fiche, page) ; valeur de la fiche avis/v1 conservée, à vérifier humainement."
+    }
+   ],
+   "documents": [
+    {
+     "url": "https://reliefweb.int/jobs?list=Burundi%20Jobs&advanced-search=%28C47%29",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-26"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": true
+  },
+  {
    "title": "Fourniture des semences d’oignons rouge pour 60 centres de rayonnement communautaires",
    "buyer": "PRODER",
    "sector": "Fournitures/agro",
@@ -27935,7 +30091,7 @@
    "province": "Bujumbura",
    "garantie_num": 25000000,
    "dossier_num": null,
-   "is_new": true
+   "is_new": false
   },
   {
    "title": "Fourniture et installation des équipements informatiques et d’un logiciel de gestion des services de la Cour d’appel de commerce et de la Chambre spéciale de médiation et d�",
@@ -28146,7 +30302,7 @@
    "province": null,
    "garantie_num": null,
    "dossier_num": null,
-   "is_new": true
+   "is_new": false
   },
   {
    "title": "Avis d’appel d’offres ouvert international de fourniture des engrais chimiques et la dolomie pour les centres de rayonnement",
@@ -41441,9 +43597,9 @@
   }
  ],
  "sends": {
-  "date": "2026-11-25",
-  "source_run": "run-2026-11-25.json",
-  "total_new": 7,
+  "date": "2026-11-26",
+  "source_run": "run-2026-11-26.json",
+  "total_new": 10,
   "entries": []
  },
  "matches": {
