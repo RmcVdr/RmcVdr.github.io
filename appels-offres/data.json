@@ -1,12 +1,12 @@
 {
- "generated_at": "2026-11-26T05:19:05+00:00",
+ "generated_at": "2026-11-27T05:19:44+00:00",
  "run": {
-  "date": "2026-11-26",
+  "date": "2026-11-27",
   "sources": [
    {
     "name": "BurundiJobs",
     "status": "OK",
-    "count": 4,
+    "count": 3,
     "error": null
    },
    {
@@ -18,7 +18,7 @@
    {
     "name": "eSoko",
     "status": "OK",
-    "count": 5,
+    "count": 3,
     "error": null
    },
    {
@@ -30,7 +30,7 @@
    {
     "name": "PNUD",
     "status": "OK",
-    "count": 5,
+    "count": 4,
     "error": null
    },
    {
@@ -61,29 +61,29 @@
     "name": "dgMarket",
     "status": "ECHEC",
     "count": 0,
-    "error": "RuntimeError: dgMarket non exploitable — https://www.dgmarket.com/: ChunkedEncodingError: Response ended prematurely ; https://www.dgmarket.com/tender/81690343: ChunkedEncodingError: Response ended prematurely"
+    "error": "RuntimeError: dgMarket non exploitable — https://www.dgmarket.com/: ChunkedEncodingError: Response ended prematurely ; https://www.dgmarket.com/tender/81690343: HTTP 403"
    },
    {
     "name": "ReliefWeb",
     "status": "OK",
-    "count": 2,
+    "count": 1,
     "error": null
    }
   ],
   "sources_ok": 8,
   "sources_total": 11,
   "pdf": {
-   "downloaded": 1,
+   "downloaded": 0,
    "cached": 31,
-   "text_ok": 1,
+   "text_ok": 0,
    "ocr_ok": 31,
    "ocr_failed": 0,
    "failed": 0,
    "failures": []
   },
-  "total_uniques": 67,
-  "nb_nouveaux": 10,
-  "nb_expires": 0
+  "total_uniques": 66,
+  "nb_nouveaux": 4,
+  "nb_expires": 1
  },
  "tenders": [
   {
@@ -20986,7 +20986,7 @@
    "province": null,
    "garantie_num": null,
    "dossier_num": null,
-   "is_new": true
+   "is_new": false
   },
   {
    "title": "Travaux de Remise en bon état des portails d'accès au compound",
@@ -22647,7 +22647,7 @@
    "province": null,
    "garantie_num": null,
    "dossier_num": null,
-   "is_new": true
+   "is_new": false
   },
   {
    "title": "Burundi: Training of trainers in health and climate change integrating the One Health approach (Expertise France, Amagara Yacu II project)",
@@ -22858,7 +22858,7 @@
    "province": null,
    "garantie_num": null,
    "dossier_num": null,
-   "is_new": true
+   "is_new": false
   },
   {
    "title": "Appel d'offres pour la fourniture de fertilisants",
@@ -24208,7 +24208,7 @@
    "province": null,
    "garantie_num": null,
    "dossier_num": null,
-   "is_new": true
+   "is_new": false
   },
   {
    "title": "Un Cabinet d’audit comptable et financier",
@@ -24656,7 +24656,7 @@
    "province": null,
    "garantie_num": null,
    "dossier_num": null,
-   "is_new": true
+   "is_new": false
   },
   {
    "title": "Appel d'offres pour l'aménagement et la réhabilitation dans les FOSA",
@@ -25568,7 +25568,7 @@
    "province": null,
    "garantie_num": null,
    "dossier_num": null,
-   "is_new": true
+   "is_new": false
   },
   {
    "title": "Recrutement d'un cabinet",
@@ -26295,6 +26295,434 @@
    "is_new": false
   },
   {
+   "title": "Burundi: Recruitment of a consulting firm for the techno-economic studies of the cross-border markets of Rumonge (lot 1) and Gatumba (lot 2) – PFCIGL",
+   "buyer": "Ministry of Finance",
+   "sector": "Autre",
+   "deadline": "2026-12-07",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": 2,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/burundi-recruitment-of-a-consulting-firm-for-the-techno-economic-studies-of-the-16850326"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-27",
+   "resume": {
+    "objet": "Burundi: Recruitment of a consulting firm for the techno-economic studies of the cross-border markets of Rumonge (lot 1) and Gatumba (lot 2) – PFCIGL",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from Official Website and is eligible for suppliers interested in Systems and technical consultancy services, Research consultancy services ."
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "4/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "Burundi: Recruitment of a consulting firm for the techno-economic studies of the cross-border markets of Rumonge (lot 1) and Gatumba (lot 2) – PFCIGL",
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/burundi-recruitment-of-a-consulting-firm-for-the-techno-economic-studies-of-the-16850326",
+     "page": null,
+     "passage": "Burundi: Recruitment of a consulting firm for the techno-ec… Burundi: Recruitment of a consulting firm for the techno-economic studies of the cross-border markets of Rumonge (lot 1) and Gatumba (lot 2) – PFCIGL Tender Summary The Ministry o",
+     "confiance": "haute",
+     "verifie_le": "2026-11-27"
+    },
+    "quantites_lots": {
+     "valeur": {
+      "nb_lots": 2,
+      "description": null
+     },
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/burundi-recruitment-of-a-consulting-firm-for-the-techno-economic-studies-of-the-16850326",
+     "page": null,
+     "passage": null,
+     "confiance": "haute",
+     "verifie_le": "2026-11-27"
+    },
+    "acheteur": {
+     "valeur": "Ministry of Finance",
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/burundi-recruitment-of-a-consulting-firm-for-the-techno-economic-studies-of-the-16850326",
+     "page": null,
+     "passage": "Burundi: Recruitment of a consulting firm for the techno-ec… Burundi: Recruitment of a consulting firm for the techno-economic studies of the cross-border markets of Rumonge (lot 1) and Gatumba (lot 2) – PFCIGL Tender Summary The Ministry o",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-27"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2026-12-07",
+      "heure": null
+     },
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/burundi-recruitment-of-a-consulting-firm-for-the-techno-economic-studies-of-the-16850326",
+     "page": null,
+     "passage": "The tender is due to expire on 07 Dec 2026 .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-27"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "lieu_execution": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "retrait_depot": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "conditions": {
+     "valeur": [
+      "This tender is sourced from Official Website and is eligible for suppliers interested in Systems and technical consultancy services, Research consultancy services "
+     ],
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/burundi-recruitment-of-a-consulting-firm-for-the-techno-economic-studies-of-the-16850326",
+     "page": null,
+     "passage": "This tender is sourced from Official Website and is eligible for suppliers interested in Systems and technical consultancy services, Research consultancy services .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-27"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "criteres_mode": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    }
+   },
+   "completude_v2": {
+    "lus": 5,
+    "a_verifier": 0,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "5/14"
+   },
+   "fiabilite": {
+    "score": 72,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 32,
+     "qualite_document": 8,
+     "critiques_verifies": 17,
+     "coherence": 15
+    }
+   },
+   "conflits": [],
+   "documents": [
+    {
+     "url": "https://tenderimpulse.com/government-tenders/burundi/burundi-recruitment-of-a-consulting-firm-for-the-techno-economic-studies-of-the-16850326",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-27"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": true
+  },
+  {
+   "title": "Recrutement d'un Cabinet pour les Etudes architecturales du Marché et Etudes d’exécution pour la construction du Marché Frontalier de Rumonge lot 1 et l'actualisation des étu",
+   "buyer": "Burundi-Ministry of Finance",
+   "sector": "Travaux/BTP",
+   "deadline": "2026-12-07",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": 2,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/recrutement-d-un-cabinet-pour-les-etudes-architecturales-du-march-et-etudes-d-ex-16831413"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-27",
+   "resume": {
+    "objet": "Recrutement d'un Cabinet pour les Etudes architecturales du Marché et Etudes d’exécution pour la construction du Marché Frontalier de Rumonge lot 1 et l'actualisation des étu",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from World Bank website and is eligible for suppliers interested in Architectural design services, Architectural, engineering and planning services, Architectural services for buildings, Architectural and bu…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "4/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "Recrutement d'un Cabinet pour les Etudes architecturales du Marché et Etudes d’exécution pour la construction du Marché Frontalier de Rumonge lot 1 et l'actualisation des étu",
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/recrutement-d-un-cabinet-pour-les-etudes-architecturales-du-march-et-etudes-d-ex-16831413",
+     "page": null,
+     "passage": "Recrutement d'un Cabinet pour les Etudes architecturales du… Recrutement d'un Cabinet pour les Etudes architecturales du Marché et Etudes d’exécution pour la construction du Marché Frontalier de Rumonge lot 1 et l'actualisation des études d",
+     "confiance": "haute",
+     "verifie_le": "2026-11-27"
+    },
+    "quantites_lots": {
+     "valeur": {
+      "nb_lots": 2,
+      "description": null
+     },
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/recrutement-d-un-cabinet-pour-les-etudes-architecturales-du-march-et-etudes-d-ex-16831413",
+     "page": null,
+     "passage": null,
+     "confiance": "haute",
+     "verifie_le": "2026-11-27"
+    },
+    "acheteur": {
+     "valeur": "Burundi-Ministry of Finance",
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/recrutement-d-un-cabinet-pour-les-etudes-architecturales-du-march-et-etudes-d-ex-16831413",
+     "page": null,
+     "passage": "Recrutement d'un Cabinet pour les Etudes architecturales du… Recrutement d'un Cabinet pour les Etudes architecturales du Marché et Etudes d’exécution pour la construction du Marché Frontalier de Rumonge lot 1 et l'actualisation des études d",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-27"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2026-12-07",
+      "heure": null
+     },
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/recrutement-d-un-cabinet-pour-les-etudes-architecturales-du-march-et-etudes-d-ex-16831413",
+     "page": null,
+     "passage": "The tender is due to expire on 07 Dec 2026 .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-27"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "lieu_execution": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "retrait_depot": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "conditions": {
+     "valeur": [
+      "This tender is sourced from World Bank website and is eligible for suppliers interested in Architectural design services, Architectural, engineering and planning services, Architectural services for buildings, Architectural and building-surveying services, Architectural Consulting "
+     ],
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/recrutement-d-un-cabinet-pour-les-etudes-architecturales-du-march-et-etudes-d-ex-16831413",
+     "page": null,
+     "passage": "This tender is sourced from World Bank website and is eligible for suppliers interested in Architectural design services, Architectural, engineering and planning services, Architectural services for buildings, Architectural and building-sur",
+     "confiance": "haute",
+     "verifie_le": "2026-11-27"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "criteres_mode": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    }
+   },
+   "completude_v2": {
+    "lus": 5,
+    "a_verifier": 0,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "5/14"
+   },
+   "fiabilite": {
+    "score": 72,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 32,
+     "qualite_document": 8,
+     "critiques_verifies": 17,
+     "coherence": 15
+    }
+   },
+   "conflits": [],
+   "documents": [
+    {
+     "url": "https://tenderimpulse.com/government-tenders/burundi/recrutement-d-un-cabinet-pour-les-etudes-architecturales-du-march-et-etudes-d-ex-16831413",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-27"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": true
+  },
+  {
    "title": "Maintenance du parc informatique",
    "buyer": "Projet pour L'Emploi et la Transformati",
    "sector": "IT/numérique",
@@ -26975,7 +27403,7 @@
    "province": null,
    "garantie_num": null,
    "dossier_num": null,
-   "is_new": true
+   "is_new": false
   },
   {
    "title": "RFQ for Fire Alarm System Maintenance Services under a 2 years non-exclusive LTA",
@@ -27426,7 +27854,7 @@
    "province": null,
    "garantie_num": null,
    "dossier_num": null,
-   "is_new": true
+   "is_new": false
   },
   {
    "title": "Avis d’appel d’offres National Ouvert relatif à la fourniture des produits phytosanitaires pour 60 centres de rayonnement communautaires.",
@@ -28876,7 +29304,7 @@
    "province": null,
    "garantie_num": null,
    "dossier_num": null,
-   "is_new": true
+   "is_new": false
   },
   {
    "title": "Director, Innovation and Continuous Analytics & Assurance (Internal Audit)",
@@ -29092,7 +29520,7 @@
    "province": null,
    "garantie_num": null,
    "dossier_num": null,
-   "is_new": true
+   "is_new": false
   },
   {
    "title": "Fourniture des semences d’oignons rouge pour 60 centres de rayonnement communautaires",
@@ -30618,6 +31046,217 @@
    "garantie_num": null,
    "dossier_num": 200000,
    "is_new": false
+  },
+  {
+   "title": "TRAVAUX DE PAVAGE DES ROUTES (13; 31 km) EN MAIRIE DE BUJUMBURA ( 5 lots)",
+   "buyer": "Ministry of Infrastructure",
+   "sector": "Travaux/BTP",
+   "deadline": "2026-12-29",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/travaux-de-pavage-des-routes-13-31-km-en-mairie-de-bujumbura-5-lots-16821596"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-27",
+   "resume": {
+    "objet": "TRAVAUX DE PAVAGE DES ROUTES (13; 31 km) EN MAIRIE DE BUJUMBURA ( 5 lots)",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from World Bank website and is eligible for suppliers interested in Road construction works, Paving and asphalting works, Laying of paving ."
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "3/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "TRAVAUX DE PAVAGE DES ROUTES (13; 31 km) EN MAIRIE DE BUJUMBURA ( 5 lots)",
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/travaux-de-pavage-des-routes-13-31-km-en-mairie-de-bujumbura-5-lots-16821596",
+     "page": null,
+     "passage": "31 km) EN MAIRIE DE BUJUMBURA ( 5 lots) Tender Summary The Ministry of Infrastructure, Equipment and Social Housing in Burundi from African region has released this tender for TRAVAUX DE PAVAGE DES ROUTES (13;",
+     "confiance": "haute",
+     "verifie_le": "2026-11-27"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "acheteur": {
+     "valeur": "Ministry of Infrastructure",
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/travaux-de-pavage-des-routes-13-31-km-en-mairie-de-bujumbura-5-lots-16821596",
+     "page": null,
+     "passage": "31 km) EN MAIRIE DE BUJUMBURA ( 5 lots) Tender Summary The Ministry of Infrastructure, Equipment and Social Housing in Burundi from African region has released this tender for TRAVAUX DE PAVAGE DES ROUTES (13;",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-27"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2026-12-29",
+      "heure": null
+     },
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/travaux-de-pavage-des-routes-13-31-km-en-mairie-de-bujumbura-5-lots-16821596",
+     "page": null,
+     "passage": "The tender is due to expire on 29 Dec 2026 .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-27"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "lieu_execution": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "retrait_depot": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "conditions": {
+     "valeur": [
+      "This tender is sourced from World Bank website and is eligible for suppliers interested in Road construction works, Paving and asphalting works, Laying of paving "
+     ],
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/travaux-de-pavage-des-routes-13-31-km-en-mairie-de-bujumbura-5-lots-16821596",
+     "page": null,
+     "passage": "This tender is sourced from World Bank website and is eligible for suppliers interested in Road construction works, Paving and asphalting works, Laying of paving .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-27"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "criteres_mode": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    }
+   },
+   "completude_v2": {
+    "lus": 4,
+    "a_verifier": 0,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "4/14"
+   },
+   "fiabilite": {
+    "score": 75,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 8,
+     "critiques_verifies": 12,
+     "coherence": 15
+    }
+   },
+   "conflits": [],
+   "documents": [
+    {
+     "url": "https://tenderimpulse.com/government-tenders/burundi/travaux-de-pavage-des-routes-13-31-km-en-mairie-de-bujumbura-5-lots-16821596",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-27"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": true
   },
   {
    "title": "National Technical Expert",
@@ -43580,6 +44219,237 @@
    "garantie_num": null,
    "dossier_num": null,
    "is_new": false
+  },
+  {
+   "title": "Université du Burundi : Avis d’appel d’offres ouvert national N° DNCMP/208/F/2024-2025, relatif à la fourniture et installation d’une licence annuelle de logiciel de vidéoconférence, licence annuelle d’antivirus et certificat de sécurité",
+   "buyer": "Ministere de I'EducationNationale et de la RechercheScientifique invite, par le prés",
+   "sector": "IT/numérique",
+   "deadline": null,
+   "deadline_source": null,
+   "reference": "DNCMP/208/F/2024-2025",
+   "dossier_cost": null,
+   "guarantee": "1550",
+   "lots": null,
+   "sources": [
+    {
+     "name": "ARMP",
+     "url": "https://armp.gov.bi/archives/172"
+    }
+   ],
+   "pdf_enriched": true,
+   "pdf_url": "https://armp.gov.bi/wp-content/uploads/2024/11/208f2024-20250001.pdf",
+   "first_seen": "2026-11-27",
+   "resume": {
+    "objet": "La fourniture et installation d’une licence annuelle de logiciel de vidéoconférence, licence annuelle d’antivirus et certificat de sécurité – ARMP Skip to content (+257) 22 27 59 14 armpbu@armp",
+    "heure": null,
+    "mode": "Appel d'offres ouvert national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": "Consultation et acquisition du dossier d'appel d'offres Le dossier d'appel d'offres peut etre obtenu aupres de la Direction Financiere et du Patrimoine de 1'Université, tous les jours ouvrables de 8h a 15h30 et a 1'adresse suivante : UniversitéduBurundi DirectionFinanciereetduPatrimoine B.P.1550Buju…",
+    "contact": "2222 92 11",
+    "depot": "6 Datelimitededepotdesoffres Toutes les offres doivent etre deposees a l'adresse indiquee ci-dessus au plus tard le 93/ /o./2024 a 9 heures Toute offre recue apres la date limite ne sera pas prise en consideration.",
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "7/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "La fourniture et installation d’une licence annuelle de logiciel de vidéoconférence, licence annuelle d’antivirus et certificat de sécurité – A",
+     "statut": "LU",
+     "source_doc": "https://armp.gov.bi/archives/172",
+     "page": null,
+     "passage": "Université du Burundi : Avis d’appel d’offres ouvert national N° DNCMP/208/F/2024-2025, relatif à la fourniture et installation d’une licence annuelle de logiciel de vidéoconférence, licence annuelle d’antivirus et certificat de sécurité – ",
+     "confiance": "haute",
+     "verifie_le": "2026-11-27"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "acheteur": {
+     "valeur": "Ministere de I'EducationNationale et de la RechercheScientifique invite, par le prés",
+     "statut": "À VÉRIFIER",
+     "source_doc": "https://armp.gov.bi/wp-content/uploads/2024/11/208f2024-20250001.pdf",
+     "page": 1,
+     "passage": "objet L'Universite duBurundi -Ministere de I'EducationNationale et de la RechercheScientifique invite, par le présent Appel d'Offres, les soumissionnaires admis a concourir, a présenter leurs offres sous pli ferme, pour la fourniture et ins",
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "date_limite": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "garantie": {
+     "valeur": {
+      "montant": "1550",
+      "par_lot": []
+     },
+     "statut": "LU",
+     "source_doc": "https://armp.gov.bi/wp-content/uploads/2024/11/208f2024-20250001.pdf",
+     "page": 2,
+     "passage": "Consultation et acquisition du dossier d'appel d'offres Le dossier d'appel d'offres peut etre obtenu aupres de la Direction Financiere et du Patrimoine de 1'Université, tous les jours ouvrables de 8h a 15h30 et a 1'adresse suivante : Univer",
+     "confiance": "haute",
+     "verifie_le": "2026-11-27"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "lieu_execution": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "retrait_depot": {
+     "valeur": {
+      "retrait": {
+       "lieu": "Consultation et acquisition du dossier d'appel d'offres Le dossier d'appel d'offres peut etre obtenu aupres de la Direction Financiere et du Patrimoine de 1'Université",
+       "contact": "2222 92 11"
+      },
+      "depot": null
+     },
+     "statut": "LU",
+     "source_doc": "https://armp.gov.bi/wp-content/uploads/2024/11/208f2024-20250001.pdf",
+     "page": 2,
+     "passage": "Consultation et acquisition du dossier d'appel d'offres Le dossier d'appel d'offres peut etre obtenu aupres de la Direction Financiere et du Patrimoine de 1'Université, tous les jours ouvrables de 8h a 15h30 et a 1'adresse suivante : Univer",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-27"
+    },
+    "conditions": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-27"
+    },
+    "criteres_mode": {
+     "valeur": {
+      "criteres": null,
+      "mode": "Appel d'offres ouvert national"
+     },
+     "statut": "LU",
+     "source_doc": "https://armp.gov.bi/archives/172",
+     "page": null,
+     "passage": "Université du Burundi : Avis d’appel d’offres ouvert national N° DNCMP/208/F/2024-2025, relatif à la fourniture et installation d’une licence annuelle de logiciel de vidéoconférence, licence annuelle d’antivirus et certificat de sécurité – ",
+     "confiance": "haute",
+     "verifie_le": "2026-11-27"
+    }
+   },
+   "completude_v2": {
+    "lus": 4,
+    "a_verifier": 1,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "4/14"
+   },
+   "fiabilite": {
+    "score": 87,
+    "niveau": "moyenne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 12,
+     "critiques_verifies": 25,
+     "coherence": 10
+    }
+   },
+   "conflits": [
+    {
+     "champ": "acheteur",
+     "valeurs": [
+      "Ministere de I'EducationNationale et de la RechercheScientifique invite, par le prés",
+      "Ministère des Finances, du Budget et de l'Économie Numérique"
+     ],
+     "detail": "Valeurs discordantes entre extractions indépendantes (fiche, pdf, page) ; valeur de la fiche avis/v1 conservée, à vérifier humainement."
+    }
+   ],
+   "documents": [
+    {
+     "url": "https://armp.gov.bi/wp-content/uploads/2024/11/208f2024-20250001.pdf",
+     "type": "pdf",
+     "role": "avis",
+     "collecte_le": "2026-11-27"
+    },
+    {
+     "url": "https://armp.gov.bi/archives/172",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-27"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": 1550,
+   "dossier_num": null,
+   "is_new": true
   }
  ],
  "subscribers": [
@@ -43597,9 +44467,9 @@
   }
  ],
  "sends": {
-  "date": "2026-11-26",
-  "source_run": "run-2026-11-26.json",
-  "total_new": 10,
+  "date": "2026-11-27",
+  "source_run": "run-2026-11-27.json",
+  "total_new": 4,
   "entries": []
  },
  "matches": {
