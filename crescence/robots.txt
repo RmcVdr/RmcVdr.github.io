@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rmcvdr.github.io/crescence/sitemap.xml
