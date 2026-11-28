@@ -1,12 +1,12 @@
 {
- "generated_at": "2026-11-27T05:19:44+00:00",
+ "generated_at": "2026-11-28T05:21:00+00:00",
  "run": {
-  "date": "2026-11-27",
+  "date": "2026-11-28",
   "sources": [
    {
     "name": "BurundiJobs",
     "status": "OK",
-    "count": 3,
+    "count": 5,
     "error": null
    },
    {
@@ -30,7 +30,7 @@
    {
     "name": "PNUD",
     "status": "OK",
-    "count": 4,
+    "count": 5,
     "error": null
    },
    {
@@ -61,7 +61,7 @@
     "name": "dgMarket",
     "status": "ECHEC",
     "count": 0,
-    "error": "RuntimeError: dgMarket non exploitable — https://www.dgmarket.com/: ChunkedEncodingError: Response ended prematurely ; https://www.dgmarket.com/tender/81690343: HTTP 403"
+    "error": "RuntimeError: dgMarket non exploitable — https://www.dgmarket.com/: ChunkedEncodingError: Response ended prematurely ; https://www.dgmarket.com/tender/81690343: ChunkedEncodingError: Response ended prematurely"
    },
    {
     "name": "ReliefWeb",
@@ -73,16 +73,16 @@
   "sources_ok": 8,
   "sources_total": 11,
   "pdf": {
-   "downloaded": 0,
+   "downloaded": 2,
    "cached": 31,
-   "text_ok": 0,
-   "ocr_ok": 31,
+   "text_ok": 1,
+   "ocr_ok": 32,
    "ocr_failed": 0,
    "failed": 0,
    "failures": []
   },
-  "total_uniques": 66,
-  "nb_nouveaux": 4,
+  "total_uniques": 69,
+  "nb_nouveaux": 7,
   "nb_expires": 1
  },
  "tenders": [
@@ -22861,6 +22861,441 @@
    "is_new": false
   },
   {
+   "title": "Recrutement d'un cabinet national en evaluation de la vulnerabilité socio",
+   "buyer": "PNUD — Burundi",
+   "sector": "Services/conseil",
+   "deadline": "2026-11-30",
+   "deadline_source": "page web",
+   "reference": "UNDP-BDI-00781",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "PNUD",
+     "url": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=51431"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-28",
+   "resume": {
+    "objet": "Recrutement d'un cabinet national en evaluation de la vulnerabilité socio",
+    "heure": "10h00",
+    "mode": "Appel d'offres national",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "laurent.denis@undp.org",
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "6/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "Recrutement d'un cabinet national en evaluation de la vulnerabilité socio",
+     "statut": "LU",
+     "source_doc": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=51431",
+     "page": null,
+     "passage": "Procurement Notices - UNDP-BDI-00781 - Recrutement d'un cabinet national en evaluation de la vulnerabilité socio GLOBAL Procurement Notices About Us Procurement at UNDP UNDP Office of Procurement Our Guiding Principles UNDP Procurement Stra",
+     "confiance": "haute",
+     "verifie_le": "2026-11-28"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "acheteur": {
+     "valeur": "PNUD — Burundi",
+     "statut": "LU",
+     "source_doc": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=51431",
+     "page": null,
+     "passage": null,
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-28"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2026-11-30",
+      "heure": "10h00"
+     },
+     "statut": "À VÉRIFIER",
+     "source_doc": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=51431",
+     "page": null,
+     "passage": "Title Recrutement d'un cabinet national en evaluation de la vulnerabilité socio Ref No UNDP-BDI-00781 UNDP Office/Country UNDP-BDI/BURUNDI Process RFP - Request for proposal Deadline 30-Nov-26 10:00 AM (New York time) Posted 04-Nov-26",
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "lieu_execution": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "retrait_depot": {
+     "valeur": {
+      "retrait": {
+       "contact": "laurent.denis@undp.org"
+      },
+      "depot": null
+     },
+     "statut": "LU",
+     "source_doc": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=51431",
+     "page": null,
+     "passage": "Procurement Process RFP - Request for proposal Office UNDP-BDI - BURUNDI Deadline 18-Nov-26 @ 10:00 AM (New York time) Published on 04-Nov-26 @ 12:00 AM (New York time) Reference Number UNDP-BDI-00781 Contact UNITE DES ACHATS - laurent.deni",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-28"
+    },
+    "conditions": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "criteres_mode": {
+     "valeur": {
+      "criteres": null,
+      "mode": "Appel d'offres national"
+     },
+     "statut": "LU",
+     "source_doc": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=51431",
+     "page": null,
+     "passage": "Procurement Notices - UNDP-BDI-00781 - Recrutement d'un cabinet national en evaluation de la vulnerabilité socio GLOBAL Procurement Notices About Us Procurement at UNDP UNDP Office of Procurement Our Guiding Principles UNDP Procurement Stra",
+     "confiance": "haute",
+     "verifie_le": "2026-11-28"
+    }
+   },
+   "completude_v2": {
+    "lus": 4,
+    "a_verifier": 1,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "4/14"
+   },
+   "fiabilite": {
+    "score": 48,
+    "niveau": "moyenne",
+    "facteurs": {
+     "preuve_textuelle": 30,
+     "qualite_document": 8,
+     "critiques_verifies": 0,
+     "coherence": 10
+    }
+   },
+   "conflits": [
+    {
+     "champ": "date_limite",
+     "valeurs": [
+      "2026-11-30",
+      "2026-11-18"
+     ],
+     "detail": "Valeurs discordantes entre extractions indépendantes (fiche, page) ; valeur de la fiche avis/v1 conservée, à vérifier humainement."
+    }
+   ],
+   "documents": [
+    {
+     "url": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=51431",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-28"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": true
+  },
+  {
+   "title": "Fourniture d un logiciel d archivage",
+   "buyer": "UNFPA Tender Sector IT-Software Tender Service Worldwide Tender Region African Te",
+   "sector": "IT/numérique",
+   "deadline": "2026-11-30",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/fourniture-d-un-logiciel-d-archivage-16884906"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-28",
+   "resume": {
+    "objet": "Fourniture d un logiciel d archivage",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from United Nations Global Marketplace and is eligible for suppliers interested in Document management software package, Imaging and archiving system, Computer archiving services ."
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "3/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "Fourniture d un logiciel d archivage",
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/fourniture-d-un-logiciel-d-archivage-16884906",
+     "page": null,
+     "passage": "Fourniture d un logiciel d archivage Fourniture d un logiciel d archivage Tender Summary The UNFPA in Burundi from African region has released this tender for Fourniture d un logiciel d archivage with tender notice no.",
+     "confiance": "haute",
+     "verifie_le": "2026-11-28"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "acheteur": {
+     "valeur": "UNFPA Tender Sector IT-Software Tender Service Worldwide Tender Region African Te",
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/fourniture-d-un-logiciel-d-archivage-16884906",
+     "page": null,
+     "passage": "Tender Details Tender Notice TI Ref: 16884906 Tender Notice No UNFPA-BDI-00020,2 Tender Organisation UNFPA Tender Sector IT-Software Tender Service Worldwide Tender Region African Tender Project Location Burundi Tender CPV 48311000 : Docume",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-28"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2026-11-30",
+      "heure": null
+     },
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/fourniture-d-un-logiciel-d-archivage-16884906",
+     "page": null,
+     "passage": "The tender is due to expire on 30 Nov 2026 .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-28"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "lieu_execution": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "retrait_depot": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "conditions": {
+     "valeur": [
+      "This tender is sourced from United Nations Global Marketplace and is eligible for suppliers interested in Document management software package, Imaging and archiving system, Computer archiving services "
+     ],
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/fourniture-d-un-logiciel-d-archivage-16884906",
+     "page": null,
+     "passage": "This tender is sourced from United Nations Global Marketplace and is eligible for suppliers interested in Document management software package, Imaging and archiving system, Computer archiving services .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-28"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "criteres_mode": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    }
+   },
+   "completude_v2": {
+    "lus": 4,
+    "a_verifier": 0,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "4/14"
+   },
+   "fiabilite": {
+    "score": 75,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 8,
+     "critiques_verifies": 12,
+     "coherence": 15
+    }
+   },
+   "conflits": [],
+   "documents": [
+    {
+     "url": "https://tenderimpulse.com/government-tenders/burundi/fourniture-d-un-logiciel-d-archivage-16884906",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-28"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": true
+  },
+  {
    "title": "Appel d'offres pour la fourniture de fertilisants",
    "buyer": "PRODER",
    "sector": "Fournitures/agro",
@@ -26506,7 +26941,7 @@
    "province": null,
    "garantie_num": null,
    "dossier_num": null,
-   "is_new": true
+   "is_new": false
   },
   {
    "title": "Recrutement d'un Cabinet pour les Etudes architecturales du Marché et Etudes d’exécution pour la construction du Marché Frontalier de Rumonge lot 1 et l'actualisation des étu",
@@ -26720,7 +27155,7 @@
    "province": null,
    "garantie_num": null,
    "dossier_num": null,
-   "is_new": true
+   "is_new": false
   },
   {
    "title": "Maintenance du parc informatique",
@@ -27857,6 +28292,254 @@
    "is_new": false
   },
   {
+   "title": "Avis d’appel d’offres national pour la conclusion d’un contrat-cadre portant sur l’acquisition de fournitures de bureau, de matériel didactique, de consommables et d’équipements informatiques",
+   "buyer": "PRODER",
+   "sector": "IT/numérique",
+   "deadline": "2026-12-10",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": 3,
+   "sources": [
+    {
+     "name": "BurundiJobs",
+     "url": "https://www.burundijobs.bi/job/avis-dappel-doffres-national-pour-la-conclusion-dun-contrat-cadre-portant-sur-lacquisition-de-fournitures-de-bureau-de-materiel-didactique-de-consommables-et-d/"
+    }
+   ],
+   "pdf_enriched": true,
+   "pdf_url": "https://eu.eu-supply.com/help/fr/Welthungerhilfe_Quick_Guide_fr.pdf",
+   "first_seen": "2026-11-28",
+   "resume": {
+    "objet": "La sélection de fournisseurs qualifiés en vue de la conclusion de trois (3) contrats-cadres portant sur la fourniture et la livraison de fournitures de bureau, de matériel didactique, de consommables informatiques et d’équipements informatiques au profit des projets mis en œuvre par Welthungerhilfe (WHH) dans les différentes provinces du Burundi — Quantités énoncées : 60 centres, 60 centres — Livraison : Les livraisons seront effectuées aux bureaux de WHH à Bujumbura, à Kirundo ou aux bureaux du c",
+    "heure": "16h00",
+    "mode": "Appel d'offres national",
+    "lieu": "Les livraisons seront effectuées aux bureaux de WHH à Bujumbura, à Kirundo ou aux bureaux",
+    "delai": null,
+    "duree": "Durée du contrat à conclure Le contrat-cadre est de deux ans , renouvelable deux fois pour une durée maximale de 12 mois",
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": "L’attribution se fera par lot au soumissionnaire dont l’offre est administrativement conforme ; techniquement conforme ; présentant l’offre financière la mieux-disante.",
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "8/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "La conclusion d’un contrat-cadre portant sur l’acquisition de fournitures de bureau, de matériel didactique, de consommables et d’équipements informatiques",
+     "statut": "À VÉRIFIER",
+     "source_doc": "https://www.burundijobs.bi/job/avis-dappel-doffres-national-pour-la-conclusion-dun-contrat-cadre-portant-sur-lacquisition-de-fournitures-de-bureau-de-materiel-didactique-de-consommables-et-d/",
+     "page": null,
+     "passage": "Avis d’appel d’offres national pour la conclusion d’un contrat-cadre portant sur l’acquisition de fournitures de bureau, de matériel didactique, de consommables et d’équipements informatiques - burundijobs Menu Accueil Qui sommes nous?",
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "quantites_lots": {
+     "valeur": {
+      "nb_lots": 3,
+      "description": null
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/avis-dappel-doffres-national-pour-la-conclusion-dun-contrat-cadre-portant-sur-lacquisition-de-fournitures-de-bureau-de-materiel-didactique-de-consommables-et-d/",
+     "page": null,
+     "passage": "Allotissement et attribution des marchés Les marchés sont répartis en trois lots selon la nature des biens à fournir : Lot 1 : Fournitures de bureau et matériel didactique Lot 2 : Articles d’hygiène et de cafétéria Lot 3 : Consommables et é",
+     "confiance": "haute",
+     "verifie_le": "2026-11-28"
+    },
+    "acheteur": {
+     "valeur": "PRODER",
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/avis-dappel-doffres-national-pour-la-conclusion-dun-contrat-cadre-portant-sur-lacquisition-de-fournitures-de-bureau-de-materiel-didactique-de-consommables-et-d/",
+     "page": null,
+     "passage": "Développement de l’Entrepreneuriat Rural « PRODER » Un (e) réfèrent (e) santé/ projet Amagara Yacu Croix-Rouge Burundi Avis d’appel d’offres pour le recrutement d’un consultant formateur sur la sante, l’hygiène et la biosécurité des volaill",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-28"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2026-12-10",
+      "heure": "16h00"
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/avis-dappel-doffres-national-pour-la-conclusion-dun-contrat-cadre-portant-sur-lacquisition-de-fournitures-de-bureau-de-materiel-didactique-de-consommables-et-d/",
+     "page": null,
+     "passage": "matériel didactique, de consommables et d’équipements informatiques Emplacement Salaire négociable Publié: 22 heures depuis Catégorie Date limite 10 décembre 2026 AVIS D’APPEL D’OFFRES NATIONAL POUR LA CONCLUSION D’UN CONTRAT-CADRE PORTANT ",
+     "confiance": "haute",
+     "verifie_le": "2026-11-28"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "lieu_execution": {
+     "valeur": "Les livraisons",
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/avis-dappel-doffres-national-pour-la-conclusion-dun-contrat-cadre-portant-sur-lacquisition-de-fournitures-de-bureau-de-materiel-didactique-de-consommables-et-d/",
+     "page": null,
+     "passage": "Lieu de livraison Les livraisons seront effectuées aux bureaux de WHH à Bujumbura, à Kirundo ou aux bureaux du consortiun se trouvant à Ruyigi et Cankuzo selon la localisation géographique de des entreprises retenues.",
+     "confiance": "haute",
+     "verifie_le": "2026-11-28"
+    },
+    "delai_duree": {
+     "valeur": {
+      "delai": null,
+      "duree": "12 mois"
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/avis-dappel-doffres-national-pour-la-conclusion-dun-contrat-cadre-portant-sur-lacquisition-de-fournitures-de-bureau-de-materiel-didactique-de-consommables-et-d/",
+     "page": null,
+     "passage": "Le contrat-cadre est de deux ans , renouvelable deux fois pour une durée maximale de 12 mois , sur la base d’une évaluation de performance satisfaisante et sous réserve de l’accord écrit des deux parties.",
+     "confiance": "haute",
+     "verifie_le": "2026-11-28"
+    },
+    "retrait_depot": {
+     "valeur": {
+      "retrait": {
+       "lieu": "Adresse ci-dessous (voir Dépôt) · www.welthungerhilfe.org"
+      },
+      "depot": null
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/avis-dappel-doffres-national-pour-la-conclusion-dun-contrat-cadre-portant-sur-lacquisition-de-fournitures-de-bureau-de-materiel-didactique-de-consommables-et-d/",
+     "page": null,
+     "passage": "Dépôt des Offres Les fournisseurs intéressés par cette offre doivent s’enregistrer (obligatoirement) en ligne à l’adresse ci-dessous pour participer à l’appel d’offre : https://eu.eu-supply.com/ctm/Company/CompanyRegistration/RegisterCompan",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-28"
+    },
+    "conditions": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "documents_requis": {
+     "valeur": [
+      "La province de Bujumbura",
+      "La province de Buhumuza",
+      "Province de Butanyerera",
+      "WHH se réserve le droit de procéder à une vérification physique et opérationnelle de l’existence des entreprises soumissionnaires avant toute attribution de marché ",
+      "Les commandes seront émises en fonction des besoins réels de WHH, au moyen de bons de commande dûment établis et signés pendant toute la durée de validité des contrats-cadres",
+      "La conclusion d’un contrat-cadre ne constitue en aucun cas un engagement de WHH à effectuer un volume minimum d’achats auprès du ou des fournisseurs retenus",
+      "Durée du contrat à conclure Le contrat-cadre est de deux ans , renouvelable deux fois pour une durée maximale de 12 mois , sur la base d’une évaluation de performance satisfaisante et sous réserve de l’accord écrit des deux parties",
+      "Prix Le prix de soumission doit être indiqué en francs Burundais (BIF)",
+      "Les offres cotées en d’autres devises ne seront pas prises en considération dans le processus d’évaluation des offres",
+      "Le prix doit inclure la livraison, le chargement, déchargement, le transport et toutes autres taxes seront à la charge du soumissionnaire jusqu’au lieu cité ci-haut cité",
+      "Allotissement et attribution des marchés Les marchés sont répartis en trois lots selon la nature des biens à fournir : Lot 1 : Fournitures de bureau et matériel didactique Lot 2 : Articles d’hygiène et de cafétéria Lot 3 : Consommables et équipements informatiques Un soumissionnaire est autorisé à présenter une offre pour un ou plusieurs lots mais aucun ne sera attributaire ne plus de deux lots ",
+      "L’attribution se fera par lot au soumissionnaire dont l’offre est administrativement conforme"
+     ],
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/avis-dappel-doffres-national-pour-la-conclusion-dun-contrat-cadre-portant-sur-lacquisition-de-fournitures-de-bureau-de-materiel-didactique-de-consommables-et-d/",
+     "page": null,
+     "passage": "Allotissement et attribution des marchés Les marchés sont répartis en trois lots selon la nature des biens à fournir : Lot 1 : Fournitures de bureau et matériel didactique Lot 2 : Articles d’hygiène et de cafétéria Lot 3 : Consommables et é",
+     "confiance": "haute",
+     "verifie_le": "2026-11-28"
+    },
+    "criteres_mode": {
+     "valeur": {
+      "criteres": "L’attribution se fera par lot au soumissionnaire dont l’offre est administrativement conforme ; techniquement conforme ; présentant l’offre financière la mieux-disante.",
+      "mode": "Appel d'offres national"
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/avis-dappel-doffres-national-pour-la-conclusion-dun-contrat-cadre-portant-sur-lacquisition-de-fournitures-de-bureau-de-materiel-didactique-de-consommables-et-d/",
+     "page": null,
+     "passage": "Avis d’appel d’offres national pour la conclusion d’un contrat-cadre portant sur l’acquisition de fournitures de bureau, de matériel didactique, de consommables et d’équipements informatiques - burundijobs Menu Accueil Qui sommes nous?",
+     "confiance": "haute",
+     "verifie_le": "2026-11-28"
+    }
+   },
+   "completude_v2": {
+    "lus": 8,
+    "a_verifier": 1,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "8/14"
+   },
+   "fiabilite": {
+    "score": 87,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 20,
+     "critiques_verifies": 17,
+     "coherence": 10
+    }
+   },
+   "conflits": [
+    {
+     "champ": "objet",
+     "valeurs": [
+      "La conclusion d’un contrat-cadre portant sur l’acquisition de fournitures de bureau, de matériel didactique, de consommables et d’équipements informatiques"
+     ],
+     "detail": "Objet suspecté de pollution par les avis voisins de la plateforme (mots absents du texte cadré de l'avis) — à vérifier."
+    }
+   ],
+   "documents": [
+    {
+     "url": "https://eu.eu-supply.com/help/fr/Welthungerhilfe_Quick_Guide_fr.pdf",
+     "type": "pdf",
+     "role": "avis",
+     "collecte_le": "2026-11-28"
+    },
+    {
+     "url": "https://www.burundijobs.bi/job/avis-dappel-doffres-national-pour-la-conclusion-dun-contrat-cadre-portant-sur-lacquisition-de-fournitures-de-bureau-de-materiel-didactique-de-consommables-et-d/",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-28"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": true
+  },
+  {
    "title": "Avis d’appel d’offres National Ouvert relatif à la fourniture des produits phytosanitaires pour 60 centres de rayonnement communautaires.",
    "buyer": "PRODER",
    "sector": "Fournitures/agro",
@@ -28385,6 +29068,652 @@
    "garantie_num": null,
    "dossier_num": null,
    "is_new": false
+  },
+  {
+   "title": "Appel d'offres pour la livraison du materiel de formation à Ruyigi",
+   "buyer": "PRODER",
+   "sector": "IT/numérique",
+   "deadline": "2026-12-11",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "BurundiJobs",
+     "url": "https://www.burundijobs.bi/job/appel-doffres-pour-la-livraison-du-materiel-de-formation-a-ruyigi/"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-28",
+   "resume": {
+    "objet": "La fourniture des produits phytosanitaires pour 60 centres de rayonnement communautaires",
+    "heure": null,
+    "mode": "Appel d'offres international",
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "3/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "La fourniture des produits phytosanitaires pour 60 centres de rayonnement communautaires",
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/appel-doffres-pour-la-livraison-du-materiel-de-formation-a-ruyigi/",
+     "page": null,
+     "passage": "Programme de Développement de l’Entrepreneuriat Rural « PRODER » Bujumbura Un assistant du responsable de suivi et évaluation Programme de Développement de l’Entrepreneuriat Rural « PRODER » Avis de recrutement pour 4 postes Street-Child Bu",
+     "confiance": "haute",
+     "verifie_le": "2026-11-28"
+    },
+    "quantites_lots": {
+     "valeur": {
+      "nb_lots": null,
+      "description": "60 centres"
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/appel-doffres-pour-la-livraison-du-materiel-de-formation-a-ruyigi/",
+     "page": null,
+     "passage": "Suivi, Evaluation, Redevabilité et Apprentissage (MEAL) Kazi-interim Bujumbura People and Culture Director World Vision Burundi Responsable Administratif et Financier TERRE DES HOMMES Appel d’Offres pour l’acquisition de deux (02) véhicules",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-28"
+    },
+    "acheteur": {
+     "valeur": "PRODER",
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/appel-doffres-pour-la-livraison-du-materiel-de-formation-a-ruyigi/",
+     "page": null,
+     "passage": "Développement de l’Entrepreneuriat Rural « PRODER » Un (e) réfèrent (e) santé/ projet Amagara Yacu Croix-Rouge Burundi Avis d’appel d’offres pour le recrutement d’un consultant formateur sur la sante, l’hygiène et la biosécurité des volaill",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-28"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2026-12-11",
+      "heure": null
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/appel-doffres-pour-la-livraison-du-materiel-de-formation-a-ruyigi/",
+     "page": null,
+     "passage": "Emplois Appel d’offres Recruteurs Poster une offre Trouver un freelancer accuel offres d’emplois Appel d’offres pour la livraison du materiel de formation à Ruyigi Appel d’offres pour la livraison du materiel de formation à Ruyigi Emplaceme",
+     "confiance": "haute",
+     "verifie_le": "2026-11-28"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "lieu_execution": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "retrait_depot": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "conditions": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "criteres_mode": {
+     "valeur": {
+      "criteres": null,
+      "mode": "Appel d'offres international"
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/appel-doffres-pour-la-livraison-du-materiel-de-formation-a-ruyigi/",
+     "page": null,
+     "passage": "Emplois Appel d’offres Recruteurs Poster une offre Trouver un freelancer accuel offres d’emplois Appel d’offres pour la livraison du materiel de formation à Ruyigi Appel d’offres pour la livraison du materiel de formation à Ruyigi Emplaceme",
+     "confiance": "haute",
+     "verifie_le": "2026-11-28"
+    }
+   },
+   "completude_v2": {
+    "lus": 5,
+    "a_verifier": 0,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "5/14"
+   },
+   "fiabilite": {
+    "score": 75,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 8,
+     "critiques_verifies": 12,
+     "coherence": 15
+    }
+   },
+   "conflits": [],
+   "documents": [
+    {
+     "url": "https://www.burundijobs.bi/job/appel-doffres-pour-la-livraison-du-materiel-de-formation-a-ruyigi/",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-28"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": true
+  },
+  {
+   "title": "Un cabinet d'audit externe comptable et financier",
+   "buyer": "PRODER",
+   "sector": "Services/conseil",
+   "deadline": "2026-12-11",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "BurundiJobs",
+     "url": "https://www.burundijobs.bi/job/un-cabinet-daudit-externe-comptable-et-financier/"
+    }
+   ],
+   "pdf_enriched": true,
+   "pdf_url": "https://www.burundijobs.bi/wp-content/uploads/2026/11/TDRs-pour-le-recrutement-dun-cabinet-dAudit.pdf",
+   "first_seen": "2026-11-28",
+   "resume": {
+    "objet": "La réalisation de l’audit externe comptable et financier du projet « Agroécologie et Résilience P114C » , financé par Food for the Hungry Suisse — Quantités énoncées : 60 centres, 60 centres",
+    "heure": "17h00",
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "Les Termes de Référence (TDRs), précisant les conditions de participation, les critères d’éligibilité et les modalités de soumission, sont accessibles via le lien ci : TDRs pour le recrutement d’un cabinet d’Audit Soumission des o…"
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "4/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "Un cabinet d'audit externe comptable et financier",
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/un-cabinet-daudit-externe-comptable-et-financier/",
+     "page": null,
+     "passage": "Un cabinet d'audit externe comptable et financier - burundijobs Menu Accueil Qui sommes nous?",
+     "confiance": "haute",
+     "verifie_le": "2026-11-28"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "acheteur": {
+     "valeur": "PRODER",
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/un-cabinet-daudit-externe-comptable-et-financier/",
+     "page": null,
+     "passage": "de trois (03) motos tout terrain PAEPA Fourniture des semences d’oignons rouge pour 60 centres de rayonnement communautaires Programme de Développement de l’Entrepreneuriat Rural « PRODER » Un (e) réfèrent (e) santé/ projet Amagara Yacu Cro",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-28"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2026-12-11",
+      "heure": "17h00"
+     },
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/un-cabinet-daudit-externe-comptable-et-financier/",
+     "page": null,
+     "passage": "Emplois Appel d’offres Recruteurs Poster une offre Trouver un freelancer accuel offres d’emplois Un cabinet d’audit externe comptable et financier Un cabinet d’audit externe comptable et financier Emplacement Salaire négociable Publié: 19 h",
+     "confiance": "haute",
+     "verifie_le": "2026-11-28"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "lieu_execution": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "retrait_depot": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "conditions": {
+     "valeur": [
+      "Les critères d’éligibilité et les modalités de soumission, sont accessibles via le lien ci : TDRs pour le recrutement d’un cabinet d’Audit Soumission des offres Les cabinets intéressés sont invités à soumettre leurs offres techniques et financières au plus tard le 11 décembre 2026 à 17h00 à l’adresse électronique suivante [email protected] L’objet du courrier électronique devra porter la mention : « Offre – Audit externe comptable et financier du projet Agroécologie et Résilience P114C – FH Burundi » ",
+      "Pour toute demande de clarification",
+      "Veuillez contacter le 61 323 560",
+      "Le 27 novembre 2026",
+      "Le Directeur Pays Food for the Hungry Burundi"
+     ],
+     "statut": "LU",
+     "source_doc": "https://www.burundijobs.bi/job/un-cabinet-daudit-externe-comptable-et-financier/",
+     "page": null,
+     "passage": "Les Termes de Référence (TDRs), précisant les conditions de participation, les critères d’éligibilité et les modalités de soumission, sont accessibles via le lien ci : TDRs pour le recrutement d’un cabinet d’Audit Soumission des offres Les ",
+     "confiance": "haute",
+     "verifie_le": "2026-11-28"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "criteres_mode": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    }
+   },
+   "completude_v2": {
+    "lus": 4,
+    "a_verifier": 0,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "4/14"
+   },
+   "fiabilite": {
+    "score": 79,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 12,
+     "critiques_verifies": 12,
+     "coherence": 15
+    }
+   },
+   "conflits": [],
+   "documents": [
+    {
+     "url": "https://www.burundijobs.bi/wp-content/uploads/2026/11/TDRs-pour-le-recrutement-dun-cabinet-dAudit.pdf",
+     "type": "pdf",
+     "role": "avis",
+     "collecte_le": "2026-11-28"
+    },
+    {
+     "url": "https://www.burundijobs.bi/job/un-cabinet-daudit-externe-comptable-et-financier/",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-28"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": true
+  },
+  {
+   "title": "Recrutement des Sous Récipiendaires Projet Fond Mondial PNUD Subvention GC8",
+   "buyer": "PNUD — Burundi",
+   "sector": "Autre",
+   "deadline": "2026-12-11",
+   "deadline_source": "page web",
+   "reference": "UNDP-BDI-00790",
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "PNUD",
+     "url": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=52185"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-28",
+   "resume": {
+    "objet": "Recrutement des Sous Récipiendaires Projet Fond Mondial PNUD Subvention GC8",
+    "heure": "07h00",
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": "aline.niyizonkiza@undp.org",
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "5/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "Recrutement des Sous Récipiendaires Projet Fond Mondial PNUD Subvention GC8",
+     "statut": "LU",
+     "source_doc": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=52185",
+     "page": null,
+     "passage": "Procurement Notices - UNDP-BDI-00790 - Recrutement des Sous Récipiendaires Projet Fond Mondial PNUD Subvention GC8 GLOBAL Procurement Notices About Us Procurement at UNDP UNDP Office of Procurement Our Guiding Principles UNDP Procurement St",
+     "confiance": "haute",
+     "verifie_le": "2026-11-28"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "acheteur": {
+     "valeur": "PNUD — Burundi",
+     "statut": "LU",
+     "source_doc": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=52185",
+     "page": null,
+     "passage": "Title Recrutement des Sous Récipiendaires Projet Fond Mondial PNUD Subvention GC8 Ref No UNDP-BDI-00790 UNDP Office/Country UNDP-BDI/BURUNDI Process Deadline 11-Dec-26 07:00 AM (New York time) Posted 27-Nov-26",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-28"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2026-12-11",
+      "heure": "07h00"
+     },
+     "statut": "LU",
+     "source_doc": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=52185",
+     "page": null,
+     "passage": "GC8 Office UNDP-BDI - BURUNDI Deadline 11-Dec-26 @ 07:00 AM (New York time) Published on 27-Nov-26 @ 12:00 AM (New York time) Reference Number UNDP-BDI-00790 Contact Aline Niyizonkiza - aline.niyizonkiza@undp.org This specific tender is man",
+     "confiance": "haute",
+     "verifie_le": "2026-11-28"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "lieu_execution": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "retrait_depot": {
+     "valeur": {
+      "retrait": {
+       "contact": "aline.niyizonkiza@undp.org"
+      },
+      "depot": null
+     },
+     "statut": "LU",
+     "source_doc": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=52185",
+     "page": null,
+     "passage": "GC8 Office UNDP-BDI - BURUNDI Deadline 11-Dec-26 @ 07:00 AM (New York time) Published on 27-Nov-26 @ 12:00 AM (New York time) Reference Number UNDP-BDI-00790 Contact Aline Niyizonkiza - aline.niyizonkiza@undp.org This specific tender is man",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-28"
+    },
+    "conditions": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "criteres_mode": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    }
+   },
+   "completude_v2": {
+    "lus": 4,
+    "a_verifier": 0,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "4/14"
+   },
+   "fiabilite": {
+    "score": 75,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 8,
+     "critiques_verifies": 12,
+     "coherence": 15
+    }
+   },
+   "conflits": [],
+   "documents": [
+    {
+     "url": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=52185",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-28"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": true
   },
   {
    "title": "Avis d’appel d’offres ouvert national de fourniture des aliments pour les porcins.",
@@ -29521,6 +30850,217 @@
    "garantie_num": null,
    "dossier_num": null,
    "is_new": false
+  },
+  {
+   "title": "Burundi, Madagascar and DRC: Technical project management consultant for shelter projects for the Luxembourg Red Cross (East Africa, 6 months)",
+   "buyer": "Luxembourg Red Cross Tender Sector Management Consultancy Tender Service Worldwid",
+   "sector": "Services/conseil",
+   "deadline": "2026-12-15",
+   "deadline_source": "page web",
+   "reference": null,
+   "dossier_cost": null,
+   "guarantee": null,
+   "lots": null,
+   "sources": [
+    {
+     "name": "TenderImpulse",
+     "url": "https://tenderimpulse.com/government-tenders/burundi/burundi-madagascar-and-drc-technical-project-management-consultant-for-shelter-p-16892276"
+    }
+   ],
+   "pdf_enriched": false,
+   "pdf_url": null,
+   "first_seen": "2026-11-28",
+   "resume": {
+    "objet": "Burundi, Madagascar and DRC: Technical project management consultant for shelter projects for the Luxembourg Red Cross (East Africa, 6 months)",
+    "heure": null,
+    "mode": null,
+    "lieu": null,
+    "delai": null,
+    "duree": null,
+    "montant_estime": null,
+    "conditions": [
+     "This tender is sourced from Official Website and is eligible for suppliers interested in Project management consultancy services, Recruitment services, consultancy services ."
+    ],
+    "documents": [],
+    "criteres": null,
+    "retrait": null,
+    "contact": null,
+    "depot": null,
+    "ouverture": null,
+    "validite": null,
+    "langue_monnaie": null,
+    "completude": "3/21"
+   },
+   "fiche": {
+    "objet": {
+     "valeur": "Burundi, Madagascar and DRC: Technical project management consultant for shelter projects for the Luxembourg Red Cross (East Africa, 6 months)",
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/burundi-madagascar-and-drc-technical-project-management-consultant-for-shelter-p-16892276",
+     "page": null,
+     "passage": "Burundi, Madagascar and DRC: Technical project management c… Burundi, Madagascar and DRC: Technical project management consultant for shelter projects for the Luxembourg Red Cross (East Africa, 6 months) Tender Summary The Luxembourg Red Cr",
+     "confiance": "haute",
+     "verifie_le": "2026-11-28"
+    },
+    "quantites_lots": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "acheteur": {
+     "valeur": "Luxembourg Red Cross Tender Sector Management Consultancy Tender Service Worldwid",
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/burundi-madagascar-and-drc-technical-project-management-consultant-for-shelter-p-16892276",
+     "page": null,
+     "passage": "Tender Details Tender Notice TI Ref: 16892276 Tender Notice No CONSULT.AFRICA-CEGTDPDAPLCRL Tender Organisation Luxembourg Red Cross Tender Sector Management Consultancy Tender Service Worldwide Tender Region African Tender Project Location",
+     "confiance": "moyenne",
+     "verifie_le": "2026-11-28"
+    },
+    "date_limite": {
+     "valeur": {
+      "date": "2026-12-15",
+      "heure": null
+     },
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/burundi-madagascar-and-drc-technical-project-management-consultant-for-shelter-p-16892276",
+     "page": null,
+     "passage": "The tender is due to expire on 15 Dec 2026 .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-28"
+    },
+    "ouverture_plis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "prix_dossier": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "garantie": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "montant_estime": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "lieu_execution": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "delai_duree": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "retrait_depot": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "conditions": {
+     "valeur": [
+      "This tender is sourced from Official Website and is eligible for suppliers interested in Project management consultancy services, Recruitment services, consultancy services "
+     ],
+     "statut": "LU",
+     "source_doc": "https://tenderimpulse.com/government-tenders/burundi/burundi-madagascar-and-drc-technical-project-management-consultant-for-shelter-p-16892276",
+     "page": null,
+     "passage": "This tender is sourced from Official Website and is eligible for suppliers interested in Project management consultancy services, Recruitment services, consultancy services .",
+     "confiance": "haute",
+     "verifie_le": "2026-11-28"
+    },
+    "documents_requis": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    },
+    "criteres_mode": {
+     "valeur": null,
+     "statut": "NON LU",
+     "source_doc": null,
+     "page": null,
+     "passage": null,
+     "confiance": "faible",
+     "verifie_le": "2026-11-28"
+    }
+   },
+   "completude_v2": {
+    "lus": 4,
+    "a_verifier": 0,
+    "non_applicables": 0,
+    "total": 14,
+    "label": "4/14"
+   },
+   "fiabilite": {
+    "score": 75,
+    "niveau": "bonne",
+    "facteurs": {
+     "preuve_textuelle": 40,
+     "qualite_document": 8,
+     "critiques_verifies": 12,
+     "coherence": 15
+    }
+   },
+   "conflits": [],
+   "documents": [
+    {
+     "url": "https://tenderimpulse.com/government-tenders/burundi/burundi-madagascar-and-drc-technical-project-management-consultant-for-shelter-p-16892276",
+     "type": "page",
+     "role": "avis",
+     "collecte_le": "2026-11-28"
+    }
+   ],
+   "historique": [],
+   "relation": {
+    "type": "principale",
+    "parent_key": null
+   },
+   "statut_avis": "ouvert",
+   "rattache_a": null,
+   "province": null,
+   "garantie_num": null,
+   "dossier_num": null,
+   "is_new": true
   },
   {
    "title": "Fourniture des semences d’oignons rouge pour 60 centres de rayonnement communautaires",
@@ -31256,7 +32796,7 @@
    "province": null,
    "garantie_num": null,
    "dossier_num": null,
-   "is_new": true
+   "is_new": false
   },
   {
    "title": "National Technical Expert",
@@ -44449,7 +45989,7 @@
    "province": null,
    "garantie_num": 1550,
    "dossier_num": null,
-   "is_new": true
+   "is_new": false
   }
  ],
  "subscribers": [
@@ -44467,9 +46007,9 @@
   }
  ],
  "sends": {
-  "date": "2026-11-27",
-  "source_run": "run-2026-11-27.json",
-  "total_new": 4,
+  "date": "2026-11-28",
+  "source_run": "run-2026-11-28.json",
+  "total_new": 7,
   "entries": []
  },
  "matches": {
